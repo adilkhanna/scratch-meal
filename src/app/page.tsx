@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useRecipeFlow } from '@/context/RecipeFlowContext';
 import { useToast } from '@/context/ToastContext';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
+import { extractIngredientsFromPhoto } from '@/lib/openai-client';
 import StepIndicator from '@/components/layout/StepIndicator';
 import IngredientInput from '@/components/ingredients/IngredientInput';
 import IngredientTag from '@/components/ingredients/IngredientTag';
@@ -20,26 +21,20 @@ export default function HomePage() {
 
   const handlePhotoExtract = useCallback(
     async (base64: string) => {
-      if (!apiKey) {
+      const currentKey = apiKey || (() => {
+        try { return JSON.parse(window.localStorage.getItem('smm-api-key') || '""'); }
+        catch { return ''; }
+      })();
+      if (!currentKey) {
         addToast('Please set your OpenAI API key in Settings first.', 'error');
         return;
       }
       setIsExtracting(true);
       try {
-        const res = await fetch('/api/extract-ingredients', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ imageBase64: base64, apiKey }),
-        });
-        const contentType = res.headers.get('content-type') || '';
-        if (!contentType.includes('application/json')) {
-          throw new Error('Server error. If deployed, ensure your hosting supports Next.js API routes.');
-        }
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error);
-        if (data.ingredients?.length) {
-          addIngredients(data.ingredients);
-          addToast(`Found ${data.ingredients.length} ingredient(s) from photo!`, 'success');
+        const foundIngredients = await extractIngredientsFromPhoto(base64, currentKey);
+        if (foundIngredients.length > 0) {
+          addIngredients(foundIngredients);
+          addToast(`Found ${foundIngredients.length} ingredient(s) from photo!`, 'success');
         } else {
           addToast('No ingredients detected in this photo.', 'info');
         }

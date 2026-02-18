@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useRecipeFlow } from '@/context/RecipeFlowContext';
 import { useToast } from '@/context/ToastContext';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
+import { generateRecipes as generateRecipesAI } from '@/lib/openai-client';
 import StepIndicator from '@/components/layout/StepIndicator';
 import RecipeCard from '@/components/recipes/RecipeCard';
 import { Recipe } from '@/types';
@@ -39,27 +40,14 @@ export default function ResultsPage() {
     }
 
     try {
-      const res = await fetch('/api/generate-recipes', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ingredients,
-          dietaryConditions: conditionLabels,
-          timeRange,
-          apiKey: currentKey,
-        }),
-      });
+      const rawRecipes = await generateRecipesAI(
+        ingredients,
+        conditionLabels,
+        timeRange!,
+        currentKey
+      );
 
-      // Handle non-JSON responses (e.g. Netlify 404 pages)
-      const contentType = res.headers.get('content-type') || '';
-      if (!contentType.includes('application/json')) {
-        throw new Error('Server returned an unexpected response. If deployed, ensure your hosting supports Next.js API routes.');
-      }
-
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error);
-
-      const recipesWithMeta: Recipe[] = (data.recipes || []).map(
+      const recipesWithMeta: Recipe[] = (rawRecipes || []).map(
         (r: Omit<Recipe, 'id' | 'rating' | 'isFavorite' | 'createdAt' | 'searchedIngredients' | 'dietaryConditions' | 'requestedTimeRange'>) => ({
           ...r,
           id: `${Date.now()}-${Math.random().toString(36).slice(2)}`,
