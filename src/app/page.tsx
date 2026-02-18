@@ -1,65 +1,135 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import { useState, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
+import { useRecipeFlow } from '@/context/RecipeFlowContext';
+import { useToast } from '@/context/ToastContext';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
+import StepIndicator from '@/components/layout/StepIndicator';
+import IngredientInput from '@/components/ingredients/IngredientInput';
+import IngredientTag from '@/components/ingredients/IngredientTag';
+import PhotoUpload from '@/components/ingredients/PhotoUpload';
+
+export default function HomePage() {
+  const router = useRouter();
+  const { ingredients, addIngredient, addIngredients, removeIngredient, clearIngredients } =
+    useRecipeFlow();
+  const { addToast } = useToast();
+  const { value: apiKey } = useLocalStorage<string>('smm-api-key', '');
+  const [isExtracting, setIsExtracting] = useState(false);
+
+  const handlePhotoExtract = useCallback(
+    async (base64: string) => {
+      if (!apiKey) {
+        addToast('Please set your OpenAI API key in Settings first.', 'error');
+        return;
+      }
+      setIsExtracting(true);
+      try {
+        const res = await fetch('/api/extract-ingredients', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ imageBase64: base64, apiKey }),
+        });
+        const contentType = res.headers.get('content-type') || '';
+        if (!contentType.includes('application/json')) {
+          throw new Error('Server error. If deployed, ensure your hosting supports Next.js API routes.');
+        }
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error);
+        if (data.ingredients?.length) {
+          addIngredients(data.ingredients);
+          addToast(`Found ${data.ingredients.length} ingredient(s) from photo!`, 'success');
+        } else {
+          addToast('No ingredients detected in this photo.', 'info');
+        }
+      } catch (err) {
+        addToast(err instanceof Error ? err.message : 'Failed to analyze photo', 'error');
+      } finally {
+        setIsExtracting(false);
+      }
+    },
+    [apiKey, addIngredients, addToast]
+  );
+
+  const handleNext = () => {
+    if (ingredients.length === 0) {
+      addToast('Add at least one ingredient to continue.', 'error');
+      return;
+    }
+    router.push('/dietary');
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <div className="animate-fade-in">
+      <StepIndicator currentStep={1} />
+
+      <div className="space-y-6">
+        <div>
+          <h1 className="text-2xl font-bold text-stone-900 mb-1">What&apos;s in your kitchen?</h1>
+          <p className="text-stone-500 text-sm">
+            Type your ingredients or snap a photo of what you have.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        {/* Text input */}
+        <div>
+          <label className="block text-sm font-semibold text-stone-700 mb-2">
+            Add ingredients manually
+          </label>
+          <IngredientInput onAdd={addIngredient} />
         </div>
-      </main>
+
+        {/* Photo upload */}
+        <div>
+          <label className="block text-sm font-semibold text-stone-700 mb-2">
+            Or upload food photos
+          </label>
+          <PhotoUpload onExtract={handlePhotoExtract} isExtracting={isExtracting} />
+          {!apiKey && (
+            <p className="text-xs text-amber-600 mt-2">
+              Set your OpenAI API key in{' '}
+              <a href="/settings" className="underline font-medium">
+                Settings
+              </a>{' '}
+              to enable photo recognition.
+            </p>
+          )}
+        </div>
+
+        {/* Ingredient list */}
+        {ingredients.length > 0 && (
+          <div className="animate-fade-in">
+            <div className="flex items-center justify-between mb-3">
+              <h2 className="text-sm font-semibold text-stone-700">
+                Your ingredients ({ingredients.length})
+              </h2>
+              <button
+                onClick={clearIngredients}
+                className="text-xs text-stone-400 hover:text-red-500 transition-colors"
+              >
+                Clear all
+              </button>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {ingredients.map((name) => (
+                <IngredientTag key={name} name={name} onRemove={() => removeIngredient(name)} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Next button */}
+        <button
+          onClick={handleNext}
+          disabled={ingredients.length === 0}
+          className="w-full py-3.5 bg-orange-500 text-white rounded-xl font-semibold text-sm
+                     hover:bg-orange-600 disabled:opacity-40 disabled:cursor-not-allowed
+                     transition-colors shadow-sm"
+        >
+          Next: Dietary Preferences
+        </button>
+      </div>
     </div>
   );
 }
