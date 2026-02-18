@@ -2,48 +2,25 @@
 
 import { useState } from 'react';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
+import { useAuth } from '@/context/AuthContext';
 import { useToast } from '@/context/ToastContext';
 import { Recipe } from '@/types';
-import { HiEye, HiEyeOff, HiExclamation } from 'react-icons/hi';
+import { DIETARY_CONDITIONS } from '@/config/dietary-conditions';
+import { HiExclamation } from 'react-icons/hi';
 
 export default function SettingsPage() {
-  const { value: apiKey, setValue: setApiKey, isLoaded } = useLocalStorage<string>(
-    'smm-api-key',
-    ''
-  );
-  const { value: history, setValue: setHistory } = useLocalStorage<Recipe[]>('smm-history', []);
+  const { user } = useAuth();
+  const { value: history, setValue: setHistory, isLoaded } = useLocalStorage<Recipe[]>('smm-history', []);
   const { setValue: setDietary } = useLocalStorage<string[]>('smm-dietary', []);
   const { addToast } = useToast();
-  const [showKey, setShowKey] = useState(false);
-  const [keyInput, setKeyInput] = useState('');
   const [showClearConfirm, setShowClearConfirm] = useState(false);
 
-  const handleSaveKey = () => {
-    const trimmed = keyInput.trim();
-    if (!trimmed) {
-      addToast('Please enter an API key.', 'error');
-      return;
-    }
-    if (!trimmed.startsWith('sk-')) {
-      addToast('API key should start with "sk-".', 'error');
-      return;
-    }
-    setApiKey(trimmed);
-    setKeyInput('');
-    addToast('API key saved successfully!', 'success');
-  };
-
   const handleClearAll = () => {
-    setApiKey('');
     setHistory([]);
     setDietary([]);
     setShowClearConfirm(false);
-    addToast('All data cleared.', 'info');
+    addToast('All local data cleared.', 'info');
   };
-
-  const maskedKey = apiKey
-    ? `${apiKey.slice(0, 7)}${'*'.repeat(Math.max(0, apiKey.length - 11))}${apiKey.slice(-4)}`
-    : '';
 
   if (!isLoaded) return null;
 
@@ -52,70 +29,33 @@ export default function SettingsPage() {
       <div className="space-y-8">
         <div>
           <h1 className="text-2xl font-bold text-stone-900 mb-1">Settings</h1>
-          <p className="text-stone-500 text-sm">Manage your API key and app preferences.</p>
+          <p className="text-stone-500 text-sm">Manage your profile and app preferences.</p>
         </div>
 
-        {/* API Key */}
+        {/* User Profile */}
         <div className="border border-stone-200 rounded-xl bg-white p-5 space-y-4">
-          <div>
-            <h2 className="font-semibold text-stone-800">OpenAI API Key</h2>
-            <p className="text-xs text-stone-400 mt-1">
-              Required for photo recognition and recipe generation. Your key is stored locally and never sent to our servers.
-            </p>
-          </div>
-
-          {apiKey ? (
-            <div className="space-y-3">
-              <div className="flex items-center gap-2 bg-green-50 border border-green-200 rounded-lg px-3 py-2">
-                <div className="w-2 h-2 bg-green-500 rounded-full" />
-                <span className="text-sm text-green-700 font-medium">Key configured</span>
+          <h2 className="font-semibold text-stone-800">Your Profile</h2>
+          <div className="flex items-center gap-4">
+            {user?.photoURL ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={user.photoURL} alt="" className="w-14 h-14 rounded-full" />
+            ) : (
+              <div className="w-14 h-14 rounded-full bg-orange-500 text-white flex items-center justify-center text-lg font-bold">
+                {(user?.displayName || user?.email || '?')
+                  .split(' ')
+                  .map((s) => s[0])
+                  .join('')
+                  .slice(0, 2)
+                  .toUpperCase()}
               </div>
-              <div className="flex items-center gap-2">
-                <code className="flex-1 text-sm text-stone-600 bg-stone-100 rounded-lg px-3 py-2 font-mono">
-                  {showKey ? apiKey : maskedKey}
-                </code>
-                <button
-                  onClick={() => setShowKey(!showKey)}
-                  className="p-2 text-stone-400 hover:text-stone-600 transition-colors"
-                >
-                  {showKey ? <HiEyeOff className="w-5 h-5" /> : <HiEye className="w-5 h-5" />}
-                </button>
-              </div>
-              <button
-                onClick={() => {
-                  setApiKey('');
-                  addToast('API key removed.', 'info');
-                }}
-                className="text-xs text-red-500 hover:text-red-600 font-medium"
-              >
-                Remove key
-              </button>
-            </div>
-          ) : (
-            <div className="space-y-3">
-              <div className="flex gap-2">
-                <input
-                  type="password"
-                  value={keyInput}
-                  onChange={(e) => setKeyInput(e.target.value)}
-                  placeholder="sk-..."
-                  className="flex-1 px-3 py-2.5 rounded-lg border border-stone-200 text-sm font-mono
-                             placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-orange-400"
-                />
-                <button
-                  onClick={handleSaveKey}
-                  className="px-4 py-2.5 bg-orange-500 text-white rounded-lg text-sm font-medium
-                             hover:bg-orange-600 transition-colors"
-                >
-                  Save
-                </button>
-              </div>
-              <p className="text-xs text-stone-400">
-                Get your API key from{' '}
-                <span className="font-medium text-stone-500">platform.openai.com</span>
+            )}
+            <div>
+              <p className="font-semibold text-stone-800">
+                {user?.displayName || 'User'}
               </p>
+              <p className="text-sm text-stone-500">{user?.email}</p>
             </div>
-          )}
+          </div>
         </div>
 
         {/* Stats */}
@@ -135,6 +75,12 @@ export default function SettingsPage() {
           </div>
         </div>
 
+        {/* Dietary Preferences Quick View */}
+        <div className="border border-stone-200 rounded-xl bg-white p-5 space-y-3">
+          <h2 className="font-semibold text-stone-800">Saved Dietary Preferences</h2>
+          <SavedDietaryDisplay />
+        </div>
+
         {/* Clear data */}
         <div className="border border-red-100 rounded-xl bg-red-50/50 p-5 space-y-3">
           <h2 className="font-semibold text-red-700 flex items-center gap-2">
@@ -144,7 +90,7 @@ export default function SettingsPage() {
           {showClearConfirm ? (
             <div className="space-y-3">
               <p className="text-sm text-red-600">
-                This will delete your API key, all saved recipes, and dietary preferences. This cannot be undone.
+                This will delete all saved recipes and dietary preferences from this device. This cannot be undone.
               </p>
               <div className="flex gap-2">
                 <button
@@ -166,11 +112,41 @@ export default function SettingsPage() {
               onClick={() => setShowClearConfirm(true)}
               className="px-4 py-2 border border-red-200 text-red-600 rounded-lg text-sm font-medium hover:bg-red-100 transition-colors"
             >
-              Clear all data
+              Clear all local data
             </button>
           )}
         </div>
       </div>
+    </div>
+  );
+}
+
+function SavedDietaryDisplay() {
+  const { value: savedConditions, isLoaded } = useLocalStorage<string[]>('smm-dietary', []);
+
+  if (!isLoaded) return null;
+
+  if (savedConditions.length === 0) {
+    return (
+      <p className="text-sm text-stone-400">
+        No dietary preferences saved yet. They&apos;ll be saved when you select them during recipe search.
+      </p>
+    );
+  }
+
+  return (
+    <div className="flex flex-wrap gap-2">
+      {savedConditions.map((id) => {
+        const condition = DIETARY_CONDITIONS.find((c) => c.id === id);
+        return (
+          <span
+            key={id}
+            className="px-3 py-1.5 bg-orange-50 text-orange-700 rounded-full text-xs font-medium"
+          >
+            {condition?.label || id}
+          </span>
+        );
+      })}
     </div>
   );
 }

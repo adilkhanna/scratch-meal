@@ -1,0 +1,31 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Admin config — only admins can read/write
+    match /admin-config/{doc} {
+      allow read: if isAdmin();
+      allow write: if isAdmin();
+    }
+
+    // User profiles
+    match /users/{userId} {
+      // Users can read their own profile
+      allow read: if request.auth != null && request.auth.uid == userId;
+      // Users can create their own profile on signup
+      allow create: if request.auth != null && request.auth.uid == userId;
+      // Users can update their own profile
+      allow update: if request.auth != null && request.auth.uid == userId;
+      // Admins can read all profiles
+      allow read: if isAdmin();
+    }
+
+    // Helper: check if the caller is an admin
+    function isAdmin() {
+      return request.auth != null
+        && exists(/databases/$(database)/documents/admin-config/app)
+        && request.auth.uid in get(/databases/$(database)/documents/admin-config/app).data.adminUids;
+    }
+  }
+}

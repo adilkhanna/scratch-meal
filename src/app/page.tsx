@@ -4,8 +4,7 @@ import { useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { useRecipeFlow } from '@/context/RecipeFlowContext';
 import { useToast } from '@/context/ToastContext';
-import { useLocalStorage } from '@/hooks/useLocalStorage';
-import { extractIngredientsFromPhoto } from '@/lib/openai-client';
+import { extractIngredientsFromPhoto } from '@/lib/firebase-functions';
 import StepIndicator from '@/components/layout/StepIndicator';
 import IngredientInput from '@/components/ingredients/IngredientInput';
 import IngredientTag from '@/components/ingredients/IngredientTag';
@@ -16,22 +15,13 @@ export default function HomePage() {
   const { ingredients, addIngredient, addIngredients, removeIngredient, clearIngredients } =
     useRecipeFlow();
   const { addToast } = useToast();
-  const { value: apiKey } = useLocalStorage<string>('smm-api-key', '');
   const [isExtracting, setIsExtracting] = useState(false);
 
   const handlePhotoExtract = useCallback(
     async (base64: string) => {
-      const currentKey = apiKey || (() => {
-        try { return JSON.parse(window.localStorage.getItem('smm-api-key') || '""'); }
-        catch { return ''; }
-      })();
-      if (!currentKey) {
-        addToast('Please set your OpenAI API key in Settings first.', 'error');
-        return;
-      }
       setIsExtracting(true);
       try {
-        const foundIngredients = await extractIngredientsFromPhoto(base64, currentKey);
+        const foundIngredients = await extractIngredientsFromPhoto(base64);
         if (foundIngredients.length > 0) {
           addIngredients(foundIngredients);
           addToast(`Found ${foundIngredients.length} ingredient(s) from photo!`, 'success');
@@ -44,7 +34,7 @@ export default function HomePage() {
         setIsExtracting(false);
       }
     },
-    [apiKey, addIngredients, addToast]
+    [addIngredients, addToast]
   );
 
   const handleNext = () => {
@@ -81,15 +71,6 @@ export default function HomePage() {
             Or upload food photos
           </label>
           <PhotoUpload onExtract={handlePhotoExtract} isExtracting={isExtracting} />
-          {!apiKey && (
-            <p className="text-xs text-amber-600 mt-2">
-              Set your OpenAI API key in{' '}
-              <a href="/settings" className="underline font-medium">
-                Settings
-              </a>{' '}
-              to enable photo recognition.
-            </p>
-          )}
         </div>
 
         {/* Ingredient list */}

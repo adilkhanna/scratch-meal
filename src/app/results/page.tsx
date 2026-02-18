@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useRecipeFlow } from '@/context/RecipeFlowContext';
 import { useToast } from '@/context/ToastContext';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
-import { generateRecipes as generateRecipesAI } from '@/lib/openai-client';
+import { generateRecipes as generateRecipesAI } from '@/lib/firebase-functions';
 import StepIndicator from '@/components/layout/StepIndicator';
 import RecipeCard from '@/components/recipes/RecipeCard';
 import { Recipe } from '@/types';
@@ -15,7 +15,6 @@ export default function ResultsPage() {
   const router = useRouter();
   const { ingredients, dietaryConditions, timeRange, resetFlow } = useRecipeFlow();
   const { addToast } = useToast();
-  const { value: apiKey, isLoaded: apiKeyLoaded } = useLocalStorage<string>('smm-api-key', '');
   const { value: history, setValue: setHistory } = useLocalStorage<Recipe[]>('smm-history', []);
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState(true);
@@ -27,24 +26,11 @@ export default function ResultsPage() {
   );
 
   const generateRecipes = useCallback(async () => {
-    // Read directly from localStorage to avoid stale closure
-    const currentKey = apiKey || (() => {
-      try { return JSON.parse(window.localStorage.getItem('smm-api-key') || '""'); }
-      catch { return ''; }
-    })();
-
-    if (!currentKey) {
-      setError('Please set your OpenAI API key in Settings.');
-      setLoading(false);
-      return;
-    }
-
     try {
       const rawRecipes = await generateRecipesAI(
         ingredients,
         conditionLabels,
-        timeRange!,
-        currentKey
+        timeRange!
       );
 
       const recipesWithMeta: Recipe[] = (rawRecipes || []).map(
@@ -70,20 +56,18 @@ export default function ResultsPage() {
       setLoading(false);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [apiKey, ingredients, timeRange]);
+  }, [ingredients, timeRange]);
 
   useEffect(() => {
     if (ingredients.length === 0 || !timeRange) {
       router.replace('/');
       return;
     }
-    // Wait for localStorage to load before fetching
-    if (!apiKeyLoaded) return;
     if (!hasFetched) {
       setHasFetched(true);
       generateRecipes();
     }
-  }, [ingredients.length, timeRange, router, hasFetched, generateRecipes, apiKeyLoaded]);
+  }, [ingredients.length, timeRange, router, hasFetched, generateRecipes]);
 
   const updateRecipe = (id: string, updates: Partial<Recipe>) => {
     setRecipes((prev) =>
@@ -129,10 +113,10 @@ export default function ResultsPage() {
             <p className="text-red-600 font-medium text-sm">{error}</p>
             <div className="flex gap-3 justify-center mt-4">
               <button
-                onClick={() => router.push('/settings')}
+                onClick={handleNewSearch}
                 className="px-4 py-2 bg-white border border-stone-200 rounded-lg text-sm font-medium text-stone-600 hover:bg-stone-50"
               >
-                Go to Settings
+                Start Over
               </button>
               <button
                 onClick={() => {
