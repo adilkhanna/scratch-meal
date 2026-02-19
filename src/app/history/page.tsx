@@ -71,8 +71,10 @@ export default function HistoryPage() {
     <div className="animate-fade-in py-6">
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-bold text-stone-900 mb-1">My Past Recipes</h1>
-          <p className="text-stone-500 text-sm">
+          <h1 className="text-2xl font-bold text-[#f5f5f5] font-[family-name:var(--font-serif)] mb-1">
+            My Past Recipes
+          </h1>
+          <p className="text-[#a0a0a0] text-sm">
             {history.length === 0
               ? 'No recipes yet. Start a new search to get cooking!'
               : `${history.length} recipes saved`}
@@ -83,7 +85,7 @@ export default function HistoryPage() {
           <>
             {/* Search */}
             <div className="relative">
-              <HiSearch className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" />
+              <HiSearch className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#666]" />
               <input
                 type="text"
                 value={filters.searchQuery}
@@ -91,8 +93,8 @@ export default function HistoryPage() {
                   setFilters((f) => ({ ...f, searchQuery: e.target.value }))
                 }
                 placeholder="Search recipes or ingredients..."
-                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-stone-200 bg-white text-sm
-                           placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-orange-400"
+                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-white/[0.08] bg-white/[0.05] text-sm text-[#f5f5f5]
+                           placeholder:text-[#666] focus:outline-none focus:ring-2 focus:ring-amber-500/50"
               />
             </div>
 
@@ -103,10 +105,10 @@ export default function HistoryPage() {
                   setFilters((f) => ({ ...f, favoritesOnly: !f.favoritesOnly }))
                 }
                 className={clsx(
-                  'flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-colors',
+                  'flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-all',
                   filters.favoritesOnly
-                    ? 'bg-red-50 border-red-200 text-red-600'
-                    : 'border-stone-200 text-stone-500 hover:bg-stone-50'
+                    ? 'bg-red-500/15 border-red-500/25 text-red-400'
+                    : 'border-white/[0.1] text-[#666] hover:bg-white/[0.05]'
                 )}
               >
                 <HiHeart className="w-3.5 h-3.5" />
@@ -122,10 +124,10 @@ export default function HistoryPage() {
                     }))
                   }
                   className={clsx(
-                    'flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-medium border transition-colors',
+                    'flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-medium border transition-all',
                     filters.minRating === rating
-                      ? 'bg-amber-50 border-amber-200 text-amber-600'
-                      : 'border-stone-200 text-stone-500 hover:bg-stone-50'
+                      ? 'bg-amber-500/15 border-amber-500/25 text-amber-400'
+                      : 'border-white/[0.1] text-[#666] hover:bg-white/[0.05]'
                   )}
                 >
                   <HiStar className="w-3.5 h-3.5" />
@@ -137,13 +139,13 @@ export default function HistoryPage() {
             {/* Recipe list */}
             {groupedRecipes.length === 0 ? (
               <div className="text-center py-12">
-                <p className="text-stone-400 text-sm">No recipes match your filters.</p>
+                <p className="text-[#666] text-sm">No recipes match your filters.</p>
               </div>
             ) : (
               <div className="space-y-6">
                 {groupedRecipes.map((group) => (
                   <div key={group.date}>
-                    <h3 className="text-xs font-semibold text-stone-400 uppercase tracking-wider mb-3">
+                    <h3 className="text-xs font-semibold text-[#666] uppercase tracking-wider mb-3">
                       {group.date}
                     </h3>
                     <div className="space-y-3">
@@ -159,16 +161,16 @@ export default function HistoryPage() {
                           {/* Delete button */}
                           <div className="absolute top-3 right-14">
                             {deleteConfirm === recipe.id ? (
-                              <div className="flex items-center gap-1 bg-white border border-red-200 rounded-lg p-1 shadow-lg animate-fade-in">
+                              <div className="flex items-center gap-1 bg-[#252525] border border-red-500/20 rounded-lg p-1 shadow-2xl shadow-black/40 animate-fade-in">
                                 <button
                                   onClick={() => deleteRecipe(recipe.id)}
-                                  className="text-xs text-red-600 font-medium px-2 py-1 hover:bg-red-50 rounded"
+                                  className="text-xs text-red-400 font-medium px-2 py-1 hover:bg-red-500/15 rounded"
                                 >
                                   Delete
                                 </button>
                                 <button
                                   onClick={() => setDeleteConfirm(null)}
-                                  className="text-xs text-stone-400 px-2 py-1 hover:bg-stone-50 rounded"
+                                  className="text-xs text-[#666] px-2 py-1 hover:bg-white/[0.05] rounded"
                                 >
                                   Cancel
                                 </button>
@@ -176,7 +178,7 @@ export default function HistoryPage() {
                             ) : (
                               <button
                                 onClick={() => setDeleteConfirm(recipe.id)}
-                                className="p-1.5 text-stone-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-all"
+                                className="p-1.5 text-[#666] hover:text-red-400 opacity-0 group-hover:opacity-100 transition-all"
                               >
                                 <HiTrash className="w-4 h-4" />
                               </button>
@@ -195,10 +197,10 @@ export default function HistoryPage() {
         {history.length === 0 && (
           <div className="text-center py-16">
             <div className="text-5xl mb-4">📖</div>
-            <p className="text-stone-500 text-sm mb-4">Your recipe history will appear here.</p>
+            <p className="text-[#a0a0a0] text-sm mb-4">Your recipe history will appear here.</p>
             <a
               href="/"
-              className="inline-block px-6 py-2.5 bg-orange-500 text-white rounded-xl text-sm font-semibold hover:bg-orange-600 transition-colors"
+              className="inline-block px-6 py-2.5 bg-amber-600 text-white rounded-xl text-sm font-semibold hover:bg-amber-500 transition-all shadow-[0_0_20px_rgba(245,158,11,0.15)]"
             >
               Start Cooking
             </a>

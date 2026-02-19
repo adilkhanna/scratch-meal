@@ -11,9 +11,9 @@ const ICONS = {
 };
 
 const COLORS = {
-  success: 'bg-green-50 border-green-200 text-green-800',
-  error: 'bg-red-50 border-red-100 text-red-600',
-  info: 'bg-orange-50 border-orange-200 text-orange-800',
+  success: 'bg-green-500/15 border-green-500/25 text-green-300',
+  error: 'bg-red-500/15 border-red-500/25 text-red-300',
+  info: 'bg-amber-500/15 border-amber-500/25 text-amber-300',
 };
 
 export default function ToastContainer() {
@@ -29,7 +29,7 @@ export default function ToastContainer() {
           <div
             key={toast.id}
             className={clsx(
-              'flex items-center gap-3 px-4 py-3 rounded-xl border shadow-lg animate-slide-up',
+              'flex items-center gap-3 px-4 py-3 rounded-xl border backdrop-blur-xl shadow-2xl shadow-black/40 animate-slide-up',
               COLORS[toast.type]
             )}
           >

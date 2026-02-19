@@ -74,8 +74,8 @@ export default function PhotoUpload({ onExtract, isExtracting }: Props) {
         }}
         onDragLeave={() => setDragOver(false)}
         onDrop={handleDrop}
-        className={`relative border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-colors
-          ${dragOver ? 'border-orange-400 bg-orange-50' : 'border-stone-300 hover:border-orange-300 hover:bg-orange-50/50'}`}
+        className={`relative border-2 border-dashed rounded-2xl p-8 text-center cursor-pointer transition-all
+          ${dragOver ? 'border-amber-500/50 bg-amber-500/[0.05]' : 'border-white/[0.1] hover:border-amber-500/30 hover:bg-amber-500/[0.03]'}`}
       >
         <input
           ref={fileInputRef}
@@ -85,21 +85,21 @@ export default function PhotoUpload({ onExtract, isExtracting }: Props) {
           onChange={handleFileChange}
           className="hidden"
         />
-        <HiOutlinePhotograph className="w-10 h-10 text-stone-400 mx-auto mb-3" />
-        <p className="text-sm font-medium text-stone-600">
+        <HiOutlinePhotograph className="w-10 h-10 text-[#666] mx-auto mb-3" />
+        <p className="text-sm font-medium text-[#a0a0a0]">
           {isExtracting ? (
-            <span className="animate-pulse-soft">Analyzing photos...</span>
+            <span className="animate-pulse-soft text-amber-400">Analyzing photos...</span>
           ) : (
             'Drop food photos here or click to browse'
           )}
         </p>
-        <p className="text-xs text-stone-400 mt-1">Supports JPG, PNG. Multiple photos allowed.</p>
+        <p className="text-xs text-[#666] mt-1">Supports JPG, PNG. Multiple photos allowed.</p>
       </div>
 
       {photos.length > 0 && (
         <div className="flex gap-2 flex-wrap">
           {photos.map((photo) => (
-            <div key={photo.id} className="relative w-20 h-20 rounded-lg overflow-hidden group">
+            <div key={photo.id} className="relative w-20 h-20 rounded-xl overflow-hidden group ring-1 ring-white/[0.1]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={photo.url} alt="Food" className="w-full h-full object-cover" />
               <button

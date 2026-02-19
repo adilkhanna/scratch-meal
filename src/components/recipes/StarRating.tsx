@@ -19,12 +19,12 @@ export default function StarRating({ rating, onRate, size = 'md' }: Props) {
             e.stopPropagation();
             onRate(star === rating ? 0 : star);
           }}
-          className="transition-colors hover:scale-110"
+          className="transition-all hover:scale-110"
         >
           <HiStar
             className={clsx(
               size === 'sm' ? 'w-4 h-4' : 'w-6 h-6',
-              star <= rating ? 'text-amber-400' : 'text-stone-200'
+              star <= rating ? 'text-amber-400' : 'text-white/[0.15]'
             )}
           />
         </button>

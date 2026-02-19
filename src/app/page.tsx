@@ -51,15 +51,17 @@ export default function HomePage() {
 
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-bold text-stone-900 mb-1">What&apos;s in your kitchen?</h1>
-          <p className="text-stone-500 text-sm">
+          <h1 className="text-2xl font-bold text-[#f5f5f5] font-[family-name:var(--font-serif)] mb-1">
+            What&apos;s in your kitchen?
+          </h1>
+          <p className="text-[#a0a0a0] text-sm">
             Type your ingredients or snap a photo of what you have.
           </p>
         </div>
 
         {/* Text input */}
         <div>
-          <label className="block text-sm font-semibold text-stone-700 mb-2">
+          <label className="block text-sm font-semibold text-[#a0a0a0] mb-2">
             Add ingredients manually
           </label>
           <IngredientInput onAdd={addIngredient} />
@@ -67,7 +69,7 @@ export default function HomePage() {
 
         {/* Photo upload */}
         <div>
-          <label className="block text-sm font-semibold text-stone-700 mb-2">
+          <label className="block text-sm font-semibold text-[#a0a0a0] mb-2">
             Or upload food photos
           </label>
           <PhotoUpload onExtract={handlePhotoExtract} isExtracting={isExtracting} />
@@ -77,12 +79,12 @@ export default function HomePage() {
         {ingredients.length > 0 && (
           <div className="animate-fade-in">
             <div className="flex items-center justify-between mb-3">
-              <h2 className="text-sm font-semibold text-stone-700">
+              <h2 className="text-sm font-semibold text-[#a0a0a0]">
                 Your ingredients ({ingredients.length})
               </h2>
               <button
                 onClick={clearIngredients}
-                className="text-xs text-stone-400 hover:text-red-500 transition-colors"
+                className="text-xs text-[#666] hover:text-red-400 transition-colors"
               >
                 Clear all
               </button>
@@ -99,9 +101,9 @@ export default function HomePage() {
         <button
           onClick={handleNext}
           disabled={ingredients.length === 0}
-          className="w-full py-3.5 bg-orange-500 text-white rounded-xl font-semibold text-sm
-                     hover:bg-orange-600 disabled:opacity-40 disabled:cursor-not-allowed
-                     transition-colors shadow-sm"
+          className="w-full py-3.5 bg-amber-600 text-white rounded-xl font-semibold text-sm
+                     hover:bg-amber-500 disabled:opacity-40 disabled:cursor-not-allowed
+                     transition-all shadow-[0_0_20px_rgba(245,158,11,0.15)]"
         >
           Next: Dietary Preferences
         </button>

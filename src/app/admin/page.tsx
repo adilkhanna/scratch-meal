@@ -90,7 +90,6 @@ export default function AdminPage() {
           googleSheetsId: sheetsId.trim(),
           googleServiceEmail: serviceEmail.trim(),
           googlePrivateKey: privateKey.trim(),
-          // Preserve adminUids — merge
         },
         { merge: true }
       );
@@ -113,7 +112,7 @@ export default function AdminPage() {
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="flex flex-col items-center gap-3">
           <div className="text-4xl animate-pulse-soft">🔧</div>
-          <p className="text-sm text-stone-400">Loading admin panel...</p>
+          <p className="text-sm text-[#666]">Loading admin panel...</p>
         </div>
       </div>
     );
@@ -126,33 +125,35 @@ export default function AdminPage() {
       <div className="space-y-8">
         {/* Header */}
         <div className="flex items-center gap-3">
-          <HiOutlineShieldCheck className="w-7 h-7 text-orange-600" />
+          <HiOutlineShieldCheck className="w-7 h-7 text-amber-500" />
           <div>
-            <h1 className="text-2xl font-bold text-stone-900">Admin Panel</h1>
-            <p className="text-stone-500 text-sm">Manage API keys, Google Sheets, and view users.</p>
+            <h1 className="text-2xl font-bold text-[#f5f5f5] font-[family-name:var(--font-serif)]">
+              Admin Panel
+            </h1>
+            <p className="text-[#a0a0a0] text-sm">Manage API keys, Google Sheets, and view users.</p>
           </div>
         </div>
 
         {/* OpenAI API Key */}
-        <div className="border border-stone-200 rounded-xl bg-white p-5 space-y-4">
+        <div className="border border-white/[0.08] rounded-xl bg-white/[0.05] backdrop-blur-sm p-5 space-y-4">
           <div className="flex items-center gap-2">
-            <HiOutlineKey className="w-5 h-5 text-orange-600" />
-            <h2 className="font-semibold text-stone-800">OpenAI API Key</h2>
+            <HiOutlineKey className="w-5 h-5 text-amber-500" />
+            <h2 className="font-semibold text-[#d4d4d4]">OpenAI API Key</h2>
           </div>
-          <p className="text-xs text-stone-400">
+          <p className="text-xs text-[#666]">
             This key is used server-side by Cloud Functions. Users never see it.
           </p>
 
           {savedApiKey && (
-            <div className="flex items-center gap-2 bg-green-50 border border-green-200 rounded-lg px-3 py-2">
+            <div className="flex items-center gap-2 bg-green-500/10 border border-green-500/20 rounded-lg px-3 py-2">
               <div className="w-2 h-2 bg-green-500 rounded-full" />
-              <span className="text-sm text-green-700 font-medium">Key configured</span>
-              <code className="ml-auto text-xs text-stone-500 font-mono">
+              <span className="text-sm text-green-400 font-medium">Key configured</span>
+              <code className="ml-auto text-xs text-[#a0a0a0] font-mono">
                 {showKey ? savedApiKey : maskedKey}
               </code>
               <button
                 onClick={() => setShowKey(!showKey)}
-                className="p-1 text-stone-400 hover:text-stone-600 transition-colors"
+                className="p-1 text-[#666] hover:text-[#a0a0a0] transition-colors"
               >
                 {showKey ? <HiEyeOff className="w-4 h-4" /> : <HiEye className="w-4 h-4" />}
               </button>
@@ -165,34 +166,34 @@ export default function AdminPage() {
               value={apiKey}
               onChange={(e) => setApiKey(e.target.value)}
               placeholder="sk-..."
-              className="flex-1 px-3 py-2.5 rounded-lg border border-stone-200 text-sm font-mono
-                         placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-orange-400"
+              className="flex-1 px-3 py-2.5 rounded-lg border border-white/[0.08] bg-white/[0.05] text-sm font-mono text-[#f5f5f5]
+                         placeholder:text-[#666] focus:outline-none focus:ring-2 focus:ring-amber-500/50"
             />
           </div>
         </div>
 
         {/* Google Sheets Config */}
-        <div className="border border-stone-200 rounded-xl bg-white p-5 space-y-4">
-          <h2 className="font-semibold text-stone-800">Google Sheets Integration</h2>
-          <p className="text-xs text-stone-400">
+        <div className="border border-white/[0.08] rounded-xl bg-white/[0.05] backdrop-blur-sm p-5 space-y-4">
+          <h2 className="font-semibold text-[#d4d4d4]">Google Sheets Integration</h2>
+          <p className="text-xs text-[#666]">
             User sign-up data gets automatically pushed to a Google Sheet. Set up a Google Service Account
             and share the sheet with it.
           </p>
 
           <div>
-            <label className="block text-xs font-medium text-stone-600 mb-1">Spreadsheet ID</label>
+            <label className="block text-xs font-medium text-[#a0a0a0] mb-1">Spreadsheet ID</label>
             <input
               type="text"
               value={sheetsId}
               onChange={(e) => setSheetsId(e.target.value)}
               placeholder="e.g. 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms"
-              className="w-full px-3 py-2.5 rounded-lg border border-stone-200 text-sm font-mono
-                         placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-orange-400"
+              className="w-full px-3 py-2.5 rounded-lg border border-white/[0.08] bg-white/[0.05] text-sm font-mono text-[#f5f5f5]
+                         placeholder:text-[#666] focus:outline-none focus:ring-2 focus:ring-amber-500/50"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-stone-600 mb-1">
+            <label className="block text-xs font-medium text-[#a0a0a0] mb-1">
               Service Account Email
             </label>
             <input
@@ -200,13 +201,13 @@ export default function AdminPage() {
               value={serviceEmail}
               onChange={(e) => setServiceEmail(e.target.value)}
               placeholder="smm@project.iam.gserviceaccount.com"
-              className="w-full px-3 py-2.5 rounded-lg border border-stone-200 text-sm
-                         placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-orange-400"
+              className="w-full px-3 py-2.5 rounded-lg border border-white/[0.08] bg-white/[0.05] text-sm text-[#f5f5f5]
+                         placeholder:text-[#666] focus:outline-none focus:ring-2 focus:ring-amber-500/50"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-stone-600 mb-1">
+            <label className="block text-xs font-medium text-[#a0a0a0] mb-1">
               Service Account Private Key
             </label>
             <textarea
@@ -214,8 +215,8 @@ export default function AdminPage() {
               onChange={(e) => setPrivateKey(e.target.value)}
               placeholder="-----BEGIN PRIVATE KEY-----\n..."
               rows={3}
-              className="w-full px-3 py-2.5 rounded-lg border border-stone-200 text-sm font-mono
-                         placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-orange-400 resize-none"
+              className="w-full px-3 py-2.5 rounded-lg border border-white/[0.08] bg-white/[0.05] text-sm font-mono text-[#f5f5f5]
+                         placeholder:text-[#666] focus:outline-none focus:ring-2 focus:ring-amber-500/50 resize-none"
             />
           </div>
         </div>
@@ -224,61 +225,61 @@ export default function AdminPage() {
         <button
           onClick={handleSave}
           disabled={saving}
-          className="w-full py-3.5 bg-orange-500 text-white rounded-xl font-semibold text-sm
-                     hover:bg-orange-600 disabled:opacity-50 transition-colors shadow-sm"
+          className="w-full py-3.5 bg-amber-600 text-white rounded-xl font-semibold text-sm
+                     hover:bg-amber-500 disabled:opacity-50 transition-all shadow-[0_0_20px_rgba(245,158,11,0.15)]"
         >
           {saving ? 'Saving...' : 'Save Configuration'}
         </button>
 
         {/* Users */}
-        <div className="border border-stone-200 rounded-xl bg-white p-5 space-y-4">
+        <div className="border border-white/[0.08] rounded-xl bg-white/[0.05] backdrop-blur-sm p-5 space-y-4">
           <div className="flex items-center gap-2">
-            <HiOutlineUsers className="w-5 h-5 text-orange-600" />
-            <h2 className="font-semibold text-stone-800">
+            <HiOutlineUsers className="w-5 h-5 text-amber-500" />
+            <h2 className="font-semibold text-[#d4d4d4]">
               Registered Users ({users.length})
             </h2>
           </div>
 
           {users.length === 0 ? (
-            <p className="text-sm text-stone-400">No users yet.</p>
+            <p className="text-sm text-[#666]">No users yet.</p>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b border-stone-200">
-                    <th className="text-left py-2 px-2 font-medium text-stone-500">Name</th>
-                    <th className="text-left py-2 px-2 font-medium text-stone-500">Email</th>
-                    <th className="text-left py-2 px-2 font-medium text-stone-500">Dietary Prefs</th>
-                    <th className="text-left py-2 px-2 font-medium text-stone-500">Joined</th>
+                  <tr className="border-b border-white/[0.08]">
+                    <th className="text-left py-2 px-2 font-medium text-[#666]">Name</th>
+                    <th className="text-left py-2 px-2 font-medium text-[#666]">Email</th>
+                    <th className="text-left py-2 px-2 font-medium text-[#666]">Dietary Prefs</th>
+                    <th className="text-left py-2 px-2 font-medium text-[#666]">Joined</th>
                   </tr>
                 </thead>
                 <tbody>
                   {users.map((u) => (
-                    <tr key={u.uid} className="border-b border-stone-100">
-                      <td className="py-2.5 px-2 text-stone-800">{u.displayName || '—'}</td>
-                      <td className="py-2.5 px-2 text-stone-600">{u.email}</td>
+                    <tr key={u.uid} className="border-b border-white/[0.05]">
+                      <td className="py-2.5 px-2 text-[#d4d4d4]">{u.displayName || '—'}</td>
+                      <td className="py-2.5 px-2 text-[#a0a0a0]">{u.email}</td>
                       <td className="py-2.5 px-2">
                         {u.dietaryPreferences.length > 0 ? (
                           <div className="flex flex-wrap gap-1">
                             {u.dietaryPreferences.slice(0, 3).map((p) => (
                               <span
                                 key={p}
-                                className="px-2 py-0.5 bg-orange-50 text-orange-600 rounded-full text-xs"
+                                className="px-2 py-0.5 bg-amber-500/15 text-amber-300 border border-amber-500/20 rounded-full text-xs"
                               >
                                 {p}
                               </span>
                             ))}
                             {u.dietaryPreferences.length > 3 && (
-                              <span className="text-xs text-stone-400">
+                              <span className="text-xs text-[#666]">
                                 +{u.dietaryPreferences.length - 3}
                               </span>
                             )}
                           </div>
                         ) : (
-                          <span className="text-stone-400">None</span>
+                          <span className="text-[#666]">None</span>
                         )}
                       </td>
-                      <td className="py-2.5 px-2 text-stone-500">{u.createdAt}</td>
+                      <td className="py-2.5 px-2 text-[#a0a0a0]">{u.createdAt}</td>
                     </tr>
                   ))}
                 </tbody>

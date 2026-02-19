@@ -91,8 +91,10 @@ export default function ResultsPage() {
 
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-bold text-stone-900 mb-1">Your Recipes</h1>
-          <p className="text-stone-500 text-sm">
+          <h1 className="text-2xl font-bold text-[#f5f5f5] font-[family-name:var(--font-serif)] mb-1">
+            Your Recipes
+          </h1>
+          <p className="text-[#a0a0a0] text-sm">
             {loading
               ? 'Cooking up some ideas...'
               : `${recipes.length} recipes from ${ingredients.length} ingredients`}
@@ -102,19 +104,19 @@ export default function ResultsPage() {
         {loading && (
           <div className="flex flex-col items-center py-16 gap-4">
             <div className="text-5xl animate-pulse-soft">🍳</div>
-            <div className="w-8 h-8 border-3 border-orange-500 border-t-transparent rounded-full" style={{ animation: 'spin 1s linear infinite' }} />
-            <p className="text-sm text-stone-500">Generating recipes with AI...</p>
-            <p className="text-xs text-stone-400">This may take 10-15 seconds</p>
+            <div className="w-8 h-8 border-3 border-amber-500 border-t-transparent rounded-full" style={{ animation: 'spin 1s linear infinite' }} />
+            <p className="text-sm text-[#a0a0a0]">Generating recipes with AI...</p>
+            <p className="text-xs text-[#666]">This may take 10-15 seconds</p>
           </div>
         )}
 
         {error && (
-          <div className="bg-red-50 border border-red-100 rounded-xl p-6 text-center">
-            <p className="text-red-600 font-medium text-sm">{error}</p>
+          <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-6 text-center">
+            <p className="text-red-400 font-medium text-sm">{error}</p>
             <div className="flex gap-3 justify-center mt-4">
               <button
                 onClick={handleNewSearch}
-                className="px-4 py-2 bg-white border border-stone-200 rounded-lg text-sm font-medium text-stone-600 hover:bg-stone-50"
+                className="px-4 py-2 bg-white/[0.05] border border-white/[0.1] rounded-lg text-sm font-medium text-[#a0a0a0] hover:bg-white/[0.08]"
               >
                 Start Over
               </button>
@@ -124,7 +126,7 @@ export default function ResultsPage() {
                   setLoading(true);
                   setHasFetched(false);
                 }}
-                className="px-4 py-2 bg-orange-500 text-white rounded-lg text-sm font-medium hover:bg-orange-600"
+                className="px-4 py-2 bg-amber-600 text-white rounded-lg text-sm font-medium hover:bg-amber-500"
               >
                 Retry
               </button>
@@ -149,8 +151,8 @@ export default function ResultsPage() {
 
         <button
           onClick={handleNewSearch}
-          className="w-full py-3.5 bg-orange-500 text-white rounded-xl font-semibold text-sm
-                     hover:bg-orange-600 transition-colors shadow-sm"
+          className="w-full py-3.5 bg-amber-600 text-white rounded-xl font-semibold text-sm
+                     hover:bg-amber-500 transition-all shadow-[0_0_20px_rgba(245,158,11,0.15)]"
         >
           Start New Search
         </button>

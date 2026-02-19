@@ -28,7 +28,7 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="flex flex-col items-center gap-3">
           <div className="text-4xl animate-pulse-soft">🍳</div>
-          <p className="text-sm text-stone-400">Loading...</p>
+          <p className="text-sm text-[#666]">Loading...</p>
         </div>
       </div>
     );

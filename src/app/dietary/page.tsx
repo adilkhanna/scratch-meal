@@ -70,15 +70,17 @@ export default function DietaryPage() {
 
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-bold text-stone-900 mb-1">Dietary Preferences</h1>
-          <p className="text-stone-500 text-sm">
+          <h1 className="text-2xl font-bold text-[#f5f5f5] font-[family-name:var(--font-serif)] mb-1">
+            Dietary Preferences
+          </h1>
+          <p className="text-[#a0a0a0] text-sm">
             Select any conditions that apply. These will be saved for future use.
           </p>
         </div>
 
         {dietaryConditions.length > 0 && (
-          <div className="flex items-center gap-2 px-3 py-2 bg-orange-50 rounded-lg">
-            <span className="text-sm font-medium text-orange-700">
+          <div className="flex items-center gap-2 px-3 py-2 bg-amber-500/10 border border-amber-500/20 rounded-lg">
+            <span className="text-sm font-medium text-amber-300">
               {dietaryConditions.length} selected
             </span>
             <button
@@ -86,7 +88,7 @@ export default function DietaryPage() {
                 setDietaryConditions([]);
                 saveDietaryConditions([]);
               }}
-              className="text-xs text-orange-500 hover:text-orange-700 underline ml-auto"
+              className="text-xs text-amber-500/70 hover:text-amber-400 underline ml-auto"
             >
               Clear all
             </button>
@@ -104,26 +106,26 @@ export default function DietaryPage() {
             return (
               <div
                 key={cat}
-                className="border border-stone-200 rounded-xl overflow-hidden bg-white"
+                className="border border-white/[0.08] rounded-xl overflow-hidden bg-white/[0.05] backdrop-blur-sm"
               >
                 <button
                   onClick={() => toggleCategory(cat)}
-                  className="w-full flex items-center justify-between px-4 py-3.5 hover:bg-stone-50 transition-colors"
+                  className="w-full flex items-center justify-between px-4 py-3.5 hover:bg-white/[0.03] transition-colors"
                 >
                   <div className="flex items-center gap-2">
                     <span className="text-lg">{DIETARY_CATEGORY_ICONS[cat]}</span>
-                    <span className="font-semibold text-sm text-stone-800">
+                    <span className="font-semibold text-sm text-[#d4d4d4]">
                       {DIETARY_CATEGORY_LABELS[cat]}
                     </span>
                     {selectedCount > 0 && (
-                      <span className="bg-orange-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">
+                      <span className="bg-amber-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">
                         {selectedCount}
                       </span>
                     )}
                   </div>
                   <HiChevronDown
                     className={clsx(
-                      'w-5 h-5 text-stone-400 transition-transform',
+                      'w-5 h-5 text-[#666] transition-transform',
                       isExpanded && 'rotate-180'
                     )}
                   />
@@ -140,16 +142,16 @@ export default function DietaryPage() {
                           className={clsx(
                             'flex items-start gap-2.5 px-3 py-2.5 rounded-lg text-left transition-all text-sm',
                             isSelected
-                              ? 'bg-orange-100 ring-1 ring-orange-300'
-                              : 'hover:bg-stone-50'
+                              ? 'bg-amber-500/15 ring-1 ring-amber-500/30'
+                              : 'hover:bg-white/[0.05]'
                           )}
                         >
                           <div
                             className={clsx(
                               'mt-0.5 w-4 h-4 rounded border-2 shrink-0 flex items-center justify-center transition-colors',
                               isSelected
-                                ? 'bg-orange-500 border-orange-500'
-                                : 'border-stone-300'
+                                ? 'bg-amber-600 border-amber-600'
+                                : 'border-[#666]'
                             )}
                           >
                             {isSelected && (
@@ -159,10 +161,10 @@ export default function DietaryPage() {
                             )}
                           </div>
                           <div>
-                            <div className={clsx('font-medium', isSelected ? 'text-orange-800' : 'text-stone-700')}>
+                            <div className={clsx('font-medium', isSelected ? 'text-amber-300' : 'text-[#d4d4d4]')}>
                               {condition.label}
                             </div>
-                            <div className="text-xs text-stone-400 mt-0.5 leading-relaxed">
+                            <div className="text-xs text-[#666] mt-0.5 leading-relaxed">
                               {condition.description}
                             </div>
                           </div>
@@ -179,15 +181,15 @@ export default function DietaryPage() {
         <div className="flex gap-3">
           <button
             onClick={() => router.push('/')}
-            className="flex-1 py-3.5 border border-stone-200 text-stone-600 rounded-xl font-semibold text-sm
-                       hover:bg-stone-50 transition-colors"
+            className="flex-1 py-3.5 border border-white/[0.1] text-[#a0a0a0] rounded-xl font-semibold text-sm
+                       hover:bg-white/[0.05] transition-all"
           >
             Back
           </button>
           <button
             onClick={() => router.push('/time')}
-            className="flex-[2] py-3.5 bg-orange-500 text-white rounded-xl font-semibold text-sm
-                       hover:bg-orange-600 transition-colors shadow-sm"
+            className="flex-[2] py-3.5 bg-amber-600 text-white rounded-xl font-semibold text-sm
+                       hover:bg-amber-500 transition-all shadow-[0_0_20px_rgba(245,158,11,0.15)]"
           >
             Next: Cooking Time
           </button>

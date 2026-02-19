@@ -17,10 +17,10 @@ export default function StepIndicator({ currentStep }: { currentStep: number }) 
           <div className="flex flex-col items-center gap-1">
             <div
               className={clsx(
-                'w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold transition-colors',
-                s.step < currentStep && 'bg-green-500 text-white',
-                s.step === currentStep && 'bg-orange-500 text-white',
-                s.step > currentStep && 'bg-stone-200 text-stone-400'
+                'w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold transition-all',
+                s.step < currentStep && 'bg-green-500/80 text-white',
+                s.step === currentStep && 'bg-amber-500 text-white shadow-[0_0_12px_rgba(245,158,11,0.4)]',
+                s.step > currentStep && 'bg-white/[0.08] text-[#666]'
               )}
             >
               {s.step < currentStep ? '✓' : s.step}
@@ -28,7 +28,7 @@ export default function StepIndicator({ currentStep }: { currentStep: number }) 
             <span
               className={clsx(
                 'text-xs font-medium',
-                s.step <= currentStep ? 'text-stone-700' : 'text-stone-400'
+                s.step <= currentStep ? 'text-[#f5f5f5]' : 'text-[#666]'
               )}
             >
               {s.label}
@@ -38,7 +38,7 @@ export default function StepIndicator({ currentStep }: { currentStep: number }) 
             <div
               className={clsx(
                 'w-8 sm:w-12 h-0.5 mb-5',
-                s.step < currentStep ? 'bg-green-400' : 'bg-stone-200'
+                s.step < currentStep ? 'bg-green-500/60' : 'bg-white/[0.1]'
               )}
             />
           )}

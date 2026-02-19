@@ -100,21 +100,23 @@ export default function LoginPage() {
     <div className="animate-fade-in max-w-md mx-auto py-8">
       <div className="text-center mb-8">
         <div className="text-5xl mb-3">🍳</div>
-        <h1 className="text-2xl font-bold text-stone-900">Scratch Meal Maker</h1>
-        <p className="text-stone-500 text-sm mt-1">
+        <h1 className="text-2xl font-bold text-[#f5f5f5] font-[family-name:var(--font-serif)]">
+          Good Meals Co.
+        </h1>
+        <p className="text-[#a0a0a0] text-sm mt-1">
           Turn your fridge ingredients into delicious recipes
         </p>
       </div>
 
       {/* Tabs */}
-      <div className="flex bg-stone-100 rounded-xl p-1 mb-6">
+      <div className="flex bg-white/[0.05] rounded-xl p-1 mb-6 border border-white/[0.08]">
         <button
           onClick={() => setTab('signin')}
           className={clsx(
-            'flex-1 py-2.5 rounded-lg text-sm font-semibold transition-colors',
+            'flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all',
             tab === 'signin'
-              ? 'bg-white text-stone-900 shadow-sm'
-              : 'text-stone-500'
+              ? 'bg-amber-600 text-white shadow-[0_0_12px_rgba(245,158,11,0.3)]'
+              : 'text-[#666] hover:text-[#a0a0a0]'
           )}
         >
           Sign In
@@ -122,10 +124,10 @@ export default function LoginPage() {
         <button
           onClick={() => setTab('signup')}
           className={clsx(
-            'flex-1 py-2.5 rounded-lg text-sm font-semibold transition-colors',
+            'flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all',
             tab === 'signup'
-              ? 'bg-white text-stone-900 shadow-sm'
-              : 'text-stone-500'
+              ? 'bg-amber-600 text-white shadow-[0_0_12px_rgba(245,158,11,0.3)]'
+              : 'text-[#666] hover:text-[#a0a0a0]'
           )}
         >
           Sign Up
@@ -136,17 +138,17 @@ export default function LoginPage() {
       <button
         onClick={handleGoogle}
         disabled={submitting}
-        className="w-full flex items-center justify-center gap-3 py-3 border border-stone-200 rounded-xl
-                   font-medium text-sm text-stone-700 hover:bg-stone-50 disabled:opacity-50 transition-colors mb-4"
+        className="w-full flex items-center justify-center gap-3 py-3 border border-white/[0.1] rounded-xl
+                   font-medium text-sm text-[#d4d4d4] bg-white/[0.05] hover:bg-white/[0.08] disabled:opacity-50 transition-all mb-4"
       >
         <FcGoogle className="w-5 h-5" />
         Continue with Google
       </button>
 
       <div className="flex items-center gap-3 mb-4">
-        <div className="flex-1 h-px bg-stone-200" />
-        <span className="text-xs text-stone-400">or</span>
-        <div className="flex-1 h-px bg-stone-200" />
+        <div className="flex-1 h-px bg-white/[0.08]" />
+        <span className="text-xs text-[#666]">or</span>
+        <div className="flex-1 h-px bg-white/[0.08]" />
       </div>
 
       {/* Sign In form */}
@@ -158,8 +160,8 @@ export default function LoginPage() {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Email"
             required
-            className="w-full px-4 py-3 rounded-xl border border-stone-200 text-sm
-                       placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-orange-400"
+            className="w-full px-4 py-3 rounded-xl border border-white/[0.08] bg-white/[0.05] text-sm text-[#f5f5f5]
+                       placeholder:text-[#666] focus:outline-none focus:ring-2 focus:ring-amber-500/50"
           />
           <input
             type="password"
@@ -167,14 +169,14 @@ export default function LoginPage() {
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
             required
-            className="w-full px-4 py-3 rounded-xl border border-stone-200 text-sm
-                       placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-orange-400"
+            className="w-full px-4 py-3 rounded-xl border border-white/[0.08] bg-white/[0.05] text-sm text-[#f5f5f5]
+                       placeholder:text-[#666] focus:outline-none focus:ring-2 focus:ring-amber-500/50"
           />
           <button
             type="submit"
             disabled={submitting}
-            className="w-full py-3.5 bg-orange-500 text-white rounded-xl font-semibold text-sm
-                       hover:bg-orange-600 disabled:opacity-50 transition-colors"
+            className="w-full py-3.5 bg-amber-600 text-white rounded-xl font-semibold text-sm
+                       hover:bg-amber-500 disabled:opacity-50 transition-all shadow-[0_0_20px_rgba(245,158,11,0.15)]"
           >
             {submitting ? 'Signing in...' : 'Sign In'}
           </button>
@@ -190,8 +192,8 @@ export default function LoginPage() {
             onChange={(e) => setName(e.target.value)}
             placeholder="Full name"
             required
-            className="w-full px-4 py-3 rounded-xl border border-stone-200 text-sm
-                       placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-orange-400"
+            className="w-full px-4 py-3 rounded-xl border border-white/[0.08] bg-white/[0.05] text-sm text-[#f5f5f5]
+                       placeholder:text-[#666] focus:outline-none focus:ring-2 focus:ring-amber-500/50"
           />
           <input
             type="email"
@@ -199,8 +201,8 @@ export default function LoginPage() {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Email"
             required
-            className="w-full px-4 py-3 rounded-xl border border-stone-200 text-sm
-                       placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-orange-400"
+            className="w-full px-4 py-3 rounded-xl border border-white/[0.08] bg-white/[0.05] text-sm text-[#f5f5f5]
+                       placeholder:text-[#666] focus:outline-none focus:ring-2 focus:ring-amber-500/50"
           />
           <input
             type="password"
@@ -209,22 +211,22 @@ export default function LoginPage() {
             placeholder="Password (min 6 characters)"
             required
             minLength={6}
-            className="w-full px-4 py-3 rounded-xl border border-stone-200 text-sm
-                       placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-orange-400"
+            className="w-full px-4 py-3 rounded-xl border border-white/[0.08] bg-white/[0.05] text-sm text-[#f5f5f5]
+                       placeholder:text-[#666] focus:outline-none focus:ring-2 focus:ring-amber-500/50"
           />
 
           {/* Dietary preferences */}
           <div>
-            <label className="block text-sm font-semibold text-stone-700 mb-2">
+            <label className="block text-sm font-semibold text-[#a0a0a0] mb-2">
               Dietary preferences{' '}
-              <span className="font-normal text-stone-400">(optional)</span>
+              <span className="font-normal text-[#666]">(optional)</span>
             </label>
             {dietaryPrefs.length > 0 && (
-              <p className="text-xs text-orange-600 mb-2">
+              <p className="text-xs text-amber-400 mb-2">
                 {dietaryPrefs.length} selected
               </p>
             )}
-            <div className="space-y-2 max-h-64 overflow-y-auto rounded-xl border border-stone-200 p-2">
+            <div className="space-y-2 max-h-64 overflow-y-auto rounded-xl border border-white/[0.08] bg-white/[0.03] p-2">
               {CATEGORIES.map((cat) => {
                 const conditions = DIETARY_CONDITIONS.filter((c) => c.category === cat);
                 const isExpanded = expandedCat === cat;
@@ -237,22 +239,22 @@ export default function LoginPage() {
                     <button
                       type="button"
                       onClick={() => setExpandedCat(isExpanded ? null : cat)}
-                      className="w-full flex items-center justify-between px-3 py-2 text-sm hover:bg-stone-50 rounded-lg"
+                      className="w-full flex items-center justify-between px-3 py-2 text-sm hover:bg-white/[0.05] rounded-lg transition-colors"
                     >
                       <span className="flex items-center gap-2">
                         <span>{DIETARY_CATEGORY_ICONS[cat]}</span>
-                        <span className="font-medium text-stone-700">
+                        <span className="font-medium text-[#d4d4d4]">
                           {DIETARY_CATEGORY_LABELS[cat]}
                         </span>
                         {selectedCount > 0 && (
-                          <span className="bg-orange-500 text-white text-xs px-1.5 py-0.5 rounded-full">
+                          <span className="bg-amber-600 text-white text-xs px-1.5 py-0.5 rounded-full">
                             {selectedCount}
                           </span>
                         )}
                       </span>
                       <HiChevronDown
                         className={clsx(
-                          'w-4 h-4 text-stone-400 transition-transform',
+                          'w-4 h-4 text-[#666] transition-transform',
                           isExpanded && 'rotate-180'
                         )}
                       />
@@ -265,10 +267,10 @@ export default function LoginPage() {
                             type="button"
                             onClick={() => toggleDietary(c.id)}
                             className={clsx(
-                              'text-left px-3 py-1.5 rounded-lg text-xs transition-colors',
+                              'text-left px-3 py-1.5 rounded-lg text-xs transition-all',
                               dietaryPrefs.includes(c.id)
-                                ? 'bg-orange-100 text-orange-700 font-medium'
-                                : 'text-stone-600 hover:bg-stone-50'
+                                ? 'bg-amber-500/15 text-amber-300 font-medium'
+                                : 'text-[#a0a0a0] hover:bg-white/[0.05]'
                             )}
                           >
                             {c.label}
@@ -285,8 +287,8 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={submitting}
-            className="w-full py-3.5 bg-orange-500 text-white rounded-xl font-semibold text-sm
-                       hover:bg-orange-600 disabled:opacity-50 transition-colors"
+            className="w-full py-3.5 bg-amber-600 text-white rounded-xl font-semibold text-sm
+                       hover:bg-amber-500 disabled:opacity-50 transition-all shadow-[0_0_20px_rgba(245,158,11,0.15)]"
           >
             {submitting ? 'Creating account...' : 'Create Account'}
           </button>

@@ -31,8 +31,10 @@ export default function TimePage() {
 
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-bold text-stone-900 mb-1">How much time do you have?</h1>
-          <p className="text-stone-500 text-sm">
+          <h1 className="text-2xl font-bold text-[#f5f5f5] font-[family-name:var(--font-serif)] mb-1">
+            How much time do you have?
+          </h1>
+          <p className="text-[#a0a0a0] text-sm">
             Select your available cooking time. We&apos;ll find recipes that fit.
           </p>
         </div>
@@ -45,15 +47,15 @@ export default function TimePage() {
               className={clsx(
                 'flex flex-col items-center gap-2 p-6 rounded-xl border-2 transition-all',
                 timeRange === range.value
-                  ? 'border-orange-500 bg-orange-50 shadow-sm'
-                  : 'border-stone-200 bg-white hover:border-orange-300 hover:bg-orange-50/50'
+                  ? 'border-amber-500/50 bg-amber-500/10 shadow-[0_0_20px_rgba(245,158,11,0.15)]'
+                  : 'border-white/[0.08] bg-white/[0.05] hover:border-amber-500/30 hover:bg-amber-500/[0.05]'
               )}
             >
               <span className="text-3xl">{range.icon}</span>
               <span
                 className={clsx(
                   'font-semibold text-sm',
-                  timeRange === range.value ? 'text-orange-700' : 'text-stone-700'
+                  timeRange === range.value ? 'text-amber-300' : 'text-[#d4d4d4]'
                 )}
               >
                 {range.label}
@@ -65,17 +67,17 @@ export default function TimePage() {
         <div className="flex gap-3">
           <button
             onClick={() => router.push('/dietary')}
-            className="flex-1 py-3.5 border border-stone-200 text-stone-600 rounded-xl font-semibold text-sm
-                       hover:bg-stone-50 transition-colors"
+            className="flex-1 py-3.5 border border-white/[0.1] text-[#a0a0a0] rounded-xl font-semibold text-sm
+                       hover:bg-white/[0.05] transition-all"
           >
             Back
           </button>
           <button
             onClick={handleGenerate}
             disabled={!timeRange}
-            className="flex-[2] py-3.5 bg-orange-500 text-white rounded-xl font-semibold text-sm
-                       hover:bg-orange-600 disabled:opacity-40 disabled:cursor-not-allowed
-                       transition-colors shadow-sm"
+            className="flex-[2] py-3.5 bg-amber-600 text-white rounded-xl font-semibold text-sm
+                       hover:bg-amber-500 disabled:opacity-40 disabled:cursor-not-allowed
+                       transition-all shadow-[0_0_20px_rgba(245,158,11,0.15)]"
           >
             Generate Recipes
           </button>
