@@ -14,13 +14,8 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (loading) return;
     const isPublic = PUBLIC_PATHS.includes(pathname);
-
-    if (!user && !isPublic) {
-      router.replace('/login');
-    }
-    if (user && isPublic) {
-      router.replace('/');
-    }
+    if (!user && !isPublic) router.replace('/login');
+    if (user && isPublic) router.replace('/');
   }, [user, loading, pathname, router]);
 
   if (loading) {
@@ -28,7 +23,7 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="flex flex-col items-center gap-3">
           <div className="text-4xl animate-pulse-soft">🍳</div>
-          <p className="text-sm text-[#666]">Loading...</p>
+          <p className="text-sm text-[#a89f94]">Loading...</p>
         </div>
       </div>
     );

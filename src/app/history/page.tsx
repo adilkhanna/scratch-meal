@@ -9,59 +9,27 @@ import clsx from 'clsx';
 import { format } from 'date-fns';
 
 export default function HistoryPage() {
-  const { value: history, setValue: setHistory, isLoaded } = useLocalStorage<Recipe[]>(
-    'smm-history',
-    []
-  );
-  const [filters, setFilters] = useState<RecipeFilter>({
-    favoritesOnly: false,
-    minRating: 0,
-    searchQuery: '',
-  });
+  const { value: history, setValue: setHistory, isLoaded } = useLocalStorage<Recipe[]>('smm-history', []);
+  const [filters, setFilters] = useState<RecipeFilter>({ favoritesOnly: false, minRating: 0, searchQuery: '' });
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
 
   const filteredRecipes = useMemo(() => {
     return history.filter((r) => {
       if (filters.favoritesOnly && !r.isFavorite) return false;
       if (filters.minRating > 0 && r.rating < filters.minRating) return false;
-      if (
-        filters.searchQuery &&
-        !r.name.toLowerCase().includes(filters.searchQuery.toLowerCase()) &&
-        !r.searchedIngredients.some((i) =>
-          i.toLowerCase().includes(filters.searchQuery.toLowerCase())
-        )
-      )
-        return false;
+      if (filters.searchQuery && !r.name.toLowerCase().includes(filters.searchQuery.toLowerCase()) && !r.searchedIngredients.some((i) => i.toLowerCase().includes(filters.searchQuery.toLowerCase()))) return false;
       return true;
     });
   }, [history, filters]);
 
-  const updateRecipe = (id: string, updates: Partial<Recipe>) => {
-    setHistory((prev: Recipe[]) =>
-      prev.map((r: Recipe) => (r.id === id ? { ...r, ...updates } : r))
-    );
-  };
+  const updateRecipe = (id: string, updates: Partial<Recipe>) => { setHistory((prev: Recipe[]) => prev.map((r: Recipe) => (r.id === id ? { ...r, ...updates } : r))); };
+  const deleteRecipe = (id: string) => { setHistory((prev: Recipe[]) => prev.filter((r: Recipe) => r.id !== id)); setDeleteConfirm(null); };
 
-  const deleteRecipe = (id: string) => {
-    setHistory((prev: Recipe[]) => prev.filter((r: Recipe) => r.id !== id));
-    setDeleteConfirm(null);
-  };
-
-  // Group recipes by date
   const groupedRecipes = useMemo(() => {
     const groups: { date: string; recipes: Recipe[] }[] = [];
     const dateMap = new Map<string, Recipe[]>();
-
-    filteredRecipes.forEach((r) => {
-      const dateKey = format(new Date(r.createdAt), 'MMM d, yyyy');
-      if (!dateMap.has(dateKey)) dateMap.set(dateKey, []);
-      dateMap.get(dateKey)!.push(r);
-    });
-
-    dateMap.forEach((recipes, date) => {
-      groups.push({ date, recipes });
-    });
-
+    filteredRecipes.forEach((r) => { const dateKey = format(new Date(r.createdAt), 'MMM d, yyyy'); if (!dateMap.has(dateKey)) dateMap.set(dateKey, []); dateMap.get(dateKey)!.push(r); });
+    dateMap.forEach((recipes, date) => { groups.push({ date, recipes }); });
     return groups;
   }, [filteredRecipes]);
 
@@ -71,117 +39,47 @@ export default function HistoryPage() {
     <div className="animate-fade-in py-6">
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-bold text-[#f5f5f5] font-[family-name:var(--font-serif)] mb-1">
-            My Past Recipes
-          </h1>
-          <p className="text-[#a0a0a0] text-sm">
-            {history.length === 0
-              ? 'No recipes yet. Start a new search to get cooking!'
-              : `${history.length} recipes saved`}
-          </p>
+          <h1 className="text-2xl font-bold text-[#2d2d2a] font-[family-name:var(--font-serif)] mb-1">My Past Recipes</h1>
+          <p className="text-[#7a7568] text-sm">{history.length === 0 ? 'No recipes yet. Start a new search to get cooking!' : `${history.length} recipes saved`}</p>
         </div>
-
         {history.length > 0 && (
           <>
-            {/* Search */}
             <div className="relative">
-              <HiSearch className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#666]" />
-              <input
-                type="text"
-                value={filters.searchQuery}
-                onChange={(e) =>
-                  setFilters((f) => ({ ...f, searchQuery: e.target.value }))
-                }
-                placeholder="Search recipes or ingredients..."
-                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-white/[0.08] bg-white/[0.05] text-sm text-[#f5f5f5]
-                           placeholder:text-[#666] focus:outline-none focus:ring-2 focus:ring-amber-500/50"
-              />
+              <HiSearch className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#a89f94]" />
+              <input type="text" value={filters.searchQuery} onChange={(e) => setFilters((f) => ({ ...f, searchQuery: e.target.value }))} placeholder="Search recipes or ingredients..."
+                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-cream-200 bg-white text-sm text-[#2d2d2a] placeholder:text-[#a89f94] focus:outline-none focus:ring-2 focus:ring-olive-500/30" />
             </div>
-
-            {/* Filters */}
             <div className="flex gap-2 flex-wrap">
-              <button
-                onClick={() =>
-                  setFilters((f) => ({ ...f, favoritesOnly: !f.favoritesOnly }))
-                }
-                className={clsx(
-                  'flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-all',
-                  filters.favoritesOnly
-                    ? 'bg-red-500/15 border-red-500/25 text-red-400'
-                    : 'border-white/[0.1] text-[#666] hover:bg-white/[0.05]'
-                )}
-              >
-                <HiHeart className="w-3.5 h-3.5" />
-                Favorites
+              <button onClick={() => setFilters((f) => ({ ...f, favoritesOnly: !f.favoritesOnly }))}
+                className={clsx('flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-colors', filters.favoritesOnly ? 'bg-red-50 border-red-200 text-red-600' : 'border-cream-200 text-[#a89f94] hover:bg-cream-50')}>
+                <HiHeart className="w-3.5 h-3.5" />Favorites
               </button>
               {[3, 4, 5].map((rating) => (
-                <button
-                  key={rating}
-                  onClick={() =>
-                    setFilters((f) => ({
-                      ...f,
-                      minRating: f.minRating === rating ? 0 : rating,
-                    }))
-                  }
-                  className={clsx(
-                    'flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-medium border transition-all',
-                    filters.minRating === rating
-                      ? 'bg-amber-500/15 border-amber-500/25 text-amber-400'
-                      : 'border-white/[0.1] text-[#666] hover:bg-white/[0.05]'
-                  )}
-                >
-                  <HiStar className="w-3.5 h-3.5" />
-                  {rating}+
+                <button key={rating} onClick={() => setFilters((f) => ({ ...f, minRating: f.minRating === rating ? 0 : rating }))}
+                  className={clsx('flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-medium border transition-colors', filters.minRating === rating ? 'bg-amber-50 border-amber-200 text-amber-600' : 'border-cream-200 text-[#a89f94] hover:bg-cream-50')}>
+                  <HiStar className="w-3.5 h-3.5" />{rating}+
                 </button>
               ))}
             </div>
-
-            {/* Recipe list */}
             {groupedRecipes.length === 0 ? (
-              <div className="text-center py-12">
-                <p className="text-[#666] text-sm">No recipes match your filters.</p>
-              </div>
+              <div className="text-center py-12"><p className="text-[#a89f94] text-sm">No recipes match your filters.</p></div>
             ) : (
               <div className="space-y-6">
                 {groupedRecipes.map((group) => (
                   <div key={group.date}>
-                    <h3 className="text-xs font-semibold text-[#666] uppercase tracking-wider mb-3">
-                      {group.date}
-                    </h3>
+                    <h3 className="text-xs font-semibold text-[#a89f94] uppercase tracking-wider mb-3">{group.date}</h3>
                     <div className="space-y-3">
                       {group.recipes.map((recipe) => (
                         <div key={recipe.id} className="relative group">
-                          <RecipeCard
-                            recipe={recipe}
-                            onRate={(rating) => updateRecipe(recipe.id, { rating })}
-                            onToggleFavorite={() =>
-                              updateRecipe(recipe.id, { isFavorite: !recipe.isFavorite })
-                            }
-                          />
-                          {/* Delete button */}
+                          <RecipeCard recipe={recipe} onRate={(rating) => updateRecipe(recipe.id, { rating })} onToggleFavorite={() => updateRecipe(recipe.id, { isFavorite: !recipe.isFavorite })} />
                           <div className="absolute top-3 right-14">
                             {deleteConfirm === recipe.id ? (
-                              <div className="flex items-center gap-1 bg-[#252525] border border-red-500/20 rounded-lg p-1 shadow-2xl shadow-black/40 animate-fade-in">
-                                <button
-                                  onClick={() => deleteRecipe(recipe.id)}
-                                  className="text-xs text-red-400 font-medium px-2 py-1 hover:bg-red-500/15 rounded"
-                                >
-                                  Delete
-                                </button>
-                                <button
-                                  onClick={() => setDeleteConfirm(null)}
-                                  className="text-xs text-[#666] px-2 py-1 hover:bg-white/[0.05] rounded"
-                                >
-                                  Cancel
-                                </button>
+                              <div className="flex items-center gap-1 bg-white border border-red-200 rounded-lg p-1 shadow-lg animate-fade-in">
+                                <button onClick={() => deleteRecipe(recipe.id)} className="text-xs text-red-600 font-medium px-2 py-1 hover:bg-red-50 rounded">Delete</button>
+                                <button onClick={() => setDeleteConfirm(null)} className="text-xs text-[#a89f94] px-2 py-1 hover:bg-cream-50 rounded">Cancel</button>
                               </div>
                             ) : (
-                              <button
-                                onClick={() => setDeleteConfirm(recipe.id)}
-                                className="p-1.5 text-[#666] hover:text-red-400 opacity-0 group-hover:opacity-100 transition-all"
-                              >
-                                <HiTrash className="w-4 h-4" />
-                              </button>
+                              <button onClick={() => setDeleteConfirm(recipe.id)} className="p-1.5 text-cream-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-all"><HiTrash className="w-4 h-4" /></button>
                             )}
                           </div>
                         </div>
@@ -193,17 +91,11 @@ export default function HistoryPage() {
             )}
           </>
         )}
-
         {history.length === 0 && (
           <div className="text-center py-16">
             <div className="text-5xl mb-4">📖</div>
-            <p className="text-[#a0a0a0] text-sm mb-4">Your recipe history will appear here.</p>
-            <a
-              href="/"
-              className="inline-block px-6 py-2.5 bg-amber-600 text-white rounded-xl text-sm font-semibold hover:bg-amber-500 transition-all shadow-[0_0_20px_rgba(245,158,11,0.15)]"
-            >
-              Start Cooking
-            </a>
+            <p className="text-[#7a7568] text-sm mb-4">Your recipe history will appear here.</p>
+            <a href="/" className="inline-block px-6 py-2.5 bg-olive-600 text-white rounded-xl text-sm font-semibold hover:bg-olive-700 transition-colors">Start Cooking</a>
           </div>
         )}
       </div>
