@@ -51,7 +51,7 @@ export default function AdminPage() {
 
   if (authLoading || loadingData) return (
     <div className="flex items-center justify-center min-h-[60vh]">
-      <div className="flex flex-col items-center gap-3"><div className="text-4xl animate-pulse-soft">🔧</div><p className="text-sm text-[#a89f94]">Loading admin panel...</p></div>
+      <div className="flex flex-col items-center gap-3"><div className="text-4xl animate-pulse-soft">🔧</div><p className="text-sm text-neutral-400 font-light">Loading admin panel...</p></div>
     </div>
   );
   if (!isAdmin) return null;
@@ -60,47 +60,47 @@ export default function AdminPage() {
     <div className="animate-fade-in py-6">
       <div className="space-y-8">
         <div className="flex items-center gap-3">
-          <HiOutlineShieldCheck className="w-7 h-7 text-olive-600" />
+          <HiOutlineShieldCheck className="w-7 h-7 text-neutral-500" />
           <div>
-            <h1 className="text-2xl font-bold text-[#2d2d2a] font-[family-name:var(--font-serif)]">Admin Panel</h1>
-            <p className="text-[#7a7568] text-sm">Manage API keys, Google Sheets, and view users.</p>
+            <h1 className="text-3xl sm:text-4xl font-[family-name:var(--font-display)] text-neutral-900">Admin Panel</h1>
+            <p className="text-neutral-500 text-sm font-light">Manage API keys, Google Sheets, and view users.</p>
           </div>
         </div>
-        <div className="border border-cream-200 rounded-xl bg-white p-5 space-y-4">
-          <div className="flex items-center gap-2"><HiOutlineKey className="w-5 h-5 text-olive-600" /><h2 className="font-semibold text-[#2d2d2a]">OpenAI API Key</h2></div>
-          <p className="text-xs text-[#a89f94]">This key is used server-side by Cloud Functions. Users never see it.</p>
+        <div className="border border-neutral-200 rounded-2xl bg-white p-5 space-y-4">
+          <div className="flex items-center gap-2"><HiOutlineKey className="w-5 h-5 text-neutral-500" /><h2 className="text-xs font-medium uppercase tracking-widest text-neutral-900">OpenAI API Key</h2></div>
+          <p className="text-xs text-neutral-400 font-light">This key is used server-side by Cloud Functions. Users never see it.</p>
           {savedApiKey && (
             <div className="flex items-center gap-2 bg-green-50 border border-green-200 rounded-lg px-3 py-2">
               <div className="w-2 h-2 bg-green-500 rounded-full" /><span className="text-sm text-green-700 font-medium">Key configured</span>
-              <code className="ml-auto text-xs text-[#7a7568] font-mono">{showKey ? savedApiKey : maskedKey}</code>
-              <button onClick={() => setShowKey(!showKey)} className="p-1 text-[#a89f94] hover:text-[#5a5347] transition-colors">{showKey ? <HiEyeOff className="w-4 h-4" /> : <HiEye className="w-4 h-4" />}</button>
+              <code className="ml-auto text-xs text-neutral-500 font-mono">{showKey ? savedApiKey : maskedKey}</code>
+              <button onClick={() => setShowKey(!showKey)} className="p-1 text-neutral-400 hover:text-neutral-700 transition-colors">{showKey ? <HiEyeOff className="w-4 h-4" /> : <HiEye className="w-4 h-4" />}</button>
             </div>
           )}
-          <input type="password" value={apiKey} onChange={(e) => setApiKey(e.target.value)} placeholder="sk-..." className="w-full px-3 py-2.5 rounded-lg border border-cream-200 bg-white text-sm font-mono text-[#2d2d2a] placeholder:text-[#a89f94] focus:outline-none focus:ring-2 focus:ring-olive-500/30" />
+          <input type="password" value={apiKey} onChange={(e) => setApiKey(e.target.value)} placeholder="sk-..." className="w-full px-4 py-2.5 rounded-xl border border-neutral-200 bg-white text-sm font-mono text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900/10" />
         </div>
-        <div className="border border-cream-200 rounded-xl bg-white p-5 space-y-4">
-          <h2 className="font-semibold text-[#2d2d2a]">Google Sheets Integration</h2>
-          <p className="text-xs text-[#a89f94]">User sign-up data gets automatically pushed to a Google Sheet.</p>
-          <div><label className="block text-xs font-medium text-[#7a7568] mb-1">Spreadsheet ID</label><input type="text" value={sheetsId} onChange={(e) => setSheetsId(e.target.value)} placeholder="e.g. 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms" className="w-full px-3 py-2.5 rounded-lg border border-cream-200 bg-white text-sm font-mono text-[#2d2d2a] placeholder:text-[#a89f94] focus:outline-none focus:ring-2 focus:ring-olive-500/30" /></div>
-          <div><label className="block text-xs font-medium text-[#7a7568] mb-1">Service Account Email</label><input type="email" value={serviceEmail} onChange={(e) => setServiceEmail(e.target.value)} placeholder="smm@project.iam.gserviceaccount.com" className="w-full px-3 py-2.5 rounded-lg border border-cream-200 bg-white text-sm text-[#2d2d2a] placeholder:text-[#a89f94] focus:outline-none focus:ring-2 focus:ring-olive-500/30" /></div>
-          <div><label className="block text-xs font-medium text-[#7a7568] mb-1">Service Account Private Key</label><textarea value={privateKey} onChange={(e) => setPrivateKey(e.target.value)} placeholder="-----BEGIN PRIVATE KEY-----\n..." rows={3} className="w-full px-3 py-2.5 rounded-lg border border-cream-200 bg-white text-sm font-mono text-[#2d2d2a] placeholder:text-[#a89f94] focus:outline-none focus:ring-2 focus:ring-olive-500/30 resize-none" /></div>
+        <div className="border border-neutral-200 rounded-2xl bg-white p-5 space-y-4">
+          <h2 className="text-xs font-medium uppercase tracking-widest text-neutral-900">Google Sheets Integration</h2>
+          <p className="text-xs text-neutral-400 font-light">User sign-up data gets automatically pushed to a Google Sheet.</p>
+          <div><label className="block text-[10px] font-medium uppercase tracking-widest text-neutral-400 mb-1">Spreadsheet ID</label><input type="text" value={sheetsId} onChange={(e) => setSheetsId(e.target.value)} placeholder="e.g. 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms" className="w-full px-4 py-2.5 rounded-xl border border-neutral-200 bg-white text-sm font-mono text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900/10" /></div>
+          <div><label className="block text-[10px] font-medium uppercase tracking-widest text-neutral-400 mb-1">Service Account Email</label><input type="email" value={serviceEmail} onChange={(e) => setServiceEmail(e.target.value)} placeholder="smm@project.iam.gserviceaccount.com" className="w-full px-4 py-2.5 rounded-xl border border-neutral-200 bg-white text-sm text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900/10" /></div>
+          <div><label className="block text-[10px] font-medium uppercase tracking-widest text-neutral-400 mb-1">Service Account Private Key</label><textarea value={privateKey} onChange={(e) => setPrivateKey(e.target.value)} placeholder="-----BEGIN PRIVATE KEY-----\n..." rows={3} className="w-full px-4 py-2.5 rounded-xl border border-neutral-200 bg-white text-sm font-mono text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900/10 resize-none" /></div>
         </div>
-        <button onClick={handleSave} disabled={saving} className="w-full py-3.5 bg-olive-600 text-white rounded-xl font-semibold text-sm hover:bg-olive-700 disabled:opacity-50 transition-colors">{saving ? 'Saving...' : 'Save Configuration'}</button>
-        <div className="border border-cream-200 rounded-xl bg-white p-5 space-y-4">
-          <div className="flex items-center gap-2"><HiOutlineUsers className="w-5 h-5 text-olive-600" /><h2 className="font-semibold text-[#2d2d2a]">Registered Users ({users.length})</h2></div>
-          {users.length === 0 ? <p className="text-sm text-[#a89f94]">No users yet.</p> : (
+        <button onClick={handleSave} disabled={saving} className="w-full py-4 bg-neutral-900 text-white rounded-full font-medium text-xs uppercase tracking-widest hover:bg-neutral-700 disabled:opacity-50 transition-colors">{saving ? 'Saving...' : 'Save Configuration'}</button>
+        <div className="border border-neutral-200 rounded-2xl bg-white p-5 space-y-4">
+          <div className="flex items-center gap-2"><HiOutlineUsers className="w-5 h-5 text-neutral-500" /><h2 className="text-xs font-medium uppercase tracking-widest text-neutral-900">Registered Users ({users.length})</h2></div>
+          {users.length === 0 ? <p className="text-sm text-neutral-400 font-light">No users yet.</p> : (
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
-                <thead><tr className="border-b border-cream-200"><th className="text-left py-2 px-2 font-medium text-[#a89f94]">Name</th><th className="text-left py-2 px-2 font-medium text-[#a89f94]">Email</th><th className="text-left py-2 px-2 font-medium text-[#a89f94]">Dietary Prefs</th><th className="text-left py-2 px-2 font-medium text-[#a89f94]">Joined</th></tr></thead>
+                <thead><tr className="border-b border-neutral-200"><th className="text-left py-2.5 px-2 text-[10px] font-medium uppercase tracking-widest text-neutral-400">Name</th><th className="text-left py-2.5 px-2 text-[10px] font-medium uppercase tracking-widest text-neutral-400">Email</th><th className="text-left py-2.5 px-2 text-[10px] font-medium uppercase tracking-widest text-neutral-400">Dietary Prefs</th><th className="text-left py-2.5 px-2 text-[10px] font-medium uppercase tracking-widest text-neutral-400">Joined</th></tr></thead>
                 <tbody>
                   {users.map((u) => (
-                    <tr key={u.uid} className="border-b border-cream-100">
-                      <td className="py-2.5 px-2 text-[#2d2d2a]">{u.displayName || '—'}</td>
-                      <td className="py-2.5 px-2 text-[#7a7568]">{u.email}</td>
+                    <tr key={u.uid} className="border-b border-neutral-100">
+                      <td className="py-2.5 px-2 text-neutral-900">{u.displayName || '—'}</td>
+                      <td className="py-2.5 px-2 text-neutral-500">{u.email}</td>
                       <td className="py-2.5 px-2">{u.dietaryPreferences.length > 0 ? (
-                        <div className="flex flex-wrap gap-1">{u.dietaryPreferences.slice(0, 3).map((p) => (<span key={p} className="px-2 py-0.5 bg-olive-50 text-olive-600 rounded-full text-xs">{p}</span>))}{u.dietaryPreferences.length > 3 && <span className="text-xs text-[#a89f94]">+{u.dietaryPreferences.length - 3}</span>}</div>
-                      ) : <span className="text-[#a89f94]">None</span>}</td>
-                      <td className="py-2.5 px-2 text-[#7a7568]">{u.createdAt}</td>
+                        <div className="flex flex-wrap gap-1">{u.dietaryPreferences.slice(0, 3).map((p) => (<span key={p} className="px-2 py-0.5 bg-neutral-50 text-neutral-600 rounded-full text-xs">{p}</span>))}{u.dietaryPreferences.length > 3 && <span className="text-xs text-neutral-400">+{u.dietaryPreferences.length - 3}</span>}</div>
+                      ) : <span className="text-neutral-400">None</span>}</td>
+                      <td className="py-2.5 px-2 text-neutral-500">{u.createdAt}</td>
                     </tr>
                   ))}
                 </tbody>

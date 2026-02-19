@@ -59,23 +59,23 @@ export default function ResultsPage() {
       <StepIndicator currentStep={4} />
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-bold text-[#2d2d2a] font-[family-name:var(--font-serif)] mb-1">Your Recipes</h1>
-          <p className="text-[#7a7568] text-sm">{loading ? 'Cooking up some ideas...' : `${recipes.length} recipes from ${ingredients.length} ingredients`}</p>
+          <h1 className="text-3xl sm:text-4xl font-[family-name:var(--font-display)] text-neutral-900 mb-2">Your Recipes</h1>
+          <p className="text-neutral-500 text-sm font-light">{loading ? 'Cooking up some ideas...' : `${recipes.length} recipes from ${ingredients.length} ingredients`}</p>
         </div>
         {loading && (
           <div className="flex flex-col items-center py-16 gap-4">
             <div className="text-5xl animate-pulse-soft">🍳</div>
-            <div className="w-8 h-8 border-3 border-olive-500 border-t-transparent rounded-full" style={{ animation: 'spin 1s linear infinite' }} />
-            <p className="text-sm text-[#7a7568]">Generating recipes with AI...</p>
-            <p className="text-xs text-[#a89f94]">This may take 10-15 seconds</p>
+            <div className="w-8 h-8 border-3 border-neutral-900 border-t-transparent rounded-full" style={{ animation: 'spin 1s linear infinite' }} />
+            <p className="text-sm text-neutral-500 font-light">Generating recipes with AI...</p>
+            <p className="text-xs text-neutral-400">This may take 10-15 seconds</p>
           </div>
         )}
         {error && (
-          <div className="bg-red-50 border border-red-100 rounded-xl p-6 text-center">
+          <div className="bg-red-50 border border-red-100 rounded-2xl p-6 text-center">
             <p className="text-red-600 font-medium text-sm">{error}</p>
             <div className="flex gap-3 justify-center mt-4">
-              <button onClick={handleNewSearch} className="px-4 py-2 bg-white border border-cream-200 rounded-lg text-sm font-medium text-[#7a7568] hover:bg-cream-50">Start Over</button>
-              <button onClick={() => { setError(null); setLoading(true); setHasFetched(false); }} className="px-4 py-2 bg-olive-600 text-white rounded-lg text-sm font-medium hover:bg-olive-700">Retry</button>
+              <button onClick={handleNewSearch} className="px-6 py-2.5 bg-white border border-neutral-200 rounded-full text-xs font-medium uppercase tracking-wider text-neutral-500 hover:bg-neutral-50">Start Over</button>
+              <button onClick={() => { setError(null); setLoading(true); setHasFetched(false); }} className="px-6 py-2.5 bg-neutral-900 text-white rounded-full text-xs font-medium uppercase tracking-wider hover:bg-neutral-700">Retry</button>
             </div>
           </div>
         )}
@@ -86,7 +86,7 @@ export default function ResultsPage() {
             ))}
           </div>
         )}
-        <button onClick={handleNewSearch} className="w-full py-3.5 bg-olive-600 text-white rounded-xl font-semibold text-sm hover:bg-olive-700 transition-colors">Start New Search</button>
+        <button onClick={handleNewSearch} className="w-full py-4 bg-neutral-900 text-white rounded-full font-medium text-xs uppercase tracking-widest hover:bg-neutral-700 transition-colors">Start New Search</button>
       </div>
     </div>
   );

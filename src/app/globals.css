@@ -18,6 +18,19 @@
   --color-cream-300: #d5cdc1;
   --color-cream-400: #bfb5a6;
 
+  --color-neutral-900: #1a1a1a;
+  --color-neutral-700: #3d3d3d;
+  --color-neutral-600: #525252;
+  --color-neutral-500: #6b6b6b;
+  --color-neutral-400: #999999;
+  --color-neutral-300: #c4c4c4;
+  --color-neutral-200: #e5e0d8;
+  --color-neutral-100: #f0ede6;
+  --color-neutral-50: #f5f2eb;
+
+  --color-sage: #7a8c6e;
+  --color-sage-light: #9aaa8e;
+
   --color-green-50: #f0fdf4;
   --color-green-100: #dcfce7;
   --color-green-500: #22c55e;
@@ -36,14 +49,15 @@
 
   --color-white: #ffffff;
 
-  --font-sans: var(--font-inter), "Inter", system-ui, -apple-system, sans-serif;
-  --font-serif: var(--font-playfair), "Playfair Display", Georgia, serif;
+  --font-sans: var(--font-dm-sans), "DM Sans", system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-caprasimo), "Caprasimo", Georgia, serif;
 }
 
 body {
   background-color: #f0ede6;
-  color: #2d2d2a;
+  color: #1a1a1a;
   font-family: var(--font-sans);
+  font-weight: 400;
 }
 
 /* Scrollbar styling */

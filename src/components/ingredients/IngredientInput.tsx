@@ -28,12 +28,12 @@ export default function IngredientInput({ onAdd }: Props) {
         onChange={(e) => setValue(e.target.value)}
         onKeyDown={handleKeyDown}
         placeholder="Type ingredients (comma-separated)..."
-        className="flex-1 px-4 py-3 rounded-xl border border-cream-200 bg-white text-[#2d2d2a] placeholder:text-[#a89f94] focus:outline-none focus:ring-2 focus:ring-olive-500/30 focus:border-olive-400 text-sm transition-all"
+        className="flex-1 px-6 py-3.5 rounded-full border border-neutral-200 bg-white text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900/10 focus:border-neutral-400 text-sm font-light tracking-wide transition-all"
       />
       <button
         onClick={handleSubmit}
         disabled={!value.trim()}
-        className="px-4 py-3 bg-olive-600 text-white rounded-xl font-medium text-sm hover:bg-olive-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors flex items-center gap-1"
+        className="px-6 py-3.5 bg-neutral-900 text-white rounded-full font-medium text-xs uppercase tracking-widest hover:bg-neutral-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors flex items-center gap-1.5"
       >
         <HiPlus className="w-4 h-4" />
         Add

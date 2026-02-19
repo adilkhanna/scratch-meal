@@ -44,19 +44,19 @@ export default function PhotoUpload({ onExtract, isExtracting }: Props) {
         onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
         onDragLeave={() => setDragOver(false)}
         onDrop={handleDrop}
-        className={`relative border-2 border-dashed rounded-2xl p-8 text-center cursor-pointer transition-all ${dragOver ? 'border-olive-500 bg-olive-50' : 'border-cream-300 hover:border-olive-400 hover:bg-cream-50'}`}
+        className={`relative border rounded-2xl p-10 text-center cursor-pointer transition-all ${dragOver ? 'border-neutral-900 bg-neutral-50' : 'border-neutral-200 hover:border-neutral-400 hover:bg-neutral-50/50'}`}
       >
         <input ref={fileInputRef} type="file" accept="image/*" multiple onChange={handleFileChange} className="hidden" />
-        <HiOutlinePhotograph className="w-10 h-10 text-[#a89f94] mx-auto mb-3" />
-        <p className="text-sm font-medium text-[#7a7568]">
-          {isExtracting ? <span className="animate-pulse-soft text-olive-600">Analyzing photos...</span> : 'Drop food photos here or click to browse'}
+        <HiOutlinePhotograph className="w-12 h-12 text-neutral-400 mx-auto mb-4" />
+        <p className="text-xs font-medium uppercase tracking-widest text-neutral-500">
+          {isExtracting ? <span className="animate-pulse-soft text-neutral-900">Analyzing photos...</span> : 'Upload Food Photos'}
         </p>
-        <p className="text-xs text-[#a89f94] mt-1">Supports JPG, PNG. Multiple photos allowed.</p>
+        <p className="text-xs text-neutral-400 mt-2 font-light">Supports JPG, PNG. Multiple photos allowed.</p>
       </div>
       {photos.length > 0 && (
         <div className="flex gap-2 flex-wrap">
           {photos.map((photo) => (
-            <div key={photo.id} className="relative w-20 h-20 rounded-xl overflow-hidden group ring-1 ring-cream-300">
+            <div key={photo.id} className="relative w-20 h-20 rounded-xl overflow-hidden group ring-1 ring-neutral-200">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={photo.url} alt="Food" className="w-full h-full object-cover" />
               <button onClick={(e) => { e.stopPropagation(); removePhoto(photo.id); }} className="absolute top-1 right-1 bg-black/50 text-white rounded-full p-0.5 opacity-0 group-hover:opacity-100 transition-opacity">

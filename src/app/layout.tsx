@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
-import { Inter, Playfair_Display } from 'next/font/google';
+import { DM_Sans, Caprasimo } from 'next/font/google';
 import './globals.css';
 import ClientProviders from '@/components/layout/ClientProviders';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
-const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' });
+const dmSans = DM_Sans({ subsets: ['latin'], variable: '--font-dm-sans', weight: ['300', '400', '500', '700'] });
+const caprasimo = Caprasimo({ subsets: ['latin'], variable: '--font-caprasimo', weight: '400' });
 
 export const metadata: Metadata = {
   title: 'Good Meals Co.',
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
+    <html lang="en" className={`${dmSans.variable} ${caprasimo.variable}`}>
       <body className="antialiased">
         <ClientProviders>{children}</ClientProviders>
       </body>

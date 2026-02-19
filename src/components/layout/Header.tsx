@@ -39,25 +39,22 @@ export default function Header() {
     .toUpperCase();
 
   return (
-    <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b border-cream-200">
-      <div className="max-w-3xl mx-auto px-4 h-16 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2.5 font-bold text-xl">
-          <span className="text-2xl">🍳</span>
-          <span className="hidden sm:inline font-[family-name:var(--font-serif)] text-olive-800 tracking-tight">
-            Good Meals Co.
-          </span>
+    <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b border-neutral-200">
+      <div className="max-w-4xl mx-auto px-6 sm:px-8 h-16 flex items-center justify-between">
+        <Link href="/" className="font-[family-name:var(--font-display)] text-lg sm:text-xl text-neutral-900 tracking-tight">
+          Good Meals Co.
         </Link>
 
-        <div className="hidden md:flex items-center gap-1">
+        <div className="hidden md:flex items-center gap-6">
           {navItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               className={clsx(
-                'px-4 py-2 rounded-lg text-sm font-medium transition-colors',
+                'text-xs font-medium tracking-widest uppercase transition-colors py-5 border-b-2',
                 pathname === item.href
-                  ? 'bg-olive-100 text-olive-800'
-                  : 'text-[#7a7568] hover:text-olive-800 hover:bg-cream-50'
+                  ? 'text-neutral-900 border-neutral-900'
+                  : 'text-neutral-400 border-transparent hover:text-neutral-900'
               )}
             >
               {item.label}
@@ -67,7 +64,7 @@ export default function Header() {
           <div className="relative ml-2" ref={dropdownRef}>
             <button
               onClick={() => setDropdownOpen(!dropdownOpen)}
-              className="w-9 h-9 rounded-full bg-olive-600 text-white flex items-center justify-center text-xs font-bold hover:bg-olive-700 transition-colors"
+              className="w-9 h-9 rounded-full bg-neutral-900 text-white flex items-center justify-center text-xs font-bold hover:bg-neutral-700 transition-colors"
             >
               {user.photoURL ? (
                 // eslint-disable-next-line @next/next/no-img-element
@@ -78,22 +75,22 @@ export default function Header() {
             </button>
 
             {dropdownOpen && (
-              <div className="absolute right-0 mt-2 w-52 bg-white border border-cream-200 rounded-xl shadow-lg shadow-black/5 py-1 animate-fade-in z-50">
-                <div className="px-4 py-2.5 border-b border-cream-200">
-                  <p className="text-sm font-semibold text-[#2d2d2a] truncate">{user.displayName || 'User'}</p>
-                  <p className="text-xs text-[#a89f94] truncate">{user.email}</p>
+              <div className="absolute right-0 mt-2 w-52 bg-white border border-neutral-200 rounded-2xl shadow-lg shadow-black/5 py-1 animate-fade-in z-50">
+                <div className="px-4 py-2.5 border-b border-neutral-200">
+                  <p className="text-sm font-medium text-neutral-900 truncate">{user.displayName || 'User'}</p>
+                  <p className="text-xs text-neutral-400 truncate">{user.email}</p>
                 </div>
-                <Link href="/settings" onClick={() => setDropdownOpen(false)} className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-[#7a7568] hover:bg-cream-50 transition-colors">
+                <Link href="/settings" onClick={() => setDropdownOpen(false)} className="flex items-center gap-2.5 px-4 py-2.5 text-xs uppercase tracking-wider text-neutral-500 hover:bg-neutral-50 transition-colors">
                   <HiOutlineCog className="w-4 h-4" />
                   Settings
                 </Link>
                 {isAdmin && (
-                  <Link href="/admin" onClick={() => setDropdownOpen(false)} className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-olive-700 hover:bg-olive-50 transition-colors">
+                  <Link href="/admin" onClick={() => setDropdownOpen(false)} className="flex items-center gap-2.5 px-4 py-2.5 text-xs uppercase tracking-wider text-neutral-500 hover:bg-neutral-50 transition-colors">
                     <HiOutlineShieldCheck className="w-4 h-4" />
                     Admin Panel
                   </Link>
                 )}
-                <button onClick={() => { setDropdownOpen(false); signOut(); }} className="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors">
+                <button onClick={() => { setDropdownOpen(false); signOut(); }} className="w-full flex items-center gap-2.5 px-4 py-2.5 text-xs uppercase tracking-wider text-red-600 hover:bg-red-50 transition-colors">
                   <HiOutlineLogout className="w-4 h-4" />
                   Sign Out
                 </button>
@@ -102,21 +99,21 @@ export default function Header() {
           </div>
         </div>
 
-        <button onClick={() => setMobileOpen(!mobileOpen)} className="md:hidden p-2 text-[#7a7568] hover:text-[#2d2d2a]">
+        <button onClick={() => setMobileOpen(!mobileOpen)} className="md:hidden p-2 text-neutral-400 hover:text-neutral-900">
           {mobileOpen ? <HiOutlineX size={24} /> : <HiOutlineMenu size={24} />}
         </button>
       </div>
 
       {mobileOpen && (
-        <nav className="md:hidden border-t border-cream-200 bg-white px-4 py-2 animate-fade-in">
+        <nav className="md:hidden border-t border-neutral-200 bg-white px-6 py-3 animate-fade-in space-y-1">
           {navItems.map((item) => (
-            <Link key={item.href} href={item.href} onClick={() => setMobileOpen(false)} className={clsx('block px-4 py-3 rounded-lg text-sm font-medium transition-colors', pathname === item.href ? 'bg-olive-100 text-olive-800' : 'text-[#7a7568] hover:bg-cream-50')}>
+            <Link key={item.href} href={item.href} onClick={() => setMobileOpen(false)} className={clsx('block px-3 py-3 text-xs font-medium tracking-widest uppercase transition-colors', pathname === item.href ? 'text-neutral-900' : 'text-neutral-400 hover:text-neutral-900')}>
               {item.label}
             </Link>
           ))}
-          <Link href="/settings" onClick={() => setMobileOpen(false)} className="block px-4 py-3 rounded-lg text-sm font-medium text-[#7a7568] hover:bg-cream-50">Settings</Link>
-          {isAdmin && <Link href="/admin" onClick={() => setMobileOpen(false)} className="block px-4 py-3 rounded-lg text-sm font-medium text-olive-700 hover:bg-olive-50">Admin Panel</Link>}
-          <button onClick={() => { setMobileOpen(false); signOut(); }} className="w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-red-600 hover:bg-red-50">Sign Out</button>
+          <Link href="/settings" onClick={() => setMobileOpen(false)} className="block px-3 py-3 text-xs font-medium tracking-widest uppercase text-neutral-400 hover:text-neutral-900">Settings</Link>
+          {isAdmin && <Link href="/admin" onClick={() => setMobileOpen(false)} className="block px-3 py-3 text-xs font-medium tracking-widest uppercase text-neutral-400 hover:text-neutral-900">Admin Panel</Link>}
+          <button onClick={() => { setMobileOpen(false); signOut(); }} className="w-full text-left px-3 py-3 text-xs font-medium tracking-widest uppercase text-red-600 hover:bg-red-50">Sign Out</button>
         </nav>
       )}
     </header>

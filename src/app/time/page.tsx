@@ -22,22 +22,22 @@ export default function TimePage() {
       <StepIndicator currentStep={3} />
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-bold text-[#2d2d2a] font-[family-name:var(--font-serif)] mb-1">How much time do you have?</h1>
-          <p className="text-[#7a7568] text-sm">Select your available cooking time. We&apos;ll find recipes that fit.</p>
+          <h1 className="text-3xl sm:text-4xl font-[family-name:var(--font-display)] text-neutral-900 mb-2">How Much Time<br />Do You Have?</h1>
+          <p className="text-neutral-500 text-sm font-light">Select your available cooking time. We&apos;ll find recipes that fit.</p>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
           {TIME_RANGES.map((range) => (
             <button key={range.value} onClick={() => setTimeRange(range.value)}
-              className={clsx('flex flex-col items-center gap-2 p-6 rounded-xl border-2 transition-all',
-                timeRange === range.value ? 'border-olive-500 bg-olive-50 shadow-sm' : 'border-cream-200 bg-white hover:border-olive-300 hover:bg-olive-50/50')}>
+              className={clsx('flex flex-col items-center gap-2 p-6 rounded-2xl border-2 transition-all',
+                timeRange === range.value ? 'border-neutral-900 bg-neutral-50 shadow-sm' : 'border-neutral-200 bg-white hover:border-neutral-400 hover:bg-neutral-50/50')}>
               <span className="text-3xl">{range.icon}</span>
-              <span className={clsx('font-semibold text-sm', timeRange === range.value ? 'text-olive-800' : 'text-[#5a5347]')}>{range.label}</span>
+              <span className={clsx('font-medium text-sm', timeRange === range.value ? 'text-neutral-900' : 'text-neutral-700')}>{range.label}</span>
             </button>
           ))}
         </div>
         <div className="flex gap-3">
-          <button onClick={() => router.push('/dietary')} className="flex-1 py-3.5 border border-cream-200 text-[#7a7568] rounded-xl font-semibold text-sm hover:bg-cream-50 transition-colors">Back</button>
-          <button onClick={handleGenerate} disabled={!timeRange} className="flex-[2] py-3.5 bg-olive-600 text-white rounded-xl font-semibold text-sm hover:bg-olive-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors">Generate Recipes</button>
+          <button onClick={() => router.push('/dietary')} className="flex-1 py-3.5 border border-neutral-200 text-neutral-500 rounded-full font-medium text-xs uppercase tracking-widest hover:bg-neutral-50 transition-colors">Back</button>
+          <button onClick={handleGenerate} disabled={!timeRange} className="flex-[2] py-3.5 bg-neutral-900 text-white rounded-full font-medium text-xs uppercase tracking-widest hover:bg-neutral-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors">Generate Recipes</button>
         </div>
       </div>
     </div>
