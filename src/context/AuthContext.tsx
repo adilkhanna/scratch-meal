@@ -17,6 +17,7 @@ interface AuthContextValue {
   user: User | null;
   loading: boolean;
   isAdmin: boolean;
+  maintenanceMode: boolean;
   signInWithGoogle: () => Promise<void>;
   signInWithEmail: (email: string, password: string) => Promise<void>;
   signUpWithEmail: (
@@ -34,15 +35,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [maintenanceMode, setMaintenanceMode] = useState(false);
 
-  // Check admin status
+  // Check admin status and maintenance mode
   const checkAdmin = useCallback(async (uid: string) => {
     try {
       const adminDoc = await getDoc(doc(db, 'admin-config', 'app'));
-      const adminUids: string[] = adminDoc.data()?.adminUids || [];
+      const data = adminDoc.data();
+      const adminUids: string[] = data?.adminUids || [];
       setIsAdmin(adminUids.includes(uid));
+      setMaintenanceMode(data?.maintenanceMode === true);
     } catch {
       setIsAdmin(false);
+      setMaintenanceMode(false);
     }
   }, []);
 
@@ -53,6 +58,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         await checkAdmin(firebaseUser.uid);
       } else {
         setIsAdmin(false);
+        // Still check maintenance mode for unauthenticated users
+        try {
+          const adminDoc = await getDoc(doc(db, 'admin-config', 'app'));
+          setMaintenanceMode(adminDoc.data()?.maintenanceMode === true);
+        } catch {
+          setMaintenanceMode(false);
+        }
       }
       setLoading(false);
     });
@@ -115,6 +127,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         user,
         loading,
         isAdmin,
+        maintenanceMode,
         signInWithGoogle,
         signInWithEmail,
         signUpWithEmail,

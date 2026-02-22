@@ -5,8 +5,10 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import { useToast } from '@/context/ToastContext';
 import { doc, getDoc, setDoc, collection, getDocs, query, orderBy, limit } from 'firebase/firestore';
-import { db } from '@/lib/firebase';
-import { HiOutlineShieldCheck, HiEye, HiEyeOff, HiOutlineUsers, HiOutlineKey } from 'react-icons/hi';
+import { sendPasswordResetEmail } from 'firebase/auth';
+import { db, auth } from '@/lib/firebase';
+import { deleteUserAccount } from '@/lib/firebase-functions';
+import { HiOutlineShieldCheck, HiEye, HiEyeOff, HiOutlineUsers, HiOutlineKey, HiOutlineTrash, HiOutlineMail } from 'react-icons/hi';
 
 interface UserRecord { uid: string; displayName: string; email: string; dietaryPreferences: string[]; createdAt: string; }
 
@@ -23,10 +25,14 @@ export default function AdminPage() {
   const [users, setUsers] = useState<UserRecord[]>([]);
   const [loadingData, setLoadingData] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [maintenanceMode, setMaintenanceMode] = useState(false);
+  const [deletingUid, setDeletingUid] = useState<string | null>(null);
+  const [resettingUid, setResettingUid] = useState<string | null>(null);
+  const [confirmDeleteUid, setConfirmDeleteUid] = useState<string | null>(null);
 
   const loadConfig = useCallback(async () => {
     try { const configSnap = await getDoc(doc(db, 'admin-config', 'app')); const data = configSnap.data();
-      if (data) { setSavedApiKey(data.openaiApiKey || ''); setApiKey(data.openaiApiKey || ''); setSheetsId(data.googleSheetsId || ''); setServiceEmail(data.googleServiceEmail || ''); setPrivateKey(data.googlePrivateKey || ''); }
+      if (data) { setSavedApiKey(data.openaiApiKey || ''); setApiKey(data.openaiApiKey || ''); setSheetsId(data.googleSheetsId || ''); setServiceEmail(data.googleServiceEmail || ''); setPrivateKey(data.googlePrivateKey || ''); setMaintenanceMode(data.maintenanceMode === true); }
     } catch (err) { console.error('Failed to load admin config:', err); }
   }, []);
 
@@ -45,6 +51,44 @@ export default function AdminPage() {
       setSavedApiKey(apiKey.trim()); addToast('Configuration saved!', 'success');
     } catch (err) { addToast('Failed to save configuration.', 'error'); console.error(err); }
     finally { setSaving(false); }
+  };
+
+  const handlePasswordReset = async (email: string, uid: string) => {
+    setResettingUid(uid);
+    try {
+      await sendPasswordResetEmail(auth, email);
+      addToast(`Password reset email sent to ${email}`, 'success');
+    } catch (err) {
+      addToast(err instanceof Error ? err.message : 'Failed to send reset email', 'error');
+    } finally {
+      setResettingUid(null);
+    }
+  };
+
+  const handleDeleteUser = async (uid: string, displayName: string) => {
+    setDeletingUid(uid);
+    try {
+      await deleteUserAccount(uid);
+      setUsers((prev) => prev.filter((u) => u.uid !== uid));
+      addToast(`User "${displayName || 'Unknown'}" has been deleted.`, 'success');
+    } catch (err) {
+      addToast(err instanceof Error ? err.message : 'Failed to delete user', 'error');
+    } finally {
+      setDeletingUid(null);
+      setConfirmDeleteUid(null);
+    }
+  };
+
+  const handleToggleMaintenance = async () => {
+    const newValue = !maintenanceMode;
+    try {
+      await setDoc(doc(db, 'admin-config', 'app'), { maintenanceMode: newValue }, { merge: true });
+      setMaintenanceMode(newValue);
+      addToast(newValue ? 'Maintenance mode enabled.' : 'Maintenance mode disabled. App is live.', 'success');
+    } catch (err) {
+      addToast('Failed to toggle maintenance mode.', 'error');
+      console.error(err);
+    }
   };
 
   const maskedKey = savedApiKey ? `${savedApiKey.slice(0, 7)}${'*'.repeat(Math.max(0, savedApiKey.length - 11))}${savedApiKey.slice(-4)}` : '';
@@ -66,6 +110,25 @@ export default function AdminPage() {
             <p className="text-neutral-500 text-sm font-light">Manage API keys, Google Sheets, and view users.</p>
           </div>
         </div>
+
+        {/* Maintenance Mode Toggle */}
+        <div className="border border-neutral-200 rounded-2xl bg-white p-5">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className={`w-3 h-3 rounded-full ${maintenanceMode ? 'bg-amber-500 animate-pulse' : 'bg-green-500'}`} />
+              <div>
+                <h2 className="text-xs font-medium uppercase tracking-widest text-neutral-900">Maintenance Mode</h2>
+                <p className="text-xs text-neutral-400 font-light mt-0.5">
+                  {maintenanceMode ? 'App is in maintenance mode. Non-admin users see a maintenance page.' : 'App is live for all users.'}
+                </p>
+              </div>
+            </div>
+            <button onClick={handleToggleMaintenance} className={`relative w-12 h-6 rounded-full transition-colors ${maintenanceMode ? 'bg-amber-500' : 'bg-neutral-300'}`}>
+              <div className={`absolute top-0.5 w-5 h-5 bg-white rounded-full shadow-sm transition-transform ${maintenanceMode ? 'translate-x-6' : 'translate-x-0.5'}`} />
+            </button>
+          </div>
+        </div>
+
         <div className="border border-neutral-200 rounded-2xl bg-white p-5 space-y-4">
           <div className="flex items-center gap-2"><HiOutlineKey className="w-5 h-5 text-neutral-500" /><h2 className="text-xs font-medium uppercase tracking-widest text-neutral-900">OpenAI API Key</h2></div>
           <p className="text-xs text-neutral-400 font-light">This key is used server-side by Cloud Functions. Users never see it.</p>
@@ -86,21 +149,72 @@ export default function AdminPage() {
           <div><label className="block text-[10px] font-medium uppercase tracking-widest text-neutral-400 mb-1">Service Account Private Key</label><textarea value={privateKey} onChange={(e) => setPrivateKey(e.target.value)} placeholder="-----BEGIN PRIVATE KEY-----\n..." rows={3} className="w-full px-4 py-2.5 rounded-xl border border-neutral-200 bg-white text-sm font-mono text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900/10 resize-none" /></div>
         </div>
         <button onClick={handleSave} disabled={saving} className="w-full py-4 bg-neutral-900 text-white rounded-full font-medium text-xs uppercase tracking-widest hover:bg-neutral-700 disabled:opacity-50 transition-colors">{saving ? 'Saving...' : 'Save Configuration'}</button>
+
+        {/* Registered Users */}
         <div className="border border-neutral-200 rounded-2xl bg-white p-5 space-y-4">
           <div className="flex items-center gap-2"><HiOutlineUsers className="w-5 h-5 text-neutral-500" /><h2 className="text-xs font-medium uppercase tracking-widest text-neutral-900">Registered Users ({users.length})</h2></div>
           {users.length === 0 ? <p className="text-sm text-neutral-400 font-light">No users yet.</p> : (
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
-                <thead><tr className="border-b border-neutral-200"><th className="text-left py-2.5 px-2 text-[10px] font-medium uppercase tracking-widest text-neutral-400">Name</th><th className="text-left py-2.5 px-2 text-[10px] font-medium uppercase tracking-widest text-neutral-400">Email</th><th className="text-left py-2.5 px-2 text-[10px] font-medium uppercase tracking-widest text-neutral-400">Dietary Prefs</th><th className="text-left py-2.5 px-2 text-[10px] font-medium uppercase tracking-widest text-neutral-400">Joined</th></tr></thead>
+                <thead>
+                  <tr className="border-b border-neutral-200">
+                    <th className="text-left py-2.5 px-2 text-[10px] font-medium uppercase tracking-widest text-neutral-400">Name</th>
+                    <th className="text-left py-2.5 px-2 text-[10px] font-medium uppercase tracking-widest text-neutral-400">Email</th>
+                    <th className="text-left py-2.5 px-2 text-[10px] font-medium uppercase tracking-widest text-neutral-400 hidden sm:table-cell">Dietary Prefs</th>
+                    <th className="text-left py-2.5 px-2 text-[10px] font-medium uppercase tracking-widest text-neutral-400 hidden sm:table-cell">Joined</th>
+                    <th className="text-right py-2.5 px-2 text-[10px] font-medium uppercase tracking-widest text-neutral-400">Actions</th>
+                  </tr>
+                </thead>
                 <tbody>
                   {users.map((u) => (
                     <tr key={u.uid} className="border-b border-neutral-100">
                       <td className="py-2.5 px-2 text-neutral-900">{u.displayName || '—'}</td>
                       <td className="py-2.5 px-2 text-neutral-500">{u.email}</td>
-                      <td className="py-2.5 px-2">{u.dietaryPreferences.length > 0 ? (
+                      <td className="py-2.5 px-2 hidden sm:table-cell">{u.dietaryPreferences.length > 0 ? (
                         <div className="flex flex-wrap gap-1">{u.dietaryPreferences.slice(0, 3).map((p) => (<span key={p} className="px-2 py-0.5 bg-neutral-50 text-neutral-600 rounded-full text-xs">{p}</span>))}{u.dietaryPreferences.length > 3 && <span className="text-xs text-neutral-400">+{u.dietaryPreferences.length - 3}</span>}</div>
                       ) : <span className="text-neutral-400">None</span>}</td>
-                      <td className="py-2.5 px-2 text-neutral-500">{u.createdAt}</td>
+                      <td className="py-2.5 px-2 text-neutral-500 hidden sm:table-cell">{u.createdAt}</td>
+                      <td className="py-2.5 px-2">
+                        <div className="flex items-center justify-end gap-1">
+                          <button
+                            onClick={() => handlePasswordReset(u.email, u.uid)}
+                            disabled={resettingUid === u.uid}
+                            title="Send password reset email"
+                            className="p-1.5 text-neutral-400 hover:text-neutral-700 hover:bg-neutral-50 rounded-lg transition-colors disabled:opacity-50"
+                          >
+                            {resettingUid === u.uid ? (
+                              <div className="w-4 h-4 border-2 border-neutral-300 border-t-neutral-600 rounded-full animate-spin" />
+                            ) : (
+                              <HiOutlineMail className="w-4 h-4" />
+                            )}
+                          </button>
+                          {confirmDeleteUid === u.uid ? (
+                            <div className="flex items-center gap-1">
+                              <button
+                                onClick={() => handleDeleteUser(u.uid, u.displayName)}
+                                disabled={deletingUid === u.uid}
+                                className="px-2 py-1 text-xs font-medium text-red-600 bg-red-50 border border-red-200 rounded-lg hover:bg-red-100 transition-colors disabled:opacity-50"
+                              >
+                                {deletingUid === u.uid ? 'Deleting...' : 'Confirm'}
+                              </button>
+                              <button
+                                onClick={() => setConfirmDeleteUid(null)}
+                                className="px-2 py-1 text-xs text-neutral-500 hover:text-neutral-700 transition-colors"
+                              >
+                                Cancel
+                              </button>
+                            </div>
+                          ) : (
+                            <button
+                              onClick={() => setConfirmDeleteUid(u.uid)}
+                              title="Delete user"
+                              className="p-1.5 text-neutral-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                            >
+                              <HiOutlineTrash className="w-4 h-4" />
+                            </button>
+                          )}
+                        </div>
+                      </td>
                     </tr>
                   ))}
                 </tbody>

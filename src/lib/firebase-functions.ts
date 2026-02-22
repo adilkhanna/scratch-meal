@@ -23,3 +23,12 @@ export async function generateRecipes(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return (result.data as any).recipes || [];
 }
+
+export async function deleteUserAccount(uid: string): Promise<{ success: boolean }> {
+  const fn = httpsCallable<{ uid: string }, { success: boolean }>(
+    functions,
+    'deleteUser'
+  );
+  const result = await fn({ uid });
+  return result.data;
+}
