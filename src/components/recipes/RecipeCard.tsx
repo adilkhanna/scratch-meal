@@ -2,10 +2,11 @@
 
 import { useState } from 'react';
 import { Recipe } from '@/types';
+import { useToast } from '@/context/ToastContext';
 import StarRating from './StarRating';
 import HeartButton from './HeartButton';
 import clsx from 'clsx';
-import { HiChevronDown, HiClock, HiLightningBolt } from 'react-icons/hi';
+import { HiChevronDown, HiClock, HiLightningBolt, HiOutlineShare } from 'react-icons/hi';
 
 interface Props { recipe: Recipe; onRate: (rating: number) => void; onToggleFavorite: () => void; }
 
@@ -15,8 +16,107 @@ const DIFFICULTY_COLORS = {
   Hard: 'bg-red-50 text-red-700 border border-red-100',
 };
 
+const LABELS = {
+  en: {
+    ingredients: 'Ingredients',
+    instructions: 'Instructions',
+    tips: 'Tips',
+    nutrition: 'Nutrition',
+    serves: 'Serves',
+    calories: 'Calories',
+    protein: 'Protein',
+    carbs: 'Carbs',
+    fat: 'Fat',
+    footer: 'Made with Good Meals Co.',
+  },
+  hi: {
+    ingredients: 'सामग्री',
+    instructions: 'विधि',
+    tips: 'सुझाव',
+    nutrition: 'पोषण',
+    serves: 'परोसें',
+    calories: 'कैलोरी',
+    protein: 'प्रोटीन',
+    carbs: 'कार्ब्स',
+    fat: 'वसा',
+    footer: 'Good Meals Co. द्वारा बनाया गया',
+  },
+};
+
+function formatRecipeText(recipe: Recipe, lang: 'en' | 'hi'): string {
+  const l = LABELS[lang];
+  const lines: string[] = [];
+
+  lines.push(`🍳 ${recipe.name.toUpperCase()}`);
+  lines.push('━━━━━━━━━━━━━━━━');
+  lines.push(`⏱ ${recipe.cookTime} · ${recipe.difficulty}`);
+  lines.push('');
+
+  if (recipe.description) {
+    lines.push(recipe.description);
+    lines.push('');
+  }
+
+  lines.push(`📝 ${l.ingredients}:`);
+  recipe.ingredients.forEach((ing) => {
+    const qty = ing.quantity ? `${ing.quantity}${ing.unit ? ` ${ing.unit}` : ''}` : '';
+    lines.push(`• ${qty ? `${qty} ` : ''}${ing.name}`);
+  });
+  lines.push('');
+
+  lines.push(`👨‍🍳 ${l.instructions}:`);
+  recipe.instructions.forEach((step, i) => {
+    lines.push(`${i + 1}. ${step}`);
+  });
+
+  if (recipe.tips?.length > 0) {
+    lines.push('');
+    lines.push(`💡 ${l.tips}:`);
+    recipe.tips.forEach((tip) => {
+      lines.push(`- ${tip}`);
+    });
+  }
+
+  if (recipe.nutritionInfo) {
+    lines.push('');
+    lines.push(`📊 ${l.nutrition}:`);
+    lines.push(`${l.serves}: ${recipe.nutritionInfo.servings} · ${l.calories}: ${recipe.nutritionInfo.calories} · ${l.protein}: ${recipe.nutritionInfo.protein} · ${l.carbs}: ${recipe.nutritionInfo.carbs} · ${l.fat}: ${recipe.nutritionInfo.fat}`);
+  }
+
+  lines.push('');
+  lines.push(`🔗 ${l.footer}`);
+
+  return lines.join('\n');
+}
+
 export default function RecipeCard({ recipe, onRate, onToggleFavorite }: Props) {
   const [expanded, setExpanded] = useState(false);
+  const [showLangPicker, setShowLangPicker] = useState(false);
+  const { addToast } = useToast();
+
+  const handleShare = async (lang: 'en' | 'hi') => {
+    const text = formatRecipeText(recipe, lang);
+    setShowLangPicker(false);
+
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: recipe.name, text });
+      } else {
+        await navigator.clipboard.writeText(text);
+        addToast('Recipe copied to clipboard!', 'success');
+      }
+    } catch (err) {
+      // User cancelled share or share failed — try clipboard fallback
+      if (err instanceof Error && err.name !== 'AbortError') {
+        try {
+          await navigator.clipboard.writeText(text);
+          addToast('Recipe copied to clipboard!', 'success');
+        } catch {
+          addToast('Failed to share recipe.', 'error');
+        }
+      }
+    }
+  };
 
   return (
     <div className="border border-neutral-200 rounded-2xl bg-white overflow-hidden animate-slide-up hover:shadow-md transition-all">
@@ -38,10 +138,39 @@ export default function RecipeCard({ recipe, onRate, onToggleFavorite }: Props) 
             </div>
           </div>
           <div className="flex flex-col items-end gap-2 shrink-0">
-            <HeartButton isFavorite={recipe.isFavorite} onToggle={onToggleFavorite} />
+            <div className="flex items-center gap-1.5">
+              <button
+                onClick={(e) => { e.stopPropagation(); setShowLangPicker(!showLangPicker); }}
+                className="p-1.5 text-neutral-400 hover:text-neutral-700 hover:bg-neutral-100 rounded-lg transition-colors"
+                title="Share recipe"
+              >
+                <HiOutlineShare className="w-4 h-4" />
+              </button>
+              <HeartButton isFavorite={recipe.isFavorite} onToggle={onToggleFavorite} />
+            </div>
             <HiChevronDown className={clsx('w-5 h-5 text-neutral-400 transition-transform', expanded && 'rotate-180')} />
           </div>
         </div>
+
+        {/* Language picker for share */}
+        {showLangPicker && (
+          <div className="flex items-center gap-2 mt-3 animate-fade-in" onClick={(e) => e.stopPropagation()}>
+            <span className="text-[10px] uppercase tracking-widest text-neutral-400">Share in:</span>
+            <button
+              onClick={() => handleShare('en')}
+              className="px-3 py-1 text-xs font-medium rounded-full border border-neutral-200 text-neutral-700 hover:bg-neutral-900 hover:text-white hover:border-neutral-900 transition-colors"
+            >
+              English
+            </button>
+            <button
+              onClick={() => handleShare('hi')}
+              className="px-3 py-1 text-xs font-medium rounded-full border border-neutral-200 text-neutral-700 hover:bg-neutral-900 hover:text-white hover:border-neutral-900 transition-colors"
+            >
+              हिन्दी
+            </button>
+          </div>
+        )}
+
         <div className="mt-3 flex items-center gap-2">
           <StarRating rating={recipe.rating} onRate={onRate} size="sm" />
           {recipe.rating > 0 && <span className="text-xs text-neutral-400">{recipe.rating}/5</span>}
