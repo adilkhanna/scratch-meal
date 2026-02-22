@@ -82,7 +82,11 @@ export default function AdminPage() {
   const handleToggleMaintenance = async () => {
     const newValue = !maintenanceMode;
     try {
-      await setDoc(doc(db, 'admin-config', 'app'), { maintenanceMode: newValue }, { merge: true });
+      // Write to both admin-config (for admin panel state) and public-config (readable by all users)
+      await Promise.all([
+        setDoc(doc(db, 'admin-config', 'app'), { maintenanceMode: newValue }, { merge: true }),
+        setDoc(doc(db, 'public-config', 'app'), { maintenanceMode: newValue }, { merge: true }),
+      ]);
       setMaintenanceMode(newValue);
       addToast(newValue ? 'Maintenance mode enabled.' : 'Maintenance mode disabled. App is live.', 'success');
     } catch (err) {

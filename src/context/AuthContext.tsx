@@ -64,25 +64,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return unsubscribe;
   }, [checkAdmin]);
 
-  // Real-time listener for maintenance mode (and admin config changes)
+  // Real-time listener for maintenance mode from public-config (readable by everyone)
   useEffect(() => {
     const unsubscribe = onSnapshot(
-      doc(db, 'admin-config', 'app'),
+      doc(db, 'public-config', 'app'),
       (snap) => {
         const data = snap.data();
         setMaintenanceMode(data?.maintenanceMode === true);
-        // Also update admin status if user is logged in
-        if (user) {
-          const adminUids: string[] = data?.adminUids || [];
-          setIsAdmin(adminUids.includes(user.uid));
-        }
       },
       () => {
         setMaintenanceMode(false);
       }
     );
     return unsubscribe;
-  }, [user]);
+  }, []);
 
   // Save user profile to Firestore
   const saveUserProfile = async (

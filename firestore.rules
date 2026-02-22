@@ -9,6 +9,12 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
+    // Public config — anyone can read (used for maintenance mode)
+    match /public-config/{doc} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
     // User profiles
     match /users/{userId} {
       // Users can read their own profile
