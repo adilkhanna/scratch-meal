@@ -10,7 +10,7 @@ import {
   updateProfile,
   signOut as firebaseSignOut,
 } from 'firebase/auth';
-import { doc, setDoc, getDoc, serverTimestamp } from 'firebase/firestore';
+import { doc, setDoc, getDoc, onSnapshot, serverTimestamp } from 'firebase/firestore';
 import { auth, db, googleProvider } from '@/lib/firebase';
 
 interface AuthContextValue {
@@ -58,18 +58,31 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         await checkAdmin(firebaseUser.uid);
       } else {
         setIsAdmin(false);
-        // Still check maintenance mode for unauthenticated users
-        try {
-          const adminDoc = await getDoc(doc(db, 'admin-config', 'app'));
-          setMaintenanceMode(adminDoc.data()?.maintenanceMode === true);
-        } catch {
-          setMaintenanceMode(false);
-        }
       }
       setLoading(false);
     });
     return unsubscribe;
   }, [checkAdmin]);
+
+  // Real-time listener for maintenance mode (and admin config changes)
+  useEffect(() => {
+    const unsubscribe = onSnapshot(
+      doc(db, 'admin-config', 'app'),
+      (snap) => {
+        const data = snap.data();
+        setMaintenanceMode(data?.maintenanceMode === true);
+        // Also update admin status if user is logged in
+        if (user) {
+          const adminUids: string[] = data?.adminUids || [];
+          setIsAdmin(adminUids.includes(user.uid));
+        }
+      },
+      () => {
+        setMaintenanceMode(false);
+      }
+    );
+    return unsubscribe;
+  }, [user]);
 
   // Save user profile to Firestore
   const saveUserProfile = async (
