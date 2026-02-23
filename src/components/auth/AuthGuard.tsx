@@ -63,8 +63,8 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
     );
   }
 
-  // Maintenance mode gate — admins bypass
-  if (maintenanceMode && !isAdmin) {
+  // Maintenance mode gate — admins bypass, unauthenticated users still see login
+  if (maintenanceMode && user && !isAdmin) {
     return <MaintenancePage />;
   }
 
