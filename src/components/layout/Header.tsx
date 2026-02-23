@@ -29,6 +29,7 @@ export default function Header() {
   const navItems = [
     { href: '/', label: 'New Recipe' },
     { href: '/history', label: 'My Recipes' },
+    { href: '/plan', label: 'Meal Plan' },
   ];
 
   const initials = (user.displayName || user.email || '?')

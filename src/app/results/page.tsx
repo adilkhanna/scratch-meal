@@ -3,9 +3,10 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { useRecipeFlow } from '@/context/RecipeFlowContext';
+import { useAuth } from '@/context/AuthContext';
 import { useToast } from '@/context/ToastContext';
-import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { generateRecipes as generateRecipesAI } from '@/lib/firebase-functions';
+import { saveRecipes, updateRecipeInFirestore } from '@/lib/recipe-storage';
 import StepIndicator from '@/components/layout/StepIndicator';
 import RecipeCard from '@/components/recipes/RecipeCard';
 import { Recipe } from '@/types';
@@ -14,8 +15,8 @@ import { DIETARY_CONDITIONS } from '@/config/dietary-conditions';
 export default function ResultsPage() {
   const router = useRouter();
   const { ingredients, dietaryConditions, timeRange, resetFlow } = useRecipeFlow();
+  const { user } = useAuth();
   const { addToast } = useToast();
-  const { value: history, setValue: setHistory } = useLocalStorage<Recipe[]>('smm-history', []);
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -33,12 +34,21 @@ export default function ResultsPage() {
         })
       );
       setRecipes(recipesWithMeta);
-      setHistory((prev: Recipe[]) => [...recipesWithMeta, ...prev]);
-      addToast('Recipes generated and saved to history!', 'success');
+
+      // Save to Firestore
+      if (user?.uid) {
+        try {
+          await saveRecipes(user.uid, recipesWithMeta);
+        } catch (err) {
+          console.error('Failed to save recipes to Firestore:', err);
+        }
+      }
+
+      addToast('Recipes generated and saved!', 'success');
     } catch (err) { setError(err instanceof Error ? err.message : 'Failed to generate recipes'); }
     finally { setLoading(false); }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ingredients, timeRange]);
+  }, [ingredients, timeRange, user?.uid]);
 
   useEffect(() => {
     if (ingredients.length === 0 || !timeRange) { router.replace('/'); return; }
@@ -47,7 +57,10 @@ export default function ResultsPage() {
 
   const updateRecipe = (id: string, updates: Partial<Recipe>) => {
     setRecipes((prev) => prev.map((r) => (r.id === id ? { ...r, ...updates } : r)));
-    setHistory((prev: Recipe[]) => prev.map((r: Recipe) => (r.id === id ? { ...r, ...updates } : r)));
+    // Update in Firestore
+    if (user?.uid) {
+      updateRecipeInFirestore(user.uid, id, updates).catch(console.error);
+    }
   };
 
   const handleNewSearch = () => { resetFlow(); router.push('/'); };

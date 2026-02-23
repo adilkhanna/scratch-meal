@@ -43,6 +43,14 @@ export interface Recipe {
   searchedIngredients: string[];
   dietaryConditions: string[];
   requestedTimeRange: TimeRange;
+  sourceRecipe?: { title: string; sourceUrl: string; spoonacularId: number };
+}
+
+export type DayOfWeek = 'mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat' | 'sun';
+
+export interface MealPlan {
+  weekId: string;
+  days: Record<DayOfWeek, { recipeIds: string[] }>;
 }
 
 export interface RecipeFilter {

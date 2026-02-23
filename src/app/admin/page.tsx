@@ -19,6 +19,9 @@ export default function AdminPage() {
   const [apiKey, setApiKey] = useState('');
   const [savedApiKey, setSavedApiKey] = useState('');
   const [showKey, setShowKey] = useState(false);
+  const [spoonacularKey, setSpoonacularKey] = useState('');
+  const [savedSpoonacularKey, setSavedSpoonacularKey] = useState('');
+  const [showSpoonacularKey, setShowSpoonacularKey] = useState(false);
   const [sheetsId, setSheetsId] = useState('');
   const [serviceEmail, setServiceEmail] = useState('');
   const [privateKey, setPrivateKey] = useState('');
@@ -32,7 +35,7 @@ export default function AdminPage() {
 
   const loadConfig = useCallback(async () => {
     try { const configSnap = await getDoc(doc(db, 'admin-config', 'app')); const data = configSnap.data();
-      if (data) { setSavedApiKey(data.openaiApiKey || ''); setApiKey(data.openaiApiKey || ''); setSheetsId(data.googleSheetsId || ''); setServiceEmail(data.googleServiceEmail || ''); setPrivateKey(data.googlePrivateKey || ''); setMaintenanceMode(data.maintenanceMode === true); }
+      if (data) { setSavedApiKey(data.openaiApiKey || ''); setApiKey(data.openaiApiKey || ''); setSavedSpoonacularKey(data.spoonacularApiKey || ''); setSpoonacularKey(data.spoonacularApiKey || ''); setSheetsId(data.googleSheetsId || ''); setServiceEmail(data.googleServiceEmail || ''); setPrivateKey(data.googlePrivateKey || ''); setMaintenanceMode(data.maintenanceMode === true); }
     } catch (err) { console.error('Failed to load admin config:', err); }
   }, []);
 
@@ -47,8 +50,8 @@ export default function AdminPage() {
 
   const handleSave = async () => {
     setSaving(true);
-    try { await setDoc(doc(db, 'admin-config', 'app'), { openaiApiKey: apiKey.trim(), googleSheetsId: sheetsId.trim(), googleServiceEmail: serviceEmail.trim(), googlePrivateKey: privateKey.trim() }, { merge: true });
-      setSavedApiKey(apiKey.trim()); addToast('Configuration saved!', 'success');
+    try { await setDoc(doc(db, 'admin-config', 'app'), { openaiApiKey: apiKey.trim(), spoonacularApiKey: spoonacularKey.trim(), googleSheetsId: sheetsId.trim(), googleServiceEmail: serviceEmail.trim(), googlePrivateKey: privateKey.trim() }, { merge: true });
+      setSavedApiKey(apiKey.trim()); setSavedSpoonacularKey(spoonacularKey.trim()); addToast('Configuration saved!', 'success');
     } catch (err) { addToast('Failed to save configuration.', 'error'); console.error(err); }
     finally { setSaving(false); }
   };
@@ -96,6 +99,7 @@ export default function AdminPage() {
   };
 
   const maskedKey = savedApiKey ? `${savedApiKey.slice(0, 7)}${'*'.repeat(Math.max(0, savedApiKey.length - 11))}${savedApiKey.slice(-4)}` : '';
+  const maskedSpoonacularKey = savedSpoonacularKey ? `${savedSpoonacularKey.slice(0, 4)}${'*'.repeat(Math.max(0, savedSpoonacularKey.length - 8))}${savedSpoonacularKey.slice(-4)}` : '';
 
   if (authLoading || loadingData) return (
     <div className="flex items-center justify-center min-h-[60vh]">
@@ -144,6 +148,18 @@ export default function AdminPage() {
             </div>
           )}
           <input type="password" value={apiKey} onChange={(e) => setApiKey(e.target.value)} placeholder="sk-..." className="w-full px-4 py-2.5 rounded-xl border border-neutral-200 bg-white text-sm font-mono text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900/10" />
+        </div>
+        <div className="border border-neutral-200 rounded-2xl bg-white p-5 space-y-4">
+          <div className="flex items-center gap-2"><HiOutlineKey className="w-5 h-5 text-neutral-500" /><h2 className="text-xs font-medium uppercase tracking-widest text-neutral-900">Spoonacular API Key</h2></div>
+          <p className="text-xs text-neutral-400 font-light">Used to ground AI recipes in real Spoonacular data (RAG). Optional — falls back to pure GPT-4o if not set.</p>
+          {savedSpoonacularKey && (
+            <div className="flex items-center gap-2 bg-green-50 border border-green-200 rounded-lg px-3 py-2">
+              <div className="w-2 h-2 bg-green-500 rounded-full" /><span className="text-sm text-green-700 font-medium">Key configured</span>
+              <code className="ml-auto text-xs text-neutral-500 font-mono">{showSpoonacularKey ? savedSpoonacularKey : maskedSpoonacularKey}</code>
+              <button onClick={() => setShowSpoonacularKey(!showSpoonacularKey)} className="p-1 text-neutral-400 hover:text-neutral-700 transition-colors">{showSpoonacularKey ? <HiEyeOff className="w-4 h-4" /> : <HiEye className="w-4 h-4" />}</button>
+            </div>
+          )}
+          <input type="password" value={spoonacularKey} onChange={(e) => setSpoonacularKey(e.target.value)} placeholder="Your Spoonacular API key..." className="w-full px-4 py-2.5 rounded-xl border border-neutral-200 bg-white text-sm font-mono text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900/10" />
         </div>
         <div className="border border-neutral-200 rounded-2xl bg-white p-5 space-y-4">
           <h2 className="text-xs font-medium uppercase tracking-widest text-neutral-900">Google Sheets Integration</h2>

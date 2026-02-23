@@ -1,12 +1,19 @@
 'use client';
 
 import { useState } from 'react';
-import { Recipe } from '@/types';
+import { Recipe, DayOfWeek } from '@/types';
+import { useAuth } from '@/context/AuthContext';
 import { useToast } from '@/context/ToastContext';
+import { addRecipeToDay, getWeekId } from '@/lib/meal-plan-storage';
 import StarRating from './StarRating';
 import HeartButton from './HeartButton';
 import clsx from 'clsx';
-import { HiChevronDown, HiClock, HiLightningBolt, HiOutlineShare } from 'react-icons/hi';
+import { HiChevronDown, HiClock, HiLightningBolt, HiOutlineShare, HiOutlineCalendar } from 'react-icons/hi';
+
+const PLAN_DAYS: { key: DayOfWeek; label: string }[] = [
+  { key: 'mon', label: 'Mon' }, { key: 'tue', label: 'Tue' }, { key: 'wed', label: 'Wed' },
+  { key: 'thu', label: 'Thu' }, { key: 'fri', label: 'Fri' }, { key: 'sat', label: 'Sat' }, { key: 'sun', label: 'Sun' },
+];
 
 interface Props { recipe: Recipe; onRate: (rating: number) => void; onToggleFavorite: () => void; }
 
@@ -92,7 +99,22 @@ function formatRecipeText(recipe: Recipe, lang: 'en' | 'hi'): string {
 export default function RecipeCard({ recipe, onRate, onToggleFavorite }: Props) {
   const [expanded, setExpanded] = useState(false);
   const [showLangPicker, setShowLangPicker] = useState(false);
+  const [showDayPicker, setShowDayPicker] = useState(false);
+  const { user } = useAuth();
   const { addToast } = useToast();
+
+  const handleAddToPlan = async (day: DayOfWeek) => {
+    if (!user?.uid) return;
+    setShowDayPicker(false);
+    try {
+      const weekId = getWeekId(new Date());
+      await addRecipeToDay(user.uid, weekId, day, recipe.id);
+      const dayLabel = PLAN_DAYS.find((d) => d.key === day)?.label || day;
+      addToast(`Added to ${dayLabel}!`, 'success');
+    } catch {
+      addToast('Failed to add to plan.', 'error');
+    }
+  };
 
   const handleShare = async (lang: 'en' | 'hi') => {
     const text = formatRecipeText(recipe, lang);
@@ -125,6 +147,14 @@ export default function RecipeCard({ recipe, onRate, onToggleFavorite }: Props) 
           <div className="flex-1 min-w-0">
             <h3 className="font-bold text-neutral-900 text-base">{recipe.name}</h3>
             <p className="text-sm text-neutral-500 mt-1 line-clamp-2 font-light">{recipe.description}</p>
+            {recipe.sourceRecipe && (
+              <p className="text-xs text-neutral-400 mt-1 font-light">
+                Based on &ldquo;{recipe.sourceRecipe.title}&rdquo;
+                {recipe.sourceRecipe.sourceUrl && (
+                  <> &middot; <a href={recipe.sourceRecipe.sourceUrl} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="underline hover:text-neutral-600 transition-colors">View original</a></>
+                )}
+              </p>
+            )}
             <div className="flex items-center gap-3 mt-2.5 flex-wrap">
               <span className="flex items-center gap-1 text-xs text-neutral-400">
                 <HiClock className="w-3.5 h-3.5" />{recipe.cookTime}
@@ -140,7 +170,14 @@ export default function RecipeCard({ recipe, onRate, onToggleFavorite }: Props) 
           <div className="flex flex-col items-end gap-2 shrink-0">
             <div className="flex items-center gap-1.5">
               <button
-                onClick={(e) => { e.stopPropagation(); setShowLangPicker(!showLangPicker); }}
+                onClick={(e) => { e.stopPropagation(); setShowDayPicker(!showDayPicker); setShowLangPicker(false); }}
+                className="p-1.5 text-neutral-400 hover:text-neutral-700 hover:bg-neutral-100 rounded-lg transition-colors"
+                title="Add to meal plan"
+              >
+                <HiOutlineCalendar className="w-4 h-4" />
+              </button>
+              <button
+                onClick={(e) => { e.stopPropagation(); setShowLangPicker(!showLangPicker); setShowDayPicker(false); }}
                 className="p-1.5 text-neutral-400 hover:text-neutral-700 hover:bg-neutral-100 rounded-lg transition-colors"
                 title="Share recipe"
               >
@@ -151,6 +188,22 @@ export default function RecipeCard({ recipe, onRate, onToggleFavorite }: Props) 
             <HiChevronDown className={clsx('w-5 h-5 text-neutral-400 transition-transform', expanded && 'rotate-180')} />
           </div>
         </div>
+
+        {/* Day picker for meal plan */}
+        {showDayPicker && (
+          <div className="flex items-center gap-1.5 mt-3 animate-fade-in flex-wrap" onClick={(e) => e.stopPropagation()}>
+            <span className="text-[10px] uppercase tracking-widest text-neutral-400 mr-1">Add to:</span>
+            {PLAN_DAYS.map((d) => (
+              <button
+                key={d.key}
+                onClick={() => handleAddToPlan(d.key)}
+                className="px-2.5 py-1 text-xs font-medium rounded-full border border-neutral-200 text-neutral-700 hover:bg-neutral-900 hover:text-white hover:border-neutral-900 transition-colors"
+              >
+                {d.label}
+              </button>
+            ))}
+          </div>
+        )}
 
         {/* Language picker for share */}
         {showLangPicker && (

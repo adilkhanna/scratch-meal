@@ -1,7 +1,9 @@
 'use client';
 
-import { useState, useMemo } from 'react';
-import { useLocalStorage } from '@/hooks/useLocalStorage';
+import { useState, useMemo, useEffect, useCallback } from 'react';
+import { useAuth } from '@/context/AuthContext';
+import { useToast } from '@/context/ToastContext';
+import { loadRecipes, updateRecipeInFirestore, deleteRecipeFromFirestore, migrateFromLocalStorage } from '@/lib/recipe-storage';
 import { Recipe, RecipeFilter } from '@/types';
 import RecipeCard from '@/components/recipes/RecipeCard';
 import { HiSearch, HiHeart, HiStar, HiTrash } from 'react-icons/hi';
@@ -9,9 +11,34 @@ import clsx from 'clsx';
 import { format } from 'date-fns';
 
 export default function HistoryPage() {
-  const { value: history, setValue: setHistory, isLoaded } = useLocalStorage<Recipe[]>('smm-history', []);
+  const { user } = useAuth();
+  const { addToast } = useToast();
+  const [history, setHistory] = useState<Recipe[]>([]);
+  const [isLoaded, setIsLoaded] = useState(false);
   const [filters, setFilters] = useState<RecipeFilter>({ favoritesOnly: false, minRating: 0, searchQuery: '' });
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
+
+  const fetchRecipes = useCallback(async () => {
+    if (!user?.uid) return;
+    try {
+      // Migrate localStorage data if any exists
+      const migrated = await migrateFromLocalStorage(user.uid);
+      if (migrated > 0) {
+        addToast(`Migrated ${migrated} recipes to cloud storage!`, 'success');
+      }
+
+      const recipes = await loadRecipes(user.uid);
+      setHistory(recipes);
+    } catch (err) {
+      console.error('Failed to load recipes:', err);
+    } finally {
+      setIsLoaded(true);
+    }
+  }, [user?.uid, addToast]);
+
+  useEffect(() => {
+    fetchRecipes();
+  }, [fetchRecipes]);
 
   const filteredRecipes = useMemo(() => {
     return history.filter((r) => {
@@ -22,8 +49,20 @@ export default function HistoryPage() {
     });
   }, [history, filters]);
 
-  const updateRecipe = (id: string, updates: Partial<Recipe>) => { setHistory((prev: Recipe[]) => prev.map((r: Recipe) => (r.id === id ? { ...r, ...updates } : r))); };
-  const deleteRecipe = (id: string) => { setHistory((prev: Recipe[]) => prev.filter((r: Recipe) => r.id !== id)); setDeleteConfirm(null); };
+  const updateRecipe = (id: string, updates: Partial<Recipe>) => {
+    setHistory((prev) => prev.map((r) => (r.id === id ? { ...r, ...updates } : r)));
+    if (user?.uid) {
+      updateRecipeInFirestore(user.uid, id, updates).catch(console.error);
+    }
+  };
+
+  const deleteRecipe = (id: string) => {
+    setHistory((prev) => prev.filter((r) => r.id !== id));
+    setDeleteConfirm(null);
+    if (user?.uid) {
+      deleteRecipeFromFirestore(user.uid, id).catch(console.error);
+    }
+  };
 
   const groupedRecipes = useMemo(() => {
     const groups: { date: string; recipes: Recipe[] }[] = [];
@@ -33,7 +72,14 @@ export default function HistoryPage() {
     return groups;
   }, [filteredRecipes]);
 
-  if (!isLoaded) return null;
+  if (!isLoaded) return (
+    <div className="flex items-center justify-center min-h-[60vh]">
+      <div className="flex flex-col items-center gap-3">
+        <div className="text-4xl animate-pulse-soft">📖</div>
+        <p className="text-sm text-neutral-400 font-light">Loading recipes...</p>
+      </div>
+    </div>
+  );
 
   return (
     <div className="animate-fade-in py-6">
