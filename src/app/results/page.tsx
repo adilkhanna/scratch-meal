@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import { useRecipeFlow } from '@/context/RecipeFlowContext';
 import { useAuth } from '@/context/AuthContext';
 import { useToast } from '@/context/ToastContext';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
 import { generateRecipes as generateRecipesAI } from '@/lib/firebase-functions';
 import { saveRecipes, updateRecipeInFirestore } from '@/lib/recipe-storage';
 import StepIndicator from '@/components/layout/StepIndicator';
@@ -26,7 +28,24 @@ export default function ResultsPage() {
 
   const generateRecipes = useCallback(async () => {
     try {
-      const rawRecipes = await generateRecipesAI(ingredients, conditionLabels, timeRange!);
+      // Merge pantry basics with user-entered ingredients
+      let allIngredients = [...ingredients];
+      if (user?.uid) {
+        try {
+          const userSnap = await getDoc(doc(db, 'users', user.uid));
+          const pantryBasics: string[] = userSnap.data()?.pantryBasics || [];
+          const lowerSet = new Set(allIngredients.map((i) => i.toLowerCase()));
+          pantryBasics.forEach((b) => {
+            if (!lowerSet.has(b.toLowerCase())) {
+              allIngredients.push(b.toLowerCase());
+            }
+          });
+        } catch {
+          // Pantry fetch failed — continue with user ingredients only
+        }
+      }
+
+      const rawRecipes = await generateRecipesAI(allIngredients, conditionLabels, timeRange!);
       const recipesWithMeta: Recipe[] = (rawRecipes || []).map(
         (r: Omit<Recipe, 'id' | 'rating' | 'isFavorite' | 'createdAt' | 'searchedIngredients' | 'dietaryConditions' | 'requestedTimeRange'>) => ({
           ...r, id: `${Date.now()}-${Math.random().toString(36).slice(2)}`, rating: 0, isFavorite: false,

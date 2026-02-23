@@ -48,9 +48,17 @@ export interface Recipe {
 
 export type DayOfWeek = 'mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat' | 'sun';
 
+export type MealSlot = 'breakfast' | 'lunch' | 'dinner';
+
+export interface DayPlan {
+  breakfast: { recipeIds: string[] };
+  lunch: { recipeIds: string[] };
+  dinner: { recipeIds: string[] };
+}
+
 export interface MealPlan {
   weekId: string;
-  days: Record<DayOfWeek, { recipeIds: string[] }>;
+  days: Record<DayOfWeek, DayPlan>;
 }
 
 export interface RecipeFilter {

@@ -1,10 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import { Recipe, DayOfWeek } from '@/types';
+import { Recipe, DayOfWeek, MealSlot } from '@/types';
 import { useAuth } from '@/context/AuthContext';
 import { useToast } from '@/context/ToastContext';
-import { addRecipeToDay, getWeekId } from '@/lib/meal-plan-storage';
+import { addRecipeToSlot, getWeekId } from '@/lib/meal-plan-storage';
 import StarRating from './StarRating';
 import HeartButton from './HeartButton';
 import clsx from 'clsx';
@@ -13,6 +13,12 @@ import { HiChevronDown, HiClock, HiLightningBolt, HiOutlineShare, HiOutlineCalen
 const PLAN_DAYS: { key: DayOfWeek; label: string }[] = [
   { key: 'mon', label: 'Mon' }, { key: 'tue', label: 'Tue' }, { key: 'wed', label: 'Wed' },
   { key: 'thu', label: 'Thu' }, { key: 'fri', label: 'Fri' }, { key: 'sat', label: 'Sat' }, { key: 'sun', label: 'Sun' },
+];
+
+const MEAL_SLOTS: { key: MealSlot; label: string; icon: string }[] = [
+  { key: 'breakfast', label: 'Breakfast', icon: '☀️' },
+  { key: 'lunch', label: 'Lunch', icon: '🍽️' },
+  { key: 'dinner', label: 'Dinner', icon: '🌙' },
 ];
 
 interface Props { recipe: Recipe; onRate: (rating: number) => void; onToggleFavorite: () => void; }
@@ -100,17 +106,24 @@ export default function RecipeCard({ recipe, onRate, onToggleFavorite }: Props) 
   const [expanded, setExpanded] = useState(false);
   const [showLangPicker, setShowLangPicker] = useState(false);
   const [showDayPicker, setShowDayPicker] = useState(false);
+  const [selectedDay, setSelectedDay] = useState<DayOfWeek | null>(null);
   const { user } = useAuth();
   const { addToast } = useToast();
 
-  const handleAddToPlan = async (day: DayOfWeek) => {
-    if (!user?.uid) return;
+  const handleSelectDay = (day: DayOfWeek) => {
+    setSelectedDay(day);
+  };
+
+  const handleSelectSlot = async (slot: MealSlot) => {
+    if (!user?.uid || !selectedDay) return;
     setShowDayPicker(false);
+    setSelectedDay(null);
     try {
       const weekId = getWeekId(new Date());
-      await addRecipeToDay(user.uid, weekId, day, recipe.id);
-      const dayLabel = PLAN_DAYS.find((d) => d.key === day)?.label || day;
-      addToast(`Added to ${dayLabel}!`, 'success');
+      await addRecipeToSlot(user.uid, weekId, selectedDay, slot, recipe.id);
+      const dayLabel = PLAN_DAYS.find((d) => d.key === selectedDay)?.label || selectedDay;
+      const slotLabel = MEAL_SLOTS.find((s) => s.key === slot)?.label || slot;
+      addToast(`Added to ${dayLabel} ${slotLabel}!`, 'success');
     } catch {
       addToast('Failed to add to plan.', 'error');
     }
@@ -170,7 +183,7 @@ export default function RecipeCard({ recipe, onRate, onToggleFavorite }: Props) 
           <div className="flex flex-col items-end gap-2 shrink-0">
             <div className="flex items-center gap-1.5">
               <button
-                onClick={(e) => { e.stopPropagation(); setShowDayPicker(!showDayPicker); setShowLangPicker(false); }}
+                onClick={(e) => { e.stopPropagation(); setShowDayPicker(!showDayPicker); setShowLangPicker(false); setSelectedDay(null); }}
                 className="p-1.5 text-neutral-400 hover:text-neutral-700 hover:bg-neutral-100 rounded-lg transition-colors"
                 title="Add to meal plan"
               >
@@ -189,19 +202,42 @@ export default function RecipeCard({ recipe, onRate, onToggleFavorite }: Props) 
           </div>
         </div>
 
-        {/* Day picker for meal plan */}
+        {/* Two-step picker: Day → Slot */}
         {showDayPicker && (
-          <div className="flex items-center gap-1.5 mt-3 animate-fade-in flex-wrap" onClick={(e) => e.stopPropagation()}>
-            <span className="text-[10px] uppercase tracking-widest text-neutral-400 mr-1">Add to:</span>
-            {PLAN_DAYS.map((d) => (
-              <button
-                key={d.key}
-                onClick={() => handleAddToPlan(d.key)}
-                className="px-2.5 py-1 text-xs font-medium rounded-full border border-neutral-200 text-neutral-700 hover:bg-neutral-900 hover:text-white hover:border-neutral-900 transition-colors"
-              >
-                {d.label}
-              </button>
-            ))}
+          <div className="mt-3 animate-fade-in space-y-2" onClick={(e) => e.stopPropagation()}>
+            {/* Step 1: Pick a day */}
+            <div className="flex items-center gap-1.5 flex-wrap">
+              <span className="text-[10px] uppercase tracking-widest text-neutral-400 mr-1">Day:</span>
+              {PLAN_DAYS.map((d) => (
+                <button
+                  key={d.key}
+                  onClick={() => handleSelectDay(d.key)}
+                  className={clsx(
+                    'px-2.5 py-1 text-xs font-medium rounded-full border transition-colors',
+                    selectedDay === d.key
+                      ? 'bg-neutral-900 text-white border-neutral-900'
+                      : 'border-neutral-200 text-neutral-700 hover:bg-neutral-900 hover:text-white hover:border-neutral-900'
+                  )}
+                >
+                  {d.label}
+                </button>
+              ))}
+            </div>
+            {/* Step 2: Pick a slot (appears after day is selected) */}
+            {selectedDay && (
+              <div className="flex items-center gap-1.5 animate-fade-in flex-wrap">
+                <span className="text-[10px] uppercase tracking-widest text-neutral-400 mr-1">Meal:</span>
+                {MEAL_SLOTS.map((s) => (
+                  <button
+                    key={s.key}
+                    onClick={() => handleSelectSlot(s.key)}
+                    className="px-3 py-1 text-xs font-medium rounded-full border border-neutral-200 text-neutral-700 hover:bg-neutral-900 hover:text-white hover:border-neutral-900 transition-colors"
+                  >
+                    {s.icon} {s.label}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         )}
 

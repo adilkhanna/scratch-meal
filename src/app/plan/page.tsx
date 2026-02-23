@@ -4,20 +4,26 @@ import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useToast } from '@/context/ToastContext';
 import { loadRecipes } from '@/lib/recipe-storage';
-import { loadMealPlan, saveMealPlan, getWeekId, getWeekDates } from '@/lib/meal-plan-storage';
-import { Recipe, MealPlan, DayOfWeek } from '@/types';
+import { loadMealPlan, saveMealPlan, getWeekId, getWeekDates, SLOTS } from '@/lib/meal-plan-storage';
+import { Recipe, MealPlan, DayOfWeek, MealSlot } from '@/types';
 import { HiChevronLeft, HiChevronRight, HiPlus, HiX, HiClock, HiOutlineShare } from 'react-icons/hi';
 import { format } from 'date-fns';
 
-const DAYS: { key: DayOfWeek; label: string; short: string }[] = [
-  { key: 'mon', label: 'Monday', short: 'Mon' },
-  { key: 'tue', label: 'Tuesday', short: 'Tue' },
-  { key: 'wed', label: 'Wednesday', short: 'Wed' },
-  { key: 'thu', label: 'Thursday', short: 'Thu' },
-  { key: 'fri', label: 'Friday', short: 'Fri' },
-  { key: 'sat', label: 'Saturday', short: 'Sat' },
-  { key: 'sun', label: 'Sunday', short: 'Sun' },
+const DAYS: { key: DayOfWeek; label: string }[] = [
+  { key: 'mon', label: 'Monday' },
+  { key: 'tue', label: 'Tuesday' },
+  { key: 'wed', label: 'Wednesday' },
+  { key: 'thu', label: 'Thursday' },
+  { key: 'fri', label: 'Friday' },
+  { key: 'sat', label: 'Saturday' },
+  { key: 'sun', label: 'Sunday' },
 ];
+
+const SLOT_META: Record<MealSlot, { label: string; emoji: string }> = {
+  breakfast: { label: 'Breakfast', emoji: '☀️' },
+  lunch: { label: 'Lunch', emoji: '🍽️' },
+  dinner: { label: 'Dinner', emoji: '🌙' },
+};
 
 export default function MealPlanPage() {
   const { user } = useAuth();
@@ -26,7 +32,7 @@ export default function MealPlanPage() {
   const [plan, setPlan] = useState<MealPlan | null>(null);
   const [allRecipes, setAllRecipes] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState(true);
-  const [pickerDay, setPickerDay] = useState<DayOfWeek | null>(null);
+  const [pickerTarget, setPickerTarget] = useState<{ day: DayOfWeek; slot: MealSlot } | null>(null);
   const [pickerSearch, setPickerSearch] = useState('');
   const [showGroceryList, setShowGroceryList] = useState(false);
 
@@ -51,9 +57,7 @@ export default function MealPlanPage() {
     }
   }, [user?.uid, currentWeekId, allRecipes]);
 
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+  useEffect(() => { fetchData(); }, [fetchData]);
 
   const recipeMap = useMemo(() => {
     const map = new Map<string, Recipe>();
@@ -67,29 +71,37 @@ export default function MealPlanPage() {
     setCurrentWeekId(getWeekId(d));
   };
 
-  const addRecipeToDay = async (day: DayOfWeek, recipeId: string) => {
+  const addRecipeToSlot = async (day: DayOfWeek, slot: MealSlot, recipeId: string) => {
     if (!user?.uid || !plan) return;
     const updatedDays = { ...plan.days };
-    if (!updatedDays[day].recipeIds.includes(recipeId)) {
-      updatedDays[day] = { recipeIds: [...updatedDays[day].recipeIds, recipeId] };
+    const dayPlan = { ...updatedDays[day] };
+    const slotData = { ...dayPlan[slot] };
+    if (!slotData.recipeIds.includes(recipeId)) {
+      slotData.recipeIds = [...slotData.recipeIds, recipeId];
     }
+    dayPlan[slot] = slotData;
+    updatedDays[day] = dayPlan;
     const updatedPlan = { ...plan, days: updatedDays };
     setPlan(updatedPlan);
-    setPickerDay(null);
+    setPickerTarget(null);
     setPickerSearch('');
     try {
       await saveMealPlan(user.uid, updatedPlan);
       const recipe = recipeMap.get(recipeId);
-      addToast(`Added "${recipe?.name || 'Recipe'}" to ${DAYS.find((d) => d.key === day)?.label}!`, 'success');
+      addToast(`Added "${recipe?.name || 'Recipe'}" to ${DAYS.find((d) => d.key === day)?.label} ${SLOT_META[slot].label}!`, 'success');
     } catch {
       addToast('Failed to update meal plan.', 'error');
     }
   };
 
-  const removeRecipeFromDay = async (day: DayOfWeek, recipeId: string) => {
+  const removeRecipeFromSlot = async (day: DayOfWeek, slot: MealSlot, recipeId: string) => {
     if (!user?.uid || !plan) return;
     const updatedDays = { ...plan.days };
-    updatedDays[day] = { recipeIds: updatedDays[day].recipeIds.filter((id) => id !== recipeId) };
+    const dayPlan = { ...updatedDays[day] };
+    const slotData = { ...dayPlan[slot] };
+    slotData.recipeIds = slotData.recipeIds.filter((id) => id !== recipeId);
+    dayPlan[slot] = slotData;
+    updatedDays[day] = dayPlan;
     const updatedPlan = { ...plan, days: updatedDays };
     setPlan(updatedPlan);
     try {
@@ -113,16 +125,18 @@ export default function MealPlanPage() {
     const ingredientMap = new Map<string, { quantity: string; unit: string; count: number }>();
 
     for (const day of DAYS) {
-      for (const recipeId of plan.days[day.key].recipeIds) {
-        const recipe = recipeMap.get(recipeId);
-        if (!recipe) continue;
-        for (const ing of recipe.ingredients) {
-          const key = ing.name.toLowerCase().trim();
-          const existing = ingredientMap.get(key);
-          if (existing) {
-            existing.count++;
-          } else {
-            ingredientMap.set(key, { quantity: ing.quantity, unit: ing.unit || '', count: 1 });
+      for (const slot of SLOTS) {
+        for (const recipeId of plan.days[day.key][slot].recipeIds) {
+          const recipe = recipeMap.get(recipeId);
+          if (!recipe) continue;
+          for (const ing of recipe.ingredients) {
+            const key = ing.name.toLowerCase().trim();
+            const existing = ingredientMap.get(key);
+            if (existing) {
+              existing.count++;
+            } else {
+              ingredientMap.set(key, { quantity: ing.quantity, unit: ing.unit || '', count: 1 });
+            }
           }
         }
       }
@@ -177,7 +191,9 @@ export default function MealPlanPage() {
     }
   };
 
-  const totalPlannedMeals = plan ? DAYS.reduce((sum, d) => sum + plan.days[d.key].recipeIds.length, 0) : 0;
+  const totalPlannedMeals = plan
+    ? DAYS.reduce((sum, d) => sum + SLOTS.reduce((s, slot) => s + plan.days[d.key][slot].recipeIds.length, 0), 0)
+    : 0;
 
   if (loading) return (
     <div className="flex items-center justify-center min-h-[60vh]">
@@ -195,7 +211,7 @@ export default function MealPlanPage() {
         <div>
           <h1 className="text-3xl sm:text-4xl font-[family-name:var(--font-display)] text-neutral-900 mb-2">Meal Plan</h1>
           <p className="text-neutral-500 text-sm font-light">
-            {totalPlannedMeals === 0 ? 'Plan your week! Add recipes from your history to each day.' : `${totalPlannedMeals} meals planned this week`}
+            {totalPlannedMeals === 0 ? 'Plan your week! Add recipes to each meal slot.' : `${totalPlannedMeals} meals planned this week`}
           </p>
         </div>
 
@@ -215,83 +231,96 @@ export default function MealPlanPage() {
 
         {/* Day Grid */}
         <div className="space-y-3">
-          {DAYS.map((day) => {
-            const dayRecipes = plan?.days[day.key].recipeIds || [];
-            return (
-              <div key={day.key} className="border border-neutral-200 rounded-2xl bg-white p-4">
-                <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-xs font-medium uppercase tracking-widest text-neutral-900">{day.label}</h3>
-                  <button
-                    onClick={() => setPickerDay(pickerDay === day.key ? null : day.key)}
-                    className="flex items-center gap-1 px-2.5 py-1 text-xs text-neutral-400 hover:text-neutral-900 hover:bg-neutral-50 rounded-full border border-neutral-200 transition-colors"
-                  >
-                    <HiPlus className="w-3.5 h-3.5" /> Add
-                  </button>
-                </div>
+          {DAYS.map((day) => (
+            <div key={day.key} className="border border-neutral-200 rounded-2xl bg-white p-4">
+              <h3 className="text-xs font-medium uppercase tracking-widest text-neutral-900 mb-3">{day.label}</h3>
 
-                {dayRecipes.length === 0 ? (
-                  <p className="text-xs text-neutral-300 font-light py-2">No meals planned</p>
-                ) : (
-                  <div className="space-y-2">
-                    {dayRecipes.map((recipeId) => {
-                      const recipe = recipeMap.get(recipeId);
-                      if (!recipe) return null;
-                      return (
-                        <div key={recipeId} className="flex items-center justify-between gap-2 bg-neutral-50 rounded-xl px-3 py-2">
-                          <div className="min-w-0 flex-1">
-                            <p className="text-sm font-medium text-neutral-900 truncate">{recipe.name}</p>
-                            <p className="text-xs text-neutral-400 flex items-center gap-1">
-                              <HiClock className="w-3 h-3" />{recipe.cookTime}
-                            </p>
-                          </div>
-                          <button
-                            onClick={() => removeRecipeFromDay(day.key, recipeId)}
-                            className="p-1 text-neutral-300 hover:text-red-500 transition-colors shrink-0"
-                          >
-                            <HiX className="w-4 h-4" />
-                          </button>
-                        </div>
-                      );
-                    })}
-                  </div>
-                )}
+              <div className="space-y-3">
+                {SLOTS.map((slot) => {
+                  const slotRecipes = plan?.days[day.key][slot].recipeIds || [];
+                  const meta = SLOT_META[slot];
+                  const isPickerOpen = pickerTarget?.day === day.key && pickerTarget?.slot === slot;
 
-                {/* Recipe Picker for this day */}
-                {pickerDay === day.key && (
-                  <div className="mt-3 border-t border-neutral-100 pt-3 animate-fade-in">
-                    <input
-                      type="text"
-                      value={pickerSearch}
-                      onChange={(e) => setPickerSearch(e.target.value)}
-                      placeholder="Search your recipes..."
-                      className="w-full px-4 py-2 rounded-full border border-neutral-200 bg-white text-sm font-light text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900/10 mb-2"
-                    />
-                    <div className="max-h-48 overflow-y-auto space-y-1">
-                      {filteredPickerRecipes.length === 0 ? (
-                        <p className="text-xs text-neutral-400 font-light py-2 text-center">
-                          {allRecipes.length === 0 ? 'No recipes yet. Generate some first!' : 'No recipes match your search.'}
-                        </p>
+                  return (
+                    <div key={slot} className="pl-1">
+                      <div className="flex items-center justify-between mb-1.5">
+                        <span className="text-xs text-neutral-500 font-medium flex items-center gap-1.5">
+                          <span>{meta.emoji}</span> {meta.label}
+                        </span>
+                        <button
+                          onClick={() => setPickerTarget(isPickerOpen ? null : { day: day.key, slot })}
+                          className="flex items-center gap-0.5 px-2 py-0.5 text-[10px] text-neutral-400 hover:text-neutral-900 hover:bg-neutral-50 rounded-full border border-neutral-200 transition-colors"
+                        >
+                          <HiPlus className="w-3 h-3" /> Add
+                        </button>
+                      </div>
+
+                      {slotRecipes.length === 0 ? (
+                        <p className="text-[11px] text-neutral-300 font-light pl-6">—</p>
                       ) : (
-                        filteredPickerRecipes.map((recipe) => (
-                          <button
-                            key={recipe.id}
-                            onClick={() => addRecipeToDay(day.key, recipe.id)}
-                            className="w-full flex items-center justify-between px-3 py-2 text-left rounded-xl hover:bg-neutral-50 transition-colors"
-                          >
-                            <div className="min-w-0 flex-1">
-                              <p className="text-sm text-neutral-900 truncate">{recipe.name}</p>
-                              <p className="text-xs text-neutral-400">{recipe.cookTime} · {recipe.difficulty}</p>
-                            </div>
-                            <HiPlus className="w-4 h-4 text-neutral-400 shrink-0" />
-                          </button>
-                        ))
+                        <div className="space-y-1.5 pl-6">
+                          {slotRecipes.map((recipeId) => {
+                            const recipe = recipeMap.get(recipeId);
+                            if (!recipe) return null;
+                            return (
+                              <div key={recipeId} className="flex items-center justify-between gap-2 bg-neutral-50 rounded-xl px-3 py-2">
+                                <div className="min-w-0 flex-1">
+                                  <p className="text-sm font-medium text-neutral-900 truncate">{recipe.name}</p>
+                                  <p className="text-xs text-neutral-400 flex items-center gap-1">
+                                    <HiClock className="w-3 h-3" />{recipe.cookTime}
+                                  </p>
+                                </div>
+                                <button
+                                  onClick={() => removeRecipeFromSlot(day.key, slot, recipeId)}
+                                  className="p-1 text-neutral-300 hover:text-red-500 transition-colors shrink-0"
+                                >
+                                  <HiX className="w-4 h-4" />
+                                </button>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
+
+                      {/* Recipe Picker */}
+                      {isPickerOpen && (
+                        <div className="mt-2 ml-6 border-t border-neutral-100 pt-2 animate-fade-in">
+                          <input
+                            type="text"
+                            value={pickerSearch}
+                            onChange={(e) => setPickerSearch(e.target.value)}
+                            placeholder="Search your recipes..."
+                            className="w-full px-4 py-2 rounded-full border border-neutral-200 bg-white text-sm font-light text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900/10 mb-2"
+                          />
+                          <div className="max-h-40 overflow-y-auto space-y-1">
+                            {filteredPickerRecipes.length === 0 ? (
+                              <p className="text-xs text-neutral-400 font-light py-2 text-center">
+                                {allRecipes.length === 0 ? 'No recipes yet. Generate some first!' : 'No recipes match your search.'}
+                              </p>
+                            ) : (
+                              filteredPickerRecipes.map((recipe) => (
+                                <button
+                                  key={recipe.id}
+                                  onClick={() => addRecipeToSlot(day.key, slot, recipe.id)}
+                                  className="w-full flex items-center justify-between px-3 py-2 text-left rounded-xl hover:bg-neutral-50 transition-colors"
+                                >
+                                  <div className="min-w-0 flex-1">
+                                    <p className="text-sm text-neutral-900 truncate">{recipe.name}</p>
+                                    <p className="text-xs text-neutral-400">{recipe.cookTime} · {recipe.difficulty}</p>
+                                  </div>
+                                  <HiPlus className="w-4 h-4 text-neutral-400 shrink-0" />
+                                </button>
+                              ))
+                            )}
+                          </div>
+                        </div>
                       )}
                     </div>
-                  </div>
-                )}
+                  );
+                })}
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
 
         {/* Grocery List Toggle */}
