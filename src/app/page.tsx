@@ -141,7 +141,7 @@ export default function HomePage() {
           />
           <button
             onClick={handleAddItem}
-            className="px-5 py-3 text-[15px] font-normal text-[#0059FF] tracking-[2px] uppercase hover:bg-white/50 rounded-full transition-colors whitespace-nowrap"
+            className="px-5 py-3 text-[15px] font-normal text-[#0059FF] tracking-[2px] uppercase border border-[#0059FF] rounded-full hover:bg-[#0059FF] hover:text-white transition-all duration-200 whitespace-nowrap"
           >
             ADD ITEM
           </button>
