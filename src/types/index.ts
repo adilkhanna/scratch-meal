@@ -66,3 +66,35 @@ export interface RecipeFilter {
   minRating: number;
   searchQuery: string;
 }
+
+// --- Chat Agent Types ---
+
+export interface MemoryFact {
+  id: string;
+  fact: string;
+  category: 'preference' | 'household' | 'health' | 'taste' | 'feedback';
+  confidence: number;
+  source: 'conversation' | 'rating' | 'profile';
+  createdAt: string;
+}
+
+export interface ChatMessage {
+  id: string;
+  role: 'user' | 'assistant';
+  content: string;
+  timestamp: string;
+  metadata?: {
+    photoBase64?: string;
+    extractedIngredients?: string[];
+    recipes?: Recipe[];
+  };
+}
+
+export interface Conversation {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  status: 'active' | 'completed';
+  extractedRecipeIds: string[];
+  messageCount: number;
+}
