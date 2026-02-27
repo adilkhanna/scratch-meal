@@ -44,14 +44,14 @@ export default function PhotoUpload({ onExtract, isExtracting }: Props) {
         onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
         onDragLeave={() => setDragOver(false)}
         onDrop={handleDrop}
-        className={`relative border rounded-2xl p-10 text-center cursor-pointer transition-all ${dragOver ? 'border-neutral-900 bg-neutral-50' : 'border-neutral-200 hover:border-neutral-400 hover:bg-neutral-50/50'}`}
+        className={`relative border-2 border-dashed rounded-2xl p-10 text-center cursor-pointer transition-all ${dragOver ? 'border-[#0059FF] bg-[#0059FF]/5' : 'border-[#0059FF]/40 hover:border-[#0059FF] hover:bg-[#0059FF]/5'}`}
       >
         <input ref={fileInputRef} type="file" accept="image/*" multiple onChange={handleFileChange} className="hidden" />
-        <HiOutlinePhotograph className="w-12 h-12 text-neutral-400 mx-auto mb-4" />
-        <p className="text-xs font-medium uppercase tracking-widest text-neutral-500">
-          {isExtracting ? <span className="animate-pulse-soft text-neutral-900">Analyzing photos...</span> : 'Upload Food Photos'}
+        <HiOutlinePhotograph className="w-12 h-12 text-[#0059FF]/50 mx-auto mb-4" />
+        <p className="text-xs font-medium uppercase tracking-widest text-[#0059FF]">
+          {isExtracting ? <span className="animate-pulse-soft">Analyzing photos...</span> : 'Upload Food Photos'}
         </p>
-        <p className="text-xs text-neutral-400 mt-2 font-light">Supports JPG, PNG. Multiple photos allowed.</p>
+        <p className="text-xs text-[#0059FF]/50 mt-2 font-light">Supports JPG, PNG. Multiple photos allowed.</p>
       </div>
       {photos.length > 0 && (
         <div className="flex gap-2 flex-wrap">

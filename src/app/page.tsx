@@ -5,8 +5,6 @@ import { useRouter } from 'next/navigation';
 import { useRecipeFlow } from '@/context/RecipeFlowContext';
 import { useToast } from '@/context/ToastContext';
 import { extractIngredientsFromPhoto } from '@/lib/firebase-functions';
-import StepIndicator from '@/components/layout/StepIndicator';
-import IngredientInput from '@/components/ingredients/IngredientInput';
 import IngredientTag from '@/components/ingredients/IngredientTag';
 import PhotoUpload from '@/components/ingredients/PhotoUpload';
 
@@ -43,19 +41,13 @@ const NON_FOOD_ITEMS = new Set([
   'money', 'cash', 'coin', 'coins', 'credit card', 'passport', 'key', 'keys',
 ]);
 
-// Check if a string looks like a food item
 function isFoodItem(name: string): boolean {
   const lower = name.trim().toLowerCase();
   if (!lower) return true;
-
-  // Direct match against non-food list
   if (NON_FOOD_ITEMS.has(lower)) return false;
-
-  // Check if any non-food item is a substring (e.g. "my old shoes" matches "shoes")
   for (const item of NON_FOOD_ITEMS) {
     if (item.length > 3 && lower.includes(item)) return false;
   }
-
   return true;
 }
 
@@ -76,8 +68,8 @@ export default function HomePage() {
   const { ingredients, addIngredient, addIngredients, removeIngredient, clearIngredients } = useRecipeFlow();
   const { addToast } = useToast();
   const [isExtracting, setIsExtracting] = useState(false);
+  const [inputValue, setInputValue] = useState('');
 
-  // Compute which ingredients are bogus (non-food)
   const bogusItems = useMemo(() => {
     const bogus = new Set<string>();
     ingredients.forEach((name) => {
@@ -88,13 +80,26 @@ export default function HomePage() {
 
   const hasBogusItems = bogusItems.size > 0;
 
+  const handleAddItem = () => {
+    const trimmed = inputValue.trim();
+    if (!trimmed) return;
+    addIngredient(trimmed);
+    setInputValue('');
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleAddItem();
+    }
+  };
+
   const handlePhotoExtract = useCallback(async (base64: string) => {
     setIsExtracting(true);
     try {
       const foundIngredients = await extractIngredientsFromPhoto(base64);
       if (foundIngredients.length > 0) {
         addIngredients(foundIngredients);
-        // Check if any extracted items are non-food
         const nonFood = foundIngredients.filter((i) => !isFoodItem(i));
         if (nonFood.length > 0) {
           addToast(`Found ${foundIngredients.length} item(s), but some don't look like food!`, 'info');
@@ -111,7 +116,6 @@ export default function HomePage() {
   const handleNext = () => {
     if (ingredients.length === 0) { addToast('Add at least one ingredient to continue.', 'error'); return; }
     if (hasBogusItems) { addToast(getCheekyMessage(), 'error'); return; }
-    // Check if ALL items are bogus (no valid food)
     const validCount = ingredients.length - bogusItems.size;
     if (validCount === 0) { addToast('You need at least one real food ingredient!', 'error'); return; }
     router.push('/dietary');
@@ -119,39 +123,52 @@ export default function HomePage() {
 
   return (
     <div className="animate-fade-in">
-      <StepIndicator currentStep={1} />
-      <div className="space-y-8">
-        <div>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-[family-name:var(--font-display)] text-neutral-900 mb-3 leading-tight">
-            What&apos;s In Your<br />Kitchen?
-          </h1>
-          <p className="text-neutral-500 text-sm font-light">Type your ingredients or snap a photo of what you have.</p>
+      <div className="max-w-3xl mx-auto text-center space-y-8 pt-8 sm:pt-16">
+        {/* Hero heading */}
+        <h1 className="font-[family-name:var(--font-display)] text-[clamp(40px,6vw,67px)] text-[#0059FF] leading-[0.96] tracking-[-0.25px]">
+          What&apos;s In Your Kitchen ?
+        </h1>
+
+        {/* Ingredient input row */}
+        <div className="flex items-center gap-3 max-w-xl mx-auto">
+          <input
+            type="text"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder="Add the ingredients you want to make a recipe with here..."
+            className="flex-1 px-5 py-3 bg-white/70 rounded-full text-sm italic font-light text-[#687F75] placeholder:text-[#687F75] focus:outline-none focus:ring-2 focus:ring-[#0059FF]/30 transition-all"
+          />
+          <button
+            onClick={handleAddItem}
+            className="px-5 py-3 text-[15px] font-normal text-[#0059FF] tracking-[2px] uppercase hover:bg-white/50 rounded-full transition-colors whitespace-nowrap"
+          >
+            ADD ITEM
+          </button>
         </div>
-        <div>
-          <label className="block text-xs font-medium uppercase tracking-widest text-neutral-400 mb-3">Add ingredients</label>
-          <IngredientInput onAdd={addIngredient} />
-        </div>
-        <div>
-          <label className="block text-xs font-medium uppercase tracking-widest text-neutral-400 mb-3">Or upload food photos</label>
+
+        {/* Photo upload area */}
+        <div className="max-w-xl mx-auto">
           <PhotoUpload onExtract={handlePhotoExtract} isExtracting={isExtracting} />
         </div>
+
+        {/* Ingredient tags */}
         {ingredients.length > 0 && (
-          <div className="animate-fade-in">
+          <div className="animate-fade-in max-w-xl mx-auto">
             <div className="flex items-center justify-between mb-3">
-              <h2 className="text-xs font-medium uppercase tracking-widest text-neutral-400">Your ingredients ({ingredients.length})</h2>
+              <h2 className="text-xs font-medium uppercase tracking-widest text-neutral-500">Your ingredients ({ingredients.length})</h2>
               <button onClick={clearIngredients} className="text-xs text-neutral-400 hover:text-red-500 uppercase tracking-wider transition-colors">Clear all</button>
             </div>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2 justify-center">
               {ingredients.map((name) => (
                 <IngredientTag key={name} name={name} onRemove={() => removeIngredient(name)} isBogus={bogusItems.has(name)} />
               ))}
             </div>
 
-            {/* Cheeky warning for non-food items */}
             {hasBogusItems && (
               <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-2xl animate-fade-in">
                 <p className="text-sm text-red-600 font-medium">
-                  🚫 {getCheekyMessage()}
+                  {getCheekyMessage()}
                 </p>
                 <p className="text-xs text-red-400 mt-1 font-light">
                   Remove the red items above to proceed.
@@ -160,16 +177,18 @@ export default function HomePage() {
             )}
           </div>
         )}
+
+        {/* Next button */}
         <button onClick={handleNext} disabled={ingredients.length === 0 || hasBogusItems}
-          className="w-full py-4 bg-neutral-900 text-white rounded-full font-medium text-xs uppercase tracking-widest hover:bg-neutral-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors">
+          className="w-full max-w-xl mx-auto block py-4 bg-[#0059FF] text-white rounded-full font-medium text-xs uppercase tracking-widest hover:bg-[#0047CC] disabled:opacity-40 disabled:cursor-not-allowed transition-colors">
           Next: Dietary Preferences
         </button>
       </div>
 
-      {/* Brand watermark footer */}
-      <div className="mt-16 sm:mt-24 text-center select-none">
-        <span className="font-[family-name:var(--font-display)] text-5xl sm:text-7xl lg:text-8xl text-sage/40">
-          Good Meals Co.
+      {/* Large brand footer */}
+      <div className="mt-16 sm:mt-24 text-center select-none overflow-hidden">
+        <span className="font-[family-name:var(--font-brand)] text-[clamp(80px,15vw,225px)] font-normal text-[#0059FF] leading-none tracking-[-0.25px] block">
+          GOOD MEALS CO.
         </span>
       </div>
     </div>

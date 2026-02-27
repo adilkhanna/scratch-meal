@@ -49,12 +49,15 @@
 
   --color-white: #ffffff;
 
+  --color-blue-accent: #0059FF;
+
   --font-sans: var(--font-dm-sans), "DM Sans", system-ui, -apple-system, sans-serif;
   --font-display: var(--font-caprasimo), "Caprasimo", Georgia, serif;
+  --font-brand: var(--font-darker-grotesque), "Darker Grotesque", system-ui, sans-serif;
 }
 
 body {
-  background-color: #f0ede6;
+  background-color: #DBE9E3;
   color: #1a1a1a;
   font-family: var(--font-sans);
   font-weight: 400;
@@ -62,7 +65,7 @@ body {
 
 /* Scrollbar styling */
 ::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #f0ede6; }
+::-webkit-scrollbar-track { background: #DBE9E3; }
 ::-webkit-scrollbar-thumb { background: #d5cdc1; border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: #bfb5a6; }
 
