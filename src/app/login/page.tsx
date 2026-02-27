@@ -75,7 +75,7 @@ export default function LoginPage() {
         <form onSubmit={handleEmailSignIn} className="space-y-4 animate-fade-in">
           <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" required className="w-full px-6 py-3.5 rounded-full border border-neutral-200 bg-white text-sm font-light text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900/10" />
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" required className="w-full px-6 py-3.5 rounded-full border border-neutral-200 bg-white text-sm font-light text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900/10" />
-          <button type="submit" disabled={submitting} className="w-full py-3.5 bg-neutral-900 text-white rounded-full font-medium text-xs uppercase tracking-widest hover:bg-neutral-700 disabled:opacity-50 transition-colors">{submitting ? 'Signing in...' : 'Sign In'}</button>
+          <button type="submit" disabled={submitting} className="w-full py-3.5 bg-[#0059FF] text-white rounded-full font-medium text-xs uppercase tracking-widest hover:bg-[#0047CC] disabled:opacity-50 transition-colors">{submitting ? 'Signing in...' : 'Sign In'}</button>
         </form>
       )}
 
@@ -98,14 +98,14 @@ export default function LoginPage() {
                       <span className="flex items-center gap-2">
                         <span>{DIETARY_CATEGORY_ICONS[cat]}</span>
                         <span className="font-medium text-neutral-700">{DIETARY_CATEGORY_LABELS[cat]}</span>
-                        {selectedCount > 0 && <span className="bg-neutral-900 text-white text-xs px-1.5 py-0.5 rounded-full">{selectedCount}</span>}
+                        {selectedCount > 0 && <span className="bg-[#0059FF] text-white text-xs px-1.5 py-0.5 rounded-full">{selectedCount}</span>}
                       </span>
                       <HiChevronDown className={clsx('w-4 h-4 text-neutral-400 transition-transform', isExpanded && 'rotate-180')} />
                     </button>
                     {isExpanded && (
                       <div className="pl-3 pb-2 grid grid-cols-1 gap-1">
                         {conditions.map((c) => (
-                          <button key={c.id} type="button" onClick={() => toggleDietary(c.id)} className={clsx('text-left px-3 py-1.5 rounded-lg text-xs transition-colors', dietaryPrefs.includes(c.id) ? 'bg-neutral-100 text-neutral-900 font-medium' : 'text-neutral-500 hover:bg-neutral-50')}>{c.label}</button>
+                          <button key={c.id} type="button" onClick={() => toggleDietary(c.id)} className={clsx('text-left px-3 py-1.5 rounded-lg text-xs transition-colors', dietaryPrefs.includes(c.id) ? 'bg-[#0059FF]/10 text-[#0059FF] font-medium' : 'text-neutral-500 hover:bg-neutral-50')}>{c.label}</button>
                         ))}
                       </div>
                     )}
@@ -114,7 +114,7 @@ export default function LoginPage() {
               })}
             </div>
           </div>
-          <button type="submit" disabled={submitting} className="w-full py-3.5 bg-neutral-900 text-white rounded-full font-medium text-xs uppercase tracking-widest hover:bg-neutral-700 disabled:opacity-50 transition-colors">{submitting ? 'Creating account...' : 'Create Account'}</button>
+          <button type="submit" disabled={submitting} className="w-full py-3.5 bg-[#0059FF] text-white rounded-full font-medium text-xs uppercase tracking-widest hover:bg-[#0047CC] disabled:opacity-50 transition-colors">{submitting ? 'Creating account...' : 'Create Account'}</button>
         </form>
       )}
     </div>

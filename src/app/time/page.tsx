@@ -29,7 +29,7 @@ export default function TimePage() {
           {TIME_RANGES.map((range) => (
             <button key={range.value} onClick={() => setTimeRange(range.value)}
               className={clsx('flex flex-col items-center gap-2 p-6 rounded-2xl border-2 transition-all',
-                timeRange === range.value ? 'border-neutral-900 bg-neutral-50 shadow-sm' : 'border-neutral-200 bg-white hover:border-neutral-400 hover:bg-neutral-50/50')}>
+                timeRange === range.value ? 'border-[#0059FF] bg-blue-50/50 shadow-sm' : 'border-neutral-200 bg-white hover:border-neutral-400 hover:bg-neutral-50/50')}>
               <span className="text-3xl">{range.icon}</span>
               <span className={clsx('font-medium text-sm', timeRange === range.value ? 'text-neutral-900' : 'text-neutral-700')}>{range.label}</span>
             </button>
@@ -37,7 +37,7 @@ export default function TimePage() {
         </div>
         <div className="flex gap-3">
           <button onClick={() => router.push('/dietary')} className="flex-1 py-3.5 border border-neutral-200 text-neutral-500 rounded-full font-medium text-xs uppercase tracking-widest hover:bg-neutral-50 transition-colors">Back</button>
-          <button onClick={handleGenerate} disabled={!timeRange} className="flex-[2] py-3.5 bg-neutral-900 text-white rounded-full font-medium text-xs uppercase tracking-widest hover:bg-neutral-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors">Generate Recipes</button>
+          <button onClick={handleGenerate} disabled={!timeRange} className="flex-[2] py-3.5 bg-[#0059FF] text-white rounded-full font-medium text-xs uppercase tracking-widest hover:bg-[#0047CC] disabled:opacity-40 disabled:cursor-not-allowed transition-colors">Generate Recipes</button>
         </div>
       </div>
     </div>

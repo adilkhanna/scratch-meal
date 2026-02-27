@@ -28,7 +28,7 @@ export default function Header() {
 
   const leftNav = [
     { href: '/history', label: 'My Recipes' },
-    { href: '/', label: 'Chat' },
+    { href: '/', label: 'New Recipes' },
   ];
 
   const rightNav = [

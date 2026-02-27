@@ -51,7 +51,7 @@ export default function DietaryPage() {
                   <div className="flex items-center gap-2">
                     <span className="text-lg">{DIETARY_CATEGORY_ICONS[cat]}</span>
                     <span className="text-xs font-medium uppercase tracking-wider text-neutral-900">{DIETARY_CATEGORY_LABELS[cat]}</span>
-                    {selectedCount > 0 && <span className="bg-neutral-900 text-white text-xs font-bold px-2 py-0.5 rounded-full">{selectedCount}</span>}
+                    {selectedCount > 0 && <span className="bg-[#0059FF] text-white text-xs font-bold px-2 py-0.5 rounded-full">{selectedCount}</span>}
                   </div>
                   <HiChevronDown className={clsx('w-5 h-5 text-neutral-400 transition-transform', isExpanded && 'rotate-180')} />
                 </button>
@@ -62,7 +62,7 @@ export default function DietaryPage() {
                       return (
                         <button key={condition.id} onClick={() => toggleDietaryCondition(condition.id)}
                           className={clsx('flex items-start gap-2.5 px-3 py-2.5 rounded-lg text-left transition-all text-sm', isSelected ? 'bg-neutral-50 ring-1 ring-neutral-300' : 'hover:bg-neutral-50')}>
-                          <div className={clsx('mt-0.5 w-4 h-4 rounded border-2 shrink-0 flex items-center justify-center transition-colors', isSelected ? 'bg-neutral-900 border-neutral-900' : 'border-neutral-300')}>
+                          <div className={clsx('mt-0.5 w-4 h-4 rounded border-2 shrink-0 flex items-center justify-center transition-colors', isSelected ? 'bg-[#0059FF] border-[#0059FF]' : 'border-neutral-300')}>
                             {isSelected && <svg className="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 12 12"><path d="M10 3L4.5 8.5 2 6" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" /></svg>}
                           </div>
                           <div>
@@ -80,7 +80,7 @@ export default function DietaryPage() {
         </div>
         <div className="flex gap-3">
           <button onClick={() => router.push('/')} className="flex-1 py-3.5 border border-neutral-200 text-neutral-500 rounded-full font-medium text-xs uppercase tracking-widest hover:bg-neutral-50 transition-colors">Back</button>
-          <button onClick={() => router.push('/time')} className="flex-[2] py-3.5 bg-neutral-900 text-white rounded-full font-medium text-xs uppercase tracking-widest hover:bg-neutral-700 transition-colors">Next: Cooking Time</button>
+          <button onClick={() => router.push('/time')} className="flex-[2] py-3.5 bg-[#0059FF] text-white rounded-full font-medium text-xs uppercase tracking-widest hover:bg-[#0047CC] transition-colors">Next: Cooking Time</button>
         </div>
       </div>
     </div>

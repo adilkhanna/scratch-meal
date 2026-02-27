@@ -97,7 +97,7 @@ export default function ResultsPage() {
         {loading && (
           <div className="flex flex-col items-center py-16 gap-4">
             <div className="text-5xl animate-pulse-soft">🍳</div>
-            <div className="w-8 h-8 border-3 border-neutral-900 border-t-transparent rounded-full" style={{ animation: 'spin 1s linear infinite' }} />
+            <div className="w-8 h-8 border-3 border-[#0059FF] border-t-transparent rounded-full" style={{ animation: 'spin 1s linear infinite' }} />
             <p className="text-sm text-neutral-500 font-light">Generating recipes with AI...</p>
             <p className="text-xs text-neutral-400">This may take 10-15 seconds</p>
           </div>
@@ -107,7 +107,7 @@ export default function ResultsPage() {
             <p className="text-red-600 font-medium text-sm">{error}</p>
             <div className="flex gap-3 justify-center mt-4">
               <button onClick={handleNewSearch} className="px-6 py-2.5 bg-white border border-neutral-200 rounded-full text-xs font-medium uppercase tracking-wider text-neutral-500 hover:bg-neutral-50">Start Over</button>
-              <button onClick={() => { setError(null); setLoading(true); setHasFetched(false); }} className="px-6 py-2.5 bg-neutral-900 text-white rounded-full text-xs font-medium uppercase tracking-wider hover:bg-neutral-700">Retry</button>
+              <button onClick={() => { setError(null); setLoading(true); setHasFetched(false); }} className="px-6 py-2.5 bg-[#0059FF] text-white rounded-full text-xs font-medium uppercase tracking-wider hover:bg-[#0047CC]">Retry</button>
             </div>
           </div>
         )}
@@ -118,7 +118,7 @@ export default function ResultsPage() {
             ))}
           </div>
         )}
-        <button onClick={handleNewSearch} className="w-full py-4 bg-neutral-900 text-white rounded-full font-medium text-xs uppercase tracking-widest hover:bg-neutral-700 transition-colors">Start New Search</button>
+        <button onClick={handleNewSearch} className="w-full py-4 bg-[#0059FF] text-white rounded-full font-medium text-xs uppercase tracking-widest hover:bg-[#0047CC] transition-colors">Start New Search</button>
       </div>
     </div>
   );

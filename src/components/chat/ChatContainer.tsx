@@ -8,7 +8,7 @@ import ChatInput from './ChatInput';
 import QuickActions from './QuickActions';
 import TypingIndicator from './TypingIndicator';
 
-export default function ChatContainer() {
+export default function ChatContainer({ compact = false }: { compact?: boolean }) {
   const { messages, isStreaming, isGeneratingRecipes, sendMessage, startNewConversation } = useChat();
   const { user } = useAuth();
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -28,7 +28,7 @@ export default function ChatContainer() {
   const firstName = user?.displayName?.split(' ')[0] || 'there';
 
   return (
-    <div className="flex flex-col h-[calc(100vh-4rem)]">
+    <div className={compact ? "flex flex-col h-full" : "flex flex-col h-[calc(100vh-4rem)]"}>
       {/* Messages area */}
       <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-6 space-y-4">
         {isEmpty && (
@@ -47,11 +47,13 @@ export default function ChatContainer() {
             <QuickActions onAction={handleSend} disabled={isStreaming} />
 
             {/* Footer branding */}
-            <div className="mt-auto pt-8 select-none opacity-20">
-              <span className="font-[family-name:var(--font-brand)] text-[clamp(48px,10vw,120px)] font-normal text-[#0059FF] leading-none tracking-[-0.25px] block">
-                GOOD MEALS CO.
-              </span>
-            </div>
+            {!compact && (
+              <div className="mt-auto pt-8 select-none opacity-20">
+                <span className="font-[family-name:var(--font-brand)] text-[clamp(48px,10vw,120px)] font-normal text-[#0059FF] leading-none tracking-[-0.25px] block">
+                  GOOD MEALS CO.
+                </span>
+              </div>
+            )}
           </div>
         )}
 

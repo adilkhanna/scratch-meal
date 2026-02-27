@@ -328,7 +328,7 @@ export default function MealPlanPage() {
           <>
             <button
               onClick={() => { setShowGroceryList(!showGroceryList); setCheckedItems(new Set()); }}
-              className="w-full py-4 bg-neutral-900 text-white rounded-full font-medium text-xs uppercase tracking-widest hover:bg-neutral-700 transition-colors"
+              className="w-full py-4 bg-[#0059FF] text-white rounded-full font-medium text-xs uppercase tracking-widest hover:bg-[#0047CC] transition-colors"
             >
               {showGroceryList ? 'Hide Grocery List' : 'Generate Grocery List'}
             </button>

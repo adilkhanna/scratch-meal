@@ -193,7 +193,7 @@ export default function SettingsPage() {
             />
             <button
               onClick={addPantryItem}
-              className="flex items-center gap-1 px-4 py-2.5 bg-neutral-900 text-white rounded-full text-xs font-medium uppercase tracking-wider hover:bg-neutral-700 transition-colors"
+              className="flex items-center gap-1 px-4 py-2.5 bg-[#0059FF] text-white rounded-full text-xs font-medium uppercase tracking-wider hover:bg-[#0047CC] transition-colors"
             >
               <HiPlus className="w-3.5 h-3.5" /> Add
             </button>

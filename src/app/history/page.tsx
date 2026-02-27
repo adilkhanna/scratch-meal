@@ -141,7 +141,7 @@ export default function HistoryPage() {
           <div className="text-center py-16">
             <div className="text-5xl mb-4">📖</div>
             <p className="text-neutral-500 text-sm font-light mb-4">Your recipe history will appear here.</p>
-            <a href="/" className="inline-block px-8 py-3 bg-neutral-900 text-white rounded-full text-xs font-medium uppercase tracking-widest hover:bg-neutral-700 transition-colors">Start Cooking</a>
+            <a href="/" className="inline-block px-8 py-3 bg-[#0059FF] text-white rounded-full text-xs font-medium uppercase tracking-widest hover:bg-[#0047CC] transition-colors">Start Cooking</a>
           </div>
         )}
       </div>
