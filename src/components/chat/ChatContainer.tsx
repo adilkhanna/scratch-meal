@@ -7,6 +7,7 @@ import ChatBubble from './ChatBubble';
 import ChatInput from './ChatInput';
 import QuickActions from './QuickActions';
 import TypingIndicator from './TypingIndicator';
+import MomoLoader from '@/components/ui/MomoLoader';
 
 export default function ChatContainer({ compact = false }: { compact?: boolean }) {
   const { messages, isStreaming, isGeneratingRecipes, sendMessage, startNewConversation } = useChat();
@@ -74,12 +75,7 @@ export default function ChatContainer({ compact = false }: { compact?: boolean }
             {isGeneratingRecipes && (
               <div className="flex justify-start animate-fade-in">
                 <div className="bg-white border border-neutral-200 rounded-2xl rounded-bl-md px-4 py-3">
-                  <div className="flex items-center gap-2">
-                    <div className="w-4 h-4 border-2 border-[#0059FF] border-t-transparent rounded-full animate-spin" />
-                    <span className="text-sm text-neutral-500 font-light">
-                      Generating recipes...
-                    </span>
-                  </div>
+                  <MomoLoader size={48} message="Generating recipes..." />
                 </div>
               </div>
             )}

@@ -13,6 +13,7 @@ import StepIndicator from '@/components/layout/StepIndicator';
 import RecipeCard from '@/components/recipes/RecipeCard';
 import { Recipe } from '@/types';
 import { DIETARY_CONDITIONS } from '@/config/dietary-conditions';
+import MomoLoader from '@/components/ui/MomoLoader';
 
 export default function ResultsPage() {
   const router = useRouter();
@@ -95,10 +96,8 @@ export default function ResultsPage() {
           <p className="text-neutral-500 text-sm font-light">{loading ? 'Cooking up some ideas...' : `${recipes.length} recipes from ${ingredients.length} ingredients`}</p>
         </div>
         {loading && (
-          <div className="flex flex-col items-center py-16 gap-4">
-            <div className="text-5xl animate-pulse-soft">🍳</div>
-            <div className="w-8 h-8 border-3 border-[#0059FF] border-t-transparent rounded-full" style={{ animation: 'spin 1s linear infinite' }} />
-            <p className="text-sm text-neutral-500 font-light">Generating recipes with AI...</p>
+          <div className="flex flex-col items-center py-16 gap-2">
+            <MomoLoader size={140} message="Generating recipes with AI..." />
             <p className="text-xs text-neutral-400">This may take 10-15 seconds</p>
           </div>
         )}

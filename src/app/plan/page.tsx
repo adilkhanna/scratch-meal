@@ -8,6 +8,7 @@ import { loadMealPlan, saveMealPlan, getWeekId, getWeekDates, SLOTS } from '@/li
 import { Recipe, MealPlan, DayOfWeek, MealSlot } from '@/types';
 import { HiChevronLeft, HiChevronRight, HiPlus, HiX, HiClock, HiOutlineShare } from 'react-icons/hi';
 import { format } from 'date-fns';
+import MomoLoader from '@/components/ui/MomoLoader';
 
 const DAYS: { key: DayOfWeek; label: string }[] = [
   { key: 'mon', label: 'Monday' },
@@ -197,10 +198,7 @@ export default function MealPlanPage() {
 
   if (loading) return (
     <div className="flex items-center justify-center min-h-[60vh]">
-      <div className="flex flex-col items-center gap-3">
-        <div className="text-4xl animate-pulse-soft">📅</div>
-        <p className="text-sm text-neutral-400 font-light">Loading meal plan...</p>
-      </div>
+      <MomoLoader message="Loading meal plan..." />
     </div>
   );
 

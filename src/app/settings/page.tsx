@@ -10,6 +10,7 @@ import { loadRecipes } from '@/lib/recipe-storage';
 import { Recipe } from '@/types';
 import { DIETARY_CONDITIONS } from '@/config/dietary-conditions';
 import { HiExclamation, HiOutlineX, HiPlus, HiRefresh } from 'react-icons/hi';
+import MomoLoader from '@/components/ui/MomoLoader';
 
 const DEFAULT_PANTRY_BASICS = [
   'Salt', 'Black Pepper', 'Olive Oil', 'Vegetable Oil', 'Sugar', 'Flour',
@@ -105,10 +106,7 @@ export default function SettingsPage() {
 
   if (!dataLoaded || !pantryLoaded) return (
     <div className="flex items-center justify-center min-h-[60vh]">
-      <div className="flex flex-col items-center gap-3">
-        <div className="text-4xl animate-pulse-soft">⚙️</div>
-        <p className="text-sm text-neutral-400 font-light">Loading settings...</p>
-      </div>
+      <MomoLoader message="Loading settings..." />
     </div>
   );
 

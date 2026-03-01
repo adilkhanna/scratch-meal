@@ -9,6 +9,7 @@ import { sendPasswordResetEmail } from 'firebase/auth';
 import { db, auth } from '@/lib/firebase';
 import { deleteUserAccount } from '@/lib/firebase-functions';
 import { HiOutlineShieldCheck, HiEye, HiEyeOff, HiOutlineUsers, HiOutlineKey, HiOutlineTrash, HiOutlineMail } from 'react-icons/hi';
+import MomoLoader from '@/components/ui/MomoLoader';
 
 interface UserRecord { uid: string; displayName: string; email: string; dietaryPreferences: string[]; createdAt: string; }
 
@@ -103,7 +104,7 @@ export default function AdminPage() {
 
   if (authLoading || loadingData) return (
     <div className="flex items-center justify-center min-h-[60vh]">
-      <div className="flex flex-col items-center gap-3"><div className="text-4xl animate-pulse-soft">🔧</div><p className="text-sm text-neutral-400 font-light">Loading admin panel...</p></div>
+      <MomoLoader message="Loading admin panel..." />
     </div>
   );
   if (!isAdmin) return null;

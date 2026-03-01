@@ -9,6 +9,7 @@ import RecipeCard from '@/components/recipes/RecipeCard';
 import { HiSearch, HiHeart, HiStar, HiTrash } from 'react-icons/hi';
 import clsx from 'clsx';
 import { format } from 'date-fns';
+import MomoLoader from '@/components/ui/MomoLoader';
 
 export default function HistoryPage() {
   const { user } = useAuth();
@@ -74,10 +75,7 @@ export default function HistoryPage() {
 
   if (!isLoaded) return (
     <div className="flex items-center justify-center min-h-[60vh]">
-      <div className="flex flex-col items-center gap-3">
-        <div className="text-4xl animate-pulse-soft">📖</div>
-        <p className="text-sm text-neutral-400 font-light">Loading recipes...</p>
-      </div>
+      <MomoLoader message="Loading recipes..." />
     </div>
   );
 
