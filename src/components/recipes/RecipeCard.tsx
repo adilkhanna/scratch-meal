@@ -301,7 +301,7 @@ export default function RecipeCard({ recipe, onRate, onToggleFavorite }: Props) 
             </div>
           )}
           {recipe.nutritionInfo && (
-            <div className="grid grid-cols-5 gap-2">
+            <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
               {[
                 { label: 'Serves', value: recipe.nutritionInfo.servings },
                 { label: 'Calories', value: recipe.nutritionInfo.calories },

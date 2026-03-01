@@ -135,18 +135,18 @@ export default function HomePage() {
         </h1>
 
         {/* Ingredient input row */}
-        <div className="flex items-center gap-3 max-w-xl mx-auto">
+        <div className="flex flex-wrap items-center gap-3 max-w-xl mx-auto">
           <input
             type="text"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Add the ingredients you want to make a recipe with here..."
-            className="flex-1 px-5 py-3 bg-white/70 rounded-full text-sm italic font-light text-[#687F75] placeholder:text-[#687F75] focus:outline-none focus:ring-2 focus:ring-[#0059FF]/30 transition-all"
+            className="flex-1 min-w-0 px-5 py-3 bg-white/70 rounded-full text-sm italic font-light text-[#687F75] placeholder:text-[#687F75] focus:outline-none focus:ring-2 focus:ring-[#0059FF]/30 transition-all"
           />
           <button
             onClick={handleAddItem}
-            className="px-5 py-3 text-[15px] font-normal text-[#0059FF] tracking-[2px] uppercase border border-[#0059FF] rounded-full hover:bg-[#0059FF] hover:text-white transition-all duration-200 whitespace-nowrap"
+            className="px-5 py-3 text-[15px] font-normal text-[#0059FF] tracking-[2px] uppercase border border-[#0059FF] rounded-full hover:bg-[#0059FF] hover:text-white transition-all duration-200 whitespace-nowrap max-sm:w-full"
           >
             ADD ITEM
           </button>
