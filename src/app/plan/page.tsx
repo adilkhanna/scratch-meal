@@ -342,7 +342,7 @@ export default function MealPlanPage() {
                   <div className="flex items-center gap-2">
                     <button
                       onClick={() => { setBbMode(true); setBbIndex(0); }}
-                      className="flex items-center gap-1.5 px-3 py-1.5 text-xs text-neutral-400 hover:text-neutral-900 hover:bg-neutral-50 rounded-full border border-neutral-200 transition-colors"
+                      className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 text-xs text-neutral-400 hover:text-neutral-900 hover:bg-neutral-50 rounded-full border border-neutral-200 transition-colors"
                     >
                       🛒 BigBasket
                     </button>
@@ -384,16 +384,32 @@ export default function MealPlanPage() {
                   </ul>
                 )}
 
-                {/* BigBasket Step-Through Flow */}
+                {/* BigBasket Step-Through Flow (desktop only) */}
                 {bbMode && groceryItems.length > 0 && (
-                  <div className="border border-[#0059FF]/20 bg-blue-50/50 rounded-2xl p-4 space-y-4 animate-fade-in">
+                  <div className="hidden lg:block border border-[#0059FF]/20 bg-blue-50/50 rounded-2xl p-4 space-y-4 animate-fade-in">
                     <div className="flex items-center justify-between">
                       <h3 className="text-xs font-medium uppercase tracking-widest text-[#0059FF]">
                         🛒 Send to BigBasket
                       </h3>
-                      <span className="text-xs text-neutral-400 font-light">
-                        Item {bbIndex + 1} of {groceryItems.length}
-                      </span>
+                      <div className="flex items-center gap-3">
+                        <button
+                          onClick={() => {
+                            groceryItems.forEach((item, i) => {
+                              setTimeout(() => {
+                                window.open(`https://www.bigbasket.com/ps/?q=${encodeURIComponent(item.name)}`, `_bb_${i}`);
+                              }, i * 300);
+                            });
+                            setBbMode(false);
+                            setBbIndex(0);
+                          }}
+                          className="text-xs text-[#0059FF] hover:text-[#0047CC] font-medium transition-colors"
+                        >
+                          Open All in Tabs
+                        </button>
+                        <span className="text-xs text-neutral-400 font-light">
+                          Item {bbIndex + 1} of {groceryItems.length}
+                        </span>
+                      </div>
                     </div>
 
                     {/* Progress bar */}
@@ -416,7 +432,7 @@ export default function MealPlanPage() {
                       )}
                       <a
                         href={`https://www.bigbasket.com/ps/?q=${encodeURIComponent(groceryItems[bbIndex].name)}`}
-                        target="_blank"
+                        target="_bigbasket"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#0059FF] text-white rounded-full text-xs font-medium uppercase tracking-wider hover:bg-[#0047CC] transition-colors"
                       >
