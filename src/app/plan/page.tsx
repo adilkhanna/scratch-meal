@@ -36,6 +36,8 @@ export default function MealPlanPage() {
   const [pickerTarget, setPickerTarget] = useState<{ day: DayOfWeek; slot: MealSlot } | null>(null);
   const [pickerSearch, setPickerSearch] = useState('');
   const [showGroceryList, setShowGroceryList] = useState(false);
+  const [bbMode, setBbMode] = useState(false);
+  const [bbIndex, setBbIndex] = useState(0);
 
   const weekDates = useMemo(() => getWeekDates(currentWeekId), [currentWeekId]);
   const weekLabel = `${format(weekDates.start, 'MMM d')} – ${format(weekDates.end, 'MMM d, yyyy')}`;
@@ -337,12 +339,20 @@ export default function MealPlanPage() {
                   <h2 className="text-xs font-medium uppercase tracking-widest text-neutral-900">
                     Grocery List ({groceryItems.length} items)
                   </h2>
-                  <button
-                    onClick={shareGroceryList}
-                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs text-neutral-400 hover:text-neutral-900 hover:bg-neutral-50 rounded-full border border-neutral-200 transition-colors"
-                  >
-                    <HiOutlineShare className="w-3.5 h-3.5" /> Share
-                  </button>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => { setBbMode(true); setBbIndex(0); }}
+                      className="flex items-center gap-1.5 px-3 py-1.5 text-xs text-neutral-400 hover:text-neutral-900 hover:bg-neutral-50 rounded-full border border-neutral-200 transition-colors"
+                    >
+                      🛒 BigBasket
+                    </button>
+                    <button
+                      onClick={shareGroceryList}
+                      className="flex items-center gap-1.5 px-3 py-1.5 text-xs text-neutral-400 hover:text-neutral-900 hover:bg-neutral-50 rounded-full border border-neutral-200 transition-colors"
+                    >
+                      <HiOutlineShare className="w-3.5 h-3.5" /> Share
+                    </button>
+                  </div>
                 </div>
                 {groceryItems.length === 0 ? (
                   <p className="text-sm text-neutral-400 font-light">No ingredients to show.</p>
@@ -372,6 +382,82 @@ export default function MealPlanPage() {
                       </li>
                     ))}
                   </ul>
+                )}
+
+                {/* BigBasket Step-Through Flow */}
+                {bbMode && groceryItems.length > 0 && (
+                  <div className="border border-[#0059FF]/20 bg-blue-50/50 rounded-2xl p-4 space-y-4 animate-fade-in">
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-xs font-medium uppercase tracking-widest text-[#0059FF]">
+                        🛒 Send to BigBasket
+                      </h3>
+                      <span className="text-xs text-neutral-400 font-light">
+                        Item {bbIndex + 1} of {groceryItems.length}
+                      </span>
+                    </div>
+
+                    {/* Progress bar */}
+                    <div className="w-full h-1.5 bg-neutral-200 rounded-full overflow-hidden">
+                      <div
+                        className="h-full bg-[#0059FF] rounded-full transition-all duration-300"
+                        style={{ width: `${((bbIndex + 1) / groceryItems.length) * 100}%` }}
+                      />
+                    </div>
+
+                    {/* Current item */}
+                    <div className="bg-white rounded-xl border border-neutral-200 p-4 text-center space-y-3">
+                      <p className="text-lg font-medium text-neutral-900">
+                        {groceryItems[bbIndex].name}
+                      </p>
+                      {groceryItems[bbIndex].quantity && (
+                        <p className="text-sm text-neutral-400 font-light">
+                          {groceryItems[bbIndex].quantity}{groceryItems[bbIndex].unit ? ` ${groceryItems[bbIndex].unit}` : ''}
+                        </p>
+                      )}
+                      <a
+                        href={`https://www.bigbasket.com/ps/?q=${encodeURIComponent(groceryItems[bbIndex].name)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#0059FF] text-white rounded-full text-xs font-medium uppercase tracking-wider hover:bg-[#0047CC] transition-colors"
+                      >
+                        Open on BigBasket ↗
+                      </a>
+                    </div>
+
+                    {/* Navigation buttons */}
+                    <div className="flex items-center justify-between gap-2">
+                      <button
+                        onClick={() => setBbIndex((i) => Math.max(0, i - 1))}
+                        disabled={bbIndex === 0}
+                        className="px-4 py-2 text-xs font-medium uppercase tracking-wider border border-neutral-200 text-neutral-400 rounded-full hover:bg-neutral-50 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+                      >
+                        ← Previous
+                      </button>
+                      {bbIndex < groceryItems.length - 1 ? (
+                        <button
+                          onClick={() => setBbIndex((i) => i + 1)}
+                          className="px-4 py-2 text-xs font-medium uppercase tracking-wider bg-[#0059FF] text-white rounded-full hover:bg-[#0047CC] transition-colors"
+                        >
+                          Next Item →
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => { setBbMode(false); setBbIndex(0); }}
+                          className="px-4 py-2 text-xs font-medium uppercase tracking-wider bg-green-500 text-white rounded-full hover:bg-green-600 transition-colors"
+                        >
+                          ✓ Done
+                        </button>
+                      )}
+                    </div>
+
+                    {/* Close / skip all */}
+                    <button
+                      onClick={() => { setBbMode(false); setBbIndex(0); }}
+                      className="w-full text-center text-xs text-neutral-400 hover:text-neutral-600 transition-colors py-1"
+                    >
+                      Close
+                    </button>
+                  </div>
                 )}
               </div>
             )}
