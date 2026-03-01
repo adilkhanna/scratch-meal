@@ -394,7 +394,9 @@ export default function MealPlanPage() {
                       <div className="flex items-center gap-3">
                         <button
                           onClick={() => {
-                            groceryItems.forEach((item, i) => {
+                            const unchecked = groceryItems.filter((item) => !checkedItems.has(item.name));
+                            if (unchecked.length === 0) return;
+                            unchecked.forEach((item, i) => {
                               setTimeout(() => {
                                 window.open(`https://www.bigbasket.com/ps/?q=${encodeURIComponent(item.name)}`, `_bb_${i}`);
                               }, i * 300);
@@ -404,7 +406,7 @@ export default function MealPlanPage() {
                           }}
                           className="text-xs text-[#0059FF] hover:text-[#0047CC] font-medium transition-colors"
                         >
-                          Open All in Tabs
+                          Open {groceryItems.length - checkedItems.size > 0 ? `${groceryItems.length - checkedItems.size}` : 'All'} in Tabs
                         </button>
                         <span className="text-xs text-neutral-400 font-light">
                           Item {bbIndex + 1} of {groceryItems.length}
