@@ -83,7 +83,12 @@ export default function HomePage() {
   const handleAddItem = () => {
     const trimmed = inputValue.trim();
     if (!trimmed) return;
-    addIngredient(trimmed);
+    const items = trimmed.split(',').map((s) => s.trim()).filter(Boolean);
+    if (items.length > 1) {
+      addIngredients(items);
+    } else {
+      addIngredient(trimmed);
+    }
     setInputValue('');
   };
 
