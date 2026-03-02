@@ -9,6 +9,7 @@ import { Recipe, MealPlan, DayOfWeek, MealSlot } from '@/types';
 import { HiChevronLeft, HiChevronRight, HiPlus, HiX, HiClock, HiOutlineShare } from 'react-icons/hi';
 import { format } from 'date-fns';
 import MomoLoader from '@/components/ui/MomoLoader';
+import RecipeDetailModal from '@/components/recipes/RecipeDetailModal';
 
 const DAYS: { key: DayOfWeek; label: string }[] = [
   { key: 'mon', label: 'Monday' },
@@ -38,6 +39,7 @@ export default function MealPlanPage() {
   const [showGroceryList, setShowGroceryList] = useState(false);
   const [bbMode, setBbMode] = useState(false);
   const [bbIndex, setBbIndex] = useState(0);
+  const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
 
   const weekDates = useMemo(() => getWeekDates(currentWeekId), [currentWeekId]);
   const weekLabel = `${format(weekDates.start, 'MMM d')} – ${format(weekDates.end, 'MMM d, yyyy')}`;
@@ -264,7 +266,7 @@ export default function MealPlanPage() {
                             if (!recipe) return null;
                             return (
                               <div key={recipeId} className="flex items-center justify-between gap-2 bg-neutral-50 rounded-xl px-3 py-2">
-                                <div className="min-w-0 flex-1">
+                                <div className="min-w-0 flex-1 cursor-pointer" onClick={() => setSelectedRecipe(recipe)}>
                                   <p className="text-sm font-medium text-neutral-900 truncate">{recipe.name}</p>
                                   <p className="text-xs text-neutral-400 flex items-center gap-1">
                                     <HiClock className="w-3 h-3" />{recipe.cookTime}
@@ -482,6 +484,10 @@ export default function MealPlanPage() {
           </>
         )}
       </div>
+
+      {selectedRecipe && (
+        <RecipeDetailModal recipe={selectedRecipe} onClose={() => setSelectedRecipe(null)} />
+      )}
     </div>
   );
 }

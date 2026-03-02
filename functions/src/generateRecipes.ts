@@ -17,7 +17,7 @@ export const generateRecipes = onCall(
       throw new HttpsError('unauthenticated', 'You must be signed in.');
     }
 
-    const { ingredients, dietaryConditions, timeRange } = request.data;
+    const { ingredients, dietaryConditions, timeRange, cuisines } = request.data;
     if (!ingredients || !Array.isArray(ingredients) || ingredients.length === 0) {
       throw new HttpsError('invalid-argument', 'ingredients array is required.');
     }
@@ -32,7 +32,8 @@ export const generateRecipes = onCall(
         ingredients,
         dietaryConditions || [],
         timeRange,
-        spoonacularKey
+        spoonacularKey,
+        cuisines || []
       );
       return result;
     } catch (err: unknown) {

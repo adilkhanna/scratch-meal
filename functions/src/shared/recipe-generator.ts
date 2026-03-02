@@ -24,7 +24,8 @@ interface SpoonacularRecipeDetail {
 function buildRecipePrompt(
   ingredients: string[],
   dietaryConditions: string[],
-  timeRange: string
+  timeRange: string,
+  cuisines: string[] = []
 ): string {
   const maxMinutes = parseInt(timeRange);
 
@@ -42,7 +43,7 @@ REQUIREMENTS:
 1. Each recipe MUST primarily use the available ingredients (you may assume basic pantry staples like salt, pepper, oil, water)
 2. Each recipe MUST comply with ALL dietary constraints listed
 3. Each recipe MUST be completable within ${maxMinutes} minutes
-4. Provide 5 DIVERSE recipes (different cuisines and cooking methods)
+4. ${cuisines.length > 0 ? `Focus on these cuisines: ${cuisines.join(', ')}. Distribute the 5 recipes across the selected cuisines.` : 'Provide 5 DIVERSE recipes (different cuisines and cooking methods)'}
 5. Include at least one "Easy" difficulty recipe
 
 Return ONLY a JSON object with this EXACT structure:
@@ -75,7 +76,8 @@ function buildRAGPrompt(
   ingredients: string[],
   dietaryConditions: string[],
   timeRange: string,
-  realRecipes: SpoonacularRecipeDetail[]
+  realRecipes: SpoonacularRecipeDetail[],
+  cuisines: string[] = []
 ): string {
   const maxMinutes = parseInt(timeRange);
 
@@ -106,7 +108,7 @@ REQUIREMENTS:
 3. Each recipe MUST comply with ALL dietary constraints
 4. Each recipe MUST be completable within ${maxMinutes} minutes — if a reference recipe takes longer, simplify it
 5. Keep the spirit/name of the original recipe but adapt ingredients and steps as needed
-6. Include at least one "Easy" difficulty recipe
+6. Include at least one "Easy" difficulty recipe${cuisines.length > 0 ? `\n7. Prefer recipes from these cuisines: ${cuisines.join(', ')}.` : ''}
 
 Return ONLY a JSON object with this EXACT structure:
 {
@@ -174,7 +176,8 @@ export async function generateRecipesCore(
   ingredients: string[],
   dietaryConditions: string[],
   timeRange: string,
-  spoonacularKey?: string
+  spoonacularKey?: string,
+  cuisines: string[] = []
 ): Promise<GeneratedRecipes> {
   let prompt: string;
   let useRAG = false;
@@ -185,17 +188,17 @@ export async function generateRecipesCore(
       if (searchResults.length >= 5) {
         const topIds = searchResults.slice(0, 5).map((r) => r.id);
         const details = await getSpoonacularRecipeDetails(spoonacularKey, topIds);
-        prompt = buildRAGPrompt(ingredients, dietaryConditions, timeRange, details);
+        prompt = buildRAGPrompt(ingredients, dietaryConditions, timeRange, details, cuisines);
         useRAG = true;
       } else {
-        prompt = buildRecipePrompt(ingredients, dietaryConditions, timeRange);
+        prompt = buildRecipePrompt(ingredients, dietaryConditions, timeRange, cuisines);
       }
     } catch (err) {
       console.warn('Spoonacular API failed, falling back to pure GPT-4o:', err);
-      prompt = buildRecipePrompt(ingredients, dietaryConditions, timeRange);
+      prompt = buildRecipePrompt(ingredients, dietaryConditions, timeRange, cuisines);
     }
   } else {
-    prompt = buildRecipePrompt(ingredients, dietaryConditions, timeRange);
+    prompt = buildRecipePrompt(ingredients, dietaryConditions, timeRange, cuisines);
   }
 
   const response = await openai.chat.completions.create({

@@ -6,6 +6,7 @@ import { TimeRange } from '@/types';
 interface RecipeFlowState {
   ingredients: string[];
   dietaryConditions: string[];
+  cuisines: string[];
   timeRange: TimeRange | null;
   addIngredient: (ingredient: string) => void;
   addIngredients: (ingredients: string[]) => void;
@@ -13,6 +14,8 @@ interface RecipeFlowState {
   clearIngredients: () => void;
   setDietaryConditions: (conditions: string[]) => void;
   toggleDietaryCondition: (id: string) => void;
+  setCuisines: (cuisines: string[]) => void;
+  toggleCuisine: (id: string) => void;
   setTimeRange: (range: TimeRange) => void;
   resetFlow: () => void;
 }
@@ -22,6 +25,7 @@ const RecipeFlowContext = createContext<RecipeFlowState | null>(null);
 export function RecipeFlowProvider({ children }: { children: ReactNode }) {
   const [ingredients, setIngredients] = useState<string[]>([]);
   const [dietaryConditions, setDietaryConditionsState] = useState<string[]>([]);
+  const [cuisines, setCuisinesState] = useState<string[]>([]);
   const [timeRange, setTimeRangeState] = useState<TimeRange | null>(null);
 
   const addIngredient = useCallback((ingredient: string) => {
@@ -57,12 +61,23 @@ export function RecipeFlowProvider({ children }: { children: ReactNode }) {
     );
   }, []);
 
+  const setCuisines = useCallback((c: string[]) => {
+    setCuisinesState(c);
+  }, []);
+
+  const toggleCuisine = useCallback((id: string) => {
+    setCuisinesState((prev) =>
+      prev.includes(id) ? prev.filter((c) => c !== id) : [...prev, id]
+    );
+  }, []);
+
   const setTimeRange = useCallback((range: TimeRange) => {
     setTimeRangeState(range);
   }, []);
 
   const resetFlow = useCallback(() => {
     setIngredients([]);
+    setCuisinesState([]);
     setTimeRangeState(null);
   }, []);
 
@@ -71,6 +86,7 @@ export function RecipeFlowProvider({ children }: { children: ReactNode }) {
       value={{
         ingredients,
         dietaryConditions,
+        cuisines,
         timeRange,
         addIngredient,
         addIngredients,
@@ -78,6 +94,8 @@ export function RecipeFlowProvider({ children }: { children: ReactNode }) {
         clearIngredients,
         setDietaryConditions,
         toggleDietaryCondition,
+        setCuisines,
+        toggleCuisine,
         setTimeRange,
         resetFlow,
       }}

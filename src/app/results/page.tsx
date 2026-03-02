@@ -13,11 +13,12 @@ import StepIndicator from '@/components/layout/StepIndicator';
 import RecipeCard from '@/components/recipes/RecipeCard';
 import { Recipe } from '@/types';
 import { DIETARY_CONDITIONS } from '@/config/dietary-conditions';
+import { CUISINES } from '@/config/cuisines';
 import MomoLoader from '@/components/ui/MomoLoader';
 
 export default function ResultsPage() {
   const router = useRouter();
-  const { ingredients, dietaryConditions, timeRange, resetFlow } = useRecipeFlow();
+  const { ingredients, dietaryConditions, cuisines, timeRange, resetFlow } = useRecipeFlow();
   const { user } = useAuth();
   const { addToast } = useToast();
   const [recipes, setRecipes] = useState<Recipe[]>([]);
@@ -46,7 +47,8 @@ export default function ResultsPage() {
         }
       }
 
-      const rawRecipes = await generateRecipesAI(allIngredients, conditionLabels, timeRange!);
+      const cuisineLabels = cuisines.map((id) => CUISINES.find((c) => c.id === id)?.label ?? id);
+      const rawRecipes = await generateRecipesAI(allIngredients, conditionLabels, timeRange!, cuisineLabels);
       const recipesWithMeta: Recipe[] = (rawRecipes || []).map(
         (r: Omit<Recipe, 'id' | 'rating' | 'isFavorite' | 'createdAt' | 'searchedIngredients' | 'dietaryConditions' | 'requestedTimeRange'>) => ({
           ...r, id: `${Date.now()}-${Math.random().toString(36).slice(2)}`, rating: 0, isFavorite: false,
@@ -89,7 +91,7 @@ export default function ResultsPage() {
 
   return (
     <div className="animate-fade-in">
-      <StepIndicator currentStep={4} />
+      <StepIndicator currentStep={5} />
       <div className="space-y-6">
         <div>
           <h1 className="text-3xl sm:text-4xl font-[family-name:var(--font-display)] text-neutral-900 mb-2">Your Recipes</h1>

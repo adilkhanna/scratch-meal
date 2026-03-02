@@ -16,10 +16,11 @@ export async function extractIngredientsFromPhoto(imageBase64: string): Promise<
 export async function generateRecipes(
   ingredients: string[],
   dietaryConditions: string[],
-  timeRange: TimeRange
+  timeRange: TimeRange,
+  cuisines: string[] = []
 ) {
   const fn = httpsCallable(functions, 'generateRecipes');
-  const result = await fn({ ingredients, dietaryConditions, timeRange });
+  const result = await fn({ ingredients, dietaryConditions, timeRange, cuisines });
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return (result.data as any).recipes || [];
 }

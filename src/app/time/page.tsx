@@ -19,7 +19,7 @@ export default function TimePage() {
 
   return (
     <div className="animate-fade-in">
-      <StepIndicator currentStep={3} />
+      <StepIndicator currentStep={4} />
       <div className="space-y-6">
         <div>
           <h1 className="text-3xl sm:text-4xl font-[family-name:var(--font-display)] text-neutral-900 mb-2">How Much Time<br />Do You Have?</h1>
@@ -36,7 +36,7 @@ export default function TimePage() {
           ))}
         </div>
         <div className="flex gap-3">
-          <button onClick={() => router.push('/dietary')} className="flex-1 py-3.5 border border-neutral-200 text-neutral-500 rounded-full font-medium text-xs uppercase tracking-widest hover:bg-neutral-50 transition-colors">Back</button>
+          <button onClick={() => router.push('/cuisine')} className="flex-1 py-3.5 border border-neutral-200 text-neutral-500 rounded-full font-medium text-xs uppercase tracking-widest hover:bg-neutral-50 transition-colors">Back</button>
           <button onClick={handleGenerate} disabled={!timeRange} className="flex-[2] py-3.5 bg-[#0059FF] text-white rounded-full font-medium text-xs uppercase tracking-widest hover:bg-[#0047CC] disabled:opacity-40 disabled:cursor-not-allowed transition-colors">Generate Recipes</button>
         </div>
       </div>

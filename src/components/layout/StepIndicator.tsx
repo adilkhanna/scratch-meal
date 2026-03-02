@@ -5,8 +5,9 @@ import clsx from 'clsx';
 const STEPS = [
   { label: 'Ingredients', step: 1 },
   { label: 'Dietary', step: 2 },
-  { label: 'Time', step: 3 },
-  { label: 'Recipes', step: 4 },
+  { label: 'Cuisine', step: 3 },
+  { label: 'Time', step: 4 },
+  { label: 'Recipes', step: 5 },
 ];
 
 export default function StepIndicator({ currentStep }: { currentStep: number }) {
@@ -43,7 +44,7 @@ export default function StepIndicator({ currentStep }: { currentStep: number }) 
           {idx < STEPS.length - 1 && (
             <div
               className={clsx(
-                'w-10 sm:w-16 h-px mb-5 mx-1',
+                'w-8 sm:w-12 h-px mb-5 mx-1',
                 s.step < currentStep ? 'bg-neutral-900' : 'bg-neutral-300'
               )}
             />

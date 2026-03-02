@@ -80,7 +80,7 @@ export default function DietaryPage() {
         </div>
         <div className="flex gap-3">
           <button onClick={() => router.push('/')} className="flex-1 py-3.5 border border-neutral-200 text-neutral-500 rounded-full font-medium text-xs uppercase tracking-widest hover:bg-neutral-50 transition-colors">Back</button>
-          <button onClick={() => router.push('/time')} className="flex-[2] py-3.5 bg-[#0059FF] text-white rounded-full font-medium text-xs uppercase tracking-widest hover:bg-[#0047CC] transition-colors">Next: Cooking Time</button>
+          <button onClick={() => router.push('/cuisine')} className="flex-[2] py-3.5 bg-[#0059FF] text-white rounded-full font-medium text-xs uppercase tracking-widest hover:bg-[#0047CC] transition-colors">Next: Cuisine</button>
         </div>
       </div>
     </div>
