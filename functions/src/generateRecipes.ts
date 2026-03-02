@@ -38,8 +38,17 @@ export const generateRecipes = onCall(
       return result;
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : 'Failed to generate recipes';
-      if (message.includes('not configured')) {
-        throw new HttpsError('failed-precondition', message);
+      if (message === 'DIETARY_COMPLIANCE_FAILED') {
+        throw new HttpsError('not-found',
+          'We couldn\'t find enough recipes that meet your dietary conditions. Try adding more ingredients or adjusting your dietary preferences.');
+      }
+      if (message === 'NOT_ENOUGH_RECIPES') {
+        throw new HttpsError('not-found',
+          'We couldn\'t find enough recipes with these ingredients. Try adding more ingredients to work with.');
+      }
+      if (message === 'RECIPE_SOURCE_UNAVAILABLE' || message.includes('not configured')) {
+        throw new HttpsError('failed-precondition',
+          'Recipe service is temporarily unavailable. Please try again later.');
       }
       throw new HttpsError('internal', message);
     }

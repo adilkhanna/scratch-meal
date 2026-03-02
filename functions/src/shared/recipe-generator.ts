@@ -236,33 +236,34 @@ export async function generateRecipesCore(
   let prompt: string;
   let useRAG = false;
 
-  if (spoonacularKey) {
-    try {
-      const searchResults = await searchSpoonacular(spoonacularKey, ingredients, 15);
-      if (searchResults.length >= 5) {
-        const topIds = searchResults.slice(0, 10).map((r) => r.id);
-        const details = await getSpoonacularRecipeDetails(spoonacularKey, topIds);
+  if (!spoonacularKey) {
+    throw new Error('RECIPE_SOURCE_UNAVAILABLE');
+  }
 
-        // Review dietary compliance before using as RAG context
-        const compliant = await reviewDietaryCompliance(openai, details, dietaryConditions);
-        const finalRecipes = compliant.slice(0, 5);
-
-        if (finalRecipes.length >= 3) {
-          prompt = buildRAGPrompt(ingredients, dietaryConditions, timeRange, finalRecipes, cuisines);
-          useRAG = true;
-        } else {
-          // Too few compliant recipes — fall back to pure generation
-          prompt = buildRecipePrompt(ingredients, dietaryConditions, timeRange, cuisines);
-        }
-      } else {
-        prompt = buildRecipePrompt(ingredients, dietaryConditions, timeRange, cuisines);
-      }
-    } catch (err) {
-      console.warn('Spoonacular API failed, falling back to pure GPT-4o:', err);
-      prompt = buildRecipePrompt(ingredients, dietaryConditions, timeRange, cuisines);
+  try {
+    const searchResults = await searchSpoonacular(spoonacularKey, ingredients, 15);
+    if (searchResults.length < 3) {
+      throw new Error('NOT_ENOUGH_RECIPES');
     }
-  } else {
-    prompt = buildRecipePrompt(ingredients, dietaryConditions, timeRange, cuisines);
+
+    const topIds = searchResults.slice(0, 10).map((r) => r.id);
+    const details = await getSpoonacularRecipeDetails(spoonacularKey, topIds);
+
+    // Review dietary compliance before using as RAG context
+    const compliant = await reviewDietaryCompliance(openai, details, dietaryConditions);
+    const finalRecipes = compliant.slice(0, 5);
+
+    if (finalRecipes.length < 3) {
+      throw new Error('DIETARY_COMPLIANCE_FAILED');
+    }
+
+    prompt = buildRAGPrompt(ingredients, dietaryConditions, timeRange, finalRecipes, cuisines);
+    useRAG = true;
+  } catch (err) {
+    if (err instanceof Error && ['DIETARY_COMPLIANCE_FAILED', 'NOT_ENOUGH_RECIPES', 'RECIPE_SOURCE_UNAVAILABLE'].includes(err.message)) {
+      throw err; // re-throw known errors
+    }
+    throw new Error('RECIPE_SOURCE_UNAVAILABLE');
   }
 
   const response = await openai.chat.completions.create({

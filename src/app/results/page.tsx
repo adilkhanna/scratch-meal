@@ -106,9 +106,10 @@ export default function ResultsPage() {
         {error && (
           <div className="bg-red-50 border border-red-100 rounded-2xl p-6 text-center">
             <p className="text-red-600 font-medium text-sm">{error}</p>
+            <p className="text-neutral-400 text-xs mt-2 font-light">All recipes are sourced from verified databases and reviewed for dietary compliance.</p>
             <div className="flex gap-3 justify-center mt-4">
-              <button onClick={handleNewSearch} className="px-6 py-2.5 bg-white border border-neutral-200 rounded-full text-xs font-medium uppercase tracking-wider text-neutral-500 hover:bg-neutral-50">Start Over</button>
-              <button onClick={() => { setError(null); setLoading(true); setHasFetched(false); }} className="px-6 py-2.5 bg-[#0059FF] text-white rounded-full text-xs font-medium uppercase tracking-wider hover:bg-[#0047CC]">Retry</button>
+              <button onClick={handleNewSearch} className="px-6 py-2.5 bg-[#0059FF] text-white rounded-full text-xs font-medium uppercase tracking-wider hover:bg-[#0047CC]">Add More Ingredients</button>
+              <button onClick={() => { setError(null); setLoading(true); setHasFetched(false); }} className="px-6 py-2.5 bg-white border border-neutral-200 rounded-full text-xs font-medium uppercase tracking-wider text-neutral-500 hover:bg-neutral-50">Retry</button>
             </div>
           </div>
         )}
