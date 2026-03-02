@@ -164,6 +164,60 @@ async function getSpoonacularRecipeDetails(
   return res.json();
 }
 
+// --- Dietary compliance reviewer ---
+
+async function reviewDietaryCompliance(
+  openai: OpenAI,
+  recipes: SpoonacularRecipeDetail[],
+  dietaryConditions: string[]
+): Promise<SpoonacularRecipeDetail[]> {
+  if (dietaryConditions.length === 0) return recipes;
+
+  const recipeSummaries = recipes.map((r, i) => {
+    const ings = r.extendedIngredients?.map((e) => e.name) || [];
+    return `${i}: "${r.title}" — Ingredients: ${ings.join(', ')}`;
+  }).join('\n');
+
+  const response = await openai.chat.completions.create({
+    model: 'gpt-4o-mini',
+    messages: [
+      {
+        role: 'system',
+        content: 'You are a dietary compliance reviewer. Analyze recipes and determine which ones are SAFE given the user\'s dietary conditions. Always respond with valid JSON.',
+      },
+      {
+        role: 'user',
+        content: `Review these recipes for compliance with ALL of the following dietary conditions:
+${dietaryConditions.map((c) => `- ${c}`).join('\n')}
+
+RECIPES:
+${recipeSummaries}
+
+For each recipe, determine if it is SAFE (compliant with ALL conditions) or UNSAFE (violates any condition).
+Return ONLY a JSON object: { "safe": [array of recipe index numbers that are compliant] }
+Be strict — if a recipe likely contains an allergen or violates a condition, mark it UNSAFE.`,
+      },
+    ],
+    response_format: { type: 'json_object' },
+    max_tokens: 200,
+    temperature: 0,
+  });
+
+  const content = response.choices?.[0]?.message?.content;
+  if (!content) return recipes; // fallback: return all if review fails
+
+  try {
+    const parsed = JSON.parse(content);
+    const safeIndices: number[] = parsed.safe || [];
+    const compliant = safeIndices
+      .filter((i) => i >= 0 && i < recipes.length)
+      .map((i) => recipes[i]);
+    return compliant.length > 0 ? compliant : recipes; // fallback if all rejected
+  } catch {
+    return recipes; // fallback on parse error
+  }
+}
+
 // --- Core recipe generation ---
 
 export interface GeneratedRecipes {
@@ -184,12 +238,22 @@ export async function generateRecipesCore(
 
   if (spoonacularKey) {
     try {
-      const searchResults = await searchSpoonacular(spoonacularKey, ingredients, 10);
+      const searchResults = await searchSpoonacular(spoonacularKey, ingredients, 15);
       if (searchResults.length >= 5) {
-        const topIds = searchResults.slice(0, 5).map((r) => r.id);
+        const topIds = searchResults.slice(0, 10).map((r) => r.id);
         const details = await getSpoonacularRecipeDetails(spoonacularKey, topIds);
-        prompt = buildRAGPrompt(ingredients, dietaryConditions, timeRange, details, cuisines);
-        useRAG = true;
+
+        // Review dietary compliance before using as RAG context
+        const compliant = await reviewDietaryCompliance(openai, details, dietaryConditions);
+        const finalRecipes = compliant.slice(0, 5);
+
+        if (finalRecipes.length >= 3) {
+          prompt = buildRAGPrompt(ingredients, dietaryConditions, timeRange, finalRecipes, cuisines);
+          useRAG = true;
+        } else {
+          // Too few compliant recipes — fall back to pure generation
+          prompt = buildRecipePrompt(ingredients, dietaryConditions, timeRange, cuisines);
+        }
       } else {
         prompt = buildRecipePrompt(ingredients, dietaryConditions, timeRange, cuisines);
       }
