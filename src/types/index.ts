@@ -37,6 +37,7 @@ export interface Recipe {
     carbs: string;
     fat: string;
   };
+  imageUrl?: string;
   rating: number;
   isFavorite: boolean;
   createdAt: string;

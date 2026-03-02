@@ -2,14 +2,15 @@ import { onCall, HttpsError } from 'firebase-functions/v2/https';
 import * as admin from 'firebase-admin';
 import { getOpenAIClient } from './shared/openai-client';
 import { generateRecipesCore } from './shared/recipe-generator';
+import { generateRecipeImages } from './shared/higgsfield-client';
 
 if (!admin.apps.length) admin.initializeApp();
 
 export const generateRecipes = onCall(
   {
     maxInstances: 10,
-    timeoutSeconds: 120,
-    memory: '256MiB',
+    timeoutSeconds: 300,
+    memory: '512MiB',
     enforceAppCheck: false,
   },
   async (request) => {
@@ -26,7 +27,7 @@ export const generateRecipes = onCall(
     }
 
     try {
-      const { openai, spoonacularKey } = await getOpenAIClient();
+      const { openai, spoonacularKey, higgsFieldApiKey, higgsFieldSecret, higgsFieldEnabled } = await getOpenAIClient();
       const result = await generateRecipesCore(
         openai,
         ingredients,
@@ -35,6 +36,31 @@ export const generateRecipes = onCall(
         spoonacularKey,
         cuisines || []
       );
+
+      // Image generation (graceful degradation)
+      if (higgsFieldEnabled && higgsFieldApiKey && higgsFieldSecret && result.recipes.length > 0) {
+        try {
+          const imageUrls = await generateRecipeImages(
+            higgsFieldApiKey,
+            higgsFieldSecret,
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            result.recipes.map((r: any) => ({
+              name: r.name,
+              description: r.description,
+              keyIngredients: r.keyIngredients || [],
+            }))
+          );
+
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          result.recipes = result.recipes.map((recipe: any, i: number) => ({
+            ...recipe,
+            imageUrl: imageUrls[i] || undefined,
+          }));
+        } catch (imgErr) {
+          console.error('Image generation batch failed (non-blocking):', imgErr);
+        }
+      }
+
       return result;
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : 'Failed to generate recipes';

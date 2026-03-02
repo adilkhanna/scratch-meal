@@ -40,10 +40,18 @@ export default function RecipeDetailModal({ recipe, onClose }: Props) {
         {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-1.5 text-neutral-400 hover:text-neutral-900 hover:bg-neutral-100 rounded-lg transition-colors"
+          className="absolute top-4 right-4 z-10 p-1.5 text-neutral-400 hover:text-neutral-900 hover:bg-neutral-100/80 rounded-lg transition-colors"
         >
           <HiX className="w-5 h-5" />
         </button>
+
+        {/* Hero image */}
+        {recipe.imageUrl && (
+          <div className="-mx-5 -mt-5 mb-0 rounded-t-2xl overflow-hidden">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={recipe.imageUrl} alt={recipe.name} className="w-full h-48 object-cover" loading="lazy" />
+          </div>
+        )}
 
         {/* Header */}
         <div className="pr-8">

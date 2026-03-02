@@ -100,7 +100,7 @@ export default function ResultsPage() {
         {loading && (
           <div className="flex flex-col items-center py-16 gap-2">
             <MomoLoader size={140} message="Generating recipes with AI..." />
-            <p className="text-xs text-neutral-400">This may take 10-15 seconds</p>
+            <p className="text-xs text-neutral-400">This may take 20-40 seconds</p>
           </div>
         )}
         {error && (

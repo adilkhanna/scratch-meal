@@ -157,6 +157,12 @@ export default function RecipeCard({ recipe, onRate, onToggleFavorite }: Props) 
     <div className="border border-neutral-200 rounded-2xl bg-white overflow-hidden animate-slide-up hover:shadow-md transition-all">
       <div onClick={() => setExpanded(!expanded)} className="p-4 cursor-pointer hover:bg-neutral-50 transition-colors">
         <div className="flex items-start justify-between gap-3">
+          {recipe.imageUrl && (
+            <div className="w-14 h-14 rounded-xl overflow-hidden bg-neutral-100 shrink-0">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={recipe.imageUrl} alt={recipe.name} className="w-full h-full object-cover" loading="lazy" />
+            </div>
+          )}
           <div className="flex-1 min-w-0">
             <h3 className="font-bold text-neutral-900 text-base">{recipe.name}</h3>
             <p className="text-sm text-neutral-500 mt-1 line-clamp-2 font-light">{recipe.description}</p>

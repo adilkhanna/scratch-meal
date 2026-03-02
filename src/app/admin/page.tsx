@@ -23,6 +23,13 @@ export default function AdminPage() {
   const [spoonacularKey, setSpoonacularKey] = useState('');
   const [savedSpoonacularKey, setSavedSpoonacularKey] = useState('');
   const [showSpoonacularKey, setShowSpoonacularKey] = useState(false);
+  const [hfApiKey, setHfApiKey] = useState('');
+  const [savedHfApiKey, setSavedHfApiKey] = useState('');
+  const [showHfApiKey, setShowHfApiKey] = useState(false);
+  const [hfSecret, setHfSecret] = useState('');
+  const [savedHfSecret, setSavedHfSecret] = useState('');
+  const [showHfSecret, setShowHfSecret] = useState(false);
+  const [hfEnabled, setHfEnabled] = useState(false);
   const [sheetsId, setSheetsId] = useState('');
   const [serviceEmail, setServiceEmail] = useState('');
   const [privateKey, setPrivateKey] = useState('');
@@ -36,7 +43,7 @@ export default function AdminPage() {
 
   const loadConfig = useCallback(async () => {
     try { const configSnap = await getDoc(doc(db, 'admin-config', 'app')); const data = configSnap.data();
-      if (data) { setSavedApiKey(data.openaiApiKey || ''); setApiKey(data.openaiApiKey || ''); setSavedSpoonacularKey(data.spoonacularApiKey || ''); setSpoonacularKey(data.spoonacularApiKey || ''); setSheetsId(data.googleSheetsId || ''); setServiceEmail(data.googleServiceEmail || ''); setPrivateKey(data.googlePrivateKey || ''); setMaintenanceMode(data.maintenanceMode === true); }
+      if (data) { setSavedApiKey(data.openaiApiKey || ''); setApiKey(data.openaiApiKey || ''); setSavedSpoonacularKey(data.spoonacularApiKey || ''); setSpoonacularKey(data.spoonacularApiKey || ''); setSavedHfApiKey(data.higgsFieldApiKey || ''); setHfApiKey(data.higgsFieldApiKey || ''); setSavedHfSecret(data.higgsFieldSecret || ''); setHfSecret(data.higgsFieldSecret || ''); setHfEnabled(data.higgsFieldEnabled === true); setSheetsId(data.googleSheetsId || ''); setServiceEmail(data.googleServiceEmail || ''); setPrivateKey(data.googlePrivateKey || ''); setMaintenanceMode(data.maintenanceMode === true); }
     } catch (err) { console.error('Failed to load admin config:', err); }
   }, []);
 
@@ -51,8 +58,8 @@ export default function AdminPage() {
 
   const handleSave = async () => {
     setSaving(true);
-    try { await setDoc(doc(db, 'admin-config', 'app'), { openaiApiKey: apiKey.trim(), spoonacularApiKey: spoonacularKey.trim(), googleSheetsId: sheetsId.trim(), googleServiceEmail: serviceEmail.trim(), googlePrivateKey: privateKey.trim() }, { merge: true });
-      setSavedApiKey(apiKey.trim()); setSavedSpoonacularKey(spoonacularKey.trim()); addToast('Configuration saved!', 'success');
+    try { await setDoc(doc(db, 'admin-config', 'app'), { openaiApiKey: apiKey.trim(), spoonacularApiKey: spoonacularKey.trim(), higgsFieldApiKey: hfApiKey.trim(), higgsFieldSecret: hfSecret.trim(), higgsFieldEnabled: hfEnabled, googleSheetsId: sheetsId.trim(), googleServiceEmail: serviceEmail.trim(), googlePrivateKey: privateKey.trim() }, { merge: true });
+      setSavedApiKey(apiKey.trim()); setSavedSpoonacularKey(spoonacularKey.trim()); setSavedHfApiKey(hfApiKey.trim()); setSavedHfSecret(hfSecret.trim()); addToast('Configuration saved!', 'success');
     } catch (err) { addToast('Failed to save configuration.', 'error'); console.error(err); }
     finally { setSaving(false); }
   };
@@ -101,6 +108,19 @@ export default function AdminPage() {
 
   const maskedKey = savedApiKey ? `${savedApiKey.slice(0, 7)}${'*'.repeat(Math.max(0, savedApiKey.length - 11))}${savedApiKey.slice(-4)}` : '';
   const maskedSpoonacularKey = savedSpoonacularKey ? `${savedSpoonacularKey.slice(0, 4)}${'*'.repeat(Math.max(0, savedSpoonacularKey.length - 8))}${savedSpoonacularKey.slice(-4)}` : '';
+  const maskedHfApiKey = savedHfApiKey ? `${savedHfApiKey.slice(0, 4)}${'*'.repeat(Math.max(0, savedHfApiKey.length - 8))}${savedHfApiKey.slice(-4)}` : '';
+  const maskedHfSecret = savedHfSecret ? `${savedHfSecret.slice(0, 4)}${'*'.repeat(Math.max(0, savedHfSecret.length - 8))}${savedHfSecret.slice(-4)}` : '';
+
+  const handleToggleHf = async () => {
+    const newValue = !hfEnabled;
+    try {
+      await setDoc(doc(db, 'admin-config', 'app'), { higgsFieldEnabled: newValue }, { merge: true });
+      setHfEnabled(newValue);
+      addToast(newValue ? 'Image generation enabled.' : 'Image generation disabled.', 'success');
+    } catch {
+      addToast('Failed to toggle image generation.', 'error');
+    }
+  };
 
   if (authLoading || loadingData) return (
     <div className="flex items-center justify-center min-h-[60vh]">
@@ -161,6 +181,46 @@ export default function AdminPage() {
             </div>
           )}
           <input type="password" value={spoonacularKey} onChange={(e) => setSpoonacularKey(e.target.value)} placeholder="Your Spoonacular API key..." className="w-full px-4 py-2.5 rounded-xl border border-neutral-200 bg-white text-sm font-mono text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900/10" />
+        </div>
+        <div className="border border-neutral-200 rounded-2xl bg-white p-5 space-y-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <HiOutlineKey className="w-5 h-5 text-neutral-500" />
+              <div>
+                <h2 className="text-xs font-medium uppercase tracking-widest text-neutral-900">Higgsfield AI — Recipe Images</h2>
+                <p className="text-xs text-neutral-400 font-light mt-0.5">Generates food thumbnails for each recipe. ~$0.60-1.15 per batch (5 images).</p>
+              </div>
+            </div>
+            <button onClick={handleToggleHf} className={`relative w-12 h-6 rounded-full transition-colors ${hfEnabled ? 'bg-[#0059FF]' : 'bg-neutral-300'}`}>
+              <div className={`absolute top-0.5 w-5 h-5 bg-white rounded-full shadow-sm transition-transform ${hfEnabled ? 'translate-x-6' : 'translate-x-0.5'}`} />
+            </button>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className={`w-2 h-2 rounded-full ${hfEnabled ? 'bg-green-500' : 'bg-neutral-300'}`} />
+            <span className={`text-xs font-medium ${hfEnabled ? 'text-green-700' : 'text-neutral-400'}`}>{hfEnabled ? 'Enabled' : 'Disabled'}</span>
+          </div>
+          <div>
+            <label className="block text-[10px] font-medium uppercase tracking-widest text-neutral-400 mb-1">API Key</label>
+            {savedHfApiKey && (
+              <div className="flex items-center gap-2 bg-green-50 border border-green-200 rounded-lg px-3 py-2 mb-2">
+                <div className="w-2 h-2 bg-green-500 rounded-full" /><span className="text-sm text-green-700 font-medium">Key configured</span>
+                <code className="ml-auto text-xs text-neutral-500 font-mono">{showHfApiKey ? savedHfApiKey : maskedHfApiKey}</code>
+                <button onClick={() => setShowHfApiKey(!showHfApiKey)} className="p-1 text-neutral-400 hover:text-neutral-700 transition-colors">{showHfApiKey ? <HiEyeOff className="w-4 h-4" /> : <HiEye className="w-4 h-4" />}</button>
+              </div>
+            )}
+            <input type="password" value={hfApiKey} onChange={(e) => setHfApiKey(e.target.value)} placeholder="Higgsfield API key..." className="w-full px-4 py-2.5 rounded-xl border border-neutral-200 bg-white text-sm font-mono text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900/10" />
+          </div>
+          <div>
+            <label className="block text-[10px] font-medium uppercase tracking-widest text-neutral-400 mb-1">Secret Key</label>
+            {savedHfSecret && (
+              <div className="flex items-center gap-2 bg-green-50 border border-green-200 rounded-lg px-3 py-2 mb-2">
+                <div className="w-2 h-2 bg-green-500 rounded-full" /><span className="text-sm text-green-700 font-medium">Secret configured</span>
+                <code className="ml-auto text-xs text-neutral-500 font-mono">{showHfSecret ? savedHfSecret : maskedHfSecret}</code>
+                <button onClick={() => setShowHfSecret(!showHfSecret)} className="p-1 text-neutral-400 hover:text-neutral-700 transition-colors">{showHfSecret ? <HiEyeOff className="w-4 h-4" /> : <HiEye className="w-4 h-4" />}</button>
+              </div>
+            )}
+            <input type="password" value={hfSecret} onChange={(e) => setHfSecret(e.target.value)} placeholder="Higgsfield secret key..." className="w-full px-4 py-2.5 rounded-xl border border-neutral-200 bg-white text-sm font-mono text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900/10" />
+          </div>
         </div>
         <div className="border border-neutral-200 rounded-2xl bg-white p-5 space-y-4">
           <h2 className="text-xs font-medium uppercase tracking-widest text-neutral-900">Google Sheets Integration</h2>
