@@ -150,7 +150,10 @@ async function searchSpoonacular(
 ): Promise<SpoonacularSearchResult[]> {
   const url = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${encodeURIComponent(ingredients.join(','))}&number=${count}&ranking=1&ignorePantry=true&apiKey=${apiKey}`;
   const res = await fetch(url);
-  if (!res.ok) throw new Error(`Spoonacular search failed: ${res.status}`);
+  if (!res.ok) {
+    if (res.status === 402) throw new Error('SPOONACULAR_QUOTA_EXCEEDED');
+    throw new Error(`Spoonacular search failed: ${res.status}`);
+  }
   return res.json();
 }
 
@@ -160,7 +163,10 @@ async function getSpoonacularRecipeDetails(
 ): Promise<SpoonacularRecipeDetail[]> {
   const url = `https://api.spoonacular.com/recipes/informationBulk?ids=${ids.join(',')}&apiKey=${apiKey}`;
   const res = await fetch(url);
-  if (!res.ok) throw new Error(`Spoonacular details failed: ${res.status}`);
+  if (!res.ok) {
+    if (res.status === 402) throw new Error('SPOONACULAR_QUOTA_EXCEEDED');
+    throw new Error(`Spoonacular details failed: ${res.status}`);
+  }
   return res.json();
 }
 
@@ -195,7 +201,7 @@ ${recipeSummaries}
 
 For each recipe, determine if it is SAFE (compliant with ALL conditions) or UNSAFE (violates any condition).
 Return ONLY a JSON object: { "safe": [array of recipe index numbers that are compliant] }
-Be strict — if a recipe likely contains an allergen or violates a condition, mark it UNSAFE.`,
+Only mark a recipe UNSAFE if it clearly and obviously violates a condition based on its listed ingredients. Do not reject recipes based on speculation about hidden ingredients or trace amounts.`,
       },
     ],
     response_format: { type: 'json_object' },
@@ -236,31 +242,39 @@ export async function generateRecipesCore(
   let prompt: string;
   let useRAG = false;
 
+  console.log(`[recipe-gen] Starting: ${ingredients.length} ingredients, ${dietaryConditions.length} dietary conditions, time=${timeRange}, cuisines=${cuisines.join(',')}`);
+
   if (!spoonacularKey) {
+    console.error('[recipe-gen] No Spoonacular key configured!');
     throw new Error('RECIPE_SOURCE_UNAVAILABLE');
   }
 
   try {
+    console.log('[recipe-gen] Searching Spoonacular...');
     const searchResults = await searchSpoonacular(spoonacularKey, ingredients, 15);
+    console.log(`[recipe-gen] Spoonacular returned ${searchResults.length} results`);
     if (searchResults.length < 3) {
       throw new Error('NOT_ENOUGH_RECIPES');
     }
 
     const topIds = searchResults.slice(0, 10).map((r) => r.id);
     const details = await getSpoonacularRecipeDetails(spoonacularKey, topIds);
+    console.log(`[recipe-gen] Got ${details.length} recipe details`);
 
     // Review dietary compliance before using as RAG context
     const compliant = await reviewDietaryCompliance(openai, details, dietaryConditions);
+    console.log(`[recipe-gen] ${compliant.length} recipes passed dietary review`);
     const finalRecipes = compliant.slice(0, 5);
 
-    if (finalRecipes.length < 3) {
+    if (finalRecipes.length < 2) {
       throw new Error('DIETARY_COMPLIANCE_FAILED');
     }
 
     prompt = buildRAGPrompt(ingredients, dietaryConditions, timeRange, finalRecipes, cuisines);
     useRAG = true;
   } catch (err) {
-    if (err instanceof Error && ['DIETARY_COMPLIANCE_FAILED', 'NOT_ENOUGH_RECIPES', 'RECIPE_SOURCE_UNAVAILABLE'].includes(err.message)) {
+    console.error('Recipe generation pipeline error:', err);
+    if (err instanceof Error && ['DIETARY_COMPLIANCE_FAILED', 'NOT_ENOUGH_RECIPES', 'RECIPE_SOURCE_UNAVAILABLE', 'SPOONACULAR_QUOTA_EXCEEDED'].includes(err.message)) {
       throw err; // re-throw known errors
     }
     throw new Error('RECIPE_SOURCE_UNAVAILABLE');

@@ -63,6 +63,7 @@ export const generateRecipes = onCall(
 
       return result;
     } catch (err: unknown) {
+      console.error('generateRecipes error:', err);
       const message = err instanceof Error ? err.message : 'Failed to generate recipes';
       if (message === 'DIETARY_COMPLIANCE_FAILED') {
         throw new HttpsError('not-found',
@@ -71,6 +72,10 @@ export const generateRecipes = onCall(
       if (message === 'NOT_ENOUGH_RECIPES') {
         throw new HttpsError('not-found',
           'We couldn\'t find enough recipes with these ingredients. Try adding more ingredients to work with.');
+      }
+      if (message === 'SPOONACULAR_QUOTA_EXCEEDED') {
+        throw new HttpsError('resource-exhausted',
+          'Daily recipe limit reached. The recipe database resets every 24 hours — please try again tomorrow!');
       }
       if (message === 'RECIPE_SOURCE_UNAVAILABLE' || message.includes('not configured')) {
         throw new HttpsError('failed-precondition',
