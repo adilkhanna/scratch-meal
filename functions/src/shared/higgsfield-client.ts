@@ -1,38 +1,32 @@
+// Higgsfield AI V2 API — text-to-image generation
+// Docs: https://github.com/higgsfield-ai/higgsfield-js (official SDK source)
+// Auth: Authorization: Key {apiKey}:{secret}
+// Submit: POST /{model-endpoint} → { request_id, status_url }
+// Poll: GET /requests/{request_id}/status → { status, images: [{ url }] }
+
 const HIGGSFIELD_BASE = 'https://platform.higgsfield.ai';
-const POLL_INTERVAL_MS = 2000;
-const MAX_POLL_ATTEMPTS = 60; // 60 * 2s = 120s max wait per image
+const POLL_INTERVAL_MS = 3000;
+const MAX_POLL_ATTEMPTS = 40; // 40 * 3s = 120s max wait per image
 
-// Model endpoints to try in order (first available wins)
-const TEXT2IMAGE_ENDPOINTS = [
-  '/v1/flux-pro/kontext/max/text-to-image',  // Official SDK model
-  '/v1/text2image/soul',                      // Legacy Soul model
-];
+// V2 model endpoint (no /v1/ prefix)
+const MODEL_ENDPOINT = 'flux-pro/kontext/max/text-to-image';
 
-interface HiggsFieldSubmitResponse {
-  job_set_id: string;
+interface SubmitResponse {
+  request_id: string;
+  status_url?: string;
 }
 
-interface HiggsFieldJob {
+interface PollResponse {
   status: string;
-  results?: { raw?: { url?: string } };
-  result?: { url?: string };
+  request_id?: string;
+  images?: Array<{ url: string }>;
+  // Fallback shapes in case API returns differently
   output_url?: string;
+  result?: { url?: string };
 }
 
-interface HiggsFieldPollResponse {
-  status: string;
-  jobs?: HiggsFieldJob[];
-  results?: { raw?: { url?: string } };
-  result?: { url?: string };
-  output_url?: string;
-}
-
-function buildHeaders(apiKey: string, secret: string): Record<string, string> {
-  return {
-    'hf-api-key': apiKey,
-    'hf-secret': secret,
-    'Content-Type': 'application/json',
-  };
+function buildAuthHeader(apiKey: string, secret: string): string {
+  return `Key ${apiKey}:${secret}`;
 }
 
 function buildPrompt(recipeName: string, description: string, keyIngredients: string[]): string {
@@ -40,119 +34,96 @@ function buildPrompt(recipeName: string, description: string, keyIngredients: st
   return `Professional overhead food photography of ${recipeName}. ${description}. Featuring ${ingList}. Clean white plate, bright natural lighting, appetizing presentation, restaurant quality, Zomato style food thumbnail, minimal background, photorealistic.`;
 }
 
-// Build request body per endpoint — different models accept different params
-function buildRequestBody(endpoint: string, prompt: string): object {
-  if (endpoint.includes('flux-pro')) {
-    // Official SDK format for Flux models
-    return {
-      params: {
-        prompt,
-        aspect_ratio: '1:1',
-        safety_tolerance: 2,
-      },
-    };
-  }
-  // Soul model format
-  return {
-    params: {
-      prompt,
-      width_and_height: '1536x1536',
-      quality: '720p',
-      batch_size: 1,
-      enhance_prompt: false,
-    },
-  };
-}
-
 async function submitGeneration(
   apiKey: string,
   secret: string,
   prompt: string
 ): Promise<string> {
-  let lastError = '';
+  const url = `${HIGGSFIELD_BASE}/${MODEL_ENDPOINT}`;
+  const body = {
+    input: {
+      prompt,
+      aspect_ratio: '1:1',
+      safety_tolerance: 2,
+    },
+  };
 
-  for (const endpoint of TEXT2IMAGE_ENDPOINTS) {
-    const body = buildRequestBody(endpoint, prompt);
-    const res = await fetch(`${HIGGSFIELD_BASE}${endpoint}`, {
-      method: 'POST',
-      headers: buildHeaders(apiKey, secret),
-      body: JSON.stringify(body),
-    });
+  console.log(`[higgsfield] Submitting to ${MODEL_ENDPOINT}...`);
 
-    if (res.ok) {
-      const data: HiggsFieldSubmitResponse = await res.json();
-      console.log(`Higgsfield submit success via ${endpoint}, job_set_id: ${data.job_set_id}`);
-      return data.job_set_id;
-    }
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Authorization': buildAuthHeader(apiKey, secret),
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
 
+  if (!res.ok) {
     const text = await res.text();
-    lastError = `${endpoint} → ${res.status}: ${text}`;
-    console.warn(`Higgsfield endpoint ${endpoint} failed (${res.status}): ${text}`);
-
-    // If it's an auth error (401/403), don't try other endpoints — keys are wrong
-    if (res.status === 401 || res.status === 403) {
-      throw new Error(`Higgsfield auth failed (${res.status}): ${text}`);
-    }
+    console.error(`[higgsfield] Submit failed (${res.status}): ${text}`);
+    throw new Error(`Higgsfield submit failed (${res.status}): ${text}`);
   }
 
-  throw new Error(`All Higgsfield endpoints failed. Last: ${lastError}`);
+  const data: SubmitResponse = await res.json();
+  console.log(`[higgsfield] Submit success, request_id: ${data.request_id}`);
+  return data.request_id;
 }
 
-function extractImageUrl(data: HiggsFieldPollResponse): string | null {
-  // Try every known response shape from Higgsfield
-  if (data.output_url) return data.output_url;
-  if (data.results?.raw?.url) return data.results.raw.url;
-  if (data.result?.url) return data.result.url;
-  if (data.jobs && data.jobs.length > 0) {
-    const job = data.jobs[0];
-    if (job.output_url) return job.output_url;
-    if (job.results?.raw?.url) return job.results.raw.url;
-    if (job.result?.url) return job.result.url;
+function extractImageUrl(data: PollResponse): string | null {
+  // V2 format: images array
+  if (data.images && data.images.length > 0 && data.images[0].url) {
+    return data.images[0].url;
   }
+  // Fallbacks
+  if (data.output_url) return data.output_url;
+  if (data.result?.url) return data.result.url;
   return null;
 }
 
 async function pollForResult(
   apiKey: string,
   secret: string,
-  jobSetId: string
+  requestId: string
 ): Promise<string | null> {
   for (let attempt = 0; attempt < MAX_POLL_ATTEMPTS; attempt++) {
     await new Promise((resolve) => setTimeout(resolve, POLL_INTERVAL_MS));
 
-    const res = await fetch(`${HIGGSFIELD_BASE}/v1/job-sets/${jobSetId}`, {
+    const res = await fetch(`${HIGGSFIELD_BASE}/requests/${requestId}/status`, {
       headers: {
-        'hf-api-key': apiKey,
-        'hf-secret': secret,
+        'Authorization': buildAuthHeader(apiKey, secret),
       },
     });
 
     if (!res.ok) {
-      if (attempt === 0) console.warn(`Higgsfield poll failed for ${jobSetId}: ${res.status}`);
+      if (attempt === 0) console.warn(`[higgsfield] Poll failed for ${requestId}: ${res.status}`);
       continue;
     }
 
-    const data: HiggsFieldPollResponse = await res.json();
+    const data: PollResponse = await res.json();
 
     if (data.status === 'completed' || data.status === 'done') {
       const url = extractImageUrl(data);
       if (url) {
-        console.log(`Higgsfield image ready for ${jobSetId}: ${url.slice(0, 80)}...`);
+        console.log(`[higgsfield] Image ready for ${requestId}: ${url.slice(0, 80)}...`);
       } else {
-        console.warn(`Higgsfield job ${jobSetId} completed but no URL found:`, JSON.stringify(data).slice(0, 500));
+        console.warn(`[higgsfield] Job ${requestId} completed but no URL found:`, JSON.stringify(data).slice(0, 500));
       }
       return url;
     }
 
     if (data.status === 'failed' || data.status === 'error' || data.status === 'nsfw') {
-      console.error(`Higgsfield job ${jobSetId} ended with status "${data.status}":`, JSON.stringify(data).slice(0, 500));
+      console.error(`[higgsfield] Job ${requestId} ended with status "${data.status}":`, JSON.stringify(data).slice(0, 500));
       return null;
     }
 
-    // Still in progress (queued, in_progress)
+    // Still in progress (queued, in_progress) — keep polling
+    if (attempt === 0) {
+      console.log(`[higgsfield] Polling ${requestId} (status: ${data.status})...`);
+    }
   }
 
-  console.warn(`Higgsfield poll timed out for ${jobSetId} after ${MAX_POLL_ATTEMPTS * POLL_INTERVAL_MS / 1000}s`);
+  console.warn(`[higgsfield] Poll timed out for ${requestId} after ${MAX_POLL_ATTEMPTS * POLL_INTERVAL_MS / 1000}s`);
   return null;
 }
 
@@ -165,10 +136,10 @@ export async function generateRecipeImage(
 ): Promise<string | null> {
   try {
     const prompt = buildPrompt(recipeName, description, keyIngredients);
-    const jobSetId = await submitGeneration(apiKey, secret, prompt);
-    return await pollForResult(apiKey, secret, jobSetId);
+    const requestId = await submitGeneration(apiKey, secret, prompt);
+    return await pollForResult(apiKey, secret, requestId);
   } catch (err) {
-    console.error(`Image generation failed for "${recipeName}":`, err);
+    console.error(`[higgsfield] Image generation failed for "${recipeName}":`, err);
     return null;
   }
 }
@@ -178,9 +149,13 @@ export async function generateRecipeImages(
   secret: string,
   recipes: Array<{ name: string; description: string; keyIngredients: string[] }>
 ): Promise<(string | null)[]> {
+  console.log(`[higgsfield] Generating images for ${recipes.length} recipes...`);
   const results = await Promise.allSettled(
     recipes.map((r) => generateRecipeImage(apiKey, secret, r.name, r.description, r.keyIngredients))
   );
 
-  return results.map((r) => (r.status === 'fulfilled' ? r.value : null));
+  const urls = results.map((r) => (r.status === 'fulfilled' ? r.value : null));
+  const successCount = urls.filter(Boolean).length;
+  console.log(`[higgsfield] Done: ${successCount}/${recipes.length} images generated`);
+  return urls;
 }
