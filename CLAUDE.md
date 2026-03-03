@@ -14,7 +14,7 @@ A recipe recommendation web app that takes ingredients users have on hand and ge
 - **Auth**: Firebase Authentication (Google + Email/Password)
 - **Database**: Cloud Firestore
 - **Backend**: Firebase Cloud Functions (v2)
-- **AI**: OpenAI GPT-4o (recipe adaptation), GPT-4o-mini (dietary compliance review), Higgsfield Soul (recipe thumbnails)
+- **AI**: OpenAI GPT-4o (recipe adaptation), GPT-4o-mini (dietary compliance review), Higgsfield Flux Pro (recipe thumbnails)
 - **Recipe Source**: Spoonacular API (verified recipe database)
 - **Animations**: lottie-react with Kawaii animals animation
 - **Hosting**: Netlify (frontend), Firebase (functions)
@@ -33,8 +33,9 @@ User inputs → Cloud Function (generateRecipes)
   → Spoonacular API: findByIngredients (15 results)
   → Get details for top 10
   → GPT-4o-mini dietary compliance review (filters unsafe recipes)
-  → If ≥3 compliant: GPT-4o adapts them via RAG prompt
-  → If <3 compliant: Return error "add more ingredients"
+  → If ≥2 compliant: GPT-4o adapts them via RAG prompt
+  → If <2 compliant: Return error "add more ingredients"
+  → If Spoonacular returns 402: Return error "Daily recipe limit reached"
   → If no Spoonacular key: Return error "service unavailable"
   → If Higgsfield enabled: generate food thumbnails for each recipe (parallel, non-blocking)
 ```
@@ -93,7 +94,7 @@ functions/src/
 ├── onUserSignup.ts           # New user setup
 └── shared/
     ├── openai-client.ts      # OpenAI client init + Higgsfield keys
-    ├── higgsfield-client.ts  # Higgsfield AI image generation (Soul model)
+    ├── higgsfield-client.ts  # Higgsfield AI image generation (Flux Pro V2 API)
     └── recipe-generator.ts   # Core recipe generation (Spoonacular + compliance review + GPT-4o RAG)
 ```
 
@@ -108,7 +109,7 @@ functions/src/
 - **Recipe lightbox**: Click any recipe in meal plan to see full details in a modal
 - **Recipe sharing**: English + Hindi, via Web Share API or clipboard
 - **Pantry basics**: User-saved common ingredients auto-merged during generation
-- **Recipe thumbnails**: Higgsfield Soul model generates 1:1 food photos per recipe (admin-toggleable)
+- **Recipe thumbnails**: Higgsfield Flux Pro model generates 1:1 food photos per recipe (admin-toggleable, off = no cost)
 - **Lottie loader**: Kawaii animals animation (`public/animations/momo-loader.json`) used across all loading states
 
 ## Responsive Design
@@ -158,17 +159,31 @@ Higgsfield AI keys are stored in Firestore (`admin-config/app` document), manage
 
 Check secret health: `firebase functions:secrets:access OPENAI_API_KEY` and `firebase functions:secrets:access SPOONACULAR_API_KEY`. If either fails, reconfigure them before deploying.
 
-### Higgsfield API Reference (CRITICAL — do not change without verifying)
-The Higgsfield API has a non-standard interface. These details were confirmed by reading their MCP client source code:
+### Higgsfield API Reference (CRITICAL — confirmed working as of March 2026)
+Higgsfield has TWO API versions. We use **V2** (the official SDK format). Do NOT use V1 format — it will fail.
+
+**V2 API (what we use):**
 - **Base URL**: `https://platform.higgsfield.ai`
-- **Auth**: Two separate headers — `hf-api-key` and `hf-secret` (NOT `Authorization: Bearer` or `Key`)
-- **Image generation endpoint**: `POST /v1/text2image/soul` (NOT `/v1/generations`)
-- **Request body**: `{ params: { prompt, width_and_height: "1536x1536", quality: "720p", batch_size: 1 } }`
-- **Allowed dimensions**: 1536x1536, 2048x2048, 1152x2048, 2048x1152, 2048x1536, 1536x2048, 1344x2016, 2016x1344, 960x1696, 1696x960, 1536x1152, 1152x1536, 1088x1632, 1632x1088, 1120x1680, 1680x1120 (NO 1024x1024 or 512x512)
-- **Polling endpoint**: `GET /v1/job-sets/{job_set_id}` (NOT `/v1/generations/{id}`)
-- **Model**: Soul (text-to-image). DoP is image-to-video (not used here).
-- **Quality options**: `720p` (cheaper) or `1080p`
-- **Cost**: ~$0.12-0.23 per image x 5 = ~$0.60-1.15 per recipe batch
+- **Auth**: Single header — `Authorization: Key {apiKey}:{secret}` (colon-separated, NOT two separate headers, NOT Bearer)
+- **Image generation endpoint**: `POST /flux-pro/kontext/max/text-to-image` (NO `/v1/` prefix)
+- **Request body**: Flat object — `{ prompt, aspect_ratio: "1:1", safety_tolerance: 2 }` (NOT nested in `params` or `input`)
+- **Submit response**: `{ request_id: "uuid", status_url: "..." }`
+- **Polling endpoint**: `GET /requests/{request_id}/status` (NOT `/v1/job-sets/`)
+- **Poll response (completed)**: `{ status: "completed", images: [{ url: "https://..." }] }`
+- **Status values**: `queued`, `in_progress`, `completed`, `failed`, `nsfw`
+- **Cost**: Credits-based — check balance at cloud.higgsfield.ai before enabling
+- **Toggle**: Disable in Admin panel when not testing to preserve credits
+
+**V1 API (DO NOT USE — Soul model is unavailable on this account):**
+- V1 used `hf-api-key`/`hf-secret` headers, `/v1/text2image/soul` endpoint, `{ params: {...} }` body, `/v1/job-sets/{id}` polling
+- Soul model returns 400 "Unavailable model" — account does not have access
+- All previous failed attempts were caused by mixing V1 auth with V2 endpoints
+
+**Common Higgsfield errors:**
+- `403 "Not enough credits"` → Top up at cloud.higgsfield.ai
+- `400 "prompt is a required property"` → Body is nested wrong (e.g. `{ input: { prompt } }` instead of `{ prompt }`)
+- `401/403 auth error` → Wrong auth format — must be `Authorization: Key KEY:SECRET`
+- `400 "Unavailable model"` → Wrong endpoint or Soul model (use flux-pro instead)
 
 ---
 
@@ -178,17 +193,22 @@ The Higgsfield API has a non-standard interface. These details were confirmed by
 - **Check OpenAI key**: Go to Admin panel → verify OpenAI API key is entered and saved
 - **Check Spoonacular key**: Admin panel → verify Spoonacular API key is entered and saved
 - **Check Cloud Functions are deployed**: Run `firebase deploy --only functions` from the project root
-- **Check function logs**: Run `firebase functions:log --only generateRecipes` to see errors
+- **Check function logs**: Run `firebase functions:log --only generateRecipes` to see errors — the pipeline now logs every step with `[recipe-gen]` prefix
 - **Common fix**: If you see "not configured" errors, re-enter the API keys in the Admin panel and save
+
+### 1a. "Daily recipe limit reached" error
+- **Cause**: Spoonacular API returned 402 — free tier daily quota exhausted (happens during heavy testing)
+- **Fix**: Wait 24 hours for quota to reset, or upgrade the Spoonacular plan
+- **Logs**: Will show `[recipe-gen] Spoonacular returned X results` then `Spoonacular search failed: 402`
 
 ### 2. Recipe images not appearing on cards
 - **Check Higgsfield is enabled**: Admin panel → Higgsfield section → toggle must be ON (blue)
-- **Check Higgsfield keys**: Admin panel → verify both API Key and Secret are entered and saved
-- **Check Higgsfield credits**: If keys are valid but images still fail, your Higgsfield account may be out of credits
-- **Check function logs**: `firebase functions:log --only generateRecipes` — look for "Higgsfield submit failed" errors
-- **"Model not found" error**: The API endpoint or model name is wrong. See "Higgsfield API Reference" section above for correct values.
+- **Check Higgsfield credits**: Most likely cause — check balance at cloud.higgsfield.ai. Logs show `[higgsfield] Submit failed (403): Not enough credits`
+- **Check Higgsfield keys**: Admin panel → verify both API Key and Secret are entered and saved. Format in Firestore: raw key and secret (the code combines them as `Key {apiKey}:{secret}`)
+- **Check function logs**: `firebase functions:log --only generateRecipes` — look for `[higgsfield]` prefixed log lines
 - **Graceful degradation**: Image failures are non-blocking — recipes still appear without thumbnails
 - **Old recipes**: Recipes generated before Higgsfield was enabled won't have images. Generate new recipes to see thumbnails.
+- **Do NOT change the API format** without reading the Higgsfield API Reference section — many iterations were needed to find the correct V2 format
 
 ### 3. App shows blank page or won't load
 - **Clear browser cache**: Hard refresh with `Cmd+Shift+R` (Mac) or `Ctrl+Shift+R` (Windows)
