@@ -41,11 +41,9 @@ async function submitGeneration(
 ): Promise<string> {
   const url = `${HIGGSFIELD_BASE}/${MODEL_ENDPOINT}`;
   const body = {
-    input: {
-      prompt,
-      aspect_ratio: '1:1',
-      safety_tolerance: 2,
-    },
+    prompt,
+    aspect_ratio: '1:1',
+    safety_tolerance: 2,
   };
 
   console.log(`[higgsfield] Submitting to ${MODEL_ENDPOINT}...`);

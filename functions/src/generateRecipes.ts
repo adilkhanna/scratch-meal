@@ -27,14 +27,15 @@ export const generateRecipes = onCall(
     }
 
     try {
-      const { openai, spoonacularKey, higgsFieldApiKey, higgsFieldSecret, higgsFieldEnabled } = await getOpenAIClient();
+      const { openai, spoonacularKey, higgsFieldApiKey, higgsFieldSecret, higgsFieldEnabled, mandiPricesEnabled } = await getOpenAIClient();
       const result = await generateRecipesCore(
         openai,
         ingredients,
         dietaryConditions || [],
         timeRange,
         spoonacularKey,
-        cuisines || []
+        cuisines || [],
+        mandiPricesEnabled === true
       );
 
       // Image generation (graceful degradation)

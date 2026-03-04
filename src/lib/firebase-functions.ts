@@ -23,7 +23,8 @@ export async function generateRecipes(
   const fn = httpsCallable(functions, 'generateRecipes');
   const result = await fn({ ingredients, dietaryConditions, timeRange, cuisines, weeklyBudget });
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return (result.data as any).recipes || [];
+  const data = result.data as any;
+  return { recipes: data.recipes || [], pricesAsOf: data.pricesAsOf || null };
 }
 
 export async function deleteUserAccount(uid: string): Promise<{ success: boolean }> {

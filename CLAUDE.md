@@ -16,6 +16,7 @@ A recipe recommendation web app that takes ingredients users have on hand and ge
 - **Backend**: Firebase Cloud Functions (v2)
 - **AI**: OpenAI GPT-4o (recipe adaptation), GPT-4o-mini (dietary compliance review), Higgsfield Flux Pro (recipe thumbnails)
 - **Recipe Source**: Spoonacular API (verified recipe database)
+- **Live Prices**: data.gov.in Mandi Commodity Prices API (vegetables & grains)
 - **Animations**: lottie-react with Kawaii animals animation
 - **Hosting**: Netlify (frontend), Firebase (functions)
 - **Color scheme**: Background `#DBE9E3`, accent blue `#0059FF`, hover blue `#0047CC`
@@ -37,7 +38,7 @@ User inputs → Cloud Function (generateRecipes)
   → If <2 compliant: Return error "add more ingredients"
   → If Spoonacular returns 402: Return error "Daily recipe limit reached"
   → If no Spoonacular key: Return error "service unavailable"
-  → Estimate cost per serving using hardcoded Indian ingredient prices
+  → Estimate cost per serving (live mandi prices for vegetables/grains if enabled, hardcoded for proteins/dairy/oils)
   → If Higgsfield enabled: generate food thumbnails for each recipe (parallel, non-blocking)
 ```
 
@@ -89,14 +90,16 @@ src/
 functions/src/
 ├── index.ts                  # Cloud Function exports
 ├── generateRecipes.ts        # Recipe generation entry point
+├── fetchMandiPrices.ts       # Scheduled + on-demand mandi price fetcher
 ├── extractIngredients.ts     # Photo → ingredients via AI
 ├── chatAgent.ts              # Chat agent function
 ├── deleteUser.ts             # Account deletion
 ├── onUserSignup.ts           # New user setup
 └── shared/
-    ├── openai-client.ts      # OpenAI client init + Higgsfield keys
+    ├── openai-client.ts      # OpenAI client init + Higgsfield keys + mandi config
     ├── higgsfield-client.ts  # Higgsfield AI image generation (Flux Pro V2 API)
-    ├── ingredient-prices.ts  # Hardcoded Indian ingredient prices + cost calculator
+    ├── mandi-client.ts       # data.gov.in Mandi Commodity Prices API client
+    ├── ingredient-prices.ts  # Indian ingredient prices (live mandi + hardcoded) + async cost calculator
     └── recipe-generator.ts   # Core recipe generation (Spoonacular + compliance review + GPT-4o RAG + cost estimation)
 ```
 
@@ -112,7 +115,8 @@ functions/src/
 - **Recipe sharing**: English + Hindi, via Web Share API or clipboard
 - **Pantry basics**: User-saved common ingredients auto-merged during generation
 - **Recipe thumbnails**: Higgsfield Flux Pro model generates 1:1 food photos per recipe (admin-toggleable, off = no cost)
-- **Budget-aware recipes**: Optional weekly budget (₹500–₹5,000) on time page. Cost estimated per serving using ~50 hardcoded Indian ingredient prices. Recipes sorted within-budget-first, cost badges color-coded green/amber/red against budget.
+- **Budget-aware recipes**: Optional weekly budget (₹500–₹5,000) on time page. Cost estimated per serving using live mandi prices (vegetables/grains) + hardcoded prices (proteins/dairy/oils). Recipes sorted within-budget-first, cost badges show "Est. ~₹X/serving" color-coded green/amber/red against budget.
+- **Live mandi prices**: Daily wholesale prices from data.gov.in for ~27 commodities (vegetables, grains, lentils). Scheduled Cloud Function fetches daily at 7 PM IST, caches in Firestore. Admin-toggleable. Freshness badge + disclaimer on results page. Graceful fallback to hardcoded if disabled or API fails.
 - **Lottie loader**: Kawaii animals animation (`public/animations/momo-loader.json`) used across all loading states
 
 ## Responsive Design
@@ -159,6 +163,12 @@ Higgsfield AI keys are stored in Firestore (`admin-config/app` document), manage
 - **higgsFieldApiKey** — Higgsfield API key
 - **higgsFieldSecret** — Higgsfield secret
 - **higgsFieldEnabled** — on/off toggle (controls whether recipe images are generated)
+
+Mandi Prices keys are stored in Firestore (`admin-config/app` document), managed via the Admin panel:
+- **mandiApiKey** — data.gov.in API key (free tier, register at data.gov.in)
+- **mandiPricesEnabled** — on/off toggle (controls whether live mandi prices are used for cost estimation)
+- Mandi prices are cached in `mandi-prices` Firestore collection, fetched daily at 7 PM IST by `scheduledMandiPriceFetch`
+- Admin can manually refresh via "Refresh Now" button which calls `refreshMandiPrices` callable function
 
 Check secret health: `firebase functions:secrets:access OPENAI_API_KEY` and `firebase functions:secrets:access SPOONACULAR_API_KEY`. If either fails, reconfigure them before deploying.
 

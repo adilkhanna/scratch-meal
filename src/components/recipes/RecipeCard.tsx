@@ -188,7 +188,7 @@ export default function RecipeCard({ recipe, onRate, onToggleFavorite, budgetPer
               <span className={clsx('text-xs font-medium px-2 py-0.5 rounded-full', DIFFICULTY_COLORS[recipe.difficulty])}>{recipe.difficulty}</span>
               {recipe.estimatedCostPerServing != null && (
                 <span className={clsx('text-xs font-medium px-2 py-0.5 rounded-full', getCostBadgeColor(recipe.estimatedCostPerServing, budgetPerMeal))}>
-                  ~{'\u20B9'}{recipe.estimatedCostPerServing}/serving
+                  Est. ~{'\u20B9'}{recipe.estimatedCostPerServing}/serving
                 </span>
               )}
               <div className="flex gap-1 flex-wrap">

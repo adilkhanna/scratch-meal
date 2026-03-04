@@ -12,15 +12,18 @@ Estimated cost per serving using ~50 hardcoded Indian ingredient prices.
 - **Budget-aware sorting** on results page: within-budget recipes first, then by cost ascending
 - **Budget pill** on results page: "Budget: ₹2,000/week | 3 of 5 within budget"
 
-## Phase 2: Live Mandi Prices (Planned)
-Replace hardcoded vegetable prices with real-time wholesale prices from data.gov.in.
+## Phase 2: Live Mandi Prices — DONE
+Replace hardcoded vegetable/grain prices with real-time wholesale prices from data.gov.in Mandi API.
 
-### What's Planned
-- **Data source**: [data.gov.in Mandi Commodity Prices API](https://www.data.gov.in/resource/current-daily-price-various-commodities-various-markets-mandi) — daily wholesale prices by state/market
-- **Cloud Function**: Daily scheduled function to fetch and cache mandi prices in Firestore
-- **Price freshness**: Show "Prices as of {date}" badge, fall back to hardcoded if API is down
-- **Regional pricing**: Use nearest mandi market based on user's state/city (if available)
-- **Vegetables only**: Mandi data covers vegetables and some grains — proteins, dairy, oils stay hardcoded
+### What's Built
+- **Mandi API client** (`functions/src/shared/mandi-client.ts`): Fetches daily wholesale prices from data.gov.in for ~27 commodities (vegetables, grains, lentils). Uses Delhi/Azadpur mandi as national benchmark.
+- **Scheduled Cloud Function** (`scheduledMandiPriceFetch`): Runs daily at 7 PM IST, fetches mandi prices and caches in Firestore `mandi-prices` collection
+- **On-demand refresh** (`refreshMandiPrices`): Admin-triggered manual refresh callable from admin panel
+- **Async cost estimation** (`ingredient-prices.ts`): Loads mandi prices from Firestore with 10-min in-memory cache. Vegetables/grains use live mandi prices, proteins/dairy/oils fall back to hardcoded prices.
+- **Price transparency**: Cost badges show "Est. ~₹85/serving" prefix to indicate estimates. Results page shows green freshness pill "Live mandi prices as of {date}" + disclaimer about mixed price sources.
+- **Admin panel**: Toggle mandi prices on/off, enter data.gov.in API key, see last-fetched timestamp, manual "Refresh Now" button
+- **Graceful degradation**: If mandi data unavailable, falls back silently to hardcoded prices with no freshness badge
+- **Firestore rules**: `mandi-prices` collection readable by authenticated users
 
 ## Phase 3: Smart Pantry & Cost Optimization (Future)
 - **Pantry tracking**: Remember what users bought, suggest recipes before ingredients expire

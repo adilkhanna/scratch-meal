@@ -5,10 +5,11 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import { useToast } from '@/context/ToastContext';
 import { doc, getDoc, setDoc, collection, getDocs, query, orderBy, limit } from 'firebase/firestore';
+import { httpsCallable } from 'firebase/functions';
 import { sendPasswordResetEmail } from 'firebase/auth';
-import { db, auth } from '@/lib/firebase';
+import { db, auth, functions } from '@/lib/firebase';
 import { deleteUserAccount } from '@/lib/firebase-functions';
-import { HiOutlineShieldCheck, HiEye, HiEyeOff, HiOutlineUsers, HiOutlineKey, HiOutlineTrash, HiOutlineMail } from 'react-icons/hi';
+import { HiOutlineShieldCheck, HiEye, HiEyeOff, HiOutlineUsers, HiOutlineKey, HiOutlineTrash, HiOutlineMail, HiOutlineRefresh } from 'react-icons/hi';
 import MomoLoader from '@/components/ui/MomoLoader';
 
 interface UserRecord { uid: string; displayName: string; email: string; dietaryPreferences: string[]; createdAt: string; }
@@ -40,10 +41,18 @@ export default function AdminPage() {
   const [deletingUid, setDeletingUid] = useState<string | null>(null);
   const [resettingUid, setResettingUid] = useState<string | null>(null);
   const [confirmDeleteUid, setConfirmDeleteUid] = useState<string | null>(null);
+  const [mandiApiKey, setMandiApiKey] = useState('');
+  const [savedMandiApiKey, setSavedMandiApiKey] = useState('');
+  const [showMandiApiKey, setShowMandiApiKey] = useState(false);
+  const [mandiEnabled, setMandiEnabled] = useState(false);
+  const [mandiLastFetched, setMandiLastFetched] = useState<string | null>(null);
+  const [mandiRefreshing, setMandiRefreshing] = useState(false);
 
   const loadConfig = useCallback(async () => {
     try { const configSnap = await getDoc(doc(db, 'admin-config', 'app')); const data = configSnap.data();
-      if (data) { setSavedApiKey(data.openaiApiKey || ''); setApiKey(data.openaiApiKey || ''); setSavedSpoonacularKey(data.spoonacularApiKey || ''); setSpoonacularKey(data.spoonacularApiKey || ''); setSavedHfApiKey(data.higgsFieldApiKey || ''); setHfApiKey(data.higgsFieldApiKey || ''); setSavedHfSecret(data.higgsFieldSecret || ''); setHfSecret(data.higgsFieldSecret || ''); setHfEnabled(data.higgsFieldEnabled === true); setSheetsId(data.googleSheetsId || ''); setServiceEmail(data.googleServiceEmail || ''); setPrivateKey(data.googlePrivateKey || ''); setMaintenanceMode(data.maintenanceMode === true); }
+      if (data) { setSavedApiKey(data.openaiApiKey || ''); setApiKey(data.openaiApiKey || ''); setSavedSpoonacularKey(data.spoonacularApiKey || ''); setSpoonacularKey(data.spoonacularApiKey || ''); setSavedHfApiKey(data.higgsFieldApiKey || ''); setHfApiKey(data.higgsFieldApiKey || ''); setSavedHfSecret(data.higgsFieldSecret || ''); setHfSecret(data.higgsFieldSecret || ''); setHfEnabled(data.higgsFieldEnabled === true); setSheetsId(data.googleSheetsId || ''); setServiceEmail(data.googleServiceEmail || ''); setPrivateKey(data.googlePrivateKey || ''); setMaintenanceMode(data.maintenanceMode === true); setSavedMandiApiKey(data.mandiApiKey || ''); setMandiApiKey(data.mandiApiKey || ''); setMandiEnabled(data.mandiPricesEnabled === true); }
+      // Load mandi metadata
+      try { const metaSnap = await getDoc(doc(db, 'mandi-prices', '_metadata')); const meta = metaSnap.data(); if (meta?.lastFetchedAt) { const d = meta.lastFetchedAt.toDate ? meta.lastFetchedAt.toDate() : new Date(meta.lastFetchedAt); setMandiLastFetched(d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })); } } catch { /* metadata may not exist yet */ }
     } catch (err) { console.error('Failed to load admin config:', err); }
   }, []);
 
@@ -58,8 +67,8 @@ export default function AdminPage() {
 
   const handleSave = async () => {
     setSaving(true);
-    try { await setDoc(doc(db, 'admin-config', 'app'), { openaiApiKey: apiKey.trim(), spoonacularApiKey: spoonacularKey.trim(), higgsFieldApiKey: hfApiKey.trim(), higgsFieldSecret: hfSecret.trim(), higgsFieldEnabled: hfEnabled, googleSheetsId: sheetsId.trim(), googleServiceEmail: serviceEmail.trim(), googlePrivateKey: privateKey.trim() }, { merge: true });
-      setSavedApiKey(apiKey.trim()); setSavedSpoonacularKey(spoonacularKey.trim()); setSavedHfApiKey(hfApiKey.trim()); setSavedHfSecret(hfSecret.trim()); addToast('Configuration saved!', 'success');
+    try { await setDoc(doc(db, 'admin-config', 'app'), { openaiApiKey: apiKey.trim(), spoonacularApiKey: spoonacularKey.trim(), higgsFieldApiKey: hfApiKey.trim(), higgsFieldSecret: hfSecret.trim(), higgsFieldEnabled: hfEnabled, mandiApiKey: mandiApiKey.trim(), mandiPricesEnabled: mandiEnabled, googleSheetsId: sheetsId.trim(), googleServiceEmail: serviceEmail.trim(), googlePrivateKey: privateKey.trim() }, { merge: true });
+      setSavedApiKey(apiKey.trim()); setSavedSpoonacularKey(spoonacularKey.trim()); setSavedHfApiKey(hfApiKey.trim()); setSavedHfSecret(hfSecret.trim()); setSavedMandiApiKey(mandiApiKey.trim()); addToast('Configuration saved!', 'success');
     } catch (err) { addToast('Failed to save configuration.', 'error'); console.error(err); }
     finally { setSaving(false); }
   };
@@ -110,6 +119,7 @@ export default function AdminPage() {
   const maskedSpoonacularKey = savedSpoonacularKey ? `${savedSpoonacularKey.slice(0, 4)}${'*'.repeat(Math.max(0, savedSpoonacularKey.length - 8))}${savedSpoonacularKey.slice(-4)}` : '';
   const maskedHfApiKey = savedHfApiKey ? `${savedHfApiKey.slice(0, 4)}${'*'.repeat(Math.max(0, savedHfApiKey.length - 8))}${savedHfApiKey.slice(-4)}` : '';
   const maskedHfSecret = savedHfSecret ? `${savedHfSecret.slice(0, 4)}${'*'.repeat(Math.max(0, savedHfSecret.length - 8))}${savedHfSecret.slice(-4)}` : '';
+  const maskedMandiApiKey = savedMandiApiKey ? `${savedMandiApiKey.slice(0, 4)}${'*'.repeat(Math.max(0, savedMandiApiKey.length - 8))}${savedMandiApiKey.slice(-4)}` : '';
 
   const handleToggleHf = async () => {
     const newValue = !hfEnabled;
@@ -119,6 +129,37 @@ export default function AdminPage() {
       addToast(newValue ? 'Image generation enabled.' : 'Image generation disabled.', 'success');
     } catch {
       addToast('Failed to toggle image generation.', 'error');
+    }
+  };
+
+  const handleToggleMandi = async () => {
+    const newValue = !mandiEnabled;
+    try {
+      await setDoc(doc(db, 'admin-config', 'app'), { mandiPricesEnabled: newValue }, { merge: true });
+      setMandiEnabled(newValue);
+      addToast(newValue ? 'Live mandi prices enabled.' : 'Live mandi prices disabled.', 'success');
+    } catch {
+      addToast('Failed to toggle mandi prices.', 'error');
+    }
+  };
+
+  const handleRefreshMandi = async () => {
+    setMandiRefreshing(true);
+    try {
+      const fn = httpsCallable(functions, 'refreshMandiPrices');
+      await fn({});
+      // Re-fetch metadata
+      const metaSnap = await getDoc(doc(db, 'mandi-prices', '_metadata'));
+      const meta = metaSnap.data();
+      if (meta?.lastFetchedAt) {
+        const d = meta.lastFetchedAt.toDate ? meta.lastFetchedAt.toDate() : new Date(meta.lastFetchedAt);
+        setMandiLastFetched(d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }));
+      }
+      addToast('Mandi prices refreshed!', 'success');
+    } catch (err) {
+      addToast(err instanceof Error ? err.message : 'Failed to refresh mandi prices.', 'error');
+    } finally {
+      setMandiRefreshing(false);
     }
   };
 
@@ -220,6 +261,45 @@ export default function AdminPage() {
               </div>
             )}
             <input type="password" value={hfSecret} onChange={(e) => setHfSecret(e.target.value)} placeholder="Higgsfield secret key..." className="w-full px-4 py-2.5 rounded-xl border border-neutral-200 bg-white text-sm font-mono text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900/10" />
+          </div>
+        </div>
+        {/* Live Mandi Prices */}
+        <div className="border border-neutral-200 rounded-2xl bg-white p-5 space-y-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <HiOutlineKey className="w-5 h-5 text-neutral-500" />
+              <div>
+                <h2 className="text-xs font-medium uppercase tracking-widest text-neutral-900">Live Mandi Prices — data.gov.in</h2>
+                <p className="text-xs text-neutral-400 font-light mt-0.5">Real-time vegetable & grain prices from Indian wholesale markets. Free API.</p>
+              </div>
+            </div>
+            <button onClick={handleToggleMandi} className={`relative w-12 h-6 rounded-full transition-colors ${mandiEnabled ? 'bg-[#0059FF]' : 'bg-neutral-300'}`}>
+              <div className={`absolute top-0.5 w-5 h-5 bg-white rounded-full shadow-sm transition-transform ${mandiEnabled ? 'translate-x-6' : 'translate-x-0.5'}`} />
+            </button>
+          </div>
+          <div className="flex items-center gap-3 flex-wrap">
+            <div className="flex items-center gap-2">
+              <div className={`w-2 h-2 rounded-full ${mandiEnabled ? 'bg-green-500' : 'bg-neutral-300'}`} />
+              <span className={`text-xs font-medium ${mandiEnabled ? 'text-green-700' : 'text-neutral-400'}`}>{mandiEnabled ? 'Enabled' : 'Disabled'}</span>
+            </div>
+            {mandiLastFetched && (
+              <span className="text-xs text-neutral-400 font-light">Last fetched: {mandiLastFetched}</span>
+            )}
+            <button onClick={handleRefreshMandi} disabled={mandiRefreshing || !savedMandiApiKey} className="flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-full border border-neutral-200 text-neutral-700 hover:bg-[#0059FF] hover:text-white hover:border-[#0059FF] transition-colors disabled:opacity-50 disabled:cursor-not-allowed ml-auto">
+              <HiOutlineRefresh className={`w-3.5 h-3.5 ${mandiRefreshing ? 'animate-spin' : ''}`} />
+              {mandiRefreshing ? 'Refreshing...' : 'Refresh Now'}
+            </button>
+          </div>
+          <div>
+            <label className="block text-[10px] font-medium uppercase tracking-widest text-neutral-400 mb-1">data.gov.in API Key</label>
+            {savedMandiApiKey && (
+              <div className="flex items-center gap-2 bg-green-50 border border-green-200 rounded-lg px-3 py-2 mb-2">
+                <div className="w-2 h-2 bg-green-500 rounded-full" /><span className="text-sm text-green-700 font-medium">Key configured</span>
+                <code className="ml-auto text-xs text-neutral-500 font-mono">{showMandiApiKey ? savedMandiApiKey : maskedMandiApiKey}</code>
+                <button onClick={() => setShowMandiApiKey(!showMandiApiKey)} className="p-1 text-neutral-400 hover:text-neutral-700 transition-colors">{showMandiApiKey ? <HiEyeOff className="w-4 h-4" /> : <HiEye className="w-4 h-4" />}</button>
+              </div>
+            )}
+            <input type="password" value={mandiApiKey} onChange={(e) => setMandiApiKey(e.target.value)} placeholder="data.gov.in API key..." className="w-full px-4 py-2.5 rounded-xl border border-neutral-200 bg-white text-sm font-mono text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900/10" />
           </div>
         </div>
         <div className="border border-neutral-200 rounded-2xl bg-white p-5 space-y-4">

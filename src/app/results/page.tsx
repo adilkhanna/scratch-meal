@@ -25,6 +25,7 @@ export default function ResultsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [hasFetched, setHasFetched] = useState(false);
+  const [pricesAsOf, setPricesAsOf] = useState<string | null>(null);
 
   const conditionLabels = dietaryConditions.map((id) => DIETARY_CONDITIONS.find((c) => c.id === id)?.label ?? id);
 
@@ -48,7 +49,9 @@ export default function ResultsPage() {
       }
 
       const cuisineLabels = cuisines.map((id) => CUISINES.find((c) => c.id === id)?.label ?? id);
-      const rawRecipes = await generateRecipesAI(allIngredients, conditionLabels, timeRange!, cuisineLabels, weeklyBudget);
+      const result = await generateRecipesAI(allIngredients, conditionLabels, timeRange!, cuisineLabels, weeklyBudget);
+      const rawRecipes = result.recipes;
+      if (result.pricesAsOf) setPricesAsOf(result.pricesAsOf);
       const recipesWithMeta: Recipe[] = (rawRecipes || []).map(
         (r: Omit<Recipe, 'id' | 'rating' | 'isFavorite' | 'createdAt' | 'searchedIngredients' | 'dietaryConditions' | 'requestedTimeRange'>) => ({
           ...r, id: `${Date.now()}-${Math.random().toString(36).slice(2)}`, rating: 0, isFavorite: false,
@@ -138,6 +141,15 @@ export default function ResultsPage() {
                 </div>
               );
             })()}
+            {pricesAsOf && (
+              <div className="space-y-1">
+                <div className="flex items-center gap-2 px-3 py-2 bg-green-50 border border-green-200 rounded-full text-xs text-green-700">
+                  <span className="w-2 h-2 bg-green-500 rounded-full" />
+                  <span className="font-medium">Live mandi prices as of {new Date(pricesAsOf).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}</span>
+                </div>
+                <p className="text-[11px] text-neutral-400 font-light px-1">Vegetable & grain prices are live from Indian mandis. Other ingredients (meats, dairy, oils) use estimated retail prices.</p>
+              </div>
+            )}
             {recipes.map((recipe) => (
               <RecipeCard key={recipe.id} recipe={recipe} onRate={(rating) => updateRecipe(recipe.id, { rating })} onToggleFavorite={() => updateRecipe(recipe.id, { isFavorite: !recipe.isFavorite })} budgetPerMeal={weeklyBudget ? Math.round(weeklyBudget / 21) : null} />
             ))}

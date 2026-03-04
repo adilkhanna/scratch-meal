@@ -15,6 +15,11 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
+    // Mandi prices — Cloud Functions write via admin SDK, authenticated users can read
+    match /mandi-prices/{doc} {
+      allow read: if request.auth != null;
+    }
+
     // User profiles
     match /users/{userId} {
       // Users can read their own profile

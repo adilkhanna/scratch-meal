@@ -1,5 +1,8 @@
 // Hardcoded Indian grocery prices (approximate retail, March 2026).
-// Phase 2 will replace vegetable prices with live mandi data from data.gov.in.
+// Phase 2: vegetables/grains can be overridden by live mandi prices from data.gov.in.
+// Proteins, dairy, oils always use hardcoded prices (not available from mandis).
+
+import * as admin from 'firebase-admin';
 
 interface PriceEntry {
   keyword: string;
@@ -28,7 +31,7 @@ const INGREDIENT_PRICES: PriceEntry[] = [
   { keyword: 'eggplant', pricePerUnit: 40, unitType: 'kg' },
   { keyword: 'peas', pricePerUnit: 80, unitType: 'kg' },
 
-  // Proteins
+  // Proteins (NOT in mandis — always hardcoded)
   { keyword: 'chicken', pricePerUnit: 250, unitType: 'kg' },
   { keyword: 'paneer', pricePerUnit: 400, unitType: 'kg' },
   { keyword: 'egg', pricePerUnit: 7, unitType: 'unit' },
@@ -38,7 +41,7 @@ const INGREDIENT_PRICES: PriceEntry[] = [
   { keyword: 'shrimp', pricePerUnit: 500, unitType: 'kg' },
   { keyword: 'tofu', pricePerUnit: 300, unitType: 'kg' },
 
-  // Dairy
+  // Dairy (NOT in mandis — always hardcoded)
   { keyword: 'milk', pricePerUnit: 60, unitType: 'litre' },
   { keyword: 'curd', pricePerUnit: 60, unitType: 'litre' },
   { keyword: 'yogurt', pricePerUnit: 60, unitType: 'litre' },
@@ -62,7 +65,7 @@ const INGREDIENT_PRICES: PriceEntry[] = [
   { keyword: 'chana', pricePerUnit: 100, unitType: 'kg' },
   { keyword: 'rajma', pricePerUnit: 140, unitType: 'kg' },
 
-  // Oils & condiments
+  // Oils & condiments (NOT in mandis — always hardcoded)
   { keyword: 'oil', pricePerUnit: 180, unitType: 'litre' },
   { keyword: 'ghee', pricePerUnit: 600, unitType: 'litre' },
   { keyword: 'soy sauce', pricePerUnit: 200, unitType: 'litre' },
@@ -99,9 +102,102 @@ interface RecipeIngredient {
   unit?: string;
 }
 
-function findPriceEntry(name: string): PriceEntry | null {
+// --- Mandi price integration ---
+
+// Maps hardcoded keyword → mandi Firestore document key
+const KEYWORD_TO_MANDI_KEY: Record<string, string> = {
+  'onion': 'onion',
+  'tomato': 'tomato',
+  'potato': 'potato',
+  'garlic': 'garlic',
+  'ginger': 'ginger',
+  'carrot': 'carrot',
+  'capsicum': 'capsicum',
+  'bell pepper': 'capsicum',
+  'spinach': 'spinach',
+  'palak': 'spinach',
+  'cauliflower': 'cauliflower',
+  'cabbage': 'cabbage',
+  'green chili': 'green-chilli',
+  'coriander': 'coriander-leaves',
+  'cucumber': 'cucumber-kheera',
+  'brinjal': 'brinjal',
+  'eggplant': 'brinjal',
+  'peas': 'peas-green',
+  'rice': 'rice',
+  'dal': 'arhar-dal-tur-dal',
+  'lentil': 'masur-dal',
+  'chickpea': 'gram-dal',
+  'chana': 'bengal-gram-gram-whole',
+  'rajma': 'rajma',
+  'sugar': 'sugar',
+  'lemon': 'lemon',
+  'lime': 'lime',
+};
+
+interface MandiPriceData {
+  pricePerKg: number;
+  fetchedAt: Date;
+}
+
+// In-memory cache for mandi prices (Cloud Function instances are reused)
+let mandiCache: { prices: Map<string, MandiPriceData>; loadedAt: number } | null = null;
+const CACHE_TTL_MS = 10 * 60 * 1000; // 10 minutes
+
+async function loadMandiPrices(): Promise<Map<string, MandiPriceData>> {
+  if (mandiCache && Date.now() - mandiCache.loadedAt < CACHE_TTL_MS) {
+    return mandiCache.prices;
+  }
+
+  const snap = await admin.firestore().collection('mandi-prices').get();
+  const prices = new Map<string, MandiPriceData>();
+
+  for (const doc of snap.docs) {
+    if (doc.id === '_metadata') continue;
+    const data = doc.data();
+    if (data.pricePerKg) {
+      prices.set(doc.id, {
+        pricePerKg: data.pricePerKg,
+        fetchedAt: data.fetchedAt?.toDate?.() || new Date(),
+      });
+    }
+  }
+
+  mandiCache = { prices, loadedAt: Date.now() };
+  console.log(`[recipe-gen] Loaded ${prices.size} mandi prices from Firestore cache`);
+  return prices;
+}
+
+// --- Price lookup ---
+
+function findPriceEntry(
+  name: string,
+  mandiPrices?: Map<string, MandiPriceData>
+): PriceEntry | null {
   const lower = name.toLowerCase();
-  return SORTED_PRICES.find((e) => lower.includes(e.keyword)) || null;
+
+  for (const entry of SORTED_PRICES) {
+    if (!lower.includes(entry.keyword)) continue;
+
+    // If mandi data available, check if this keyword has a live price
+    if (mandiPrices) {
+      const mandiKey = KEYWORD_TO_MANDI_KEY[entry.keyword];
+      if (mandiKey && mandiPrices.has(mandiKey)) {
+        const mandiPrice = mandiPrices.get(mandiKey)!;
+        // Return synthetic PriceEntry with live mandi price (always per kg)
+        return {
+          keyword: entry.keyword,
+          pricePerUnit: mandiPrice.pricePerKg,
+          unitType: 'kg',
+        };
+      }
+    }
+
+    // Fall through to hardcoded price
+    return entry;
+  }
+
+  return null;
 }
 
 function parseQuantity(qty: string): number {
@@ -117,8 +213,11 @@ function parseQuantity(qty: string): number {
   return isNaN(n) ? 1 : n;
 }
 
-function estimateIngredientCost(ing: RecipeIngredient): number {
-  const entry = findPriceEntry(ing.name);
+function estimateIngredientCost(
+  ing: RecipeIngredient,
+  mandiPrices?: Map<string, MandiPriceData>
+): number {
+  const entry = findPriceEntry(ing.name, mandiPrices);
   if (!entry) return DEFAULT_PRICE;
 
   const qty = parseQuantity(ing.quantity);
@@ -145,8 +244,46 @@ function estimateIngredientCost(ing: RecipeIngredient): number {
   return DEFAULT_PRICE;
 }
 
-export function estimateRecipeCost(ingredients: RecipeIngredient[], servings: number): number {
-  const total = ingredients.reduce((sum, ing) => sum + estimateIngredientCost(ing), 0);
+/**
+ * Estimate the cost per serving for a recipe.
+ *
+ * When `useMandiPrices=true`, loads live mandi prices from Firestore and uses them
+ * for vegetables/grains. Falls back to hardcoded for all other items and if mandi fails.
+ *
+ * @returns costPerServing (rounded to nearest 5) and pricesAsOf (ISO date or null)
+ */
+export async function estimateRecipeCost(
+  ingredients: RecipeIngredient[],
+  servings: number,
+  useMandiPrices: boolean = false
+): Promise<{ costPerServing: number; pricesAsOf: string | null }> {
+  let mandiPrices: Map<string, MandiPriceData> | undefined;
+  let pricesAsOf: string | null = null;
+
+  if (useMandiPrices) {
+    try {
+      mandiPrices = await loadMandiPrices();
+      if (mandiPrices.size > 0) {
+        // Find the most recent fetchedAt across all entries
+        let latest = new Date(0);
+        for (const [, entry] of mandiPrices) {
+          if (entry.fetchedAt > latest) latest = entry.fetchedAt;
+        }
+        pricesAsOf = latest.toISOString();
+      }
+    } catch (err) {
+      console.warn('[recipe-gen] Failed to load mandi prices, falling back to hardcoded:', err);
+      mandiPrices = undefined;
+    }
+  }
+
+  const total = ingredients.reduce(
+    (sum, ing) => sum + estimateIngredientCost(ing, mandiPrices),
+    0
+  );
   const perServing = total / Math.max(servings, 1);
-  return Math.round(perServing / 5) * 5; // Round to nearest 5
+  return {
+    costPerServing: Math.round(perServing / 5) * 5,
+    pricesAsOf,
+  };
 }

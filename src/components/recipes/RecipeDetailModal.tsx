@@ -68,7 +68,7 @@ export default function RecipeDetailModal({ recipe, onClose }: Props) {
             </span>
             {recipe.estimatedCostPerServing != null && (
               <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-neutral-50 text-neutral-500 border border-neutral-200">
-                ~{'\u20B9'}{recipe.estimatedCostPerServing}/serving
+                Est. ~{'\u20B9'}{recipe.estimatedCostPerServing}/serving
               </span>
             )}
             {recipe.rating > 0 && (

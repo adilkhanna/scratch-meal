@@ -9,6 +9,7 @@ export async function getOpenAIClient(): Promise<{
   higgsFieldApiKey?: string;
   higgsFieldSecret?: string;
   higgsFieldEnabled?: boolean;
+  mandiPricesEnabled?: boolean;
 }> {
   const configSnap = await admin.firestore().doc('admin-config/app').get();
   const configData = configSnap.data();
@@ -17,11 +18,12 @@ export async function getOpenAIClient(): Promise<{
   const higgsFieldApiKey = configData?.higgsFieldApiKey || undefined;
   const higgsFieldSecret = configData?.higgsFieldSecret || undefined;
   const higgsFieldEnabled = configData?.higgsFieldEnabled === true;
+  const mandiPricesEnabled = configData?.mandiPricesEnabled === true;
 
   if (!openaiKey) {
     throw new Error('OpenAI API key not configured. Contact the admin.');
   }
 
   cachedKey = openaiKey;
-  return { openai: new OpenAI({ apiKey: openaiKey }), spoonacularKey, higgsFieldApiKey, higgsFieldSecret, higgsFieldEnabled };
+  return { openai: new OpenAI({ apiKey: openaiKey }), spoonacularKey, higgsFieldApiKey, higgsFieldSecret, higgsFieldEnabled, mandiPricesEnabled };
 }

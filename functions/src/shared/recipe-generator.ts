@@ -230,6 +230,7 @@ Only mark a recipe UNSAFE if it clearly and obviously violates a condition based
 export interface GeneratedRecipes {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   recipes: any[];
+  pricesAsOf?: string | null;
 }
 
 export async function generateRecipesCore(
@@ -238,7 +239,8 @@ export async function generateRecipesCore(
   dietaryConditions: string[],
   timeRange: string,
   spoonacularKey?: string,
-  cuisines: string[] = []
+  cuisines: string[] = [],
+  useMandiPrices: boolean = false
 ): Promise<GeneratedRecipes> {
   let prompt: string;
   let useRAG = false;
@@ -302,11 +304,22 @@ export async function generateRecipesCore(
 
   const parsed = JSON.parse(content);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const recipesWithCost = (parsed.recipes || []).map((recipe: any) => {
-    const servings = recipe.nutritionInfo?.servings || 2;
-    const costPerServing = estimateRecipeCost(recipe.ingredients || [], servings);
-    return { ...recipe, estimatedCostPerServing: costPerServing };
-  });
-  console.log(`[recipe-gen] Cost estimates: ${recipesWithCost.map((r: { name: string; estimatedCostPerServing: number }) => `${r.name}=₹${r.estimatedCostPerServing}`).join(', ')}`);
-  return { recipes: recipesWithCost };
+  const costResults = await Promise.all(
+    (parsed.recipes || []).map(async (recipe: any) => {
+      const servings = recipe.nutritionInfo?.servings || 2;
+      const { costPerServing, pricesAsOf: recipePricesAsOf } = await estimateRecipeCost(
+        recipe.ingredients || [],
+        servings,
+        useMandiPrices
+      );
+      return { ...recipe, estimatedCostPerServing: costPerServing, _pricesAsOf: recipePricesAsOf };
+    })
+  );
+
+  // Extract pricesAsOf from first recipe (same for all since they share the same mandi cache)
+  const pricesAsOf = costResults[0]?._pricesAsOf || null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const recipesWithCost = costResults.map(({ _pricesAsOf, ...recipe }: any) => recipe);
+  console.log(`[recipe-gen] Cost estimates${pricesAsOf ? ' (live mandi)' : ' (hardcoded)'}: ${recipesWithCost.map((r: { name: string; estimatedCostPerServing: number }) => `${r.name}=₹${r.estimatedCostPerServing}`).join(', ')}`);
+  return { recipes: recipesWithCost, pricesAsOf };
 }
