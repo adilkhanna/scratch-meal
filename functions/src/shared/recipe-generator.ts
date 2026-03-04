@@ -1,4 +1,5 @@
 import OpenAI from 'openai';
+import { estimateRecipeCost } from './ingredient-prices';
 
 // --- Spoonacular types ---
 interface SpoonacularSearchResult {
@@ -300,5 +301,12 @@ export async function generateRecipesCore(
   if (!content) throw new Error('No response from AI');
 
   const parsed = JSON.parse(content);
-  return { recipes: parsed.recipes || [] };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const recipesWithCost = (parsed.recipes || []).map((recipe: any) => {
+    const servings = recipe.nutritionInfo?.servings || 2;
+    const costPerServing = estimateRecipeCost(recipe.ingredients || [], servings);
+    return { ...recipe, estimatedCostPerServing: costPerServing };
+  });
+  console.log(`[recipe-gen] Cost estimates: ${recipesWithCost.map((r: { name: string; estimatedCostPerServing: number }) => `${r.name}=₹${r.estimatedCostPerServing}`).join(', ')}`);
+  return { recipes: recipesWithCost };
 }

@@ -18,7 +18,7 @@ import MomoLoader from '@/components/ui/MomoLoader';
 
 export default function ResultsPage() {
   const router = useRouter();
-  const { ingredients, dietaryConditions, cuisines, timeRange, resetFlow } = useRecipeFlow();
+  const { ingredients, dietaryConditions, cuisines, timeRange, weeklyBudget, resetFlow } = useRecipeFlow();
   const { user } = useAuth();
   const { addToast } = useToast();
   const [recipes, setRecipes] = useState<Recipe[]>([]);
@@ -48,13 +48,25 @@ export default function ResultsPage() {
       }
 
       const cuisineLabels = cuisines.map((id) => CUISINES.find((c) => c.id === id)?.label ?? id);
-      const rawRecipes = await generateRecipesAI(allIngredients, conditionLabels, timeRange!, cuisineLabels);
+      const rawRecipes = await generateRecipesAI(allIngredients, conditionLabels, timeRange!, cuisineLabels, weeklyBudget);
       const recipesWithMeta: Recipe[] = (rawRecipes || []).map(
         (r: Omit<Recipe, 'id' | 'rating' | 'isFavorite' | 'createdAt' | 'searchedIngredients' | 'dietaryConditions' | 'requestedTimeRange'>) => ({
           ...r, id: `${Date.now()}-${Math.random().toString(36).slice(2)}`, rating: 0, isFavorite: false,
           createdAt: new Date().toISOString(), searchedIngredients: ingredients, dietaryConditions: conditionLabels, requestedTimeRange: timeRange,
         })
       );
+      // Sort: within-budget first, then by cost ascending (if budget is set)
+      const budgetPerMeal = weeklyBudget ? Math.round(weeklyBudget / 21) : null;
+      if (budgetPerMeal) {
+        recipesWithMeta.sort((a, b) => {
+          const aCost = a.estimatedCostPerServing ?? Infinity;
+          const bCost = b.estimatedCostPerServing ?? Infinity;
+          const aWithin = aCost <= budgetPerMeal ? 0 : 1;
+          const bWithin = bCost <= budgetPerMeal ? 0 : 1;
+          if (aWithin !== bWithin) return aWithin - bWithin;
+          return aCost - bCost;
+        });
+      }
       setRecipes(recipesWithMeta);
 
       // Save to Firestore
@@ -115,8 +127,19 @@ export default function ResultsPage() {
         )}
         {!loading && !error && recipes.length > 0 && (
           <div className="space-y-4">
+            {weeklyBudget && (() => {
+              const perMeal = Math.round(weeklyBudget / 21);
+              const withinCount = recipes.filter((r) => (r.estimatedCostPerServing ?? Infinity) <= perMeal).length;
+              return (
+                <div className="flex items-center gap-2 px-3 py-2 bg-white border border-neutral-200 rounded-full text-xs text-neutral-500">
+                  <span className="font-medium text-neutral-900">Budget: {'\u20B9'}{weeklyBudget.toLocaleString('en-IN')}/week</span>
+                  <span className="text-neutral-300">|</span>
+                  <span>{withinCount} of {recipes.length} within budget</span>
+                </div>
+              );
+            })()}
             {recipes.map((recipe) => (
-              <RecipeCard key={recipe.id} recipe={recipe} onRate={(rating) => updateRecipe(recipe.id, { rating })} onToggleFavorite={() => updateRecipe(recipe.id, { isFavorite: !recipe.isFavorite })} />
+              <RecipeCard key={recipe.id} recipe={recipe} onRate={(rating) => updateRecipe(recipe.id, { rating })} onToggleFavorite={() => updateRecipe(recipe.id, { isFavorite: !recipe.isFavorite })} budgetPerMeal={weeklyBudget ? Math.round(weeklyBudget / 21) : null} />
             ))}
           </div>
         )}

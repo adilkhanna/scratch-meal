@@ -66,6 +66,11 @@ export default function RecipeDetailModal({ recipe, onClose }: Props) {
             <span className={clsx('text-xs font-medium px-2 py-0.5 rounded-full', DIFFICULTY_COLORS[recipe.difficulty])}>
               {recipe.difficulty}
             </span>
+            {recipe.estimatedCostPerServing != null && (
+              <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-neutral-50 text-neutral-500 border border-neutral-200">
+                ~{'\u20B9'}{recipe.estimatedCostPerServing}/serving
+              </span>
+            )}
             {recipe.rating > 0 && (
               <span className="text-xs text-neutral-400">⭐ {recipe.rating}/5</span>
             )}

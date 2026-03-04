@@ -18,7 +18,7 @@ export const generateRecipes = onCall(
       throw new HttpsError('unauthenticated', 'You must be signed in.');
     }
 
-    const { ingredients, dietaryConditions, timeRange, cuisines } = request.data;
+    const { ingredients, dietaryConditions, timeRange, cuisines, weeklyBudget } = request.data;
     if (!ingredients || !Array.isArray(ingredients) || ingredients.length === 0) {
       throw new HttpsError('invalid-argument', 'ingredients array is required.');
     }

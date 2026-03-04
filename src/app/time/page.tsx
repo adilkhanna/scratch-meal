@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useRecipeFlow } from '@/context/RecipeFlowContext';
 import StepIndicator from '@/components/layout/StepIndicator';
@@ -9,9 +9,20 @@ import clsx from 'clsx';
 
 export default function TimePage() {
   const router = useRouter();
-  const { ingredients, timeRange, setTimeRange } = useRecipeFlow();
+  const { ingredients, timeRange, setTimeRange, weeklyBudget, setWeeklyBudget } = useRecipeFlow();
+  const [budgetEnabled, setBudgetEnabled] = useState(weeklyBudget !== null);
 
   useEffect(() => { if (ingredients.length === 0) router.replace('/'); }, [ingredients.length, router]);
+
+  const handleBudgetToggle = () => {
+    if (budgetEnabled) {
+      setBudgetEnabled(false);
+      setWeeklyBudget(null);
+    } else {
+      setBudgetEnabled(true);
+      setWeeklyBudget(2000);
+    }
+  };
 
   const handleGenerate = () => { if (timeRange) router.push('/results'); };
 
@@ -35,6 +46,54 @@ export default function TimePage() {
             </button>
           ))}
         </div>
+        {/* Budget Section */}
+        <div className="border border-neutral-200 rounded-2xl bg-white p-4 space-y-3">
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="font-medium text-sm text-neutral-900">Weekly Budget</h3>
+              <p className="text-xs text-neutral-400">Optional — filter recipes by cost</p>
+            </div>
+            <button
+              onClick={handleBudgetToggle}
+              className={clsx(
+                'relative w-11 h-6 rounded-full transition-colors',
+                budgetEnabled ? 'bg-[#0059FF]' : 'bg-neutral-300'
+              )}
+            >
+              <span className={clsx(
+                'absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform',
+                budgetEnabled && 'translate-x-5'
+              )} />
+            </button>
+          </div>
+          {budgetEnabled && weeklyBudget !== null && (
+            <div className="space-y-2">
+              <div className="flex items-baseline justify-between">
+                <span className="text-2xl font-semibold text-neutral-900">
+                  {'\u20B9'}{weeklyBudget.toLocaleString('en-IN')}
+                  <span className="text-sm font-normal text-neutral-400">/week</span>
+                </span>
+                <span className="text-xs text-neutral-400">
+                  ~{'\u20B9'}{Math.round(weeklyBudget / 21)}/meal (21 meals)
+                </span>
+              </div>
+              <input
+                type="range"
+                min={500}
+                max={5000}
+                step={100}
+                value={weeklyBudget}
+                onChange={(e) => setWeeklyBudget(Number(e.target.value))}
+                className="w-full accent-[#0059FF] h-1.5"
+              />
+              <div className="flex justify-between text-[10px] text-neutral-400">
+                <span>{'\u20B9'}500</span>
+                <span>{'\u20B9'}5,000</span>
+              </div>
+            </div>
+          )}
+        </div>
+
         <div className="flex gap-3">
           <button onClick={() => router.push('/cuisine')} className="flex-1 py-3.5 border border-neutral-200 text-neutral-500 rounded-full font-medium text-xs uppercase tracking-widest hover:bg-neutral-50 transition-colors">Back</button>
           <button onClick={handleGenerate} disabled={!timeRange} className="flex-[2] py-3.5 bg-[#0059FF] text-white rounded-full font-medium text-xs uppercase tracking-widest hover:bg-[#0047CC] disabled:opacity-40 disabled:cursor-not-allowed transition-colors">Generate Recipes</button>

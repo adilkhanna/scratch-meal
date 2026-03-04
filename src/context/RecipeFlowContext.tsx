@@ -8,6 +8,7 @@ interface RecipeFlowState {
   dietaryConditions: string[];
   cuisines: string[];
   timeRange: TimeRange | null;
+  weeklyBudget: number | null;
   addIngredient: (ingredient: string) => void;
   addIngredients: (ingredients: string[]) => void;
   removeIngredient: (ingredient: string) => void;
@@ -17,6 +18,7 @@ interface RecipeFlowState {
   setCuisines: (cuisines: string[]) => void;
   toggleCuisine: (id: string) => void;
   setTimeRange: (range: TimeRange) => void;
+  setWeeklyBudget: (budget: number | null) => void;
   resetFlow: () => void;
 }
 
@@ -27,6 +29,7 @@ export function RecipeFlowProvider({ children }: { children: ReactNode }) {
   const [dietaryConditions, setDietaryConditionsState] = useState<string[]>([]);
   const [cuisines, setCuisinesState] = useState<string[]>([]);
   const [timeRange, setTimeRangeState] = useState<TimeRange | null>(null);
+  const [weeklyBudget, setWeeklyBudgetState] = useState<number | null>(null);
 
   const addIngredient = useCallback((ingredient: string) => {
     const trimmed = ingredient.trim().toLowerCase();
@@ -75,10 +78,15 @@ export function RecipeFlowProvider({ children }: { children: ReactNode }) {
     setTimeRangeState(range);
   }, []);
 
+  const setWeeklyBudget = useCallback((budget: number | null) => {
+    setWeeklyBudgetState(budget);
+  }, []);
+
   const resetFlow = useCallback(() => {
     setIngredients([]);
     setCuisinesState([]);
     setTimeRangeState(null);
+    setWeeklyBudgetState(null);
   }, []);
 
   return (
@@ -88,6 +96,7 @@ export function RecipeFlowProvider({ children }: { children: ReactNode }) {
         dietaryConditions,
         cuisines,
         timeRange,
+        weeklyBudget,
         addIngredient,
         addIngredients,
         removeIngredient,
@@ -97,6 +106,7 @@ export function RecipeFlowProvider({ children }: { children: ReactNode }) {
         setCuisines,
         toggleCuisine,
         setTimeRange,
+        setWeeklyBudget,
         resetFlow,
       }}
     >

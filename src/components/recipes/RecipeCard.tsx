@@ -21,7 +21,7 @@ const MEAL_SLOTS: { key: MealSlot; label: string; icon: string }[] = [
   { key: 'dinner', label: 'Dinner', icon: '🌙' },
 ];
 
-interface Props { recipe: Recipe; onRate: (rating: number) => void; onToggleFavorite: () => void; }
+interface Props { recipe: Recipe; onRate: (rating: number) => void; onToggleFavorite: () => void; budgetPerMeal?: number | null; }
 
 const DIFFICULTY_COLORS = {
   Easy: 'bg-green-50 text-green-700 border border-green-100',
@@ -102,7 +102,14 @@ function formatRecipeText(recipe: Recipe, lang: 'en' | 'hi'): string {
   return lines.join('\n');
 }
 
-export default function RecipeCard({ recipe, onRate, onToggleFavorite }: Props) {
+function getCostBadgeColor(cost: number, budgetPerMeal?: number | null): string {
+  if (!budgetPerMeal) return 'bg-neutral-50 text-neutral-500 border border-neutral-200';
+  if (cost <= budgetPerMeal) return 'bg-green-50 text-green-700 border border-green-100';
+  if (cost <= budgetPerMeal * 1.3) return 'bg-amber-50 text-amber-700 border border-amber-100';
+  return 'bg-red-50 text-red-700 border border-red-100';
+}
+
+export default function RecipeCard({ recipe, onRate, onToggleFavorite, budgetPerMeal }: Props) {
   const [expanded, setExpanded] = useState(false);
   const [showLangPicker, setShowLangPicker] = useState(false);
   const [showDayPicker, setShowDayPicker] = useState(false);
@@ -179,6 +186,11 @@ export default function RecipeCard({ recipe, onRate, onToggleFavorite }: Props) 
                 <HiClock className="w-3.5 h-3.5" />{recipe.cookTime}
               </span>
               <span className={clsx('text-xs font-medium px-2 py-0.5 rounded-full', DIFFICULTY_COLORS[recipe.difficulty])}>{recipe.difficulty}</span>
+              {recipe.estimatedCostPerServing != null && (
+                <span className={clsx('text-xs font-medium px-2 py-0.5 rounded-full', getCostBadgeColor(recipe.estimatedCostPerServing, budgetPerMeal))}>
+                  ~{'\u20B9'}{recipe.estimatedCostPerServing}/serving
+                </span>
+              )}
               <div className="flex gap-1 flex-wrap">
                 {recipe.keyIngredients.slice(0, 3).map((ing) => (
                   <span key={ing} className="text-xs bg-neutral-100 text-neutral-500 px-2 py-0.5 rounded-full">{ing}</span>

@@ -38,6 +38,7 @@ export interface Recipe {
     fat: string;
   };
   imageUrl?: string;
+  estimatedCostPerServing?: number;
   rating: number;
   isFavorite: boolean;
   createdAt: string;

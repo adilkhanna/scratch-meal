@@ -24,8 +24,8 @@ A recipe recommendation web app that takes ingredients users have on hand and ge
 1. **`/`** — Ingredient input (text + photo upload via AI extraction)
 2. **`/dietary`** — Dietary preferences (allergies, intolerances, medical, religious, lifestyle — 40+ conditions)
 3. **`/cuisine`** — Cuisine preferences (12 cuisines, multi-select, optional)
-4. **`/time`** — Cooking time (15/30/45/60/90/120+ minutes)
-5. **`/results`** — Recipe results (sourced from Spoonacular, adapted by GPT-4o)
+4. **`/time`** — Cooking time (15/30/45/60/90/120+ minutes) + optional weekly budget (₹500–₹5,000)
+5. **`/results`** — Recipe results (sourced from Spoonacular, adapted by GPT-4o), sorted by budget if set
 
 ## Recipe Generation Pipeline
 ```
@@ -37,6 +37,7 @@ User inputs → Cloud Function (generateRecipes)
   → If <2 compliant: Return error "add more ingredients"
   → If Spoonacular returns 402: Return error "Daily recipe limit reached"
   → If no Spoonacular key: Return error "service unavailable"
+  → Estimate cost per serving using hardcoded Indian ingredient prices
   → If Higgsfield enabled: generate food thumbnails for each recipe (parallel, non-blocking)
 ```
 
@@ -69,7 +70,7 @@ src/
 │   └── ui/MomoLoader.tsx     # Kawaii Lottie animation loader
 ├── context/
 │   ├── AuthContext.tsx        # Firebase auth state
-│   ├── RecipeFlowContext.tsx  # MCQ flow state (ingredients, dietary, cuisines, timeRange)
+│   ├── RecipeFlowContext.tsx  # MCQ flow state (ingredients, dietary, cuisines, timeRange, weeklyBudget)
 │   ├── ChatContext.tsx        # Chat widget state
 │   └── ToastContext.tsx       # Toast notifications
 ├── config/
@@ -95,7 +96,8 @@ functions/src/
 └── shared/
     ├── openai-client.ts      # OpenAI client init + Higgsfield keys
     ├── higgsfield-client.ts  # Higgsfield AI image generation (Flux Pro V2 API)
-    └── recipe-generator.ts   # Core recipe generation (Spoonacular + compliance review + GPT-4o RAG)
+    ├── ingredient-prices.ts  # Hardcoded Indian ingredient prices + cost calculator
+    └── recipe-generator.ts   # Core recipe generation (Spoonacular + compliance review + GPT-4o RAG + cost estimation)
 ```
 
 ## Key Features
@@ -110,6 +112,7 @@ functions/src/
 - **Recipe sharing**: English + Hindi, via Web Share API or clipboard
 - **Pantry basics**: User-saved common ingredients auto-merged during generation
 - **Recipe thumbnails**: Higgsfield Flux Pro model generates 1:1 food photos per recipe (admin-toggleable, off = no cost)
+- **Budget-aware recipes**: Optional weekly budget (₹500–₹5,000) on time page. Cost estimated per serving using ~50 hardcoded Indian ingredient prices. Recipes sorted within-budget-first, cost badges color-coded green/amber/red against budget.
 - **Lottie loader**: Kawaii animals animation (`public/animations/momo-loader.json`) used across all loading states
 
 ## Responsive Design

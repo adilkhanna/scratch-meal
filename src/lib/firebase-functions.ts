@@ -17,10 +17,11 @@ export async function generateRecipes(
   ingredients: string[],
   dietaryConditions: string[],
   timeRange: TimeRange,
-  cuisines: string[] = []
+  cuisines: string[] = [],
+  weeklyBudget: number | null = null
 ) {
   const fn = httpsCallable(functions, 'generateRecipes');
-  const result = await fn({ ingredients, dietaryConditions, timeRange, cuisines });
+  const result = await fn({ ingredients, dietaryConditions, timeRange, cuisines, weeklyBudget });
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return (result.data as any).recipes || [];
 }
