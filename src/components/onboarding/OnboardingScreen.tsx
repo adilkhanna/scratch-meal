@@ -12,7 +12,7 @@ interface OnboardingScreenProps {
 // Collect unique image paths for preloading
 const UNIQUE_IMAGES = [...new Set(ONBOARDING_SLIDES.map((s) => s.image))];
 
-const CHAR_DELAY = 0.01; // seconds per character
+const CHAR_DELAY = 0.015; // seconds per character
 
 /** Renders text with per-character staggered fade-up animation */
 function StaggeredText({ text, baseDelay = 0 }: { text: string; baseDelay?: number }) {
@@ -37,7 +37,7 @@ function StaggeredText({ text, baseDelay = 0 }: { text: string; baseDelay?: numb
                   key={charIdx}
                   className="inline-block opacity-0"
                   style={{
-                    animation: `char-enter 0.5s cubic-bezier(0.22, 1, 0.36, 1) ${delay}s forwards`,
+                    animation: `char-enter 0.65s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s forwards`,
                   }}
                 >
                   {char}
@@ -69,7 +69,7 @@ export default function OnboardingScreen({ userName, onComplete }: OnboardingScr
     : slide.title;
 
   // Body starts 0.4s after the title begins (matching previous stagger feel)
-  const bodyBaseDelay = 0.4;
+  const bodyBaseDelay = 0.55;
 
   const next = () => {
     if (isLast) {
