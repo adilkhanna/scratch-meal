@@ -36,7 +36,7 @@ export default function DietaryPage() {
 
   return (
     <div
-      className="min-h-screen animate-radial-glow"
+      className="min-h-screen flex flex-col animate-radial-glow"
       style={{ background: theme.background, backgroundSize: '200% 200%' }}
     >
 
@@ -149,8 +149,8 @@ export default function DietaryPage() {
         </div>
       </div>
 
-      {/* Large brand footer */}
-      <div className="text-center select-none overflow-hidden">
+      {/* Large brand footer — pinned to bottom */}
+      <div className="mt-auto text-center select-none overflow-hidden">
         <span className="font-[family-name:var(--font-brand)] text-[clamp(80px,15vw,225px)] font-normal text-black leading-none tracking-[-0.25px] block">
           GOOD MEALS CO.
         </span>
