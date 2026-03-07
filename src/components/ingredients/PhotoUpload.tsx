@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, ChangeEvent, DragEvent } from 'react';
-import { HiOutlinePhotograph, HiOutlineX } from 'react-icons/hi';
+import { HiOutlineX } from 'react-icons/hi';
 
 interface PhotoPreview { id: string; url: string; file: File; }
 interface Props { onExtract: (base64: string) => Promise<void>; isExtracting: boolean; }
@@ -44,19 +44,17 @@ export default function PhotoUpload({ onExtract, isExtracting }: Props) {
         onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
         onDragLeave={() => setDragOver(false)}
         onDrop={handleDrop}
-        className={`relative border-2 border-dashed rounded-2xl p-10 text-center cursor-pointer transition-all ${dragOver ? 'border-[#0059FF] bg-[#0059FF]/5' : 'border-[#0059FF]/40 hover:border-[#0059FF] hover:bg-[#0059FF]/5'}`}
+        className={`relative border-[1.5px] rounded-[30px] p-10 text-center cursor-pointer transition-all ${dragOver ? 'border-black bg-black/5' : 'border-black hover:bg-black/5'}`}
       >
         <input ref={fileInputRef} type="file" accept="image/*" multiple onChange={handleFileChange} className="hidden" />
-        <HiOutlinePhotograph className="w-12 h-12 text-[#0059FF]/50 mx-auto mb-4" />
-        <p className="text-xs font-medium uppercase tracking-widest text-[#0059FF]">
-          {isExtracting ? <span className="animate-pulse-soft">Analyzing photos...</span> : 'Upload Food Photos'}
+        <p className="text-[14px] font-[family-name:var(--font-mono-option)] tracking-[1px] uppercase text-black">
+          {isExtracting ? <span className="animate-pulse-soft">ANALYZING PHOTOS...</span> : 'UPLOAD IMAGES OF INGREDIENTS HERE FOR US TO ANALYZE'}
         </p>
-        <p className="text-xs text-[#0059FF]/50 mt-2 font-light">Supports JPG, PNG. Multiple photos allowed.</p>
       </div>
       {photos.length > 0 && (
         <div className="flex gap-2 flex-wrap">
           {photos.map((photo) => (
-            <div key={photo.id} className="relative w-20 h-20 rounded-xl overflow-hidden group ring-1 ring-neutral-200">
+            <div key={photo.id} className="relative w-20 h-20 rounded-xl overflow-hidden group ring-1 ring-black/20">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={photo.url} alt="Food" className="w-full h-full object-cover" />
               <button onClick={(e) => { e.stopPropagation(); removePhoto(photo.id); }} className="absolute top-1 right-1 bg-black/50 text-white rounded-full p-0.5 opacity-0 group-hover:opacity-100 transition-opacity">

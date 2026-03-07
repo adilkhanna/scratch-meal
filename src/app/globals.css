@@ -55,6 +55,7 @@
   --font-display: var(--font-caprasimo), "Caprasimo", Georgia, serif;
   --font-brand: var(--font-darker-grotesque), "Darker Grotesque", system-ui, sans-serif;
   --font-onboarding: var(--font-diphylleia), "Diphylleia", Georgia, serif;
+  --font-mono-option: var(--font-sometype-mono), "Sometype Mono", ui-monospace, monospace;
 }
 
 body {

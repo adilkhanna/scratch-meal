@@ -7,6 +7,8 @@ import { useToast } from '@/context/ToastContext';
 import { extractIngredientsFromPhoto } from '@/lib/firebase-functions';
 import IngredientTag from '@/components/ingredients/IngredientTag';
 import PhotoUpload from '@/components/ingredients/PhotoUpload';
+import StaggeredPageTitle from '@/components/ui/StaggeredPageTitle';
+import STEP_THEMES from '@/config/step-themes';
 
 // Non-food items that users might try to sneak in
 const NON_FOOD_ITEMS = new Set([
@@ -62,6 +64,8 @@ const CHEEKY_MESSAGES = [
 function getCheekyMessage(): string {
   return CHEEKY_MESSAGES[Math.floor(Math.random() * CHEEKY_MESSAGES.length)];
 }
+
+const theme = STEP_THEMES.ingredients;
 
 export default function HomePage() {
   const router = useRouter();
@@ -127,12 +131,19 @@ export default function HomePage() {
   };
 
   return (
-    <div className="animate-fade-in">
-      <div className="max-w-3xl mx-auto text-center space-y-8 pt-8 sm:pt-16">
-        {/* Hero heading */}
-        <h1 className="font-[family-name:var(--font-display)] text-[clamp(40px,6vw,67px)] text-[#0059FF] leading-[0.96] tracking-[-0.25px]">
-          What&apos;s In Your Kitchen ?
-        </h1>
+    <div className="min-h-screen">
+      {/* Full-bleed pastel gradient background with animated glow */}
+      <div
+        className="fixed inset-0 -z-10 animate-radial-glow"
+        style={{ background: theme.background }}
+      />
+
+      <div className="max-w-3xl mx-auto text-center space-y-8 pt-8 sm:pt-16 px-6">
+        {/* Hero heading — staggered per-letter animation */}
+        <StaggeredPageTitle
+          text="what's in your kitchen?"
+          className="text-[clamp(40px,6vw,67px)] tracking-[-0.25px]"
+        />
 
         {/* Ingredient input row */}
         <div className="flex flex-wrap items-center gap-3 max-w-xl mx-auto">
@@ -141,12 +152,12 @@ export default function HomePage() {
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Add the ingredients you want to make a recipe with here..."
-            className="flex-1 min-w-0 px-5 py-3 bg-white/70 rounded-full text-sm italic font-light text-[#687F75] placeholder:text-[#687F75] focus:outline-none focus:ring-2 focus:ring-[#0059FF]/30 transition-all"
+            placeholder="ENTER YOUR INGREDIENTS HERE..."
+            className="flex-1 min-w-0 px-5 py-3 bg-white rounded-full text-sm font-[family-name:var(--font-mono-option)] tracking-[0.5px] uppercase text-black placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-black/10 transition-all"
           />
           <button
             onClick={handleAddItem}
-            className="px-5 py-3 text-[15px] font-normal text-[#0059FF] tracking-[2px] uppercase border border-[#0059FF] rounded-full hover:bg-[#0059FF] hover:text-white transition-all duration-200 whitespace-nowrap max-sm:w-full"
+            className="px-5 py-3 text-[14px] font-medium tracking-[1px] uppercase border-[1.5px] border-black rounded-[30px] bg-transparent text-black hover:bg-black hover:text-white transition-all duration-200 whitespace-nowrap max-sm:w-full"
           >
             ADD ITEM
           </button>
@@ -161,8 +172,8 @@ export default function HomePage() {
         {ingredients.length > 0 && (
           <div className="animate-fade-in max-w-xl mx-auto">
             <div className="flex items-center justify-between mb-3">
-              <h2 className="text-xs font-medium uppercase tracking-widest text-neutral-500">Your ingredients ({ingredients.length})</h2>
-              <button onClick={clearIngredients} className="text-xs text-neutral-400 hover:text-red-500 uppercase tracking-wider transition-colors">Clear all</button>
+              <h2 className="text-xs font-medium uppercase tracking-widest text-black/60">Your ingredients ({ingredients.length})</h2>
+              <button onClick={clearIngredients} className="text-xs text-black/40 hover:text-red-500 uppercase tracking-wider transition-colors">Clear all</button>
             </div>
             <div className="flex flex-wrap gap-2 justify-center">
               {ingredients.map((name) => (
@@ -171,7 +182,7 @@ export default function HomePage() {
             </div>
 
             {hasBogusItems && (
-              <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-2xl animate-fade-in">
+              <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-[30px] animate-fade-in">
                 <p className="text-sm text-red-600 font-medium">
                   {getCheekyMessage()}
                 </p>
@@ -184,15 +195,23 @@ export default function HomePage() {
         )}
 
         {/* Next button */}
-        <button onClick={handleNext} disabled={ingredients.length === 0 || hasBogusItems}
-          className="w-full max-w-xl mx-auto block py-4 bg-[#0059FF] text-white rounded-full font-medium text-xs uppercase tracking-widest hover:bg-[#0047CC] disabled:opacity-40 disabled:cursor-not-allowed transition-colors">
-          Next: Dietary Preferences
-        </button>
+        <div className="flex justify-center">
+          <button
+            onClick={handleNext}
+            disabled={ingredients.length === 0 || hasBogusItems}
+            className="px-8 py-3 text-[14px] font-medium tracking-[1px] uppercase border-[1.5px] border-black rounded-[30px] bg-transparent text-black hover:bg-black hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-200 inline-flex items-center gap-2"
+          >
+            DIETARY
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
       </div>
 
       {/* Large brand footer */}
       <div className="mt-16 sm:mt-24 text-center select-none overflow-hidden">
-        <span className="font-[family-name:var(--font-brand)] text-[clamp(80px,15vw,225px)] font-normal text-[#0059FF] leading-none tracking-[-0.25px] block">
+        <span className="font-[family-name:var(--font-brand)] text-[clamp(80px,15vw,225px)] font-normal text-black/10 leading-none tracking-[-0.25px] block">
           GOOD MEALS CO.
         </span>
       </div>

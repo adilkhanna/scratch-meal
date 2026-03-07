@@ -4,8 +4,11 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useRecipeFlow } from '@/context/RecipeFlowContext';
 import StepIndicator from '@/components/layout/StepIndicator';
+import StaggeredPageTitle from '@/components/ui/StaggeredPageTitle';
 import { TIME_RANGES } from '@/config/time-ranges';
-import clsx from 'clsx';
+import STEP_THEMES from '@/config/step-themes';
+
+const theme = STEP_THEMES.time;
 
 export default function TimePage() {
   const router = useRouter();
@@ -29,52 +32,76 @@ export default function TimePage() {
   if (ingredients.length === 0) return null;
 
   return (
-    <div className="animate-fade-in">
-      <StepIndicator currentStep={4} />
-      <div className="space-y-6">
-        <div>
-          <h1 className="text-3xl sm:text-4xl font-[family-name:var(--font-display)] text-neutral-900 mb-2">How Much Time<br />Do You Have?</h1>
-          <p className="text-neutral-500 text-sm font-light">Select your available cooking time. We&apos;ll find recipes that fit.</p>
+    <div className="min-h-screen">
+      {/* Full-bleed pastel gradient background */}
+      <div
+        className="fixed inset-0 -z-10 animate-radial-glow"
+        style={{ background: theme.background }}
+      />
+
+      <div className="max-w-3xl mx-auto px-6">
+        <StepIndicator currentStep={4} />
+
+        {/* Title — staggered animation */}
+        <div className="text-center mb-8">
+          <StaggeredPageTitle
+            text="how much time?"
+            className="text-[clamp(36px,5.5vw,67px)] tracking-[-0.25px]"
+          />
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-          {TIME_RANGES.map((range) => (
-            <button key={range.value} onClick={() => setTimeRange(range.value)}
-              className={clsx('flex flex-col items-center gap-2 p-6 rounded-2xl border-2 transition-all',
-                timeRange === range.value ? 'border-[#0059FF] bg-blue-50/50 shadow-sm' : 'border-neutral-200 bg-white hover:border-neutral-400 hover:bg-neutral-50/50')}>
-              <span className="text-3xl">{range.icon}</span>
-              <span className={clsx('font-medium text-sm', timeRange === range.value ? 'text-neutral-900' : 'text-neutral-700')}>{range.label}</span>
-            </button>
-          ))}
+
+        {/* Time options — circle toggles, no emojis */}
+        <div className="max-w-2xl mx-auto grid grid-cols-2 sm:grid-cols-3 gap-x-8 gap-y-4">
+          {TIME_RANGES.map((range) => {
+            const isSelected = timeRange === range.value;
+            return (
+              <button
+                key={range.value}
+                onClick={() => setTimeRange(range.value)}
+                className="flex items-center gap-2.5 text-left group transition-colors"
+              >
+                <span
+                  className={`w-[10px] h-[10px] rounded-full border-[1.5px] shrink-0 transition-all ${
+                    isSelected
+                      ? 'bg-black border-black'
+                      : 'border-black/40 group-hover:bg-black group-hover:border-black'
+                  }`}
+                />
+                <span className="text-[14px] font-[family-name:var(--font-mono-option)] tracking-[0.5px] uppercase text-black">
+                  {range.label}
+                </span>
+              </button>
+            );
+          })}
         </div>
+
         {/* Budget Section */}
-        <div className="border border-neutral-200 rounded-2xl bg-white p-4 space-y-3">
+        <div className="max-w-2xl mx-auto mt-8 border-[1.5px] border-black rounded-[30px] p-6 space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="font-medium text-sm text-neutral-900">Weekly Budget</h3>
-              <p className="text-xs text-neutral-400">Optional — filter recipes by cost</p>
+              <h3 className="text-[14px] font-medium tracking-[1px] uppercase text-black">Weekly Budget</h3>
+              <p className="text-[12px] tracking-[0.5px] uppercase text-black/40 mt-0.5">Optional — filter recipes by cost</p>
             </div>
             <button
               onClick={handleBudgetToggle}
-              className={clsx(
-                'relative w-11 h-6 rounded-full transition-colors',
-                budgetEnabled ? 'bg-[#0059FF]' : 'bg-neutral-300'
-              )}
+              className={`relative w-11 h-6 rounded-full transition-colors ${
+                budgetEnabled ? 'bg-black' : 'bg-black/20'
+              }`}
             >
-              <span className={clsx(
-                'absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform',
-                budgetEnabled && 'translate-x-5'
-              )} />
+              <span className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform ${
+                budgetEnabled ? 'translate-x-5' : ''
+              }`} />
             </button>
           </div>
           {budgetEnabled && weeklyBudget !== null && (
             <div className="space-y-2">
               <div className="flex items-baseline justify-between">
-                <span className="text-2xl font-semibold text-neutral-900">
+                <span className="text-2xl font-[family-name:var(--font-onboarding)] text-black">
                   {'\u20B9'}{weeklyBudget.toLocaleString('en-IN')}
-                  <span className="text-sm font-normal text-neutral-400">/week</span>
+                  <span className="text-sm font-[family-name:var(--font-mono-option)] text-black/40 ml-1">/WEEK</span>
                 </span>
-                <span className="text-xs text-neutral-400">
-                  ~{'\u20B9'}{Math.round(weeklyBudget / 21)}/meal (21 meals)
+                <span className="text-[12px] font-[family-name:var(--font-mono-option)] tracking-[0.5px] text-black/40">
+                  ~{'\u20B9'}{Math.round(weeklyBudget / 21)}/MEAL
                 </span>
               </div>
               <input
@@ -84,9 +111,9 @@ export default function TimePage() {
                 step={100}
                 value={weeklyBudget}
                 onChange={(e) => setWeeklyBudget(Number(e.target.value))}
-                className="w-full accent-[#0059FF] h-1.5"
+                className="w-full accent-black h-1.5"
               />
-              <div className="flex justify-between text-[10px] text-neutral-400">
+              <div className="flex justify-between text-[10px] font-[family-name:var(--font-mono-option)] text-black/40">
                 <span>{'\u20B9'}500</span>
                 <span>{'\u20B9'}5,000</span>
               </div>
@@ -94,10 +121,35 @@ export default function TimePage() {
           )}
         </div>
 
-        <div className="flex gap-3">
-          <button onClick={() => router.push('/cuisine')} className="flex-1 py-3.5 border border-neutral-200 text-neutral-500 rounded-full font-medium text-xs uppercase tracking-widest hover:bg-neutral-50 transition-colors">Back</button>
-          <button onClick={handleGenerate} disabled={!timeRange} className="flex-[2] py-3.5 bg-[#0059FF] text-white rounded-full font-medium text-xs uppercase tracking-widest hover:bg-[#0047CC] disabled:opacity-40 disabled:cursor-not-allowed transition-colors">Generate Recipes</button>
+        {/* Navigation buttons */}
+        <div className="flex items-center justify-center gap-4 mt-8 mb-12">
+          <button
+            onClick={() => router.push('/cuisine')}
+            className="px-8 py-3 text-[14px] font-medium tracking-[1px] uppercase border-[1.5px] border-black rounded-[30px] bg-transparent text-black hover:bg-black hover:text-white transition-all duration-200 inline-flex items-center gap-2"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
+            BACK
+          </button>
+          <button
+            onClick={handleGenerate}
+            disabled={!timeRange}
+            className="px-8 py-3 text-[14px] font-medium tracking-[1px] uppercase border-[1.5px] border-black rounded-[30px] bg-transparent text-black hover:bg-black hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-200 inline-flex items-center gap-2"
+          >
+            GENERATE RECIPES
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </button>
         </div>
+      </div>
+
+      {/* Large brand footer */}
+      <div className="text-center select-none overflow-hidden">
+        <span className="font-[family-name:var(--font-brand)] text-[clamp(80px,15vw,225px)] font-normal text-black/10 leading-none tracking-[-0.25px] block">
+          GOOD MEALS CO.
+        </span>
       </div>
     </div>
   );

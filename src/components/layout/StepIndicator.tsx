@@ -1,53 +1,26 @@
 'use client';
 
-import clsx from 'clsx';
-
 const STEPS = [
-  { label: 'Ingredients', step: 1 },
-  { label: 'Dietary', step: 2 },
-  { label: 'Cuisine', step: 3 },
-  { label: 'Time', step: 4 },
-  { label: 'Recipes', step: 5 },
+  { label: 'INGREDIENTS', step: 1 },
+  { label: 'DIETARY', step: 2 },
+  { label: 'CUISINE', step: 3 },
+  { label: 'TIME', step: 4 },
+  { label: 'RECIPES', step: 5 },
 ];
 
 export default function StepIndicator({ currentStep }: { currentStep: number }) {
   return (
-    <div className="flex items-center justify-center gap-0 py-8">
+    <div className="flex items-center justify-center gap-0 py-6">
       {STEPS.map((s, idx) => (
         <div key={s.step} className="flex items-center">
-          <div className="flex flex-col items-center gap-1.5">
-            <div
-              className={clsx(
-                'w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-all',
-                s.step < currentStep && 'bg-neutral-900 text-white',
-                s.step === currentStep && 'bg-neutral-900 text-white',
-                s.step > currentStep && 'border-2 border-neutral-300 text-neutral-400 bg-transparent'
-              )}
-            >
-              {s.step < currentStep ? (
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                </svg>
-              ) : (
-                s.step
-              )}
-            </div>
-            <span
-              className={clsx(
-                'text-[10px] font-medium tracking-wider uppercase',
-                s.step <= currentStep ? 'text-neutral-900' : 'text-neutral-400'
-              )}
-            >
-              {s.label}
-            </span>
-          </div>
+          <span
+            className="text-[8px] sm:text-[10px] font-medium tracking-[1px] uppercase"
+            style={{ color: s.step <= currentStep ? '#000' : '#919191' }}
+          >
+            {s.label}
+          </span>
           {idx < STEPS.length - 1 && (
-            <div
-              className={clsx(
-                'w-8 sm:w-12 h-px mb-5 mx-1',
-                s.step < currentStep ? 'bg-neutral-900' : 'bg-neutral-300'
-              )}
-            />
+            <span className="mx-2 text-[8px] sm:text-[10px] text-[#919191]">—</span>
           )}
         </div>
       ))}

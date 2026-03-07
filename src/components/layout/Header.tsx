@@ -44,7 +44,7 @@ export default function Header() {
     .toUpperCase();
 
   return (
-    <header className="sticky top-0 z-50 bg-[#DBE9E3]/90 backdrop-blur-sm">
+    <header className="sticky top-0 z-50 bg-transparent">
       <div className="max-w-6xl mx-auto px-6 sm:px-8 h-16 flex items-center justify-between">
         {/* Left nav */}
         <div className="hidden md:flex items-center gap-8">
@@ -126,7 +126,7 @@ export default function Header() {
       </div>
 
       {mobileOpen && (
-        <nav className="md:hidden border-t border-neutral-300/50 bg-[#DBE9E3] px-6 py-3 animate-fade-in space-y-1">
+        <nav className="md:hidden border-t border-black/10 bg-white/80 backdrop-blur-sm px-6 py-3 animate-fade-in space-y-1">
           {[...leftNav, ...rightNav].map((item) => (
             <Link key={item.href} href={item.href} onClick={() => setMobileOpen(false)} className={clsx('block px-3 py-3 text-xs font-medium tracking-widest uppercase transition-colors', pathname === item.href ? 'text-neutral-900' : 'text-neutral-500 hover:text-neutral-900')}>
               {item.label}
