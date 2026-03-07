@@ -54,6 +54,7 @@
   --font-sans: var(--font-dm-sans), "DM Sans", system-ui, -apple-system, sans-serif;
   --font-display: var(--font-caprasimo), "Caprasimo", Georgia, serif;
   --font-brand: var(--font-darker-grotesque), "Darker Grotesque", system-ui, sans-serif;
+  --font-onboarding: var(--font-diphylleia), "Diphylleia", Georgia, serif;
 }
 
 body {
@@ -99,4 +100,26 @@ body {
 
 .animate-pulse-soft {
   animation: pulse-soft 2s ease-in-out infinite;
+}
+
+/* Onboarding animations */
+@keyframes radial-glow {
+  0%, 100% { background-position: 50% 50%; }
+  25% { background-position: 40% 45%; }
+  50% { background-position: 55% 55%; }
+  75% { background-position: 60% 45%; }
+}
+
+@keyframes text-enter {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-radial-glow {
+  background-size: 200% 200%;
+  animation: radial-glow 8s ease-in-out infinite;
+}
+
+.animate-text-enter {
+  animation: text-enter 0.5s ease-out forwards;
 }
