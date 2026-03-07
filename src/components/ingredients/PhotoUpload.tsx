@@ -44,7 +44,7 @@ export default function PhotoUpload({ onExtract, isExtracting }: Props) {
         onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
         onDragLeave={() => setDragOver(false)}
         onDrop={handleDrop}
-        className={`relative border-[1.5px] rounded-[30px] p-10 text-center cursor-pointer transition-all ${dragOver ? 'border-black bg-black/5' : 'border-black hover:bg-black/5'}`}
+        className={`glass-panel p-10 text-center cursor-pointer transition-all ${dragOver ? 'border-white/60 bg-white/25' : 'hover:bg-white/25'}`}
       >
         <input ref={fileInputRef} type="file" accept="image/*" multiple onChange={handleFileChange} className="hidden" />
         <p className="text-[14px] font-[family-name:var(--font-mono-option)] tracking-[1px] uppercase text-black">

@@ -133,3 +133,38 @@ body {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* Frosted glass refraction — subtle light streak that loops across glass panels */
+@keyframes glass-refract {
+  0% { transform: translateX(-100%) rotate(-15deg); }
+  100% { transform: translateX(200%) rotate(-15deg); }
+}
+
+.glass-panel {
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 30px;
+}
+
+.glass-panel::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    transparent 35%,
+    rgba(255, 255, 255, 0.12) 42%,
+    rgba(255, 255, 255, 0.22) 50%,
+    rgba(255, 255, 255, 0.12) 58%,
+    transparent 65%,
+    transparent 100%
+  );
+  transform: translateX(-100%) rotate(-15deg);
+  animation: glass-refract 6s ease-in-out infinite;
+}

@@ -61,12 +61,12 @@ export default function DietaryPage() {
             return (
               <div
                 key={cat}
-                className="border-[1.5px] border-black rounded-[30px] overflow-hidden transition-all duration-300"
+                className="glass-panel transition-all duration-300"
               >
                 {/* Accordion header */}
                 <button
                   onClick={() => toggleCategory(cat)}
-                  className="w-full flex items-center justify-between px-6 py-5 hover:bg-black/5 transition-colors"
+                  className="w-full flex items-center justify-between px-6 py-5 hover:bg-white/10 transition-colors rounded-[30px]"
                 >
                   <span className="text-[14px] font-medium tracking-[1px] uppercase text-black">
                     {DIETARY_CATEGORY_LABELS[cat]}
