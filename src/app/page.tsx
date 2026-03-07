@@ -132,9 +132,10 @@ export default function HomePage() {
 
   return (
     <div
-      className="min-h-screen animate-radial-glow"
+      className="min-h-screen flex flex-col animate-radial-glow"
       style={{ background: theme.background, backgroundSize: '200% 200%' }}
     >
+      {/* Top content area */}
       <div className="max-w-3xl mx-auto text-center space-y-8 pt-24 sm:pt-28 px-6">
         {/* Hero heading — staggered per-letter animation */}
         <StaggeredPageTitle
@@ -190,25 +191,25 @@ export default function HomePage() {
             )}
           </div>
         )}
+      </div>
 
-        {/* Next button */}
-        <div className="flex justify-center">
-          <button
-            onClick={handleNext}
-            disabled={ingredients.length === 0 || hasBogusItems}
-            className="px-8 py-3 text-[14px] font-medium tracking-[1px] uppercase border-[1.5px] border-black rounded-[30px] bg-transparent text-black hover:bg-black hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-200 inline-flex items-center gap-2"
-          >
-            DIETARY
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </button>
-        </div>
+      {/* Next button — centered in remaining space between content and footer */}
+      <div className="flex-1 flex items-center justify-center min-h-[120px]">
+        <button
+          onClick={handleNext}
+          disabled={ingredients.length === 0 || hasBogusItems}
+          className="px-8 py-3 text-[14px] font-medium tracking-[1px] uppercase border-[1.5px] border-black rounded-[30px] bg-transparent text-black hover:bg-black hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-200 inline-flex items-center gap-2"
+        >
+          DIETARY
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </button>
       </div>
 
       {/* Large brand footer */}
-      <div className="mt-16 sm:mt-24 text-center select-none overflow-hidden">
-        <span className="font-[family-name:var(--font-brand)] text-[clamp(80px,15vw,225px)] font-normal text-black/10 leading-none tracking-[-0.25px] block">
+      <div className="text-center select-none overflow-hidden">
+        <span className="font-[family-name:var(--font-brand)] text-[clamp(80px,15vw,225px)] font-normal text-black leading-none tracking-[-0.25px] block">
           GOOD MEALS CO.
         </span>
       </div>

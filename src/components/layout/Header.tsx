@@ -44,7 +44,7 @@ export default function Header() {
     .toUpperCase();
 
   return (
-    <header className="sticky top-0 z-50 bg-white/30 backdrop-blur-md">
+    <header className="sticky top-0 z-50 bg-transparent">
       <div className="max-w-6xl mx-auto px-6 sm:px-8 h-16 flex items-center justify-between">
         {/* Left nav */}
         <div className="hidden md:flex items-center gap-8">

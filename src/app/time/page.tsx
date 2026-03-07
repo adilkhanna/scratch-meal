@@ -145,7 +145,7 @@ export default function TimePage() {
 
       {/* Large brand footer */}
       <div className="text-center select-none overflow-hidden">
-        <span className="font-[family-name:var(--font-brand)] text-[clamp(80px,15vw,225px)] font-normal text-black/10 leading-none tracking-[-0.25px] block">
+        <span className="font-[family-name:var(--font-brand)] text-[clamp(80px,15vw,225px)] font-normal text-black leading-none tracking-[-0.25px] block">
           GOOD MEALS CO.
         </span>
       </div>
