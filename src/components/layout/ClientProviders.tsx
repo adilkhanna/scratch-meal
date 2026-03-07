@@ -15,9 +15,9 @@ export default function ClientProviders({ children }: { children: ReactNode }) {
       <ToastProvider>
         <RecipeFlowProvider>
           <AuthGuard>
-            <div className="min-h-screen flex flex-col bg-cream-100">
+            <div className="min-h-screen flex flex-col">
               <Header />
-              <main className="flex-1 max-w-4xl mx-auto w-full px-6 sm:px-8 pb-16">{children}</main>
+              <main className="flex-1 -mt-16">{children}</main>
             </div>
             <ChatWidget />
           </AuthGuard>

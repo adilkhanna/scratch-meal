@@ -135,7 +135,7 @@ export default function HomePage() {
       className="min-h-screen animate-radial-glow"
       style={{ background: theme.background, backgroundSize: '200% 200%' }}
     >
-      <div className="max-w-3xl mx-auto text-center space-y-8 pt-8 sm:pt-16 px-6">
+      <div className="max-w-3xl mx-auto text-center space-y-8 pt-24 sm:pt-28 px-6">
         {/* Hero heading — staggered per-letter animation */}
         <StaggeredPageTitle
           text="what's in your kitchen?"

@@ -233,8 +233,8 @@ export default function RecipeCard({ recipe, onRate, onToggleFavorite, budgetPer
                   className={clsx(
                     'px-2.5 py-1 text-xs font-medium rounded-full border transition-colors',
                     selectedDay === d.key
-                      ? 'bg-[#0059FF] text-white border-[#0059FF]'
-                      : 'border-neutral-200 text-neutral-700 hover:bg-[#0059FF] hover:text-white hover:border-[#0059FF]'
+                      ? 'bg-black text-white border-black'
+                      : 'border-neutral-200 text-neutral-700 hover:bg-black hover:text-white hover:border-black'
                   )}
                 >
                   {d.label}
@@ -249,7 +249,7 @@ export default function RecipeCard({ recipe, onRate, onToggleFavorite, budgetPer
                   <button
                     key={s.key}
                     onClick={() => handleSelectSlot(s.key)}
-                    className="px-3 py-1 text-xs font-medium rounded-full border border-neutral-200 text-neutral-700 hover:bg-[#0059FF] hover:text-white hover:border-[#0059FF] transition-colors"
+                    className="px-3 py-1 text-xs font-medium rounded-full border border-neutral-200 text-neutral-700 hover:bg-black hover:text-white hover:border-black transition-colors"
                   >
                     {s.icon} {s.label}
                   </button>
@@ -265,13 +265,13 @@ export default function RecipeCard({ recipe, onRate, onToggleFavorite, budgetPer
             <span className="text-[10px] uppercase tracking-widest text-neutral-400">Share in:</span>
             <button
               onClick={() => handleShare('en')}
-              className="px-3 py-1 text-xs font-medium rounded-full border border-neutral-200 text-neutral-700 hover:bg-[#0059FF] hover:text-white hover:border-[#0059FF] transition-colors"
+              className="px-3 py-1 text-xs font-medium rounded-full border border-neutral-200 text-neutral-700 hover:bg-black hover:text-white hover:border-black transition-colors"
             >
               English
             </button>
             <button
               onClick={() => handleShare('hi')}
-              className="px-3 py-1 text-xs font-medium rounded-full border border-neutral-200 text-neutral-700 hover:bg-[#0059FF] hover:text-white hover:border-[#0059FF] transition-colors"
+              className="px-3 py-1 text-xs font-medium rounded-full border border-neutral-200 text-neutral-700 hover:bg-black hover:text-white hover:border-black transition-colors"
             >
               हिन्दी
             </button>

@@ -193,7 +193,7 @@ export default function AdminPage() {
                 </p>
               </div>
             </div>
-            <button onClick={handleToggleMaintenance} className={`relative w-12 h-6 rounded-full transition-colors ${maintenanceMode ? 'bg-[#0059FF]' : 'bg-neutral-300'}`}>
+            <button onClick={handleToggleMaintenance} className={`relative w-12 h-6 rounded-full transition-colors ${maintenanceMode ? 'bg-black' : 'bg-neutral-300'}`}>
               <div className={`absolute top-0.5 w-5 h-5 bg-white rounded-full shadow-sm transition-transform ${maintenanceMode ? 'translate-x-6' : 'translate-x-0.5'}`} />
             </button>
           </div>
@@ -232,7 +232,7 @@ export default function AdminPage() {
                 <p className="text-xs text-neutral-400 font-light mt-0.5">Generates food thumbnails for each recipe. ~$0.60-1.15 per batch (5 images).</p>
               </div>
             </div>
-            <button onClick={handleToggleHf} className={`relative w-12 h-6 rounded-full transition-colors ${hfEnabled ? 'bg-[#0059FF]' : 'bg-neutral-300'}`}>
+            <button onClick={handleToggleHf} className={`relative w-12 h-6 rounded-full transition-colors ${hfEnabled ? 'bg-black' : 'bg-neutral-300'}`}>
               <div className={`absolute top-0.5 w-5 h-5 bg-white rounded-full shadow-sm transition-transform ${hfEnabled ? 'translate-x-6' : 'translate-x-0.5'}`} />
             </button>
           </div>
@@ -273,7 +273,7 @@ export default function AdminPage() {
                 <p className="text-xs text-neutral-400 font-light mt-0.5">Real-time vegetable & grain prices from Indian wholesale markets. Free API.</p>
               </div>
             </div>
-            <button onClick={handleToggleMandi} className={`relative w-12 h-6 rounded-full transition-colors ${mandiEnabled ? 'bg-[#0059FF]' : 'bg-neutral-300'}`}>
+            <button onClick={handleToggleMandi} className={`relative w-12 h-6 rounded-full transition-colors ${mandiEnabled ? 'bg-black' : 'bg-neutral-300'}`}>
               <div className={`absolute top-0.5 w-5 h-5 bg-white rounded-full shadow-sm transition-transform ${mandiEnabled ? 'translate-x-6' : 'translate-x-0.5'}`} />
             </button>
           </div>
@@ -285,7 +285,7 @@ export default function AdminPage() {
             {mandiLastFetched && (
               <span className="text-xs text-neutral-400 font-light">Last fetched: {mandiLastFetched}</span>
             )}
-            <button onClick={handleRefreshMandi} disabled={mandiRefreshing || !savedMandiApiKey} className="flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-full border border-neutral-200 text-neutral-700 hover:bg-[#0059FF] hover:text-white hover:border-[#0059FF] transition-colors disabled:opacity-50 disabled:cursor-not-allowed ml-auto">
+            <button onClick={handleRefreshMandi} disabled={mandiRefreshing || !savedMandiApiKey} className="flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-full border border-neutral-200 text-neutral-700 hover:bg-black hover:text-white hover:border-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed ml-auto">
               <HiOutlineRefresh className={`w-3.5 h-3.5 ${mandiRefreshing ? 'animate-spin' : ''}`} />
               {mandiRefreshing ? 'Refreshing...' : 'Refresh Now'}
             </button>
@@ -309,7 +309,7 @@ export default function AdminPage() {
           <div><label className="block text-[10px] font-medium uppercase tracking-widest text-neutral-400 mb-1">Service Account Email</label><input type="email" value={serviceEmail} onChange={(e) => setServiceEmail(e.target.value)} placeholder="smm@project.iam.gserviceaccount.com" className="w-full px-4 py-2.5 rounded-xl border border-neutral-200 bg-white text-sm text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900/10" /></div>
           <div><label className="block text-[10px] font-medium uppercase tracking-widest text-neutral-400 mb-1">Service Account Private Key</label><textarea value={privateKey} onChange={(e) => setPrivateKey(e.target.value)} placeholder="-----BEGIN PRIVATE KEY-----\n..." rows={3} className="w-full px-4 py-2.5 rounded-xl border border-neutral-200 bg-white text-sm font-mono text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900/10 resize-none" /></div>
         </div>
-        <button onClick={handleSave} disabled={saving} className="w-full py-4 bg-[#0059FF] text-white rounded-full font-medium text-xs uppercase tracking-widest hover:bg-[#0047CC] disabled:opacity-50 transition-colors">{saving ? 'Saving...' : 'Save Configuration'}</button>
+        <button onClick={handleSave} disabled={saving} className="w-full py-4 bg-black text-white rounded-full font-medium text-xs uppercase tracking-widest hover:bg-black/80 disabled:opacity-50 transition-colors">{saving ? 'Saving...' : 'Save Configuration'}</button>
 
         {/* Registered Users */}
         <div className="border border-neutral-200 rounded-2xl bg-white p-5 space-y-4">

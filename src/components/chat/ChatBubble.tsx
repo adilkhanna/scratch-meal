@@ -21,7 +21,7 @@ export default function ChatBubble({ message, isStreaming }: Props) {
       <div
         className={`max-w-[85%] sm:max-w-[75%] ${
           isUser
-            ? 'bg-[#0059FF] text-white rounded-2xl rounded-br-md'
+            ? 'bg-black text-white rounded-2xl rounded-br-md'
             : 'bg-white border border-neutral-200 text-neutral-800 rounded-2xl rounded-bl-md'
         } ${recipes ? '!max-w-full sm:!max-w-[90%]' : ''}`}
       >
@@ -45,7 +45,7 @@ export default function ChatBubble({ message, isStreaming }: Props) {
             <p className={`text-sm font-light leading-relaxed whitespace-pre-wrap ${isUser ? '' : 'text-neutral-700'}`}>
               {message.content}
               {isStreaming && !isUser && (
-                <span className="inline-block w-1.5 h-4 bg-[#0059FF]/60 ml-0.5 animate-pulse" />
+                <span className="inline-block w-1.5 h-4 bg-black/60 ml-0.5 animate-pulse" />
               )}
             </p>
           </div>

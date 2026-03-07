@@ -32,6 +32,18 @@ const STEP_THEMES: Record<string, StepTheme> = {
     background:
       "radial-gradient(ellipse at 50% 50%, rgba(120,0,255,0.22) 0%, rgba(90,0,200,0.14) 25%, rgba(60,0,140,0.06) 45%, transparent 70%), linear-gradient(180deg, rgb(214,194,255) 0%, rgb(214,194,255) 100%)",
   },
+  results: {
+    base: 'rgb(255,230,215)',
+    glow: 'rgba(255,80,0,0.18)',
+    background:
+      "radial-gradient(ellipse at 50% 50%, rgba(255,80,0,0.18) 0%, rgba(200,60,0,0.10) 25%, rgba(140,40,0,0.04) 45%, transparent 70%), linear-gradient(180deg, rgb(255,230,215) 0%, rgb(255,230,215) 100%)",
+  },
+  general: {
+    base: 'rgb(248,244,240)',
+    glow: 'rgba(180,160,140,0.12)',
+    background:
+      "radial-gradient(ellipse at 50% 50%, rgba(180,160,140,0.12) 0%, rgba(160,140,120,0.06) 30%, transparent 65%), linear-gradient(180deg, rgb(248,244,240) 0%, rgb(248,244,240) 100%)",
+  },
 };
 
 export default STEP_THEMES;

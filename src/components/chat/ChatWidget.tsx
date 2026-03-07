@@ -13,7 +13,7 @@ export default function ChatWidget() {
       {/* Floating button */}
       <button
         onClick={() => setOpen(!open)}
-        className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-[#0059FF] text-white shadow-lg shadow-[#0059FF]/25 flex items-center justify-center hover:bg-[#0047CC] transition-all duration-200 hover:scale-105"
+        className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-black text-white shadow-lg shadow-black/25 flex items-center justify-center hover:bg-black/80 transition-all duration-200 hover:scale-105"
         aria-label={open ? 'Close chat' : 'Open chat help'}
       >
         {open ? <HiOutlineX size={24} /> : <HiOutlineChat size={24} />}

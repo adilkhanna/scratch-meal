@@ -104,7 +104,7 @@ export default function ChatInput({ onSend, disabled, isStreaming }: Props) {
         <button
           onClick={() => fileInputRef.current?.click()}
           disabled={isDisabled}
-          className="p-2.5 text-[#0059FF]/60 hover:text-[#0059FF] transition-colors disabled:opacity-40"
+          className="p-2.5 text-black/60 hover:text-black transition-colors disabled:opacity-40"
           aria-label="Upload photo"
         >
           <HiOutlinePhotograph className="w-6 h-6" />
@@ -119,13 +119,13 @@ export default function ChatInput({ onSend, disabled, isStreaming }: Props) {
           placeholder={isStreaming ? 'Thinking...' : 'Type a message...'}
           disabled={isDisabled}
           rows={1}
-          className="flex-1 px-4 py-2.5 bg-white/70 rounded-2xl text-sm font-light text-neutral-800 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-[#0059FF]/20 transition-all resize-none disabled:opacity-50"
+          className="flex-1 px-4 py-2.5 bg-white/70 rounded-2xl text-sm font-light text-neutral-800 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-black/20 transition-all resize-none disabled:opacity-50"
         />
 
         <button
           onClick={handleSend}
           disabled={isDisabled || (!text.trim() && !photoBase64)}
-          className="p-2.5 text-[#0059FF] hover:bg-[#0059FF] hover:text-white rounded-full transition-all duration-200 disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-[#0059FF]"
+          className="p-2.5 text-black hover:bg-black hover:text-white rounded-full transition-all duration-200 disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-black"
           aria-label="Send message"
         >
           <HiPaperAirplane className="w-5 h-5 rotate-90" />

@@ -37,7 +37,7 @@ export default function TimePage() {
       style={{ background: theme.background, backgroundSize: '200% 200%' }}
     >
 
-      <div className="max-w-3xl mx-auto px-6">
+      <div className="max-w-3xl mx-auto px-6 pt-16">
         <StepIndicator currentStep={4} />
 
         {/* Title — staggered animation */}

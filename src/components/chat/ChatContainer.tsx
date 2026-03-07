@@ -36,7 +36,7 @@ export default function ChatContainer({ compact = false }: { compact?: boolean }
           <div className="flex flex-col items-center justify-center h-full space-y-8 animate-fade-in">
             {/* Hero */}
             <div className="text-center space-y-3">
-              <h1 className="font-[family-name:var(--font-display)] text-[clamp(32px,5vw,52px)] text-[#0059FF] leading-[0.96] tracking-[-0.25px]">
+              <h1 className="font-[family-name:var(--font-display)] text-[clamp(32px,5vw,52px)] text-black leading-[0.96] tracking-[-0.25px]">
                 Hey {firstName}!
               </h1>
               <p className="text-sm text-neutral-500 font-light max-w-md">
@@ -50,7 +50,7 @@ export default function ChatContainer({ compact = false }: { compact?: boolean }
             {/* Footer branding */}
             {!compact && (
               <div className="mt-auto pt-8 select-none opacity-20">
-                <span className="font-[family-name:var(--font-brand)] text-[clamp(48px,10vw,120px)] font-normal text-[#0059FF] leading-none tracking-[-0.25px] block">
+                <span className="font-[family-name:var(--font-brand)] text-[clamp(48px,10vw,120px)] font-normal text-black leading-none tracking-[-0.25px] block">
                   GOOD MEALS CO.
                 </span>
               </div>
@@ -96,7 +96,7 @@ export default function ChatContainer({ compact = false }: { compact?: boolean }
         <div className="flex justify-center py-2">
           <button
             onClick={startNewConversation}
-            className="text-xs text-[#0059FF]/60 hover:text-[#0059FF] uppercase tracking-wider font-medium transition-colors"
+            className="text-xs text-black/60 hover:text-black uppercase tracking-wider font-medium transition-colors"
           >
             + Start new conversation
           </button>
