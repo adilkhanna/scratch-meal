@@ -12,6 +12,45 @@ interface OnboardingScreenProps {
 // Collect unique image paths for preloading
 const UNIQUE_IMAGES = [...new Set(ONBOARDING_SLIDES.map((s) => s.image))];
 
+const CHAR_DELAY = 0.01; // seconds per character
+
+/** Renders text with per-character staggered fade-up animation */
+function StaggeredText({ text, baseDelay = 0 }: { text: string; baseDelay?: number }) {
+  let charIdx = 0;
+
+  return (
+    <>
+      {text.split(/(\s+)/).map((segment, si) => {
+        // Spaces — render as normal inline space (allows word wrapping)
+        if (/^\s+$/.test(segment)) {
+          charIdx += segment.length;
+          return <span key={si}> </span>;
+        }
+        // Words — wrap in nowrap span so letters stay together
+        return (
+          <span key={si} className="inline-block whitespace-nowrap">
+            {segment.split('').map((char) => {
+              const delay = baseDelay + charIdx * CHAR_DELAY;
+              charIdx++;
+              return (
+                <span
+                  key={charIdx}
+                  className="inline-block opacity-0"
+                  style={{
+                    animation: `char-enter 0.5s cubic-bezier(0.22, 1, 0.36, 1) ${delay}s forwards`,
+                  }}
+                >
+                  {char}
+                </span>
+              );
+            })}
+          </span>
+        );
+      })}
+    </>
+  );
+}
+
 export default function OnboardingScreen({ userName, onComplete }: OnboardingScreenProps) {
   const [current, setCurrent] = useState(0);
   const slide = ONBOARDING_SLIDES[current];
@@ -28,6 +67,9 @@ export default function OnboardingScreen({ userName, onComplete }: OnboardingScr
   const title = slide.dynamic
     ? slide.title.replace('{username}', userName || 'there')
     : slide.title;
+
+  // Body starts 0.4s after the title begins (matching previous stagger feel)
+  const bodyBaseDelay = 0.4;
 
   const next = () => {
     if (isLast) {
@@ -56,14 +98,14 @@ export default function OnboardingScreen({ userName, onComplete }: OnboardingScr
 
         {/* Staggered text container — key change triggers re-mount for animations */}
         <div key={current} className="flex-1 flex flex-col items-center justify-center text-center px-2">
-          {/* Title — enters first */}
-          <h1 className="animate-title-enter font-[family-name:var(--font-onboarding)] text-5xl sm:text-7xl lg:text-[100px] text-black leading-[1.1] mb-6 sm:mb-8 lg:mb-10">
-            {title}
+          {/* Title — per-letter stagger from 0s */}
+          <h1 className="font-[family-name:var(--font-onboarding)] text-5xl sm:text-7xl lg:text-[100px] text-black leading-[1.1] mb-6 sm:mb-8 lg:mb-10">
+            <StaggeredText text={title} baseDelay={0} />
           </h1>
 
-          {/* Body — enters 0.4s after title */}
-          <p className="animate-body-enter font-[family-name:var(--font-onboarding)] text-xl sm:text-3xl lg:text-[48px] text-black leading-snug lg:leading-[1.3] max-w-xs sm:max-w-lg lg:max-w-2xl">
-            {slide.body}
+          {/* Body — per-letter stagger starting at 0.4s */}
+          <p className="font-[family-name:var(--font-onboarding)] text-xl sm:text-3xl lg:text-[48px] text-black leading-snug lg:leading-[1.3] max-w-xs sm:max-w-lg lg:max-w-2xl">
+            <StaggeredText text={slide.body} baseDelay={bodyBaseDelay} />
           </p>
         </div>
 
