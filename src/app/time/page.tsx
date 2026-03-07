@@ -32,12 +32,10 @@ export default function TimePage() {
   if (ingredients.length === 0) return null;
 
   return (
-    <div className="min-h-screen">
-      {/* Full-bleed pastel gradient background */}
-      <div
-        className="fixed inset-0 -z-10 animate-radial-glow"
-        style={{ background: theme.background }}
-      />
+    <div
+      className="min-h-screen animate-radial-glow"
+      style={{ background: theme.background, backgroundSize: '200% 200%' }}
+    >
 
       <div className="max-w-3xl mx-auto px-6">
         <StepIndicator currentStep={4} />

@@ -131,13 +131,10 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen">
-      {/* Full-bleed pastel gradient background with animated glow */}
-      <div
-        className="fixed inset-0 -z-10 animate-radial-glow"
-        style={{ background: theme.background }}
-      />
-
+    <div
+      className="min-h-screen animate-radial-glow"
+      style={{ background: theme.background, backgroundSize: '200% 200%' }}
+    >
       <div className="max-w-3xl mx-auto text-center space-y-8 pt-8 sm:pt-16 px-6">
         {/* Hero heading — staggered per-letter animation */}
         <StaggeredPageTitle
@@ -172,8 +169,8 @@ export default function HomePage() {
         {ingredients.length > 0 && (
           <div className="animate-fade-in max-w-xl mx-auto">
             <div className="flex items-center justify-between mb-3">
-              <h2 className="text-xs font-medium uppercase tracking-widest text-black/60">Your ingredients ({ingredients.length})</h2>
-              <button onClick={clearIngredients} className="text-xs text-black/40 hover:text-red-500 uppercase tracking-wider transition-colors">Clear all</button>
+              <h2 className="text-[12px] font-medium uppercase tracking-[1px] text-black/50">Your ingredients ({ingredients.length})</h2>
+              <button onClick={clearIngredients} className="text-[12px] text-black/40 hover:text-red-500 uppercase tracking-[1px] transition-colors">Clear all</button>
             </div>
             <div className="flex flex-wrap gap-2 justify-center">
               {ingredients.map((name) => (

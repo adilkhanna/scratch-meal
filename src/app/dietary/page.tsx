@@ -35,12 +35,10 @@ export default function DietaryPage() {
   if (ingredients.length === 0) return null;
 
   return (
-    <div className="min-h-screen">
-      {/* Full-bleed pastel gradient background */}
-      <div
-        className="fixed inset-0 -z-10 animate-radial-glow"
-        style={{ background: theme.background }}
-      />
+    <div
+      className="min-h-screen animate-radial-glow"
+      style={{ background: theme.background, backgroundSize: '200% 200%' }}
+    >
 
       <div className="max-w-3xl mx-auto px-6">
         <StepIndicator currentStep={2} />
@@ -100,7 +98,7 @@ export default function DietaryPage() {
                                 : 'border-black/40 group-hover:bg-black group-hover:border-black'
                             }`}
                           />
-                          <span className="text-[13px] font-[family-name:var(--font-mono-option)] tracking-[0.5px] uppercase text-black leading-tight">
+                          <span className="text-[14px] font-[family-name:var(--font-mono-option)] tracking-[0.5px] uppercase text-black leading-tight">
                             {condition.label}
                           </span>
                         </button>
