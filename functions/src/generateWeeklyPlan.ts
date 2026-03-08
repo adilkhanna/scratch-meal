@@ -78,12 +78,22 @@ export const generateWeeklyPlan = onCall(
       const allCuisines = [...new Set([...(lunchCuisines || []), ...(dinnerCuisines || [])])];
       const dietaryTags = inferDietaryTags(dietaryConditions || []);
 
-      // Query glossary for breakfast, lunch, dinner recipes
-      const [breakfastGlossary, lunchGlossary, dinnerGlossary] = await Promise.all([
-        queryGlossaryForPlan(allCuisines, dietaryTags, ['breakfast'], glossaryMinThreshold),
-        queryGlossaryForPlan(lunchCuisines || [], dietaryTags, ['lunch'], glossaryMinThreshold),
-        queryGlossaryForPlan(dinnerCuisines || [], dietaryTags, ['dinner'], glossaryMinThreshold),
-      ]);
+      // Query glossary for breakfast, lunch, dinner recipes (fail gracefully)
+      type GlossaryResult = Awaited<ReturnType<typeof queryGlossaryForPlan>>;
+      const emptyGlossary: GlossaryResult = { recipes: [], hasEnough: false };
+      let breakfastGlossary: GlossaryResult = emptyGlossary;
+      let lunchGlossary: GlossaryResult = emptyGlossary;
+      let dinnerGlossary: GlossaryResult = emptyGlossary;
+
+      try {
+        [breakfastGlossary, lunchGlossary, dinnerGlossary] = await Promise.all([
+          queryGlossaryForPlan(allCuisines, dietaryTags, ['breakfast'], glossaryMinThreshold),
+          queryGlossaryForPlan(lunchCuisines || [], dietaryTags, ['lunch'], glossaryMinThreshold),
+          queryGlossaryForPlan(dinnerCuisines || [], dietaryTags, ['dinner'], glossaryMinThreshold),
+        ]);
+      } catch (glossaryErr) {
+        console.warn('[meal-plan] Glossary query failed (missing index?), proceeding without glossary:', glossaryErr);
+      }
 
       console.log(`[meal-plan] Glossary: breakfast=${breakfastGlossary.recipes.length} (enough=${breakfastGlossary.hasEnough}), lunch=${lunchGlossary.recipes.length} (enough=${lunchGlossary.hasEnough}), dinner=${dinnerGlossary.recipes.length} (enough=${dinnerGlossary.hasEnough})`);
 
