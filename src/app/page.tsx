@@ -1,214 +1,84 @@
 'use client';
 
-import { useState, useCallback, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
-import { useRecipeFlow } from '@/context/RecipeFlowContext';
-import { useToast } from '@/context/ToastContext';
-import { extractIngredientsFromPhoto } from '@/lib/firebase-functions';
-import IngredientTag from '@/components/ingredients/IngredientTag';
-import PhotoUpload from '@/components/ingredients/PhotoUpload';
 import StaggeredPageTitle from '@/components/ui/StaggeredPageTitle';
 import STEP_THEMES from '@/config/step-themes';
 
-// Non-food items that users might try to sneak in
-const NON_FOOD_ITEMS = new Set([
-  // Household items
-  'soap', 'detergent', 'bleach', 'shampoo', 'conditioner', 'toothpaste', 'toothbrush',
-  'sponge', 'towel', 'napkin', 'tissue', 'paper towel', 'aluminium foil', 'aluminum foil',
-  'plastic wrap', 'cling film', 'trash bag', 'garbage bag', 'rubber gloves', 'dish soap',
-  'fabric softener', 'laundry detergent', 'cleaning spray', 'windex', 'lysol',
-  // Electronics & objects
-  'phone', 'iphone', 'samsung', 'laptop', 'computer', 'keyboard', 'mouse', 'charger',
-  'cable', 'headphones', 'earbuds', 'airpods', 'remote', 'battery', 'batteries',
-  'light bulb', 'lightbulb', 'pen', 'pencil', 'eraser', 'marker', 'scissors', 'tape',
-  'stapler', 'glue', 'ruler', 'notebook', 'book', 'magazine', 'newspaper',
-  // Clothing & accessories
-  'shoe', 'shoes', 'sock', 'socks', 'shirt', 'pants', 'hat', 'cap', 'belt', 'wallet',
-  'purse', 'bag', 'backpack', 'umbrella', 'glasses', 'sunglasses', 'watch', 'ring',
-  'necklace', 'bracelet', 'earring', 'earrings', 'jacket', 'coat', 'scarf',
-  // Bathroom & personal care
-  'lotion', 'cream', 'sunscreen', 'deodorant', 'perfume', 'cologne', 'makeup',
-  'lipstick', 'mascara', 'nail polish', 'razor', 'comb', 'brush', 'hair dryer',
-  'cotton balls', 'band aid', 'bandage', 'medicine', 'pills', 'tablets',
-  // Pets & misc
-  'cat food', 'dog food', 'pet food', 'cat litter', 'dog treat', 'leash',
-  'candle', 'incense', 'match', 'matches', 'lighter', 'cigarette', 'cigarettes',
-  'ashtray', 'vape', 'tobacco',
-  // Furniture & hardware
-  'chair', 'table', 'desk', 'bed', 'pillow', 'blanket', 'curtain', 'rug', 'carpet',
-  'nail', 'nails', 'screw', 'screws', 'hammer', 'wrench', 'drill', 'paint',
-  // Toys & games
-  'toy', 'doll', 'ball', 'lego', 'puzzle', 'card', 'cards', 'dice',
-  // Money & documents
-  'money', 'cash', 'coin', 'coins', 'credit card', 'passport', 'key', 'keys',
-]);
-
-function isFoodItem(name: string): boolean {
-  const lower = name.trim().toLowerCase();
-  if (!lower) return true;
-  if (NON_FOOD_ITEMS.has(lower)) return false;
-  for (const item of NON_FOOD_ITEMS) {
-    if (item.length > 3 && lower.includes(item)) return false;
-  }
-  return true;
-}
-
-const CHEEKY_MESSAGES = [
-  "Hmm, we don't think that's edible! Remove the red items to continue.",
-  "Nice try! But we can only cook with actual food. Remove the imposters!",
-  "Unless you're a goat, those red items aren't food. Please remove them!",
-  "We appreciate the creativity, but let's stick to real ingredients.",
-  "Our AI chef is confused by the non-food items. Help it out?",
-];
-
-function getCheekyMessage(): string {
-  return CHEEKY_MESSAGES[Math.floor(Math.random() * CHEEKY_MESSAGES.length)];
-}
-
-const theme = STEP_THEMES.ingredients;
+const theme = STEP_THEMES.home;
 
 export default function HomePage() {
   const router = useRouter();
-  const { ingredients, addIngredient, addIngredients, removeIngredient, clearIngredients } = useRecipeFlow();
-  const { addToast } = useToast();
-  const [isExtracting, setIsExtracting] = useState(false);
-  const [inputValue, setInputValue] = useState('');
-
-  const bogusItems = useMemo(() => {
-    const bogus = new Set<string>();
-    ingredients.forEach((name) => {
-      if (!isFoodItem(name)) bogus.add(name);
-    });
-    return bogus;
-  }, [ingredients]);
-
-  const hasBogusItems = bogusItems.size > 0;
-
-  const handleAddItem = () => {
-    const trimmed = inputValue.trim();
-    if (!trimmed) return;
-    const items = trimmed.split(',').map((s) => s.trim()).filter(Boolean);
-    if (items.length > 1) {
-      addIngredients(items);
-    } else {
-      addIngredient(trimmed);
-    }
-    setInputValue('');
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      handleAddItem();
-    }
-  };
-
-  const handlePhotoExtract = useCallback(async (base64: string) => {
-    setIsExtracting(true);
-    try {
-      const foundIngredients = await extractIngredientsFromPhoto(base64);
-      if (foundIngredients.length > 0) {
-        addIngredients(foundIngredients);
-        const nonFood = foundIngredients.filter((i) => !isFoodItem(i));
-        if (nonFood.length > 0) {
-          addToast(`Found ${foundIngredients.length} item(s), but some don't look like food!`, 'info');
-        } else {
-          addToast(`Found ${foundIngredients.length} ingredient(s) from photo!`, 'success');
-        }
-      } else {
-        addToast('No ingredients detected in this photo.', 'info');
-      }
-    } catch (err) { addToast(err instanceof Error ? err.message : 'Failed to analyze photo', 'error'); }
-    finally { setIsExtracting(false); }
-  }, [addIngredients, addToast]);
-
-  const handleNext = () => {
-    if (ingredients.length === 0) { addToast('Add at least one ingredient to continue.', 'error'); return; }
-    if (hasBogusItems) { addToast(getCheekyMessage(), 'error'); return; }
-    const validCount = ingredients.length - bogusItems.size;
-    if (validCount === 0) { addToast('You need at least one real food ingredient!', 'error'); return; }
-    router.push('/dietary');
-  };
 
   return (
     <div
       className="min-h-screen flex flex-col animate-radial-glow"
       style={{ background: theme.background, backgroundSize: '200% 200%' }}
     >
-      {/* Top content area */}
-      <div className="max-w-3xl mx-auto text-center space-y-8 pt-24 sm:pt-28 px-6">
-        {/* Hero heading — staggered per-letter animation */}
+      {/* Top content */}
+      <div className="max-w-3xl mx-auto text-center space-y-10 pt-24 sm:pt-28 px-6">
         <StaggeredPageTitle
-          text="what's in your kitchen?"
+          text="good meals co."
           className="text-[clamp(40px,6vw,67px)] tracking-[-0.25px]"
         />
 
-        {/* Ingredient input row */}
-        <div className="flex flex-wrap items-center gap-3 max-w-xl mx-auto">
-          <input
-            type="text"
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            onKeyDown={handleKeyDown}
-            placeholder="ENTER YOUR INGREDIENTS HERE..."
-            className="flex-1 min-w-0 px-5 py-3 bg-white rounded-full text-sm font-[family-name:var(--font-mono-option)] tracking-[0.5px] uppercase text-black placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-black/10 transition-all"
-          />
-          <button
-            onClick={handleAddItem}
-            className="px-5 py-3 text-[14px] font-medium tracking-[1px] uppercase border-[1.5px] border-black rounded-[30px] bg-transparent text-black hover:bg-black hover:text-white transition-all duration-200 whitespace-nowrap max-sm:w-full"
-          >
-            ADD ITEM
-          </button>
-        </div>
-
-        {/* Photo upload area */}
-        <div className="max-w-xl mx-auto">
-          <PhotoUpload onExtract={handlePhotoExtract} isExtracting={isExtracting} />
-        </div>
-
-        {/* Ingredient tags */}
-        {ingredients.length > 0 && (
-          <div className="animate-fade-in max-w-xl mx-auto">
-            <div className="flex items-center justify-between mb-3">
-              <h2 className="text-[12px] font-medium uppercase tracking-[1px] text-black/50">Your ingredients ({ingredients.length})</h2>
-              <button onClick={clearIngredients} className="text-[12px] text-black/40 hover:text-red-500 uppercase tracking-[1px] transition-colors">Clear all</button>
-            </div>
-            <div className="flex flex-wrap gap-2 justify-center">
-              {ingredients.map((name) => (
-                <IngredientTag key={name} name={name} onRemove={() => removeIngredient(name)} isBogus={bogusItems.has(name)} />
-              ))}
-            </div>
-
-            {hasBogusItems && (
-              <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-[30px] animate-fade-in">
-                <p className="text-sm text-red-600 font-medium">
-                  {getCheekyMessage()}
-                </p>
-                <p className="text-xs text-red-400 mt-1 font-light">
-                  Remove the red items above to proceed.
-                </p>
-              </div>
-            )}
-          </div>
-        )}
+        <p className="text-[14px] font-[family-name:var(--font-mono-option)] tracking-[1px] uppercase text-black/50">
+          Choose how you want to eat
+        </p>
       </div>
 
-      {/* Next button — centered in remaining space between content and footer */}
-      <div className="flex-1 flex items-center justify-center min-h-[120px]">
-        <button
-          onClick={handleNext}
-          disabled={ingredients.length === 0 || hasBogusItems}
-          className="px-8 py-3 text-[14px] font-medium tracking-[1px] uppercase border-[1.5px] border-black rounded-[30px] bg-transparent text-black hover:bg-black hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-200 inline-flex items-center gap-2"
-        >
-          DIETARY
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M5 12h14M12 5l7 7-7 7" />
-          </svg>
-        </button>
+      {/* Feature cards — centered in remaining space */}
+      <div className="flex-1 flex items-center justify-center px-6">
+        <div className="max-w-2xl w-full grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {/* Quick Recipes Card */}
+          <button
+            onClick={() => router.push('/quick-recipes')}
+            className="group p-8 border-[1.5px] border-black rounded-[30px] bg-white/30 backdrop-blur-sm text-left hover:bg-black hover:text-white transition-all duration-300"
+          >
+            <div className="space-y-4">
+              <div className="w-12 h-12 rounded-full border-[1.5px] border-current flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5" />
+                  <path d="M9 18h6" />
+                  <path d="M10 22h4" />
+                </svg>
+              </div>
+              <h2 className="text-[20px] font-[family-name:var(--font-display)] lowercase">
+                quick recipes.
+              </h2>
+              <p className="text-[13px] font-[family-name:var(--font-mono-option)] tracking-[0.5px] uppercase opacity-60">
+                Got ingredients? Find 5 recipes instantly from our verified database.
+              </p>
+            </div>
+          </button>
+
+          {/* Weekly Meal Plan Card */}
+          <button
+            onClick={() => router.push('/meal-plan')}
+            className="group p-8 border-[1.5px] border-black rounded-[30px] bg-white/30 backdrop-blur-sm text-left hover:bg-black hover:text-white transition-all duration-300"
+          >
+            <div className="space-y-4">
+              <div className="w-12 h-12 rounded-full border-[1.5px] border-current flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                  <line x1="16" y1="2" x2="16" y2="6" />
+                  <line x1="8" y1="2" x2="8" y2="6" />
+                  <line x1="3" y1="10" x2="21" y2="10" />
+                  <path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01" />
+                </svg>
+              </div>
+              <h2 className="text-[20px] font-[family-name:var(--font-display)] lowercase">
+                weekly meal plan.
+              </h2>
+              <p className="text-[13px] font-[family-name:var(--font-mono-option)] tracking-[0.5px] uppercase opacity-60">
+                AI plans your entire week of balanced meals for you or your family.
+              </p>
+            </div>
+          </button>
+        </div>
       </div>
 
       {/* Large brand footer */}
-      <div className="text-center select-none overflow-hidden">
+      <div className="mt-auto text-center select-none overflow-hidden">
         <span className="font-[family-name:var(--font-brand)] text-[clamp(80px,15vw,225px)] font-normal text-black leading-none tracking-[-0.25px] block">
           GOOD MEALS CO.
         </span>

@@ -38,6 +38,18 @@ const STEP_THEMES: Record<string, StepTheme> = {
     background:
       "radial-gradient(ellipse at 50% 50%, rgba(255,80,0,0.18) 0%, rgba(200,60,0,0.10) 25%, rgba(140,40,0,0.04) 45%, transparent 70%), linear-gradient(180deg, rgb(255,230,215) 0%, rgb(255,230,215) 100%)",
   },
+  mealplan: {
+    base: 'rgb(194,220,255)',
+    glow: 'rgba(0,80,255,0.18)',
+    background:
+      "radial-gradient(ellipse at 50% 50%, rgba(0,80,255,0.18) 0%, rgba(0,60,200,0.10) 25%, rgba(0,40,140,0.04) 45%, transparent 70%), linear-gradient(180deg, rgb(194,220,255) 0%, rgb(194,220,255) 100%)",
+  },
+  home: {
+    base: 'rgb(245,235,225)',
+    glow: 'rgba(200,160,100,0.18)',
+    background:
+      "radial-gradient(ellipse at 50% 50%, rgba(200,160,100,0.18) 0%, rgba(180,140,80,0.10) 25%, rgba(140,100,60,0.04) 45%, transparent 70%), linear-gradient(180deg, rgb(245,235,225) 0%, rgb(245,235,225) 100%)",
+  },
   general: {
     base: 'rgb(248,244,240)',
     glow: 'rgba(180,160,140,0.12)',

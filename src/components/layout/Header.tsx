@@ -27,12 +27,12 @@ export default function Header() {
   if (!user) return null;
 
   const leftNav = [
-    { href: '/history', label: 'My Recipes' },
-    { href: '/', label: 'New Recipes' },
+    { href: '/history', label: 'Recipe Library' },
+    { href: '/', label: 'Home' },
   ];
 
   const rightNav = [
-    { href: '/plan', label: 'Meal Plan' },
+    { href: '/meal-plan/view', label: 'My Plans' },
     { href: '/settings', label: 'Settings' },
   ];
 
