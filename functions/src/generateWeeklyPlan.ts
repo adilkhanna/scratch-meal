@@ -10,6 +10,16 @@ if (!admin.apps.length) admin.initializeApp();
 const DAY_NAMES_3 = ['monday', 'tuesday', 'wednesday'];
 const DAY_NAMES_7 = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 
+// Safe breakfast keywords — only Spoonacular recipes matching these get into breakfast context
+const SAFE_BREAKFAST_KEYWORDS = [
+  'oatmeal', 'porridge', 'oats', 'eggs', 'egg', 'omelette', 'omelet', 'scramble',
+  'toast', 'bread', 'smoothie', 'pancake', 'waffle', 'crepe',
+  'dosa', 'idli', 'poha', 'upma', 'cereal', 'paratha', 'granola',
+  'french toast', 'muesli', 'yogurt', 'curd', 'fruit', 'banana',
+  'uttapam', 'cheela', 'chilla', 'appam', 'puttu', 'sandwich',
+  'avocado', 'bagel', 'muffin', 'cornflakes', 'dhokla', 'sabudana',
+];
+
 interface BreakfastPref {
   memberName: string;
   preferences: string[];
@@ -55,6 +65,7 @@ export const generateWeeklyPlan = onCall(
       weeklyBudget,
       breakfastPreferences,
       planDays,
+      dailyCaloricTarget,
     } = request.data;
 
     // Validate inputs
@@ -64,6 +75,14 @@ export const generateWeeklyPlan = onCall(
     const numDays = planDays === 7 ? 7 : 3; // Default to 3 for safety
     const family = Math.max(1, Math.min(10, familySize || 1));
     const dayNames = numDays === 7 ? DAY_NAMES_7 : DAY_NAMES_3;
+
+    // Calorie budget per meal (25% breakfast, 40% lunch, 35% dinner)
+    const calorieTarget = dailyCaloricTarget ? Math.max(1200, Math.min(3500, dailyCaloricTarget)) : null;
+    const calorieBudget = calorieTarget ? {
+      breakfast: Math.round(calorieTarget * 0.25),
+      lunch: Math.round(calorieTarget * 0.40),
+      dinner: Math.round(calorieTarget * 0.35),
+    } : null;
 
     console.log(`[meal-plan] Starting: ${ingredients.length} ingredients, ${(dietaryConditions || []).length} dietary, family=${family}, days=${numDays}`);
 
@@ -147,7 +166,11 @@ export const generateWeeklyPlan = onCall(
         dietaryTags: dietaryTags,
       }));
 
-      const breakfastContext = [...formatForPrompt(breakfastGlossary.recipes), ...spoonacularFormatted].slice(0, 20);
+      // For breakfast: only include Spoonacular recipes that match safe breakfast keywords
+      const breakfastSpoonacular = spoonacularFormatted.filter((r: { name: string }) =>
+        SAFE_BREAKFAST_KEYWORDS.some((kw) => r.name.toLowerCase().includes(kw))
+      );
+      const breakfastContext = [...formatForPrompt(breakfastGlossary.recipes), ...breakfastSpoonacular].slice(0, 20);
       const lunchContext = [...formatForPrompt(lunchGlossary.recipes), ...spoonacularFormatted].slice(0, 20);
       const dinnerContext = [...formatForPrompt(dinnerGlossary.recipes), ...spoonacularFormatted].slice(0, 20);
 
@@ -159,18 +182,21 @@ export const generateWeeklyPlan = onCall(
         family,
         breakfastPreferences || [],
         breakfastContext,
-        numDays
+        numDays,
+        calorieBudget?.breakfast || null
       );
+
+      const SYSTEM_MSG = 'You are a professional nutritionist creating meal plans. You MUST only use recipes from the provided reference list — never invent dishes. Always respond with valid JSON.';
 
       const breakfastResponse = await openai.chat.completions.create({
         model: 'gpt-4o',
         messages: [
-          { role: 'system', content: 'You are a professional nutritionist creating meal plans. Always respond with valid JSON.' },
+          { role: 'system', content: SYSTEM_MSG },
           { role: 'user', content: breakfastPrompt },
         ],
         response_format: { type: 'json_object' },
         max_tokens: 4000,
-        temperature: 0.7,
+        temperature: 0.4,
       });
 
       const breakfastContent = breakfastResponse.choices?.[0]?.message?.content;
@@ -195,18 +221,19 @@ export const generateWeeklyPlan = onCall(
         breakfastSummary,
         lunchContext,
         numDays,
-        dayNames
+        dayNames,
+        calorieBudget?.lunch || null
       );
 
       const lunchResponse = await openai.chat.completions.create({
         model: 'gpt-4o',
         messages: [
-          { role: 'system', content: 'You are a professional nutritionist creating meal plans. Always respond with valid JSON.' },
+          { role: 'system', content: SYSTEM_MSG },
           { role: 'user', content: lunchPrompt },
         ],
         response_format: { type: 'json_object' },
         max_tokens: 6000,
-        temperature: 0.7,
+        temperature: 0.4,
       });
 
       const lunchContent = lunchResponse.choices?.[0]?.message?.content;
@@ -229,18 +256,19 @@ export const generateWeeklyPlan = onCall(
         `Breakfast: ${breakfastSummary}\nLunch: ${lunchSummary}`,
         dinnerContext,
         numDays,
-        dayNames
+        dayNames,
+        calorieBudget?.dinner || null
       );
 
       const dinnerResponse = await openai.chat.completions.create({
         model: 'gpt-4o',
         messages: [
-          { role: 'system', content: 'You are a professional nutritionist creating meal plans. Always respond with valid JSON.' },
+          { role: 'system', content: SYSTEM_MSG },
           { role: 'user', content: dinnerPrompt },
         ],
         response_format: { type: 'json_object' },
         max_tokens: 6000,
-        temperature: 0.7,
+        temperature: 0.4,
       });
 
       const dinnerContent = dinnerResponse.choices?.[0]?.message?.content;
@@ -320,31 +348,31 @@ export const generateWeeklyPlan = onCall(
       const useMandiPrices = mandiPricesEnabled === true;
       let pricesAsOf: string | null = null;
 
-      // Collect all components for cost estimation
+      // Collect all components for cost estimation (track meal type for glossary)
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const allComponents: { component: any; mealRef: any }[] = [];
+      const allComponents: { component: any; mealRef: any; actualMealType: 'breakfast' | 'lunch' | 'dinner' }[] = [];
 
       for (const day of dayNames) {
         const breakfast = breakfastByDay[day];
         if (breakfast?.options) {
           for (const opt of breakfast.options) {
             for (const comp of opt.components) {
-              allComponents.push({ component: comp, mealRef: opt });
+              allComponents.push({ component: comp, mealRef: opt, actualMealType: 'breakfast' });
             }
           }
         } else if (breakfast?.components) {
           for (const comp of breakfast.components) {
-            allComponents.push({ component: comp, mealRef: breakfast });
+            allComponents.push({ component: comp, mealRef: breakfast, actualMealType: 'breakfast' });
           }
         }
         if (lunchByDay[day]) {
           for (const comp of lunchByDay[day].components) {
-            allComponents.push({ component: comp, mealRef: lunchByDay[day] });
+            allComponents.push({ component: comp, mealRef: lunchByDay[day], actualMealType: 'lunch' });
           }
         }
         if (dinnerByDay[day]) {
           for (const comp of dinnerByDay[day].components) {
-            allComponents.push({ component: comp, mealRef: dinnerByDay[day] });
+            allComponents.push({ component: comp, mealRef: dinnerByDay[day], actualMealType: 'dinner' });
           }
         }
       }
@@ -421,6 +449,7 @@ export const generateWeeklyPlan = onCall(
         dinnerCuisines: dinnerCuisines || [],
         days,
         totalWeeklyCost: Math.round(totalWeeklyCost),
+        dailyCaloricTarget: calorieTarget,
         createdAt: now,
       };
 
@@ -428,7 +457,7 @@ export const generateWeeklyPlan = onCall(
 
       // --- Step 8: Feed to glossary (non-blocking) ---
       const region = inferRegion(allCuisines);
-      const glossaryEntries = allComponents.map(({ component }) => ({
+      const glossaryEntries = allComponents.map(({ component, actualMealType }) => ({
         name: component.name,
         description: component.description,
         cookTime: component.cookTime,
@@ -439,9 +468,9 @@ export const generateWeeklyPlan = onCall(
         nutritionInfo: component.nutritionInfo,
         cuisine: allCuisines.length > 0 ? allCuisines : ['Global'],
         dietaryTags,
-        mealTypes: ['lunch', 'dinner'], // most components are lunch/dinner
+        mealTypes: [actualMealType],
         region,
-        source: 'spoonacular' as const, // generated from Spoonacular + glossary context
+        source: 'spoonacular' as const,
       }));
 
       // Non-blocking glossary feed

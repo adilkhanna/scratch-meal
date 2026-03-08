@@ -141,6 +141,7 @@ export interface GeneratedWeeklyPlan {
   dinnerCuisines: string[];
   days: GeneratedDayPlan[];
   totalWeeklyCost?: number;
+  dailyCaloricTarget?: number;
   createdAt: string;
 }
 

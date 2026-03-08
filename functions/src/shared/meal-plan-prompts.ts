@@ -18,7 +18,7 @@ interface BreakfastPref {
 }
 
 function formatRecipeContext(recipes: RecipeContext[]): string {
-  if (recipes.length === 0) return 'No reference recipes available — use only well-known, standard dishes.';
+  if (recipes.length === 0) return 'No reference recipes available — use only well-known standard dishes appropriate for this specific meal type.';
   return recipes
     .map(
       (r, i) =>
@@ -53,7 +53,8 @@ export function buildBreakfastPrompt(
   familySize: number,
   breakfastPrefs: BreakfastPref[],
   glossaryRecipes: RecipeContext[],
-  planDays: number
+  planDays: number,
+  calorieTarget: number | null
 ): string {
   const isFamily = familySize > 1;
 
@@ -65,15 +66,22 @@ ${ingredients.map((i) => `- ${i}`).join('\n')}
 DIETARY CONSTRAINTS (MUST FOLLOW ALL):
 ${dietaryConditions.length > 0 ? dietaryConditions.map((c) => `- ${c}`).join('\n') : '- None'}
 
-${isFamily && breakfastPrefs.length > 0 ? `FAMILY MEMBER BREAKFAST PREFERENCES:\n${breakfastPrefs.map((p) => `- ${p.memberName}: prefers ${p.preferences.join(', ')}`).join('\n')}` : ''}
+${isFamily && breakfastPrefs.length > 0 ? `FAMILY MEMBER BREAKFAST PREFERENCES:
+${breakfastPrefs.map((p) => `- ${p.memberName}: prefers ${p.preferences.join(', ')}`).join('\n')}
+IMPORTANT: Each family member's breakfast preferences MUST be reflected in the options. If a member prefers "oats", at least one option must feature oats prominently.` : ''}
 
-REFERENCE RECIPES (use these as inspiration — adapt or use directly):
+REFERENCE RECIPES (adapt or use directly):
 ${formatRecipeContext(glossaryRecipes)}
+${calorieTarget ? `
+CALORIE TARGET:
+This breakfast should total approximately ${calorieTarget} calories per person. Ensure the nutritionInfo.calories values across all components add up close to ${calorieTarget}.` : ''}
 
 REQUIREMENTS:
 1. ${isFamily ? 'Generate 5 breakfast OPTIONS that family members can choose from each day. Each option should be a complete breakfast.' : `Generate 5 rotating breakfast templates for ${planDays} days. Most people rotate 4-5 breakfasts.`}
 2. Each breakfast should be BALANCED: include protein, carbs, and fruit/nuts where possible.
-3. ONLY use dishes from the reference recipes above OR well-known standard breakfast dishes (oatmeal, toast, eggs, smoothie, etc.)
+3. ONLY suggest breakfast-appropriate dishes. You may use reference recipes above or standard breakfast items like:
+   oatmeal, porridge, eggs (scrambled/boiled/omelette), toast, smoothie, pancakes, waffles, dosa, idli, poha, upma, cereal, paratha, granola, yogurt bowls, fruit salad, muesli, french toast, cheela, uttapam, dhokla.
+   NEVER suggest heavy lunch/dinner items like curries, biryani, tandoori chicken, dal makhani, pasta, stir-fry, fried rice, or heavy meat dishes for breakfast.
 4. For dietary constraints, recommend specific variants (e.g., "oat milk" for lactose intolerant, "gluten-free bread" for celiac)
 5. Include a "dietaryNotes" field explaining any substitutions made for dietary compliance
 6. Scale ingredient quantities for ${familySize} ${familySize === 1 ? 'person' : 'people'}
@@ -109,7 +117,8 @@ export function buildLunchPrompt(
   breakfastSummary: string,
   glossaryRecipes: RecipeContext[],
   planDays: number,
-  dayNames: string[]
+  dayNames: string[],
+  calorieTarget: number | null
 ): string {
   return `You are a professional nutritionist and chef planning lunches for ${familySize === 1 ? 'an individual' : `a family of ${familySize}`} for ${planDays} days.
 
@@ -125,13 +134,16 @@ ${lunchCuisines.length > 0 ? lunchCuisines.join(', ') : 'Diverse (mix of cuisine
 BREAKFAST PLAN (for nutritional balancing — ensure lunches complement breakfast nutrition):
 ${breakfastSummary}
 
-REFERENCE RECIPES (use these as your primary source — adapt for available ingredients):
+REFERENCE RECIPES (you MUST adapt dishes from this list — do NOT invent new dishes):
 ${formatRecipeContext(glossaryRecipes)}
+${calorieTarget ? `
+CALORIE TARGET:
+Each lunch should total approximately ${calorieTarget} calories per person. Ensure component-level nutritionInfo.calories values add up to approximately ${calorieTarget}.` : ''}
 
 REQUIREMENTS:
 1. Generate ${planDays} lunches, one for each day: ${dayNames.join(', ')}
 2. Each lunch should have 3-4 components (main dish, side, accompaniment, optional salad/raita)
-3. ONLY use dishes from the reference recipes above OR well-known standard dishes from the specified cuisines
+3. You MUST only adapt recipes from the reference list above. Do NOT invent new dishes or use recipes not in the reference list. If you need variety, combine or adapt reference recipes with different available ingredients.
 4. Each meal should be nutritionally balanced (protein + carbs + vegetables)
 5. Vary the dishes across days — don't repeat the same main dish
 6. Scale quantities for ${familySize} ${familySize === 1 ? 'person' : 'people'}
@@ -161,7 +173,8 @@ export function buildDinnerPrompt(
   priorMealsSummary: string,
   glossaryRecipes: RecipeContext[],
   planDays: number,
-  dayNames: string[]
+  dayNames: string[],
+  calorieTarget: number | null
 ): string {
   return `You are a professional nutritionist and chef planning dinners for ${familySize === 1 ? 'an individual' : `a family of ${familySize}`} for ${planDays} days.
 
@@ -177,13 +190,16 @@ ${dinnerCuisines.length > 0 ? dinnerCuisines.join(', ') : 'Diverse (mix of cuisi
 TODAY'S BREAKFAST & LUNCH (vary dinner to avoid repetition and balance nutrition):
 ${priorMealsSummary}
 
-REFERENCE RECIPES (use these as your primary source — adapt for available ingredients):
+REFERENCE RECIPES (you MUST adapt dishes from this list — do NOT invent new dishes):
 ${formatRecipeContext(glossaryRecipes)}
+${calorieTarget ? `
+CALORIE TARGET:
+Each dinner should total approximately ${calorieTarget} calories per person. Ensure component-level nutritionInfo.calories values add up to approximately ${calorieTarget}.` : ''}
 
 REQUIREMENTS:
 1. Generate ${planDays} dinners, one for each day: ${dayNames.join(', ')}
 2. Each dinner should have 3-4 components (main dish, side, accompaniment)
-3. ONLY use dishes from the reference recipes above OR well-known standard dishes
+3. You MUST only adapt recipes from the reference list above. Do NOT invent new dishes. Adapt the reference recipes for available ingredients, but the dish identity must match a reference recipe.
 4. Dinners should be lighter than lunches where possible (nutritional balance across the day)
 5. Do NOT repeat lunch dishes — vary proteins and cooking styles
 6. Scale quantities for ${familySize} ${familySize === 1 ? 'person' : 'people'}

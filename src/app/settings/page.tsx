@@ -33,6 +33,7 @@ export default function SettingsPage() {
   const [newItem, setNewItem] = useState('');
   const [recipeCount, setRecipeCount] = useState(0);
   const [favCount, setFavCount] = useState(0);
+  const [dailyCaloricTarget, setDailyCaloricTarget] = useState<number | null>(null);
   const [dataLoaded, setDataLoaded] = useState(false);
 
   // Load pantry basics and recipe stats from Firestore
@@ -48,6 +49,9 @@ export default function SettingsPage() {
       setFavCount(recipes.filter((r) => r.isFavorite).length);
 
       const data = userSnap.data();
+      if (data?.dailyCaloricTarget) {
+        setDailyCaloricTarget(data.dailyCaloricTarget);
+      }
       if (data?.pantryBasics && Array.isArray(data.pantryBasics)) {
         setPantryBasics(data.pantryBasics);
       } else {
@@ -108,6 +112,20 @@ export default function SettingsPage() {
     addToast('Local data cleared.', 'info');
   };
 
+  const saveCalorieTarget = async (target: number | null) => {
+    setDailyCaloricTarget(target);
+    if (!user?.uid) return;
+    try {
+      await updateDoc(doc(db, 'users', user.uid), { dailyCaloricTarget: target });
+    } catch {
+      try {
+        await setDoc(doc(db, 'users', user.uid), { dailyCaloricTarget: target }, { merge: true });
+      } catch (err) {
+        console.error('Failed to save calorie target:', err);
+      }
+    }
+  };
+
   if (!dataLoaded || !pantryLoaded) return (
     <div className="min-h-screen animate-radial-glow flex items-center justify-center" style={{ background: theme.background, backgroundSize: '200% 200%' }}>
       <MomoLoader message="Loading settings..." />
@@ -161,6 +179,53 @@ export default function SettingsPage() {
           <div className="border-[1.5px] border-black rounded-[30px] bg-white/50 p-5 space-y-3">
             <h2 className="text-[14px] font-medium tracking-[1px] uppercase text-neutral-900">Saved Dietary Preferences</h2>
             <SavedDietaryDisplay />
+          </div>
+
+          {/* Daily Calorie Target */}
+          <div className="border-[1.5px] border-black rounded-[30px] bg-white/50 p-5 space-y-4">
+            <div>
+              <h2 className="text-[14px] font-medium tracking-[1px] uppercase text-neutral-900">Daily Calorie Target</h2>
+              <p className="text-[12px] tracking-[1px] uppercase text-neutral-400 mt-1">Per person. Used when generating weekly meal plans.</p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {([
+                { label: 'Light', value: 1500 },
+                { label: 'Standard', value: 2000 },
+                { label: 'Active', value: 2500 },
+                { label: 'High', value: 3000 },
+                { label: 'None', value: null },
+              ] as { label: string; value: number | null }[]).map((preset) => (
+                <button
+                  key={preset.label}
+                  onClick={() => saveCalorieTarget(preset.value)}
+                  className={`px-4 py-2 rounded-full text-[12px] font-medium tracking-[1px] uppercase border-[1.5px] transition-all ${
+                    dailyCaloricTarget === preset.value
+                      ? 'bg-black text-white border-black'
+                      : 'bg-transparent text-black border-black/20 hover:border-black'
+                  }`}
+                >
+                  {preset.label}{preset.value ? ` (${preset.value})` : ''}
+                </button>
+              ))}
+            </div>
+            {dailyCaloricTarget && (
+              <div className="space-y-2">
+                <input
+                  type="range"
+                  min={1200}
+                  max={3500}
+                  step={100}
+                  value={dailyCaloricTarget}
+                  onChange={(e) => saveCalorieTarget(parseInt(e.target.value))}
+                  className="w-full accent-black"
+                />
+                <div className="flex justify-between text-[10px] tracking-[1px] uppercase text-neutral-400">
+                  <span>1200 cal</span>
+                  <span className="font-medium text-black">{dailyCaloricTarget} cal/day</span>
+                  <span>3500 cal</span>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Pantry Basics */}

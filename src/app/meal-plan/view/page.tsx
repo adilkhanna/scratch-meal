@@ -40,6 +40,26 @@ function inferSection(ingredientName: string): GrocerySection {
   return 'other';
 }
 
+function getDayCalories(day: GeneratedDayPlan): { breakfast: number; lunch: number; dinner: number; total: number } {
+  const bfCal = isBreakfastOptions(day.breakfast)
+    ? Math.round(day.breakfast.options.reduce((sum, o) => sum + o.totalCalories, 0) / Math.max(day.breakfast.options.length, 1))
+    : day.breakfast.totalCalories;
+  return {
+    breakfast: bfCal,
+    lunch: day.lunch.totalCalories,
+    dinner: day.dinner.totalCalories,
+    total: bfCal + day.lunch.totalCalories + day.dinner.totalCalories,
+  };
+}
+
+function calorieColor(actual: number, target: number): string {
+  if (actual === 0) return 'text-black/30';
+  const ratio = actual / target;
+  if (ratio >= 0.85 && ratio <= 1.15) return 'text-green-600';
+  if (ratio >= 0.7 && ratio <= 1.3) return 'text-amber-600';
+  return 'text-red-500';
+}
+
 function buildGroceryList(plan: GeneratedWeeklyPlan): GroceryItem[] {
   const map = new Map<string, { quantity: number; unit: string; section: GrocerySection }>();
 
@@ -191,6 +211,19 @@ function MealPlanViewContent() {
               <> &middot; Est. {'\u20B9'}{Math.round(plan.totalWeeklyCost).toLocaleString()} total</>
             )}
           </p>
+          {plan.dailyCaloricTarget && activeDay && (() => {
+            const dayCals = getDayCalories(activeDay);
+            return (
+              <div className="flex items-center justify-center gap-2 mt-3">
+                <div className="flex items-center gap-1.5 px-3 py-1.5 bg-white/40 border-[1.5px] border-black/10 rounded-full">
+                  <span className="text-[10px] tracking-[1px] uppercase text-black/40">Daily</span>
+                  <span className={`text-[12px] font-medium ${calorieColor(dayCals.total, plan.dailyCaloricTarget!)}`}>
+                    {dayCals.total} / {plan.dailyCaloricTarget} cal
+                  </span>
+                </div>
+              </div>
+            );
+          })()}
         </div>
 
         {/* Tabs: Plan / Grocery */}
@@ -236,6 +269,14 @@ function MealPlanViewContent() {
                 <section>
                   <h3 className="text-[12px] font-medium tracking-[1px] uppercase text-black/50 mb-3">
                     Breakfast
+                    {!isBreakfastOptions(activeDay.breakfast) && activeDay.breakfast.totalCalories > 0 && (
+                      <span className={`ml-2 ${plan.dailyCaloricTarget
+                        ? calorieColor(activeDay.breakfast.totalCalories, Math.round(plan.dailyCaloricTarget * 0.25))
+                        : 'text-black/30'}`}>
+                        ~{activeDay.breakfast.totalCalories} cal
+                        {plan.dailyCaloricTarget && <> / {Math.round(plan.dailyCaloricTarget * 0.25)}</>}
+                      </span>
+                    )}
                   </h3>
                   {isBreakfastOptions(activeDay.breakfast) ? (
                     <div className="space-y-4">
@@ -271,7 +312,12 @@ function MealPlanViewContent() {
                   <h3 className="text-[12px] font-medium tracking-[1px] uppercase text-black/50 mb-3">
                     Lunch
                     {activeDay.lunch.totalCalories > 0 && (
-                      <span className="ml-2 text-black/30">~{activeDay.lunch.totalCalories} cal</span>
+                      <span className={`ml-2 ${plan.dailyCaloricTarget
+                        ? calorieColor(activeDay.lunch.totalCalories, Math.round(plan.dailyCaloricTarget * 0.40))
+                        : 'text-black/30'}`}>
+                        ~{activeDay.lunch.totalCalories} cal
+                        {plan.dailyCaloricTarget && <> / {Math.round(plan.dailyCaloricTarget * 0.40)}</>}
+                      </span>
                     )}
                   </h3>
                   <div className="space-y-2">
@@ -290,7 +336,12 @@ function MealPlanViewContent() {
                   <h3 className="text-[12px] font-medium tracking-[1px] uppercase text-black/50 mb-3">
                     Dinner
                     {activeDay.dinner.totalCalories > 0 && (
-                      <span className="ml-2 text-black/30">~{activeDay.dinner.totalCalories} cal</span>
+                      <span className={`ml-2 ${plan.dailyCaloricTarget
+                        ? calorieColor(activeDay.dinner.totalCalories, Math.round(plan.dailyCaloricTarget * 0.35))
+                        : 'text-black/30'}`}>
+                        ~{activeDay.dinner.totalCalories} cal
+                        {plan.dailyCaloricTarget && <> / {Math.round(plan.dailyCaloricTarget * 0.35)}</>}
+                      </span>
                     )}
                   </h3>
                   <div className="space-y-2">
