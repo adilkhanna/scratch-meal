@@ -72,22 +72,25 @@ ${isFamily && breakfastPrefs.length > 0 ? `FAMILY MEMBER BREAKFAST PREFERENCES:
 ${breakfastPrefs.map((p) => `- ${p.memberName}: prefers ${p.preferences.join(', ')}`).join('\n')}
 IMPORTANT: Each family member's breakfast preferences MUST be reflected in the options. If a member prefers "oats", at least one option must feature oats prominently.` : ''}
 
-REFERENCE RECIPES (adapt or use directly):
+APPROVED BREAKFAST RECIPES (you MUST choose ONLY from this list — do NOT invent new dishes):
 ${formatRecipeContext(glossaryRecipes)}
 ${calorieTarget ? `
 CALORIE TARGET:
 This breakfast should total approximately ${calorieTarget} calories PER PERSON (per single serving, not total for the family). All nutritionInfo.calories values must be per person.` : ''}
 
+STRICT RULES:
+- You MUST only use breakfasts from the APPROVED list above. Do NOT create new dishes.
+- Do NOT combine ingredients in weird ways (no "paneer smoothie", no "spinach pancake with carrots").
+- Every dish you suggest must match a real recipe from the list. You may adapt ingredients slightly for dietary needs, but the dish identity must remain the same.
+- NEVER suggest heavy lunch/dinner items (curries, biryani, tandoori, pasta, fried rice, heavy meat dishes).
+
 REQUIREMENTS:
 1. ${isFamily ? 'Generate 5 breakfast OPTIONS that family members can choose from each day. Each option should be a complete breakfast.' : `Generate 5 rotating breakfast templates for ${planDays} days. Most people rotate 4-5 breakfasts.`}
 2. Each breakfast should be BALANCED: include protein, carbs, and fruit/nuts where possible.
-3. ONLY suggest breakfast-appropriate dishes. You may use reference recipes above or standard breakfast items like:
-   oatmeal, porridge, eggs (scrambled/boiled/omelette), toast, smoothie, pancakes, waffles, dosa, idli, poha, upma, cereal, paratha, granola, yogurt bowls, fruit salad, muesli, french toast, cheela, uttapam, dhokla.
-   NEVER suggest heavy lunch/dinner items like curries, biryani, tandoori chicken, dal makhani, pasta, stir-fry, fried rice, or heavy meat dishes for breakfast.
-4. For dietary constraints, recommend specific variants (e.g., "oat milk" for lactose intolerant, "gluten-free bread" for celiac)
-5. Include a "dietaryNotes" field explaining any substitutions made for dietary compliance
-6. Scale ingredient quantities for ${familySize} ${familySize === 1 ? 'person' : 'people'}
-7. Each breakfast component should have full ingredients and instructions
+3. For dietary constraints, recommend specific variants (e.g., "oat milk" for lactose intolerant, "gluten-free bread" for celiac)
+4. Include a "dietaryNotes" field explaining any substitutions made for dietary compliance
+5. Scale ingredient quantities for ${familySize} ${familySize === 1 ? 'person' : 'people'}, but report nutritionInfo.calories PER PERSON
+6. Each breakfast component should have full ingredients and instructions
 
 Return ONLY a JSON object:
 ${isFamily ? `{

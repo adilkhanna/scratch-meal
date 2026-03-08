@@ -3,7 +3,7 @@ import * as admin from 'firebase-admin';
 import { getOpenAIClient } from './shared/openai-client';
 import { buildBreakfastPrompt, buildLunchPrompt, buildDinnerPrompt } from './shared/meal-plan-prompts';
 import { estimateRecipeCost } from './shared/ingredient-prices';
-import { feedToGlossary, inferRegion, inferDietaryTags, queryGlossaryForPlan } from './shared/glossary-feeder';
+import { feedToGlossary, inferRegion, inferDietaryTags, queryGlossaryForPlan, getExcludedTags } from './shared/glossary-feeder';
 
 if (!admin.apps.length) admin.initializeApp();
 
@@ -97,6 +97,12 @@ export const generateWeeklyPlan = onCall(
       const allCuisines = [...new Set([...(lunchCuisines || []), ...(dinnerCuisines || [])])];
       const dietaryTags = inferDietaryTags(dietaryConditions || []);
 
+      // Determine health-condition tags to exclude (e.g., fried for cardiovascular)
+      const excludeTags = getExcludedTags(dietaryConditions || []);
+      if (excludeTags.length > 0) {
+        console.log(`[meal-plan] Health conditions detected — excluding tags: ${excludeTags.join(', ')}`);
+      }
+
       // Query glossary for breakfast, lunch, dinner recipes (fail gracefully)
       type GlossaryResult = Awaited<ReturnType<typeof queryGlossaryForPlan>>;
       const emptyGlossary: GlossaryResult = { recipes: [], hasEnough: false };
@@ -106,9 +112,9 @@ export const generateWeeklyPlan = onCall(
 
       try {
         [breakfastGlossary, lunchGlossary, dinnerGlossary] = await Promise.all([
-          queryGlossaryForPlan(allCuisines, dietaryTags, ['breakfast'], glossaryMinThreshold),
-          queryGlossaryForPlan(lunchCuisines || [], dietaryTags, ['lunch'], glossaryMinThreshold),
-          queryGlossaryForPlan(dinnerCuisines || [], dietaryTags, ['dinner'], glossaryMinThreshold),
+          queryGlossaryForPlan(allCuisines, dietaryTags, ['breakfast'], glossaryMinThreshold, excludeTags),
+          queryGlossaryForPlan(lunchCuisines || [], dietaryTags, ['lunch'], glossaryMinThreshold, excludeTags),
+          queryGlossaryForPlan(dinnerCuisines || [], dietaryTags, ['dinner'], glossaryMinThreshold, excludeTags),
         ]);
       } catch (glossaryErr) {
         console.warn('[meal-plan] Glossary query failed (missing index?), proceeding without glossary:', glossaryErr);
@@ -166,11 +172,9 @@ export const generateWeeklyPlan = onCall(
         dietaryTags: dietaryTags,
       }));
 
-      // For breakfast: only include Spoonacular recipes that match safe breakfast keywords
-      const breakfastSpoonacular = spoonacularFormatted.filter((r: { name: string }) =>
-        SAFE_BREAKFAST_KEYWORDS.some((kw) => r.name.toLowerCase().includes(kw))
-      );
-      const breakfastContext = [...formatForPrompt(breakfastGlossary.recipes), ...breakfastSpoonacular].slice(0, 20);
+      // Breakfast is GLOSSARY-ONLY — no Spoonacular, no GPT hallucinations.
+      // The breakfast bank has 119 curated recipes from real food sites.
+      const breakfastContext = formatForPrompt(breakfastGlossary.recipes).slice(0, 25);
       const lunchContext = [...formatForPrompt(lunchGlossary.recipes), ...spoonacularFormatted].slice(0, 20);
       const dinnerContext = [...formatForPrompt(dinnerGlossary.recipes), ...spoonacularFormatted].slice(0, 20);
 

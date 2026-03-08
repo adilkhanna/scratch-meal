@@ -137,6 +137,36 @@ export function inferDietaryTags(conditions: string[]): string[] {
 }
 
 /**
+ * Map dietary/health conditions to recipe tags that should be excluded.
+ * When a user has cardiovascular disease, for example, fried recipes are excluded.
+ */
+export function getExcludedTags(dietaryConditions: string[]): string[] {
+  const excluded: Set<string> = new Set();
+  const lower = dietaryConditions.map((c) => c.toLowerCase());
+
+  // Fried items excluded for heart, liver, diabetes, weight-loss diets
+  const excludeFried = lower.some((c) =>
+    c.includes('cardiovascular') || c.includes('heart') ||
+    c.includes('fatty liver') || c.includes('cholesterol') ||
+    c.includes('diabetes') || c.includes('hypertension') ||
+    c.includes('blood pressure') || c.includes('dash') ||
+    c.includes('whole30') || c.includes('mediterranean') ||
+    c.includes('gout')
+  );
+  if (excludeFried) excluded.add('fried');
+
+  // High-sugar excluded for diabetes, keto, low-carb
+  const excludeSugar = lower.some((c) =>
+    c.includes('diabetes') || c.includes('keto') ||
+    c.includes('low carb') || c.includes('whole30') ||
+    c.includes('fatty liver')
+  );
+  if (excludeSugar) excluded.add('high-sugar');
+
+  return Array.from(excluded);
+}
+
+/**
  * Query the glossary for recipes matching given criteria.
  * Used by generateWeeklyPlan to check if we have enough recipes to skip Spoonacular.
  */
@@ -144,7 +174,8 @@ export async function queryGlossaryForPlan(
   cuisines: string[],
   dietaryTags: string[],
   mealTypes: string[],
-  minCount: number = 15
+  minCount: number = 15,
+  excludeTags: string[] = []
 ): Promise<{ recipes: GlossaryRecipeInput[]; hasEnough: boolean }> {
   const db = admin.firestore();
   const glossaryCol = db.collection('recipe-glossary');
@@ -165,7 +196,8 @@ export async function queryGlossaryForPlan(
   }
 
   const snap = await q.get();
-  let results = snap.docs.map((d) => d.data() as GlossaryRecipeInput & { id: string; useCount: number; lastUsedAt: string });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let results = snap.docs.map((d) => d.data() as GlossaryRecipeInput & { id: string; useCount: number; lastUsedAt: string; tags?: string[] });
 
   // Client-side filtering
   if (dietaryTags.length > 0) {
@@ -184,6 +216,13 @@ export async function queryGlossaryForPlan(
   if (cuisines.length > 1) {
     results = results.filter((r) =>
       cuisines.some((c) => r.cuisine?.includes(c))
+    );
+  }
+
+  // Exclude recipes with health-condition-conflicting tags (e.g., fried, high-sugar)
+  if (excludeTags.length > 0) {
+    results = results.filter((r) =>
+      !excludeTags.some((tag) => (r.tags || []).includes(tag))
     );
   }
 

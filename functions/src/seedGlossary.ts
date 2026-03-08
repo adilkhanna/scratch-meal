@@ -66,9 +66,15 @@ export const seedRecipeGlossary = onCall(
         const ref = glossaryCol.doc(recipe.id);
 
         if (alreadySeeded) {
-          // Only add if not already existing
           const existing = await ref.get();
           if (existing.exists) {
+            // Merge new fields (like tags) into existing recipes
+            const newData: Record<string, unknown> = {};
+            if (recipe.tags && recipe.tags.length > 0) newData.tags = recipe.tags;
+            if (recipe.source === 'curated') newData.source = 'curated';
+            if (Object.keys(newData).length > 0) {
+              batch.update(ref, newData);
+            }
             skippedCount++;
             continue;
           }
@@ -76,7 +82,8 @@ export const seedRecipeGlossary = onCall(
 
         batch.set(ref, {
           ...recipe,
-          source: 'seed',
+          source: recipe.source || 'seed',
+          tags: recipe.tags || [],
           useCount: recipe.useCount || 0,
           avgRating: recipe.avgRating || 0,
           lastUsedAt: recipe.lastUsedAt || new Date().toISOString(),

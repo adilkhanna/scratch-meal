@@ -1,0 +1,8150 @@
+[
+  {
+    "id": "idli-indian",
+    "name": "Idli",
+    "description": "Soft steamed rice and lentil cakes, a classic South Indian breakfast served with chutney and sambar.",
+    "cookTime": "30 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      {
+        "name": "rice",
+        "quantity": "2",
+        "unit": "cups"
+      },
+      {
+        "name": "urad dal",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "fenugreek seeds",
+        "quantity": "1/2",
+        "unit": "tsp"
+      },
+      {
+        "name": "salt",
+        "quantity": "1",
+        "unit": "tsp"
+      }
+    ],
+    "instructions": [
+      "Soak rice and urad dal separately for 6 hours.",
+      "Grind to a smooth batter, mix, add salt.",
+      "Ferment overnight.",
+      "Pour into idli moulds, steam for 10-12 minutes."
+    ],
+    "tips": [
+      "Fermentation is key \u2014 keep in a warm spot."
+    ],
+    "nutritionInfo": {
+      "servings": 4,
+      "calories": 130,
+      "protein": "4g",
+      "carbs": "26g",
+      "fat": "0.5g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "rava-idli-indian",
+    "name": "Rava Idli",
+    "description": "Soft semolina idli made without fermentation, quick and fluffy.",
+    "cookTime": "20 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "rava/semolina",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "curd",
+        "quantity": "1/2",
+        "unit": "cup"
+      },
+      {
+        "name": "mustard seeds",
+        "quantity": "1/2",
+        "unit": "tsp"
+      },
+      {
+        "name": "cashews",
+        "quantity": "6",
+        "unit": ""
+      },
+      {
+        "name": "curry leaves",
+        "quantity": "6",
+        "unit": ""
+      },
+      {
+        "name": "ENO fruit salt",
+        "quantity": "1",
+        "unit": "tsp"
+      }
+    ],
+    "instructions": [
+      "Roast rava lightly, cool. Mix with curd, water to a thick batter.",
+      "Temper mustard seeds, curry leaves, cashews in ghee, add to batter.",
+      "Add ENO, mix gently, pour into moulds, steam 10 min."
+    ],
+    "tips": [
+      "Add ENO just before steaming for fluffy texture."
+    ],
+    "nutritionInfo": {
+      "servings": 4,
+      "calories": 180,
+      "protein": "5g",
+      "carbs": "30g",
+      "fat": "4g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "oats-idli-indian",
+    "name": "Oats Idli",
+    "description": "Healthy idli made with oats instead of rice batter, steamed and light.",
+    "cookTime": "15 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "rolled oats",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "curd",
+        "quantity": "1/2",
+        "unit": "cup"
+      },
+      {
+        "name": "rava",
+        "quantity": "1/4",
+        "unit": "cup"
+      },
+      {
+        "name": "carrots",
+        "quantity": "1/4",
+        "unit": "cup"
+      },
+      {
+        "name": "ENO",
+        "quantity": "1",
+        "unit": "tsp"
+      }
+    ],
+    "instructions": [
+      "Dry roast oats and rava. Mix with curd and water.",
+      "Add grated carrots and salt.",
+      "Add ENO, pour into moulds, steam 10 min."
+    ],
+    "tips": [
+      "Use instant oats for softer texture."
+    ],
+    "nutritionInfo": {
+      "servings": 4,
+      "calories": 150,
+      "protein": "6g",
+      "carbs": "24g",
+      "fat": "3g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "ragi-idli-indian",
+    "name": "Ragi Idli",
+    "description": "Nutritious finger millet idli, high in calcium and iron.",
+    "cookTime": "25 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      {
+        "name": "ragi flour",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "urad dal",
+        "quantity": "1/2",
+        "unit": "cup"
+      },
+      {
+        "name": "salt",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "water",
+        "quantity": "",
+        "unit": "as needed"
+      }
+    ],
+    "instructions": [
+      "Soak urad dal 4 hours, grind smooth.",
+      "Mix with ragi flour and salt.",
+      "Ferment 8 hours. Pour into moulds, steam 12 min."
+    ],
+    "tips": [
+      "Ragi idli is denser than regular \u2014 slightly thinner batter helps."
+    ],
+    "nutritionInfo": {
+      "servings": 4,
+      "calories": 140,
+      "protein": "5g",
+      "carbs": "25g",
+      "fat": "1g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "masala-dosa-indian",
+    "name": "Masala Dosa",
+    "description": "Crispy rice and lentil crepe filled with spiced potato masala.",
+    "cookTime": "30 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      {
+        "name": "dosa batter",
+        "quantity": "2",
+        "unit": "cups"
+      },
+      {
+        "name": "potatoes",
+        "quantity": "3",
+        "unit": "medium"
+      },
+      {
+        "name": "onion",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "mustard seeds",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "turmeric",
+        "quantity": "1/2",
+        "unit": "tsp"
+      },
+      {
+        "name": "oil",
+        "quantity": "2",
+        "unit": "tbsp"
+      }
+    ],
+    "instructions": [
+      "Boil and mash potatoes. Temper mustard seeds, add onions, turmeric, mashed potatoes.",
+      "Spread dosa batter thin on hot tawa, drizzle oil.",
+      "Place potato filling, fold and serve with chutney and sambar."
+    ],
+    "tips": [
+      "Use a well-seasoned cast iron tawa for crispiest dosa."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 320,
+      "protein": "8g",
+      "carbs": "48g",
+      "fat": "10g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "plain-dosa-indian",
+    "name": "Plain Dosa",
+    "description": "Thin crispy rice and lentil crepe, a staple South Indian breakfast.",
+    "cookTime": "20 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "dosa batter",
+        "quantity": "2",
+        "unit": "cups"
+      },
+      {
+        "name": "oil",
+        "quantity": "1",
+        "unit": "tbsp"
+      },
+      {
+        "name": "salt",
+        "quantity": "",
+        "unit": "to taste"
+      }
+    ],
+    "instructions": [
+      "Heat tawa, spread batter in thin circle.",
+      "Drizzle oil, cook until golden and crispy.",
+      "Fold and serve with chutney and sambar."
+    ],
+    "tips": [
+      "Batter should be slightly thin for crispy dosa."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 200,
+      "protein": "5g",
+      "carbs": "36g",
+      "fat": "4g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "rava-dosa-indian",
+    "name": "Rava Dosa",
+    "description": "Crispy semolina crepe with cumin and pepper, no fermentation needed.",
+    "cookTime": "15 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "rava",
+        "quantity": "1/2",
+        "unit": "cup"
+      },
+      {
+        "name": "rice flour",
+        "quantity": "1/4",
+        "unit": "cup"
+      },
+      {
+        "name": "maida",
+        "quantity": "1/4",
+        "unit": "cup"
+      },
+      {
+        "name": "cumin seeds",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "black pepper",
+        "quantity": "1/2",
+        "unit": "tsp"
+      },
+      {
+        "name": "water",
+        "quantity": "2",
+        "unit": "cups"
+      }
+    ],
+    "instructions": [
+      "Mix all dry ingredients, add water to thin batter.",
+      "Pour on hot tawa in lacy pattern.",
+      "Cook until crisp, fold and serve."
+    ],
+    "tips": [
+      "Batter should be very thin and pourable."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 220,
+      "protein": "4g",
+      "carbs": "35g",
+      "fat": "6g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "moong-dal-dosa-indian",
+    "name": "Moong Dal Dosa",
+    "description": "Protein-rich crepe made from ground moong dal, no fermentation.",
+    "cookTime": "20 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "moong dal",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "rice",
+        "quantity": "1/4",
+        "unit": "cup"
+      },
+      {
+        "name": "ginger",
+        "quantity": "1",
+        "unit": "inch"
+      },
+      {
+        "name": "cumin seeds",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "green chili",
+        "quantity": "2",
+        "unit": ""
+      }
+    ],
+    "instructions": [
+      "Soak moong dal and rice 4 hours. Grind to smooth batter.",
+      "Add ginger, cumin, chili. Spread on tawa, cook both sides."
+    ],
+    "tips": [
+      "Soak longer for easier grinding."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 200,
+      "protein": "12g",
+      "carbs": "30g",
+      "fat": "3g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "brown-rice-dosa-indian",
+    "name": "Brown Rice Dosa",
+    "description": "Healthy dosa made with brown rice for added fiber.",
+    "cookTime": "25 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      {
+        "name": "brown rice",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "urad dal",
+        "quantity": "1/3",
+        "unit": "cup"
+      },
+      {
+        "name": "fenugreek seeds",
+        "quantity": "1/4",
+        "unit": "tsp"
+      },
+      {
+        "name": "salt",
+        "quantity": "1",
+        "unit": "tsp"
+      }
+    ],
+    "instructions": [
+      "Soak brown rice and urad dal 6 hours.",
+      "Grind, ferment overnight.",
+      "Spread on tawa and cook until golden."
+    ],
+    "tips": [
+      "Brown rice takes longer to grind \u2014 soak extra hour."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 210,
+      "protein": "6g",
+      "carbs": "38g",
+      "fat": "3g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "wheat-dosa-indian",
+    "name": "Wheat Dosa",
+    "description": "Instant dosa made with whole wheat flour, no fermentation.",
+    "cookTime": "10 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "whole wheat flour",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "onion",
+        "quantity": "1",
+        "unit": "small"
+      },
+      {
+        "name": "cumin seeds",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "green chili",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "water",
+        "quantity": "1",
+        "unit": "cup"
+      }
+    ],
+    "instructions": [
+      "Mix flour with water, add chopped onion, cumin, chili.",
+      "Spread on tawa like dosa, cook both sides."
+    ],
+    "tips": [
+      "Keep batter thin for crispy result."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 180,
+      "protein": "6g",
+      "carbs": "32g",
+      "fat": "2g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "oats-dosa-indian",
+    "name": "Oats Dosa",
+    "description": "Healthy instant dosa made with oats, onions, and spices.",
+    "cookTime": "10 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "rolled oats",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "rice flour",
+        "quantity": "1/4",
+        "unit": "cup"
+      },
+      {
+        "name": "onion",
+        "quantity": "1",
+        "unit": "small"
+      },
+      {
+        "name": "cumin seeds",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "green chili",
+        "quantity": "1",
+        "unit": ""
+      }
+    ],
+    "instructions": [
+      "Blend oats coarsely. Mix with rice flour, water, spices.",
+      "Spread on tawa, cook until crispy."
+    ],
+    "tips": [
+      "Don't make batter too thick."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 170,
+      "protein": "5g",
+      "carbs": "28g",
+      "fat": "3g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "mixed-dal-dosa-indian",
+    "name": "Mixed Dal Dosa",
+    "description": "Protein-packed dosa from mixed lentils, no rice needed.",
+    "cookTime": "25 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      {
+        "name": "toor dal",
+        "quantity": "1/3",
+        "unit": "cup"
+      },
+      {
+        "name": "moong dal",
+        "quantity": "1/3",
+        "unit": "cup"
+      },
+      {
+        "name": "chana dal",
+        "quantity": "1/3",
+        "unit": "cup"
+      },
+      {
+        "name": "ginger",
+        "quantity": "1",
+        "unit": "inch"
+      },
+      {
+        "name": "cumin",
+        "quantity": "1",
+        "unit": "tsp"
+      }
+    ],
+    "instructions": [
+      "Soak all dals 4 hours. Grind to smooth batter.",
+      "Spread on tawa and cook until golden on both sides."
+    ],
+    "tips": [
+      "Mix in a little rice for crispier texture."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 210,
+      "protein": "14g",
+      "carbs": "28g",
+      "fat": "3g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "pesarattu-indian",
+    "name": "Pesarattu",
+    "description": "Andhra-style green gram dosa, high in protein.",
+    "cookTime": "20 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "whole moong",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "ginger",
+        "quantity": "1",
+        "unit": "inch"
+      },
+      {
+        "name": "green chilies",
+        "quantity": "3",
+        "unit": ""
+      },
+      {
+        "name": "cumin seeds",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "onion",
+        "quantity": "1",
+        "unit": "small"
+      }
+    ],
+    "instructions": [
+      "Soak moong 4 hours. Grind with ginger, chilies to thick batter.",
+      "Add cumin. Spread on tawa, top with onion, cook until crisp."
+    ],
+    "tips": [
+      "Serve with ginger chutney for authentic flavor."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 220,
+      "protein": "14g",
+      "carbs": "30g",
+      "fat": "2g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "neer-dosa-indian",
+    "name": "Neer Dosa",
+    "description": "Delicate lacy rice crepes from Karnataka, paper-thin.",
+    "cookTime": "15 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "rice",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "coconut",
+        "quantity": "2",
+        "unit": "tbsp"
+      },
+      {
+        "name": "salt",
+        "quantity": "",
+        "unit": "to taste"
+      },
+      {
+        "name": "water",
+        "quantity": "2",
+        "unit": "cups"
+      }
+    ],
+    "instructions": [
+      "Soak rice 4 hours. Grind with coconut to thin batter.",
+      "Pour on hot tawa, swirl for lacy pattern. Cover and steam 1 min."
+    ],
+    "tips": [
+      "Do not flip \u2014 cook only one side."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 170,
+      "protein": "3g",
+      "carbs": "34g",
+      "fat": "2g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "set-dosa-indian",
+    "name": "Set Dosa",
+    "description": "Soft spongy dosa that's thick and fluffy, served in sets of 2-3.",
+    "cookTime": "20 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "dosa batter",
+        "quantity": "2",
+        "unit": "cups"
+      },
+      {
+        "name": "baking soda",
+        "quantity": "1/4",
+        "unit": "tsp"
+      },
+      {
+        "name": "oil",
+        "quantity": "1",
+        "unit": "tbsp"
+      }
+    ],
+    "instructions": [
+      "Add baking soda to well-fermented batter.",
+      "Pour thick rounds on tawa, don't spread too thin.",
+      "Cover and cook on low heat until set on top. Do not flip."
+    ],
+    "tips": [
+      "Use extra-fermented batter for best results."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 200,
+      "protein": "5g",
+      "carbs": "36g",
+      "fat": "3g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "millet-dosa-indian",
+    "name": "Millet Dosa",
+    "description": "Nutritious dosa made with pearl millet (bajra), gluten-free.",
+    "cookTime": "20 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "bajra flour",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "rice flour",
+        "quantity": "1/4",
+        "unit": "cup"
+      },
+      {
+        "name": "cumin seeds",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "onion",
+        "quantity": "1",
+        "unit": "small"
+      },
+      {
+        "name": "water",
+        "quantity": "1.5",
+        "unit": "cups"
+      }
+    ],
+    "instructions": [
+      "Mix flours with water, add cumin, chopped onion.",
+      "Spread on hot tawa and cook both sides until golden."
+    ],
+    "tips": [
+      "Millet dosa is best served hot."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 190,
+      "protein": "5g",
+      "carbs": "32g",
+      "fat": "3g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "ragi-dosa-indian",
+    "name": "Ragi Dosa",
+    "description": "Healthy finger millet crepe rich in calcium and iron.",
+    "cookTime": "15 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "ragi flour",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "rice flour",
+        "quantity": "1/4",
+        "unit": "cup"
+      },
+      {
+        "name": "onion",
+        "quantity": "1",
+        "unit": "small"
+      },
+      {
+        "name": "cumin",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "water",
+        "quantity": "1.5",
+        "unit": "cups"
+      }
+    ],
+    "instructions": [
+      "Mix flours with water, spices, diced onion.",
+      "Spread on tawa and cook until crispy."
+    ],
+    "tips": [
+      "Add grated carrots for extra nutrition."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 175,
+      "protein": "5g",
+      "carbs": "30g",
+      "fat": "2g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "quinoa-dosa-indian",
+    "name": "Quinoa Dosa",
+    "description": "Modern healthy dosa made with quinoa and urad dal.",
+    "cookTime": "25 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      {
+        "name": "quinoa",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "urad dal",
+        "quantity": "1/3",
+        "unit": "cup"
+      },
+      {
+        "name": "salt",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "water",
+        "quantity": "",
+        "unit": "as needed"
+      }
+    ],
+    "instructions": [
+      "Soak quinoa and urad dal 4 hours.",
+      "Grind to smooth batter, ferment 6 hours.",
+      "Spread on tawa and cook until golden."
+    ],
+    "tips": [
+      "Quinoa gives a nuttier flavor than rice dosa."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 200,
+      "protein": "8g",
+      "carbs": "32g",
+      "fat": "3g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "adai-dosa-indian",
+    "name": "Adai Dosa",
+    "description": "Thick lentil and rice crepe with mixed dals and spices.",
+    "cookTime": "25 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      {
+        "name": "rice",
+        "quantity": "1/2",
+        "unit": "cup"
+      },
+      {
+        "name": "toor dal",
+        "quantity": "1/4",
+        "unit": "cup"
+      },
+      {
+        "name": "chana dal",
+        "quantity": "1/4",
+        "unit": "cup"
+      },
+      {
+        "name": "urad dal",
+        "quantity": "1/4",
+        "unit": "cup"
+      },
+      {
+        "name": "red chilies",
+        "quantity": "4",
+        "unit": ""
+      },
+      {
+        "name": "curry leaves",
+        "quantity": "8",
+        "unit": ""
+      }
+    ],
+    "instructions": [
+      "Soak rice and all dals 2 hours.",
+      "Grind coarsely with chilies and curry leaves.",
+      "Spread thick on tawa, cook both sides with oil."
+    ],
+    "tips": [
+      "Coarse grinding is key \u2014 don't make it smooth like regular dosa."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 250,
+      "protein": "12g",
+      "carbs": "38g",
+      "fat": "4g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "uttapam-indian",
+    "name": "Uttapam",
+    "description": "Thick savory rice and lentil pancake topped with vegetables.",
+    "cookTime": "15 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "dosa batter",
+        "quantity": "2",
+        "unit": "cups"
+      },
+      {
+        "name": "onion",
+        "quantity": "1",
+        "unit": "small"
+      },
+      {
+        "name": "tomato",
+        "quantity": "1",
+        "unit": "small"
+      },
+      {
+        "name": "green chili",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "coriander",
+        "quantity": "2",
+        "unit": "tbsp"
+      }
+    ],
+    "instructions": [
+      "Pour thick batter on tawa.",
+      "Top with diced onion, tomato, chili, coriander.",
+      "Cook on medium heat until bottom is golden. Flip and cook other side."
+    ],
+    "tips": [
+      "Use thick, well-fermented batter for best uttapam."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 230,
+      "protein": "6g",
+      "carbs": "38g",
+      "fat": "5g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "rava-uttapam-indian",
+    "name": "Rava Uttapam",
+    "description": "Quick semolina pancake with vegetables, no fermentation needed.",
+    "cookTime": "15 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "rava",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "curd",
+        "quantity": "1/2",
+        "unit": "cup"
+      },
+      {
+        "name": "onion",
+        "quantity": "1",
+        "unit": "small"
+      },
+      {
+        "name": "tomato",
+        "quantity": "1",
+        "unit": "small"
+      },
+      {
+        "name": "coriander",
+        "quantity": "2",
+        "unit": "tbsp"
+      }
+    ],
+    "instructions": [
+      "Mix rava with curd and water to thick batter. Rest 10 min.",
+      "Pour on tawa, top with veggies.",
+      "Cook both sides until golden."
+    ],
+    "tips": [
+      "Let batter rest to absorb moisture."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 210,
+      "protein": "6g",
+      "carbs": "34g",
+      "fat": "5g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "medu-vada-indian",
+    "name": "Medu Vada",
+    "description": "Crispy deep-fried urad dal doughnuts, a South Indian classic.",
+    "cookTime": "30 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      {
+        "name": "urad dal",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "ginger",
+        "quantity": "1",
+        "unit": "inch"
+      },
+      {
+        "name": "green chilies",
+        "quantity": "2",
+        "unit": ""
+      },
+      {
+        "name": "curry leaves",
+        "quantity": "8",
+        "unit": ""
+      },
+      {
+        "name": "oil",
+        "quantity": "",
+        "unit": "for frying"
+      }
+    ],
+    "instructions": [
+      "Soak urad dal 4 hours. Grind to fluffy batter (don't add much water).",
+      "Add ginger, chilies, curry leaves.",
+      "Shape into donuts, deep fry until golden brown."
+    ],
+    "tips": [
+      "Batter should be thick and fluffy \u2014 the key to crispy vada."
+    ],
+    "nutritionInfo": {
+      "servings": 4,
+      "calories": 180,
+      "protein": "8g",
+      "carbs": "18g",
+      "fat": "8g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [
+      "fried"
+    ],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "paniyaram-indian",
+    "name": "Paniyaram",
+    "description": "Round savory dumplings made from dosa batter in a special pan.",
+    "cookTime": "15 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "dosa batter",
+        "quantity": "2",
+        "unit": "cups"
+      },
+      {
+        "name": "onion",
+        "quantity": "1",
+        "unit": "small"
+      },
+      {
+        "name": "mustard seeds",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "curry leaves",
+        "quantity": "6",
+        "unit": ""
+      },
+      {
+        "name": "oil",
+        "quantity": "2",
+        "unit": "tbsp"
+      }
+    ],
+    "instructions": [
+      "Temper mustard seeds and curry leaves, add to batter with diced onion.",
+      "Heat paniyaram pan, grease wells with oil.",
+      "Pour batter, cook turning until golden all around."
+    ],
+    "tips": [
+      "Use well-fermented batter for fluffy paniyaram."
+    ],
+    "nutritionInfo": {
+      "servings": 4,
+      "calories": 150,
+      "protein": "4g",
+      "carbs": "24g",
+      "fat": "4g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "appam-indian",
+    "name": "Appam",
+    "description": "Lacy bowl-shaped rice crepe with soft fluffy center, from Kerala.",
+    "cookTime": "20 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      {
+        "name": "rice",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "coconut milk",
+        "quantity": "1/2",
+        "unit": "cup"
+      },
+      {
+        "name": "yeast",
+        "quantity": "1/2",
+        "unit": "tsp"
+      },
+      {
+        "name": "sugar",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "salt",
+        "quantity": "",
+        "unit": "to taste"
+      }
+    ],
+    "instructions": [
+      "Soak and grind rice. Add coconut milk, yeast, sugar. Ferment 6 hours.",
+      "Pour in appam pan, swirl for thin edges.",
+      "Cover and cook until center is fluffy and edges are lacy."
+    ],
+    "tips": [
+      "The pan must be very hot for lacy edges."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 170,
+      "protein": "3g",
+      "carbs": "32g",
+      "fat": "3g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "podi-idli-indian",
+    "name": "Podi Idli",
+    "description": "Leftover idli tossed with spicy podi (gun powder) and ghee.",
+    "cookTime": "10 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "idli",
+        "quantity": "6",
+        "unit": ""
+      },
+      {
+        "name": "idli podi",
+        "quantity": "2",
+        "unit": "tbsp"
+      },
+      {
+        "name": "ghee",
+        "quantity": "1",
+        "unit": "tbsp"
+      },
+      {
+        "name": "sesame oil",
+        "quantity": "1",
+        "unit": "tsp"
+      }
+    ],
+    "instructions": [
+      "Cut idlis into quarters.",
+      "Heat ghee and oil, toss idli pieces.",
+      "Add podi powder, toss well until coated."
+    ],
+    "tips": [
+      "Use day-old idlis for best texture."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 200,
+      "protein": "5g",
+      "carbs": "30g",
+      "fat": "7g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "gluten-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "punugulu-indian",
+    "name": "Punugulu",
+    "description": "Quick deep-fried dosa batter fritters, crispy outside and soft inside.",
+    "cookTime": "15 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "dosa batter",
+        "quantity": "2",
+        "unit": "cups"
+      },
+      {
+        "name": "onion",
+        "quantity": "1",
+        "unit": "small"
+      },
+      {
+        "name": "green chili",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "curry leaves",
+        "quantity": "6",
+        "unit": ""
+      },
+      {
+        "name": "oil",
+        "quantity": "",
+        "unit": "for frying"
+      }
+    ],
+    "instructions": [
+      "Add diced onion, chili, curry leaves to thick batter.",
+      "Drop spoonfuls into hot oil.",
+      "Fry until golden brown and crispy."
+    ],
+    "tips": [
+      "Batter should be thick for round shape."
+    ],
+    "nutritionInfo": {
+      "servings": 4,
+      "calories": 160,
+      "protein": "4g",
+      "carbs": "22g",
+      "fat": "6g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [
+      "fried"
+    ],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "akki-roti-indian",
+    "name": "Akki Roti",
+    "description": "Karnataka-style rice flour flatbread with vegetables.",
+    "cookTime": "15 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "rice flour",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "onion",
+        "quantity": "1",
+        "unit": "small"
+      },
+      {
+        "name": "carrot",
+        "quantity": "1",
+        "unit": "small"
+      },
+      {
+        "name": "dill",
+        "quantity": "2",
+        "unit": "tbsp"
+      },
+      {
+        "name": "green chili",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "salt",
+        "quantity": "1",
+        "unit": "tsp"
+      }
+    ],
+    "instructions": [
+      "Mix rice flour with finely chopped vegetables, salt, and water.",
+      "Pat into thin rounds on banana leaf or plastic.",
+      "Cook on tawa with oil until both sides are golden."
+    ],
+    "tips": [
+      "Add sesame seeds for extra flavor."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 190,
+      "protein": "4g",
+      "carbs": "36g",
+      "fat": "3g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "ven-pongal-indian",
+    "name": "Ven Pongal",
+    "description": "Comforting South Indian rice-lentil porridge tempered with pepper and cumin.",
+    "cookTime": "25 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "rice",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "moong dal",
+        "quantity": "1/2",
+        "unit": "cup"
+      },
+      {
+        "name": "black pepper",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "cumin seeds",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "ghee",
+        "quantity": "2",
+        "unit": "tbsp"
+      },
+      {
+        "name": "curry leaves",
+        "quantity": "8",
+        "unit": ""
+      },
+      {
+        "name": "cashews",
+        "quantity": "8",
+        "unit": ""
+      }
+    ],
+    "instructions": [
+      "Dry roast moong dal. Cook rice and dal together until mushy.",
+      "Temper pepper, cumin, curry leaves, cashews in ghee.",
+      "Pour tempering over pongal, mix well."
+    ],
+    "tips": [
+      "Cook until creamy consistency \u2014 add more water if needed."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 300,
+      "protein": "9g",
+      "carbs": "42g",
+      "fat": "10g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "gluten-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "idli-upma-indian",
+    "name": "Idli Upma",
+    "description": "Leftover idli crumbled and tempered with spices \u2014 zero waste breakfast.",
+    "cookTime": "10 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "leftover idli",
+        "quantity": "6",
+        "unit": ""
+      },
+      {
+        "name": "mustard seeds",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "onion",
+        "quantity": "1",
+        "unit": "small"
+      },
+      {
+        "name": "green chili",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "curry leaves",
+        "quantity": "6",
+        "unit": ""
+      },
+      {
+        "name": "oil",
+        "quantity": "1",
+        "unit": "tbsp"
+      }
+    ],
+    "instructions": [
+      "Crumble idlis by hand.",
+      "Temper mustard seeds, curry leaves, add onion and chili.",
+      "Add crumbled idli, toss well. Squeeze lemon juice."
+    ],
+    "tips": [
+      "Great way to use day-old idlis."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 180,
+      "protein": "5g",
+      "carbs": "30g",
+      "fat": "4g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "coconut-chutney-indian",
+    "name": "Coconut Chutney",
+    "description": "Fresh coconut chutney with tempering, essential South Indian accompaniment.",
+    "cookTime": "10 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "fresh coconut",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "roasted chana dal",
+        "quantity": "1",
+        "unit": "tbsp"
+      },
+      {
+        "name": "green chili",
+        "quantity": "2",
+        "unit": ""
+      },
+      {
+        "name": "ginger",
+        "quantity": "1/2",
+        "unit": "inch"
+      },
+      {
+        "name": "mustard seeds",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "curry leaves",
+        "quantity": "6",
+        "unit": ""
+      }
+    ],
+    "instructions": [
+      "Grind coconut, chana dal, chili, ginger with water.",
+      "Temper mustard seeds and curry leaves in oil.",
+      "Pour tempering over chutney, mix."
+    ],
+    "tips": [
+      "Add a small piece of raw mango for tang."
+    ],
+    "nutritionInfo": {
+      "servings": 4,
+      "calories": 80,
+      "protein": "2g",
+      "carbs": "6g",
+      "fat": "6g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "rava-kesari-indian",
+    "name": "Rava Kesari",
+    "description": "Sweet semolina halwa with ghee, cashews, and saffron.",
+    "cookTime": "20 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "rava",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "sugar",
+        "quantity": "3/4",
+        "unit": "cup"
+      },
+      {
+        "name": "ghee",
+        "quantity": "1/4",
+        "unit": "cup"
+      },
+      {
+        "name": "cashews",
+        "quantity": "10",
+        "unit": ""
+      },
+      {
+        "name": "saffron",
+        "quantity": "a pinch",
+        "unit": ""
+      },
+      {
+        "name": "cardamom",
+        "quantity": "2",
+        "unit": "pods"
+      }
+    ],
+    "instructions": [
+      "Roast rava in ghee until golden.",
+      "Add hot water carefully, stir to avoid lumps.",
+      "Add sugar, saffron, cardamom. Cook until thick. Garnish with cashews."
+    ],
+    "tips": [
+      "Use generous ghee for authentic taste."
+    ],
+    "nutritionInfo": {
+      "servings": 4,
+      "calories": 280,
+      "protein": "3g",
+      "carbs": "40g",
+      "fat": "12g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [
+      "high-sugar"
+    ],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "aloo-paratha-indian",
+    "name": "Aloo Paratha",
+    "description": "Stuffed potato flatbread cooked with ghee, a Punjabi breakfast staple.",
+    "cookTime": "25 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      {
+        "name": "whole wheat flour",
+        "quantity": "2",
+        "unit": "cups"
+      },
+      {
+        "name": "potatoes",
+        "quantity": "3",
+        "unit": "medium"
+      },
+      {
+        "name": "green chili",
+        "quantity": "2",
+        "unit": ""
+      },
+      {
+        "name": "coriander",
+        "quantity": "2",
+        "unit": "tbsp"
+      },
+      {
+        "name": "ghee",
+        "quantity": "2",
+        "unit": "tbsp"
+      },
+      {
+        "name": "salt",
+        "quantity": "1",
+        "unit": "tsp"
+      }
+    ],
+    "instructions": [
+      "Knead dough. Boil, mash potatoes with spices.",
+      "Stuff dough balls with potato mixture, roll out.",
+      "Cook on tawa with ghee until golden on both sides."
+    ],
+    "tips": [
+      "Roll evenly to prevent filling from bursting out."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 320,
+      "protein": "8g",
+      "carbs": "44g",
+      "fat": "12g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "gobi-paratha-indian",
+    "name": "Gobi Paratha",
+    "description": "Spiced cauliflower stuffed whole wheat flatbread.",
+    "cookTime": "25 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      {
+        "name": "whole wheat flour",
+        "quantity": "2",
+        "unit": "cups"
+      },
+      {
+        "name": "cauliflower",
+        "quantity": "1",
+        "unit": "small"
+      },
+      {
+        "name": "green chili",
+        "quantity": "2",
+        "unit": ""
+      },
+      {
+        "name": "garam masala",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "ghee",
+        "quantity": "2",
+        "unit": "tbsp"
+      }
+    ],
+    "instructions": [
+      "Grate cauliflower, squeeze out water. Mix with spices.",
+      "Stuff dough, roll out.",
+      "Cook on tawa with ghee until golden."
+    ],
+    "tips": [
+      "Squeeze cauliflower well to prevent soggy parathas."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 300,
+      "protein": "8g",
+      "carbs": "40g",
+      "fat": "11g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "mooli-paratha-indian",
+    "name": "Mooli Paratha",
+    "description": "Spiced grated radish stuffed flatbread.",
+    "cookTime": "25 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      {
+        "name": "whole wheat flour",
+        "quantity": "2",
+        "unit": "cups"
+      },
+      {
+        "name": "radish",
+        "quantity": "2",
+        "unit": "medium"
+      },
+      {
+        "name": "green chili",
+        "quantity": "2",
+        "unit": ""
+      },
+      {
+        "name": "coriander",
+        "quantity": "2",
+        "unit": "tbsp"
+      },
+      {
+        "name": "ghee",
+        "quantity": "2",
+        "unit": "tbsp"
+      }
+    ],
+    "instructions": [
+      "Grate radish, squeeze water. Mix with spices.",
+      "Stuff dough, roll, cook with ghee."
+    ],
+    "tips": [
+      "Salt the radish and drain to remove excess moisture."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 280,
+      "protein": "7g",
+      "carbs": "38g",
+      "fat": "10g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "palak-paratha-indian",
+    "name": "Palak Paratha",
+    "description": "Spinach-infused green flatbread, nutritious and flavorful.",
+    "cookTime": "20 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "whole wheat flour",
+        "quantity": "2",
+        "unit": "cups"
+      },
+      {
+        "name": "spinach",
+        "quantity": "1",
+        "unit": "bunch"
+      },
+      {
+        "name": "green chili",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "cumin seeds",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "ghee",
+        "quantity": "1",
+        "unit": "tbsp"
+      }
+    ],
+    "instructions": [
+      "Blanch spinach, puree. Knead into dough with spices.",
+      "Roll out and cook on tawa with ghee."
+    ],
+    "tips": [
+      "Don't add too much spinach puree or dough gets sticky."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 260,
+      "protein": "8g",
+      "carbs": "36g",
+      "fat": "8g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "methi-paratha-indian",
+    "name": "Methi Paratha",
+    "description": "Fenugreek leaf flatbread, aromatic and nutritious.",
+    "cookTime": "20 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "whole wheat flour",
+        "quantity": "2",
+        "unit": "cups"
+      },
+      {
+        "name": "methi leaves",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "ajwain",
+        "quantity": "1/2",
+        "unit": "tsp"
+      },
+      {
+        "name": "green chili",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "ghee",
+        "quantity": "1",
+        "unit": "tbsp"
+      }
+    ],
+    "instructions": [
+      "Chop methi finely. Knead into dough with spices.",
+      "Roll and cook on tawa with ghee."
+    ],
+    "tips": [
+      "Add a pinch of sugar to reduce bitterness of methi."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 250,
+      "protein": "7g",
+      "carbs": "35g",
+      "fat": "8g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "pumpkin-paratha-indian",
+    "name": "Pumpkin Paratha",
+    "description": "Sweet and savory stuffed pumpkin flatbread.",
+    "cookTime": "25 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      {
+        "name": "whole wheat flour",
+        "quantity": "2",
+        "unit": "cups"
+      },
+      {
+        "name": "pumpkin",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "cumin",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "red chili powder",
+        "quantity": "1/2",
+        "unit": "tsp"
+      },
+      {
+        "name": "ghee",
+        "quantity": "1",
+        "unit": "tbsp"
+      }
+    ],
+    "instructions": [
+      "Grate pumpkin, cook until dry. Season with spices.",
+      "Stuff dough with pumpkin mixture, roll and cook with ghee."
+    ],
+    "tips": [
+      "Cook filling until completely dry."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 270,
+      "protein": "7g",
+      "carbs": "38g",
+      "fat": "9g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "mix-veg-paratha-indian",
+    "name": "Mix Veg Paratha",
+    "description": "Flatbread stuffed with mixed vegetables and spices.",
+    "cookTime": "25 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      {
+        "name": "whole wheat flour",
+        "quantity": "2",
+        "unit": "cups"
+      },
+      {
+        "name": "carrots",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "beans",
+        "quantity": "6",
+        "unit": ""
+      },
+      {
+        "name": "capsicum",
+        "quantity": "1/2",
+        "unit": ""
+      },
+      {
+        "name": "garam masala",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "ghee",
+        "quantity": "1",
+        "unit": "tbsp"
+      }
+    ],
+    "instructions": [
+      "Finely chop and saut\u00e9 vegetables with spices.",
+      "Stuff dough, roll, cook on tawa with ghee."
+    ],
+    "tips": [
+      "Chop veggies very fine for easy stuffing."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 290,
+      "protein": "8g",
+      "carbs": "40g",
+      "fat": "9g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "plain-paratha-indian",
+    "name": "Plain Paratha",
+    "description": "Layered whole wheat flatbread cooked with ghee.",
+    "cookTime": "15 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "whole wheat flour",
+        "quantity": "2",
+        "unit": "cups"
+      },
+      {
+        "name": "ghee",
+        "quantity": "2",
+        "unit": "tbsp"
+      },
+      {
+        "name": "salt",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "water",
+        "quantity": "",
+        "unit": "as needed"
+      }
+    ],
+    "instructions": [
+      "Knead soft dough. Roll, apply ghee, fold into layers.",
+      "Roll again, cook on tawa with ghee until golden layers form."
+    ],
+    "tips": [
+      "Fold and roll multiple times for flaky layers."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 240,
+      "protein": "6g",
+      "carbs": "34g",
+      "fat": "9g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "thepla-indian",
+    "name": "Thepla",
+    "description": "Gujarati spiced fenugreek flatbread, great for travel.",
+    "cookTime": "20 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "whole wheat flour",
+        "quantity": "2",
+        "unit": "cups"
+      },
+      {
+        "name": "methi leaves",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "curd",
+        "quantity": "2",
+        "unit": "tbsp"
+      },
+      {
+        "name": "turmeric",
+        "quantity": "1/2",
+        "unit": "tsp"
+      },
+      {
+        "name": "oil",
+        "quantity": "2",
+        "unit": "tbsp"
+      }
+    ],
+    "instructions": [
+      "Mix flour with chopped methi, curd, turmeric, salt. Knead soft dough.",
+      "Roll thin, cook on tawa with oil until light brown spots appear."
+    ],
+    "tips": [
+      "Stays fresh for days \u2014 ideal travel food."
+    ],
+    "nutritionInfo": {
+      "servings": 4,
+      "calories": 180,
+      "protein": "5g",
+      "carbs": "26g",
+      "fat": "6g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "poori-indian",
+    "name": "Poori",
+    "description": "Deep-fried puffed whole wheat bread, festive breakfast.",
+    "cookTime": "20 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "whole wheat flour",
+        "quantity": "2",
+        "unit": "cups"
+      },
+      {
+        "name": "oil",
+        "quantity": "",
+        "unit": "for frying"
+      },
+      {
+        "name": "salt",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "water",
+        "quantity": "",
+        "unit": "as needed"
+      }
+    ],
+    "instructions": [
+      "Knead firm dough with flour, salt, a little oil.",
+      "Roll into small circles.",
+      "Deep fry in hot oil until they puff up and turn golden."
+    ],
+    "tips": [
+      "Oil must be very hot for pooris to puff."
+    ],
+    "nutritionInfo": {
+      "servings": 4,
+      "calories": 200,
+      "protein": "4g",
+      "carbs": "24g",
+      "fat": "10g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [
+      "fried"
+    ],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "bhatura-indian",
+    "name": "Bhatura",
+    "description": "Deep-fried leavened bread, served with chole.",
+    "cookTime": "30 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      {
+        "name": "maida",
+        "quantity": "2",
+        "unit": "cups"
+      },
+      {
+        "name": "curd",
+        "quantity": "1/4",
+        "unit": "cup"
+      },
+      {
+        "name": "baking soda",
+        "quantity": "1/4",
+        "unit": "tsp"
+      },
+      {
+        "name": "sugar",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "oil",
+        "quantity": "",
+        "unit": "for frying"
+      }
+    ],
+    "instructions": [
+      "Mix flour, curd, baking soda, sugar, salt. Knead soft dough, rest 2 hours.",
+      "Roll into oval shapes.",
+      "Deep fry until puffed and golden."
+    ],
+    "tips": [
+      "Resting the dough is essential for soft bhatura."
+    ],
+    "nutritionInfo": {
+      "servings": 4,
+      "calories": 280,
+      "protein": "5g",
+      "carbs": "34g",
+      "fat": "13g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [
+      "fried"
+    ],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "chole-bhature-indian",
+    "name": "Chole Bhature",
+    "description": "Spiced chickpea curry with deep-fried bread, a Delhi classic.",
+    "cookTime": "40 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      {
+        "name": "chickpeas",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "onion",
+        "quantity": "2",
+        "unit": ""
+      },
+      {
+        "name": "tomato",
+        "quantity": "2",
+        "unit": ""
+      },
+      {
+        "name": "ginger-garlic paste",
+        "quantity": "1",
+        "unit": "tbsp"
+      },
+      {
+        "name": "chole masala",
+        "quantity": "2",
+        "unit": "tsp"
+      },
+      {
+        "name": "maida",
+        "quantity": "2",
+        "unit": "cups"
+      },
+      {
+        "name": "oil",
+        "quantity": "",
+        "unit": "for frying"
+      }
+    ],
+    "instructions": [
+      "Soak and pressure cook chickpeas. Make chole gravy with onion-tomato-spice base.",
+      "Knead bhatura dough, rest, roll and deep fry.",
+      "Serve hot bhatura with chole."
+    ],
+    "tips": [
+      "Soak chickpeas overnight and add tea bags while boiling for dark color."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 450,
+      "protein": "15g",
+      "carbs": "55g",
+      "fat": "18g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [
+      "fried"
+    ],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "poha-indian",
+    "name": "Poha",
+    "description": "Spiced flattened rice with mustard seeds, onions, and peanuts.",
+    "cookTime": "15 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "flattened rice",
+        "quantity": "200",
+        "unit": "g"
+      },
+      {
+        "name": "onion",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "peanuts",
+        "quantity": "30",
+        "unit": "g"
+      },
+      {
+        "name": "mustard seeds",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "curry leaves",
+        "quantity": "8",
+        "unit": ""
+      },
+      {
+        "name": "turmeric",
+        "quantity": "1/2",
+        "unit": "tsp"
+      }
+    ],
+    "instructions": [
+      "Rinse poha, drain, let soften 5 min.",
+      "Temper mustard seeds, fry peanuts, add curry leaves and onion.",
+      "Add poha, turmeric, salt. Toss gently, squeeze lemon."
+    ],
+    "tips": [
+      "Don't over-soak or it becomes mushy."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 280,
+      "protein": "7g",
+      "carbs": "42g",
+      "fat": "9g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "upma-indian",
+    "name": "Upma",
+    "description": "Savory semolina porridge tempered with spices and vegetables.",
+    "cookTime": "15 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "rava",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "onion",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "mustard seeds",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "curry leaves",
+        "quantity": "8",
+        "unit": ""
+      },
+      {
+        "name": "green chili",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "ghee",
+        "quantity": "1",
+        "unit": "tbsp"
+      }
+    ],
+    "instructions": [
+      "Dry roast rava until fragrant.",
+      "Temper mustard seeds, curry leaves, add onion and chili.",
+      "Add water, salt, bring to boil. Add rava, stir continuously until thick."
+    ],
+    "tips": [
+      "Stir continuously to prevent lumps."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 230,
+      "protein": "5g",
+      "carbs": "36g",
+      "fat": "6g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "bread-upma-indian",
+    "name": "Bread Upma",
+    "description": "Quick breakfast made with bread cubes tempered with spices.",
+    "cookTime": "10 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "bread slices",
+        "quantity": "4",
+        "unit": ""
+      },
+      {
+        "name": "onion",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "mustard seeds",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "curry leaves",
+        "quantity": "6",
+        "unit": ""
+      },
+      {
+        "name": "green chili",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "oil",
+        "quantity": "1",
+        "unit": "tbsp"
+      }
+    ],
+    "instructions": [
+      "Cut bread into cubes.",
+      "Temper mustard seeds, curry leaves. Add onion, chili.",
+      "Add bread cubes, toss with turmeric and salt."
+    ],
+    "tips": [
+      "Use day-old bread for best results."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 200,
+      "protein": "5g",
+      "carbs": "28g",
+      "fat": "7g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "semiya-upma-indian",
+    "name": "Semiya Upma",
+    "description": "Vermicelli upma, a quick and light South Indian breakfast.",
+    "cookTime": "15 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "vermicelli",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "onion",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "mustard seeds",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "curry leaves",
+        "quantity": "6",
+        "unit": ""
+      },
+      {
+        "name": "peanuts",
+        "quantity": "2",
+        "unit": "tbsp"
+      },
+      {
+        "name": "ghee",
+        "quantity": "1",
+        "unit": "tbsp"
+      }
+    ],
+    "instructions": [
+      "Roast vermicelli in ghee until golden.",
+      "Temper mustard seeds, peanuts, curry leaves. Add onion.",
+      "Add water, salt. Add roasted vermicelli, cover and cook 5 min."
+    ],
+    "tips": [
+      "Roast vermicelli well to prevent mushy texture."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 250,
+      "protein": "6g",
+      "carbs": "38g",
+      "fat": "7g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "oats-upma-indian",
+    "name": "Oats Upma",
+    "description": "Healthy upma made with oats instead of semolina.",
+    "cookTime": "10 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "rolled oats",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "onion",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "mustard seeds",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "curry leaves",
+        "quantity": "6",
+        "unit": ""
+      },
+      {
+        "name": "peas",
+        "quantity": "1/4",
+        "unit": "cup"
+      },
+      {
+        "name": "oil",
+        "quantity": "1",
+        "unit": "tbsp"
+      }
+    ],
+    "instructions": [
+      "Dry roast oats 2 min.",
+      "Temper mustard seeds, curry leaves, add vegetables.",
+      "Add water, oats, cook 3-4 min until thick."
+    ],
+    "tips": [
+      "Don't over-cook or oats become gummy."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 180,
+      "protein": "7g",
+      "carbs": "26g",
+      "fat": "5g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "tomato-upma-indian",
+    "name": "Tomato Upma",
+    "description": "Tangy tomato-flavored semolina upma.",
+    "cookTime": "15 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "rava",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "tomato",
+        "quantity": "2",
+        "unit": ""
+      },
+      {
+        "name": "onion",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "mustard seeds",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "red chili powder",
+        "quantity": "1/2",
+        "unit": "tsp"
+      }
+    ],
+    "instructions": [
+      "Roast rava. Temper spices, add onion and tomato.",
+      "Add water, salt. Add rava, stir until thick."
+    ],
+    "tips": [
+      "Use ripe red tomatoes for best flavor."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 240,
+      "protein": "5g",
+      "carbs": "38g",
+      "fat": "6g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "aval-upma-indian",
+    "name": "Aval Upma",
+    "description": "Upma made with flattened rice (poha) and spices.",
+    "cookTime": "10 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "thick poha",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "onion",
+        "quantity": "1",
+        "unit": "small"
+      },
+      {
+        "name": "mustard seeds",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "peanuts",
+        "quantity": "2",
+        "unit": "tbsp"
+      },
+      {
+        "name": "curry leaves",
+        "quantity": "6",
+        "unit": ""
+      }
+    ],
+    "instructions": [
+      "Rinse thick poha, drain.",
+      "Temper spices, add onion and peanuts.",
+      "Add poha, turmeric, salt. Toss and cook 3 min."
+    ],
+    "tips": [
+      "Use thick poha variety for this."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 220,
+      "protein": "6g",
+      "carbs": "34g",
+      "fat": "7g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "besan-chilla-indian",
+    "name": "Besan Chilla",
+    "description": "Savory gram flour pancake with onions and spices.",
+    "cookTime": "10 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "besan",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "onion",
+        "quantity": "1",
+        "unit": "small"
+      },
+      {
+        "name": "green chili",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "cumin seeds",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "coriander",
+        "quantity": "2",
+        "unit": "tbsp"
+      },
+      {
+        "name": "water",
+        "quantity": "3/4",
+        "unit": "cup"
+      }
+    ],
+    "instructions": [
+      "Mix besan with water, spices, onion to smooth batter.",
+      "Pour on hot tawa, spread thin.",
+      "Cook both sides with a little oil until golden."
+    ],
+    "tips": [
+      "Add finely grated vegetables for extra nutrition."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 190,
+      "protein": "10g",
+      "carbs": "22g",
+      "fat": "6g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "moong-dal-chilla-indian",
+    "name": "Moong Dal Chilla",
+    "description": "Protein-rich savory pancake from ground moong lentils.",
+    "cookTime": "15 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "moong dal",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "ginger",
+        "quantity": "1/2",
+        "unit": "inch"
+      },
+      {
+        "name": "green chili",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "cumin seeds",
+        "quantity": "1/2",
+        "unit": "tsp"
+      },
+      {
+        "name": "salt",
+        "quantity": "",
+        "unit": "to taste"
+      }
+    ],
+    "instructions": [
+      "Soak moong dal 4 hours. Grind to smooth batter.",
+      "Add ginger, chili, cumin.",
+      "Spread on tawa, cook both sides until golden."
+    ],
+    "tips": [
+      "Soak overnight for easiest grinding."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 180,
+      "protein": "12g",
+      "carbs": "24g",
+      "fat": "2g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "masoor-dal-chilla-indian",
+    "name": "Masoor Dal Chilla",
+    "description": "Savory red lentil pancakes, quick and protein-packed.",
+    "cookTime": "15 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "masoor dal",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "onion",
+        "quantity": "1",
+        "unit": "small"
+      },
+      {
+        "name": "cumin",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "coriander",
+        "quantity": "2",
+        "unit": "tbsp"
+      },
+      {
+        "name": "green chili",
+        "quantity": "1",
+        "unit": ""
+      }
+    ],
+    "instructions": [
+      "Soak masoor dal 2 hours. Grind to batter.",
+      "Mix in diced onion, cumin, coriander.",
+      "Spread on tawa and cook both sides."
+    ],
+    "tips": [
+      "Masoor grinds faster than other dals."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 190,
+      "protein": "13g",
+      "carbs": "26g",
+      "fat": "2g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "oats-chilla-indian",
+    "name": "Oats Chilla",
+    "description": "Healthy savory pancake made with oats and besan.",
+    "cookTime": "10 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "rolled oats",
+        "quantity": "1/2",
+        "unit": "cup"
+      },
+      {
+        "name": "besan",
+        "quantity": "1/2",
+        "unit": "cup"
+      },
+      {
+        "name": "onion",
+        "quantity": "1",
+        "unit": "small"
+      },
+      {
+        "name": "spinach",
+        "quantity": "1/4",
+        "unit": "cup"
+      },
+      {
+        "name": "green chili",
+        "quantity": "1",
+        "unit": ""
+      }
+    ],
+    "instructions": [
+      "Blend oats. Mix with besan, water, veggies, spices.",
+      "Spread on tawa, cook both sides."
+    ],
+    "tips": [
+      "Great for kids \u2014 hide vegetables in the batter."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 170,
+      "protein": "9g",
+      "carbs": "22g",
+      "fat": "4g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "egg-bhurji-indian",
+    "name": "Egg Bhurji",
+    "description": "Indian scrambled eggs with onions, tomatoes, and spices.",
+    "cookTime": "10 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "eggs",
+        "quantity": "4",
+        "unit": ""
+      },
+      {
+        "name": "onion",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "tomato",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "green chili",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "turmeric",
+        "quantity": "1/4",
+        "unit": "tsp"
+      },
+      {
+        "name": "coriander",
+        "quantity": "2",
+        "unit": "tbsp"
+      }
+    ],
+    "instructions": [
+      "Beat eggs. Saut\u00e9 onion, tomato, chili with turmeric.",
+      "Add beaten eggs, scramble until cooked.",
+      "Garnish with coriander."
+    ],
+    "tips": [
+      "Don't overcook \u2014 keep eggs slightly soft."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 220,
+      "protein": "14g",
+      "carbs": "4g",
+      "fat": "16g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "gluten-free",
+      "dairy-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "sabudana-khichdi-indian",
+    "name": "Sabudana Khichdi",
+    "description": "Fluffy sago pearls with peanuts and potato, a fasting breakfast.",
+    "cookTime": "20 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "sabudana",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "peanuts",
+        "quantity": "1/4",
+        "unit": "cup"
+      },
+      {
+        "name": "potato",
+        "quantity": "1",
+        "unit": "medium"
+      },
+      {
+        "name": "cumin seeds",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "green chili",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "ghee",
+        "quantity": "1",
+        "unit": "tbsp"
+      }
+    ],
+    "instructions": [
+      "Soak sabudana 4-6 hours. Drain well.",
+      "Roast and crush peanuts. Cube and fry potato.",
+      "Temper cumin, add sabudana, peanuts, potato. Toss gently."
+    ],
+    "tips": [
+      "Sabudana must be soaked properly \u2014 each pearl should be separate."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 300,
+      "protein": "7g",
+      "carbs": "45g",
+      "fat": "10g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "gluten-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "dalia-indian",
+    "name": "Dalia",
+    "description": "Broken wheat porridge cooked with vegetables and mild spices.",
+    "cookTime": "20 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "dalia",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "onion",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "tomato",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "peas",
+        "quantity": "1/4",
+        "unit": "cup"
+      },
+      {
+        "name": "cumin seeds",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "ghee",
+        "quantity": "1",
+        "unit": "tbsp"
+      }
+    ],
+    "instructions": [
+      "Dry roast dalia until nutty.",
+      "Temper cumin, saut\u00e9 onion, tomato, peas.",
+      "Add water, dalia, cook until soft and fluffy."
+    ],
+    "tips": [
+      "Roasting dalia enhances flavor and keeps grains separate."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 240,
+      "protein": "8g",
+      "carbs": "40g",
+      "fat": "5g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "savory-masala-french-toast-indian",
+    "name": "Savory Masala French Toast",
+    "description": "Indian-spiced French toast with chili and coriander.",
+    "cookTime": "15 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "bread",
+        "quantity": "4",
+        "unit": "slices"
+      },
+      {
+        "name": "eggs",
+        "quantity": "2",
+        "unit": ""
+      },
+      {
+        "name": "green chili",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "onion",
+        "quantity": "1",
+        "unit": "small"
+      },
+      {
+        "name": "coriander",
+        "quantity": "2",
+        "unit": "tbsp"
+      },
+      {
+        "name": "salt",
+        "quantity": "",
+        "unit": "to taste"
+      }
+    ],
+    "instructions": [
+      "Beat eggs with finely chopped chili, onion, coriander, salt.",
+      "Dip bread slices in egg mixture.",
+      "Pan fry on both sides until golden."
+    ],
+    "tips": [
+      "Use thick bread for better absorption."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 260,
+      "protein": "12g",
+      "carbs": "26g",
+      "fat": "12g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "bread-pakora-indian",
+    "name": "Bread Pakora",
+    "description": "Bread slices dipped in spiced gram flour batter and deep fried.",
+    "cookTime": "15 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "bread",
+        "quantity": "4",
+        "unit": "slices"
+      },
+      {
+        "name": "besan",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "potatoes",
+        "quantity": "2",
+        "unit": "medium"
+      },
+      {
+        "name": "green chili",
+        "quantity": "2",
+        "unit": ""
+      },
+      {
+        "name": "oil",
+        "quantity": "",
+        "unit": "for frying"
+      }
+    ],
+    "instructions": [
+      "Make potato stuffing with spices. Sandwich between bread slices.",
+      "Make besan batter. Dip sandwiches in batter.",
+      "Deep fry until golden and crispy."
+    ],
+    "tips": [
+      "Squeeze bread slightly before dipping so it doesn't absorb too much oil."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 320,
+      "protein": "8g",
+      "carbs": "35g",
+      "fat": "16g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [
+      "fried"
+    ],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "bombay-sandwich-indian",
+    "name": "Bombay Sandwich",
+    "description": "Layered vegetable sandwich with chutneys, a Mumbai street classic.",
+    "cookTime": "10 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "bread",
+        "quantity": "4",
+        "unit": "slices"
+      },
+      {
+        "name": "potato",
+        "quantity": "1",
+        "unit": "boiled"
+      },
+      {
+        "name": "cucumber",
+        "quantity": "1/2",
+        "unit": ""
+      },
+      {
+        "name": "tomato",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "green chutney",
+        "quantity": "2",
+        "unit": "tbsp"
+      },
+      {
+        "name": "butter",
+        "quantity": "1",
+        "unit": "tbsp"
+      }
+    ],
+    "instructions": [
+      "Spread chutney on bread. Layer sliced veggies and potato.",
+      "Press together, toast on tawa with butter.",
+      "Cut diagonally and serve."
+    ],
+    "tips": [
+      "Use thick-sliced bread for sturdier sandwich."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 280,
+      "protein": "7g",
+      "carbs": "38g",
+      "fat": "10g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "kolkata-egg-roll-indian",
+    "name": "Kolkata Egg Roll",
+    "description": "Egg-wrapped paratha roll with onions and chutney, street food style.",
+    "cookTime": "15 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "paratha",
+        "quantity": "2",
+        "unit": ""
+      },
+      {
+        "name": "eggs",
+        "quantity": "2",
+        "unit": ""
+      },
+      {
+        "name": "onion",
+        "quantity": "1",
+        "unit": "sliced"
+      },
+      {
+        "name": "green chutney",
+        "quantity": "2",
+        "unit": "tbsp"
+      },
+      {
+        "name": "lemon juice",
+        "quantity": "1",
+        "unit": "tbsp"
+      }
+    ],
+    "instructions": [
+      "Cook paratha on tawa. Pour beaten egg on top, flip to set.",
+      "Add sliced onion, chutney, lemon juice.",
+      "Roll up tightly and serve."
+    ],
+    "tips": [
+      "Use a hot tawa so egg sets quickly."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 350,
+      "protein": "14g",
+      "carbs": "36g",
+      "fat": "16g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "handvo-indian",
+    "name": "Handvo",
+    "description": "Gujarati savory rice and lentil cake with vegetables.",
+    "cookTime": "40 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      {
+        "name": "rice",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "chana dal",
+        "quantity": "1/4",
+        "unit": "cup"
+      },
+      {
+        "name": "toor dal",
+        "quantity": "1/4",
+        "unit": "cup"
+      },
+      {
+        "name": "bottle gourd",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "ginger-green chili paste",
+        "quantity": "1",
+        "unit": "tbsp"
+      },
+      {
+        "name": "sesame seeds",
+        "quantity": "1",
+        "unit": "tsp"
+      }
+    ],
+    "instructions": [
+      "Soak rice and dals, grind to batter, ferment overnight.",
+      "Add grated bottle gourd, spices, baking soda.",
+      "Pour in greased pan, top with sesame seeds. Bake or cook on stovetop."
+    ],
+    "tips": [
+      "Can be baked in oven at 375\u00b0F for 30 min."
+    ],
+    "nutritionInfo": {
+      "servings": 4,
+      "calories": 200,
+      "protein": "8g",
+      "carbs": "32g",
+      "fat": "4g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "dhokla-indian",
+    "name": "Dhokla",
+    "description": "Steamed fermented gram flour cake, light and spongy Gujarati snack.",
+    "cookTime": "25 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      {
+        "name": "besan",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "curd",
+        "quantity": "1/2",
+        "unit": "cup"
+      },
+      {
+        "name": "turmeric",
+        "quantity": "1/2",
+        "unit": "tsp"
+      },
+      {
+        "name": "ENO",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "mustard seeds",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "curry leaves",
+        "quantity": "8",
+        "unit": ""
+      }
+    ],
+    "instructions": [
+      "Mix besan, curd, turmeric, water to smooth batter.",
+      "Add ENO, mix gently, pour into greased plate, steam 12 min.",
+      "Temper mustard seeds and curry leaves, pour over dhokla."
+    ],
+    "tips": [
+      "Add ENO just before steaming."
+    ],
+    "nutritionInfo": {
+      "servings": 4,
+      "calories": 140,
+      "protein": "8g",
+      "carbs": "18g",
+      "fat": "3g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "masala-chai-indian",
+    "name": "Masala Chai",
+    "description": "Indian spiced milk tea with ginger and cardamom.",
+    "cookTime": "10 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "tea leaves",
+        "quantity": "2",
+        "unit": "tsp"
+      },
+      {
+        "name": "milk",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "ginger",
+        "quantity": "1/2",
+        "unit": "inch"
+      },
+      {
+        "name": "cardamom",
+        "quantity": "2",
+        "unit": "pods"
+      },
+      {
+        "name": "sugar",
+        "quantity": "2",
+        "unit": "tsp"
+      },
+      {
+        "name": "water",
+        "quantity": "1",
+        "unit": "cup"
+      }
+    ],
+    "instructions": [
+      "Boil water with crushed ginger and cardamom.",
+      "Add tea leaves, simmer 2 min.",
+      "Add milk and sugar, bring to boil twice, strain and serve."
+    ],
+    "tips": [
+      "Crush cardamom and ginger for maximum flavor."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 80,
+      "protein": "2g",
+      "carbs": "12g",
+      "fat": "2g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "gluten-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "overnight-oats-international",
+    "name": "Overnight Oats",
+    "description": "No-cook oats soaked in milk overnight with fruits and nuts.",
+    "cookTime": "5 min + overnight",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "rolled oats",
+        "quantity": "1/2",
+        "unit": "cup"
+      },
+      {
+        "name": "milk",
+        "quantity": "1/2",
+        "unit": "cup"
+      },
+      {
+        "name": "yogurt",
+        "quantity": "1/4",
+        "unit": "cup"
+      },
+      {
+        "name": "chia seeds",
+        "quantity": "1",
+        "unit": "tbsp"
+      },
+      {
+        "name": "honey",
+        "quantity": "1",
+        "unit": "tbsp"
+      },
+      {
+        "name": "berries",
+        "quantity": "1/4",
+        "unit": "cup"
+      }
+    ],
+    "instructions": [
+      "Mix oats, milk, yogurt, chia seeds, honey in a jar.",
+      "Top with berries.",
+      "Refrigerate overnight, eat cold in the morning."
+    ],
+    "tips": [
+      "Prepare 2-3 jars at once for easy weekday breakfasts."
+    ],
+    "nutritionInfo": {
+      "servings": 1,
+      "calories": 300,
+      "protein": "10g",
+      "carbs": "42g",
+      "fat": "9g"
+    },
+    "cuisine": [
+      "International"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "gluten-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "global",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "baked-oatmeal-international",
+    "name": "Baked Oatmeal",
+    "description": "Warm oven-baked oatmeal with banana and cinnamon, feeds a crowd.",
+    "cookTime": "35 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "rolled oats",
+        "quantity": "2",
+        "unit": "cups"
+      },
+      {
+        "name": "banana",
+        "quantity": "2",
+        "unit": ""
+      },
+      {
+        "name": "eggs",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "milk",
+        "quantity": "1.5",
+        "unit": "cups"
+      },
+      {
+        "name": "maple syrup",
+        "quantity": "3",
+        "unit": "tbsp"
+      },
+      {
+        "name": "cinnamon",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "baking powder",
+        "quantity": "1",
+        "unit": "tsp"
+      }
+    ],
+    "instructions": [
+      "Mash bananas. Mix all ingredients.",
+      "Pour into greased baking dish.",
+      "Bake at 375\u00b0F for 30 min until set and golden."
+    ],
+    "tips": [
+      "Make ahead \u2014 reheat portions through the week."
+    ],
+    "nutritionInfo": {
+      "servings": 4,
+      "calories": 280,
+      "protein": "9g",
+      "carbs": "44g",
+      "fat": "7g"
+    },
+    "cuisine": [
+      "International"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "gluten-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "global",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "classic-oatmeal-international",
+    "name": "Classic Oatmeal",
+    "description": "Simple stovetop oatmeal with honey and banana.",
+    "cookTime": "10 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "rolled oats",
+        "quantity": "1/2",
+        "unit": "cup"
+      },
+      {
+        "name": "water or milk",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "banana",
+        "quantity": "1/2",
+        "unit": ""
+      },
+      {
+        "name": "honey",
+        "quantity": "1",
+        "unit": "tbsp"
+      },
+      {
+        "name": "cinnamon",
+        "quantity": "1/4",
+        "unit": "tsp"
+      }
+    ],
+    "instructions": [
+      "Bring liquid to boil, add oats.",
+      "Cook 5 min stirring occasionally.",
+      "Top with sliced banana, honey, cinnamon."
+    ],
+    "tips": [
+      "Use steel-cut oats for chewier texture (cook longer)."
+    ],
+    "nutritionInfo": {
+      "servings": 1,
+      "calories": 250,
+      "protein": "7g",
+      "carbs": "42g",
+      "fat": "5g"
+    },
+    "cuisine": [
+      "International"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "gluten-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "global",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "savory-oatmeal-international",
+    "name": "Savory Oatmeal",
+    "description": "Oatmeal topped with a fried egg, cheese, and herbs \u2014 savory twist.",
+    "cookTime": "10 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "rolled oats",
+        "quantity": "1/2",
+        "unit": "cup"
+      },
+      {
+        "name": "water",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "egg",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "cheese",
+        "quantity": "1",
+        "unit": "tbsp"
+      },
+      {
+        "name": "salt",
+        "quantity": "",
+        "unit": "to taste"
+      },
+      {
+        "name": "black pepper",
+        "quantity": "",
+        "unit": "to taste"
+      }
+    ],
+    "instructions": [
+      "Cook oats in water with salt.",
+      "Fry an egg separately.",
+      "Top oatmeal with egg, cheese, pepper, herbs."
+    ],
+    "tips": [
+      "Add saut\u00e9ed spinach for extra nutrition."
+    ],
+    "nutritionInfo": {
+      "servings": 1,
+      "calories": 300,
+      "protein": "14g",
+      "carbs": "34g",
+      "fat": "12g"
+    },
+    "cuisine": [
+      "International"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "gluten-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "global",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "homemade-granola-international",
+    "name": "Homemade Granola",
+    "description": "Crunchy oven-baked oat clusters with nuts and honey.",
+    "cookTime": "35 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "rolled oats",
+        "quantity": "3",
+        "unit": "cups"
+      },
+      {
+        "name": "almonds",
+        "quantity": "1/2",
+        "unit": "cup"
+      },
+      {
+        "name": "coconut oil",
+        "quantity": "1/4",
+        "unit": "cup"
+      },
+      {
+        "name": "honey",
+        "quantity": "1/4",
+        "unit": "cup"
+      },
+      {
+        "name": "vanilla",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "cinnamon",
+        "quantity": "1",
+        "unit": "tsp"
+      }
+    ],
+    "instructions": [
+      "Mix oats, nuts, melted coconut oil, honey, vanilla, cinnamon.",
+      "Spread on baking sheet, press flat.",
+      "Bake at 325\u00b0F for 25 min, stir once. Cool completely for clusters."
+    ],
+    "tips": [
+      "Don't stir after baking for big crunchy clusters."
+    ],
+    "nutritionInfo": {
+      "servings": 6,
+      "calories": 280,
+      "protein": "7g",
+      "carbs": "34g",
+      "fat": "14g"
+    },
+    "cuisine": [
+      "International"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "global",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "cinnamon-quinoa-breakfast-bowl-international",
+    "name": "Cinnamon Quinoa Breakfast Bowl",
+    "description": "Warm quinoa cooked like oatmeal with cinnamon and fruit.",
+    "cookTime": "20 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "quinoa",
+        "quantity": "1/2",
+        "unit": "cup"
+      },
+      {
+        "name": "milk",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "cinnamon",
+        "quantity": "1/2",
+        "unit": "tsp"
+      },
+      {
+        "name": "maple syrup",
+        "quantity": "1",
+        "unit": "tbsp"
+      },
+      {
+        "name": "berries",
+        "quantity": "1/4",
+        "unit": "cup"
+      },
+      {
+        "name": "almonds",
+        "quantity": "1",
+        "unit": "tbsp"
+      }
+    ],
+    "instructions": [
+      "Cook quinoa in milk with cinnamon.",
+      "Sweeten with maple syrup.",
+      "Top with berries and sliced almonds."
+    ],
+    "tips": [
+      "Rinse quinoa well to remove bitterness."
+    ],
+    "nutritionInfo": {
+      "servings": 1,
+      "calories": 320,
+      "protein": "12g",
+      "carbs": "46g",
+      "fat": "10g"
+    },
+    "cuisine": [
+      "International"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "global",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "chia-seed-pudding-international",
+    "name": "Chia Seed Pudding",
+    "description": "Creamy chia pudding soaked in milk overnight with vanilla.",
+    "cookTime": "5 min + 4hr",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "chia seeds",
+        "quantity": "3",
+        "unit": "tbsp"
+      },
+      {
+        "name": "milk",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "vanilla extract",
+        "quantity": "1/2",
+        "unit": "tsp"
+      },
+      {
+        "name": "honey",
+        "quantity": "1",
+        "unit": "tbsp"
+      },
+      {
+        "name": "mango",
+        "quantity": "1/4",
+        "unit": "cup"
+      }
+    ],
+    "instructions": [
+      "Mix chia seeds, milk, vanilla, honey.",
+      "Stir well, refrigerate 4 hours or overnight.",
+      "Top with fresh fruit before serving."
+    ],
+    "tips": [
+      "Stir after 10 min to prevent clumping."
+    ],
+    "nutritionInfo": {
+      "servings": 1,
+      "calories": 250,
+      "protein": "8g",
+      "carbs": "30g",
+      "fat": "12g"
+    },
+    "cuisine": [
+      "International"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "gluten-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "global",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "mango-chia-pudding-international",
+    "name": "Mango Chia Pudding",
+    "description": "Tropical chia pudding layered with fresh mango puree.",
+    "cookTime": "5 min + 4hr",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "chia seeds",
+        "quantity": "3",
+        "unit": "tbsp"
+      },
+      {
+        "name": "coconut milk",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "mango",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "honey",
+        "quantity": "1",
+        "unit": "tbsp"
+      }
+    ],
+    "instructions": [
+      "Mix chia seeds with coconut milk and honey.",
+      "Refrigerate 4 hours.",
+      "Blend mango, layer with chia pudding."
+    ],
+    "tips": [
+      "Use ripe Alphonso mango for best sweetness."
+    ],
+    "nutritionInfo": {
+      "servings": 1,
+      "calories": 280,
+      "protein": "6g",
+      "carbs": "34g",
+      "fat": "14g"
+    },
+    "cuisine": [
+      "International"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "global",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "classic-omelette-international",
+    "name": "Classic Omelette",
+    "description": "Fluffy folded omelette with cheese and herbs.",
+    "cookTime": "10 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "eggs",
+        "quantity": "3",
+        "unit": ""
+      },
+      {
+        "name": "cheese",
+        "quantity": "2",
+        "unit": "tbsp"
+      },
+      {
+        "name": "butter",
+        "quantity": "1",
+        "unit": "tbsp"
+      },
+      {
+        "name": "salt",
+        "quantity": "",
+        "unit": "to taste"
+      },
+      {
+        "name": "black pepper",
+        "quantity": "",
+        "unit": "to taste"
+      },
+      {
+        "name": "herbs",
+        "quantity": "1",
+        "unit": "tbsp"
+      }
+    ],
+    "instructions": [
+      "Beat eggs with salt and pepper.",
+      "Melt butter in pan, pour eggs.",
+      "When nearly set, add cheese and herbs, fold in half."
+    ],
+    "tips": [
+      "Use medium-low heat for fluffy omelette."
+    ],
+    "nutritionInfo": {
+      "servings": 1,
+      "calories": 300,
+      "protein": "20g",
+      "carbs": "2g",
+      "fat": "23g"
+    },
+    "cuisine": [
+      "International"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "gluten-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "global",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "scrambled-eggs-international",
+    "name": "Scrambled Eggs",
+    "description": "Soft creamy scrambled eggs, a breakfast essential.",
+    "cookTime": "5 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "eggs",
+        "quantity": "3",
+        "unit": ""
+      },
+      {
+        "name": "butter",
+        "quantity": "1",
+        "unit": "tbsp"
+      },
+      {
+        "name": "milk",
+        "quantity": "1",
+        "unit": "tbsp"
+      },
+      {
+        "name": "salt",
+        "quantity": "",
+        "unit": "to taste"
+      },
+      {
+        "name": "black pepper",
+        "quantity": "",
+        "unit": "to taste"
+      }
+    ],
+    "instructions": [
+      "Beat eggs with milk, salt, pepper.",
+      "Melt butter on low heat, add eggs.",
+      "Stir gently with spatula, remove when just set."
+    ],
+    "tips": [
+      "Low heat and gentle stirring = creamiest scramble."
+    ],
+    "nutritionInfo": {
+      "servings": 1,
+      "calories": 250,
+      "protein": "18g",
+      "carbs": "1g",
+      "fat": "19g"
+    },
+    "cuisine": [
+      "International"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "gluten-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "global",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "shakshuka-international",
+    "name": "Shakshuka",
+    "description": "Eggs poached in spiced tomato-pepper sauce, a Middle Eastern classic.",
+    "cookTime": "25 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "eggs",
+        "quantity": "4",
+        "unit": ""
+      },
+      {
+        "name": "tomatoes",
+        "quantity": "4",
+        "unit": ""
+      },
+      {
+        "name": "bell pepper",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "onion",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "cumin",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "paprika",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "olive oil",
+        "quantity": "2",
+        "unit": "tbsp"
+      }
+    ],
+    "instructions": [
+      "Saut\u00e9 onion and pepper in olive oil. Add spices.",
+      "Add crushed tomatoes, simmer 10 min.",
+      "Make wells, crack eggs in, cover and cook until set."
+    ],
+    "tips": [
+      "Serve with crusty bread for dipping."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 260,
+      "protein": "14g",
+      "carbs": "16g",
+      "fat": "16g"
+    },
+    "cuisine": [
+      "International"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "gluten-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "global",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "frittata-international",
+    "name": "Frittata",
+    "description": "Italian open-faced omelette baked with vegetables and cheese.",
+    "cookTime": "25 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "eggs",
+        "quantity": "6",
+        "unit": ""
+      },
+      {
+        "name": "spinach",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "bell pepper",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "onion",
+        "quantity": "1",
+        "unit": "small"
+      },
+      {
+        "name": "cheese",
+        "quantity": "1/4",
+        "unit": "cup"
+      },
+      {
+        "name": "olive oil",
+        "quantity": "1",
+        "unit": "tbsp"
+      }
+    ],
+    "instructions": [
+      "Saut\u00e9 vegetables in oven-safe pan.",
+      "Pour beaten eggs over, top with cheese.",
+      "Cook on stove 3 min, then broil 5 min until puffed and golden."
+    ],
+    "tips": [
+      "Great for using up leftover vegetables."
+    ],
+    "nutritionInfo": {
+      "servings": 4,
+      "calories": 200,
+      "protein": "14g",
+      "carbs": "4g",
+      "fat": "14g"
+    },
+    "cuisine": [
+      "International"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "gluten-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "global",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "egg-muffins-international",
+    "name": "Egg Muffins",
+    "description": "Mini egg cups baked with vegetables, perfect for meal prep.",
+    "cookTime": "25 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "eggs",
+        "quantity": "6",
+        "unit": ""
+      },
+      {
+        "name": "spinach",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "bell pepper",
+        "quantity": "1/2",
+        "unit": ""
+      },
+      {
+        "name": "cheese",
+        "quantity": "1/4",
+        "unit": "cup"
+      },
+      {
+        "name": "salt",
+        "quantity": "",
+        "unit": "to taste"
+      }
+    ],
+    "instructions": [
+      "Beat eggs, mix in chopped vegetables and cheese.",
+      "Pour into greased muffin tin.",
+      "Bake at 375\u00b0F for 18-20 min."
+    ],
+    "tips": [
+      "Freeze for up to 1 month \u2014 reheat in microwave."
+    ],
+    "nutritionInfo": {
+      "servings": 6,
+      "calories": 120,
+      "protein": "10g",
+      "carbs": "2g",
+      "fat": "8g"
+    },
+    "cuisine": [
+      "International"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "gluten-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "global",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "crustless-quiche-international",
+    "name": "Crustless Quiche",
+    "description": "Light egg and vegetable quiche without the pastry crust.",
+    "cookTime": "35 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "eggs",
+        "quantity": "6",
+        "unit": ""
+      },
+      {
+        "name": "milk",
+        "quantity": "1/2",
+        "unit": "cup"
+      },
+      {
+        "name": "spinach",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "mushrooms",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "cheese",
+        "quantity": "1/2",
+        "unit": "cup"
+      },
+      {
+        "name": "onion",
+        "quantity": "1",
+        "unit": "small"
+      }
+    ],
+    "instructions": [
+      "Saut\u00e9 vegetables. Beat eggs with milk.",
+      "Layer veggies and cheese in baking dish. Pour egg mixture.",
+      "Bake at 375\u00b0F for 25-30 min until set."
+    ],
+    "tips": [
+      "Let rest 5 min before cutting."
+    ],
+    "nutritionInfo": {
+      "servings": 4,
+      "calories": 180,
+      "protein": "14g",
+      "carbs": "4g",
+      "fat": "12g"
+    },
+    "cuisine": [
+      "International"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "gluten-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "global",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "egg-toast-international",
+    "name": "Egg Toast",
+    "description": "Simple fried or scrambled egg on buttered toast.",
+    "cookTime": "5 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "bread",
+        "quantity": "2",
+        "unit": "slices"
+      },
+      {
+        "name": "eggs",
+        "quantity": "2",
+        "unit": ""
+      },
+      {
+        "name": "butter",
+        "quantity": "1",
+        "unit": "tbsp"
+      },
+      {
+        "name": "salt",
+        "quantity": "",
+        "unit": "to taste"
+      },
+      {
+        "name": "pepper",
+        "quantity": "",
+        "unit": "to taste"
+      }
+    ],
+    "instructions": [
+      "Toast bread. Fry or scramble eggs with butter.",
+      "Place eggs on toast, season."
+    ],
+    "tips": [
+      "Runny yolk on toast is chef's kiss."
+    ],
+    "nutritionInfo": {
+      "servings": 1,
+      "calories": 300,
+      "protein": "14g",
+      "carbs": "24g",
+      "fat": "16g"
+    },
+    "cuisine": [
+      "International"
+    ],
+    "dietaryTags": [],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "global",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "strawberry-banana-smoothie-international",
+    "name": "Strawberry Banana Smoothie",
+    "description": "Classic fruit smoothie, naturally sweet and creamy.",
+    "cookTime": "5 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "strawberries",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "banana",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "yogurt",
+        "quantity": "1/2",
+        "unit": "cup"
+      },
+      {
+        "name": "milk",
+        "quantity": "1/2",
+        "unit": "cup"
+      },
+      {
+        "name": "honey",
+        "quantity": "1",
+        "unit": "tsp"
+      }
+    ],
+    "instructions": [
+      "Add all ingredients to blender.",
+      "Blend until smooth.",
+      "Pour and serve immediately."
+    ],
+    "tips": [
+      "Use frozen fruit for thicker smoothie."
+    ],
+    "nutritionInfo": {
+      "servings": 1,
+      "calories": 220,
+      "protein": "7g",
+      "carbs": "42g",
+      "fat": "3g"
+    },
+    "cuisine": [
+      "International"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "gluten-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "global",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "avocado-smoothie-international",
+    "name": "Avocado Smoothie",
+    "description": "Creamy avocado smoothie with banana and spinach.",
+    "cookTime": "5 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "avocado",
+        "quantity": "1/2",
+        "unit": ""
+      },
+      {
+        "name": "banana",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "spinach",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "milk",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "honey",
+        "quantity": "1",
+        "unit": "tsp"
+      }
+    ],
+    "instructions": [
+      "Blend all ingredients until creamy.",
+      "Adjust thickness with more milk if needed."
+    ],
+    "tips": [
+      "Avocado makes it incredibly creamy."
+    ],
+    "nutritionInfo": {
+      "servings": 1,
+      "calories": 280,
+      "protein": "6g",
+      "carbs": "36g",
+      "fat": "14g"
+    },
+    "cuisine": [
+      "International"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "gluten-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "global",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "peanut-butter-banana-smoothie-international",
+    "name": "Peanut Butter Banana Smoothie",
+    "description": "Protein-rich smoothie with peanut butter and banana.",
+    "cookTime": "5 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "banana",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "peanut butter",
+        "quantity": "2",
+        "unit": "tbsp"
+      },
+      {
+        "name": "milk",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "honey",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "oats",
+        "quantity": "2",
+        "unit": "tbsp"
+      }
+    ],
+    "instructions": [
+      "Blend all ingredients until smooth."
+    ],
+    "tips": [
+      "Add a scoop of protein powder for post-workout breakfast."
+    ],
+    "nutritionInfo": {
+      "servings": 1,
+      "calories": 380,
+      "protein": "14g",
+      "carbs": "48g",
+      "fat": "16g"
+    },
+    "cuisine": [
+      "International"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "gluten-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "global",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "green-smoothie-international",
+    "name": "Green Smoothie",
+    "description": "Nutrient-packed smoothie with spinach, banana, and fruits.",
+    "cookTime": "5 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "spinach",
+        "quantity": "2",
+        "unit": "cups"
+      },
+      {
+        "name": "banana",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "apple",
+        "quantity": "1/2",
+        "unit": ""
+      },
+      {
+        "name": "ginger",
+        "quantity": "1/2",
+        "unit": "inch"
+      },
+      {
+        "name": "water",
+        "quantity": "1",
+        "unit": "cup"
+      }
+    ],
+    "instructions": [
+      "Blend spinach and water first until smooth.",
+      "Add remaining fruits and ginger, blend again."
+    ],
+    "tips": [
+      "Spinach flavor is undetectable once blended."
+    ],
+    "nutritionInfo": {
+      "servings": 1,
+      "calories": 160,
+      "protein": "3g",
+      "carbs": "36g",
+      "fat": "1g"
+    },
+    "cuisine": [
+      "International"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "global",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "mango-smoothie-international",
+    "name": "Mango Smoothie",
+    "description": "Tropical mango smoothie with yogurt, perfect summer breakfast.",
+    "cookTime": "5 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "mango",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "yogurt",
+        "quantity": "1/2",
+        "unit": "cup"
+      },
+      {
+        "name": "milk",
+        "quantity": "1/2",
+        "unit": "cup"
+      },
+      {
+        "name": "honey",
+        "quantity": "1",
+        "unit": "tsp"
+      }
+    ],
+    "instructions": [
+      "Blend mango, yogurt, milk, honey until smooth."
+    ],
+    "tips": [
+      "Use frozen mango for thicker texture."
+    ],
+    "nutritionInfo": {
+      "servings": 1,
+      "calories": 220,
+      "protein": "6g",
+      "carbs": "42g",
+      "fat": "3g"
+    },
+    "cuisine": [
+      "International"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "gluten-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "global",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "blueberry-smoothie-international",
+    "name": "Blueberry Smoothie",
+    "description": "Antioxidant-rich blueberry smoothie with banana.",
+    "cookTime": "5 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "blueberries",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "banana",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "yogurt",
+        "quantity": "1/2",
+        "unit": "cup"
+      },
+      {
+        "name": "milk",
+        "quantity": "1/2",
+        "unit": "cup"
+      }
+    ],
+    "instructions": [
+      "Blend all ingredients until smooth."
+    ],
+    "tips": [
+      "Frozen blueberries work just as well."
+    ],
+    "nutritionInfo": {
+      "servings": 1,
+      "calories": 200,
+      "protein": "6g",
+      "carbs": "38g",
+      "fat": "3g"
+    },
+    "cuisine": [
+      "International"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "gluten-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "global",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "coffee-smoothie-international",
+    "name": "Coffee Smoothie",
+    "description": "Energizing breakfast smoothie with coffee and banana.",
+    "cookTime": "5 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "cold coffee",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "banana",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "milk",
+        "quantity": "1/2",
+        "unit": "cup"
+      },
+      {
+        "name": "cocoa powder",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "honey",
+        "quantity": "1",
+        "unit": "tsp"
+      }
+    ],
+    "instructions": [
+      "Blend all ingredients until smooth and frothy."
+    ],
+    "tips": [
+      "Freeze coffee in ice cube trays for thicker smoothie."
+    ],
+    "nutritionInfo": {
+      "servings": 1,
+      "calories": 200,
+      "protein": "5g",
+      "carbs": "38g",
+      "fat": "3g"
+    },
+    "cuisine": [
+      "International"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "gluten-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "global",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "classic-pancakes-international",
+    "name": "Classic Pancakes",
+    "description": "Fluffy American-style pancakes with maple syrup.",
+    "cookTime": "15 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "flour",
+        "quantity": "1.5",
+        "unit": "cups"
+      },
+      {
+        "name": "milk",
+        "quantity": "1.25",
+        "unit": "cups"
+      },
+      {
+        "name": "egg",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "butter",
+        "quantity": "2",
+        "unit": "tbsp"
+      },
+      {
+        "name": "baking powder",
+        "quantity": "2",
+        "unit": "tsp"
+      },
+      {
+        "name": "sugar",
+        "quantity": "2",
+        "unit": "tbsp"
+      }
+    ],
+    "instructions": [
+      "Mix dry ingredients. Whisk wet ingredients separately.",
+      "Combine, don't overmix (lumps are fine).",
+      "Cook on griddle until bubbles form, flip, cook until golden."
+    ],
+    "tips": [
+      "Don't press down on pancakes while cooking."
+    ],
+    "nutritionInfo": {
+      "servings": 4,
+      "calories": 250,
+      "protein": "6g",
+      "carbs": "36g",
+      "fat": "8g"
+    },
+    "cuisine": [
+      "International"
+    ],
+    "dietaryTags": [
+      "vegetarian"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "global",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "banana-pancakes-international",
+    "name": "Banana Pancakes",
+    "description": "Naturally sweet pancakes made with mashed banana.",
+    "cookTime": "15 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "banana",
+        "quantity": "2",
+        "unit": "ripe"
+      },
+      {
+        "name": "eggs",
+        "quantity": "2",
+        "unit": ""
+      },
+      {
+        "name": "oats",
+        "quantity": "1/2",
+        "unit": "cup"
+      },
+      {
+        "name": "cinnamon",
+        "quantity": "1/2",
+        "unit": "tsp"
+      },
+      {
+        "name": "baking powder",
+        "quantity": "1/2",
+        "unit": "tsp"
+      }
+    ],
+    "instructions": [
+      "Mash bananas. Mix with eggs, oats, cinnamon, baking powder.",
+      "Cook small pancakes on medium heat.",
+      "Flip when bubbles form."
+    ],
+    "tips": [
+      "Riper bananas = sweeter pancakes."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 200,
+      "protein": "8g",
+      "carbs": "30g",
+      "fat": "6g"
+    },
+    "cuisine": [
+      "International"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "gluten-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "global",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "blueberry-pancakes-international",
+    "name": "Blueberry Pancakes",
+    "description": "Fluffy pancakes studded with fresh blueberries.",
+    "cookTime": "15 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "flour",
+        "quantity": "1.5",
+        "unit": "cups"
+      },
+      {
+        "name": "milk",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "egg",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "blueberries",
+        "quantity": "1/2",
+        "unit": "cup"
+      },
+      {
+        "name": "baking powder",
+        "quantity": "2",
+        "unit": "tsp"
+      },
+      {
+        "name": "sugar",
+        "quantity": "2",
+        "unit": "tbsp"
+      }
+    ],
+    "instructions": [
+      "Mix dry ingredients. Add wet, fold in blueberries.",
+      "Cook on griddle, flip when bubbles form."
+    ],
+    "tips": [
+      "Don't smash blueberries \u2014 fold gently."
+    ],
+    "nutritionInfo": {
+      "servings": 4,
+      "calories": 230,
+      "protein": "6g",
+      "carbs": "38g",
+      "fat": "5g"
+    },
+    "cuisine": [
+      "International"
+    ],
+    "dietaryTags": [
+      "vegetarian"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "global",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "oatmeal-pancakes-international",
+    "name": "Oatmeal Pancakes",
+    "description": "Hearty whole grain pancakes made with oats.",
+    "cookTime": "15 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "rolled oats",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "milk",
+        "quantity": "3/4",
+        "unit": "cup"
+      },
+      {
+        "name": "egg",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "banana",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "cinnamon",
+        "quantity": "1/2",
+        "unit": "tsp"
+      },
+      {
+        "name": "baking powder",
+        "quantity": "1",
+        "unit": "tsp"
+      }
+    ],
+    "instructions": [
+      "Blend oats into flour. Mix with remaining ingredients.",
+      "Cook on medium heat, flip when set."
+    ],
+    "tips": [
+      "Blend oats fine for smooth pancakes, coarse for rustic."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 220,
+      "protein": "9g",
+      "carbs": "34g",
+      "fat": "6g"
+    },
+    "cuisine": [
+      "International"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "gluten-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "global",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "french-toast-international",
+    "name": "French Toast",
+    "description": "Bread slices soaked in egg-milk mixture, pan-fried golden.",
+    "cookTime": "15 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "bread",
+        "quantity": "4",
+        "unit": "slices"
+      },
+      {
+        "name": "eggs",
+        "quantity": "2",
+        "unit": ""
+      },
+      {
+        "name": "milk",
+        "quantity": "1/4",
+        "unit": "cup"
+      },
+      {
+        "name": "cinnamon",
+        "quantity": "1/2",
+        "unit": "tsp"
+      },
+      {
+        "name": "vanilla",
+        "quantity": "1/2",
+        "unit": "tsp"
+      },
+      {
+        "name": "butter",
+        "quantity": "1",
+        "unit": "tbsp"
+      }
+    ],
+    "instructions": [
+      "Beat eggs with milk, cinnamon, vanilla.",
+      "Dip bread slices to coat evenly.",
+      "Cook in butter until golden on both sides."
+    ],
+    "tips": [
+      "Use thick bread like brioche for best results."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 300,
+      "protein": "12g",
+      "carbs": "32g",
+      "fat": "14g"
+    },
+    "cuisine": [
+      "International"
+    ],
+    "dietaryTags": [
+      "vegetarian"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "global",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "homemade-waffles-international",
+    "name": "Homemade Waffles",
+    "description": "Crispy on the outside, fluffy inside \u2014 classic waffles.",
+    "cookTime": "20 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "flour",
+        "quantity": "2",
+        "unit": "cups"
+      },
+      {
+        "name": "milk",
+        "quantity": "1.75",
+        "unit": "cups"
+      },
+      {
+        "name": "eggs",
+        "quantity": "2",
+        "unit": ""
+      },
+      {
+        "name": "butter",
+        "quantity": "1/3",
+        "unit": "cup"
+      },
+      {
+        "name": "baking powder",
+        "quantity": "1",
+        "unit": "tbsp"
+      },
+      {
+        "name": "sugar",
+        "quantity": "2",
+        "unit": "tbsp"
+      }
+    ],
+    "instructions": [
+      "Mix dry ingredients. Whisk wet ingredients.",
+      "Combine gently. Pour into preheated waffle iron.",
+      "Cook until steam stops and waffle is golden."
+    ],
+    "tips": [
+      "Separate eggs, whip whites for extra fluffy waffles."
+    ],
+    "nutritionInfo": {
+      "servings": 4,
+      "calories": 280,
+      "protein": "8g",
+      "carbs": "36g",
+      "fat": "12g"
+    },
+    "cuisine": [
+      "International"
+    ],
+    "dietaryTags": [
+      "vegetarian"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "global",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "avocado-toast-international",
+    "name": "Avocado Toast",
+    "description": "Smashed avocado on toast with lemon, chili flakes, and salt.",
+    "cookTime": "5 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "bread",
+        "quantity": "2",
+        "unit": "slices"
+      },
+      {
+        "name": "avocado",
+        "quantity": "1",
+        "unit": "ripe"
+      },
+      {
+        "name": "lemon juice",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "chili flakes",
+        "quantity": "1/4",
+        "unit": "tsp"
+      },
+      {
+        "name": "salt",
+        "quantity": "",
+        "unit": "to taste"
+      }
+    ],
+    "instructions": [
+      "Toast bread. Mash avocado with lemon, salt, chili.",
+      "Spread on toast."
+    ],
+    "tips": [
+      "Top with a poached egg for extra protein."
+    ],
+    "nutritionInfo": {
+      "servings": 1,
+      "calories": 300,
+      "protein": "6g",
+      "carbs": "30g",
+      "fat": "18g"
+    },
+    "cuisine": [
+      "International"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "global",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "breakfast-sandwich-international",
+    "name": "Breakfast Sandwich",
+    "description": "Egg and cheese sandwich on toasted bread.",
+    "cookTime": "10 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "bread",
+        "quantity": "2",
+        "unit": "slices"
+      },
+      {
+        "name": "egg",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "cheese",
+        "quantity": "1",
+        "unit": "slice"
+      },
+      {
+        "name": "butter",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "spinach",
+        "quantity": "handful",
+        "unit": ""
+      }
+    ],
+    "instructions": [
+      "Toast bread. Fry egg.",
+      "Layer egg, cheese, spinach on toast."
+    ],
+    "tips": [
+      "Add avocado or tomato for extra flavor."
+    ],
+    "nutritionInfo": {
+      "servings": 1,
+      "calories": 320,
+      "protein": "16g",
+      "carbs": "26g",
+      "fat": "16g"
+    },
+    "cuisine": [
+      "International"
+    ],
+    "dietaryTags": [
+      "vegetarian"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "global",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "healthy-banana-bread-international",
+    "name": "Healthy Banana Bread",
+    "description": "Moist banana bread made with whole wheat and less sugar.",
+    "cookTime": "50 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "ripe bananas",
+        "quantity": "3",
+        "unit": ""
+      },
+      {
+        "name": "whole wheat flour",
+        "quantity": "1.5",
+        "unit": "cups"
+      },
+      {
+        "name": "eggs",
+        "quantity": "2",
+        "unit": ""
+      },
+      {
+        "name": "honey",
+        "quantity": "1/4",
+        "unit": "cup"
+      },
+      {
+        "name": "coconut oil",
+        "quantity": "1/4",
+        "unit": "cup"
+      },
+      {
+        "name": "baking soda",
+        "quantity": "1",
+        "unit": "tsp"
+      }
+    ],
+    "instructions": [
+      "Mash bananas. Mix wet ingredients.",
+      "Fold in dry ingredients.",
+      "Bake at 350\u00b0F for 45 min."
+    ],
+    "tips": [
+      "Use very ripe (spotty) bananas for best sweetness."
+    ],
+    "nutritionInfo": {
+      "servings": 8,
+      "calories": 200,
+      "protein": "4g",
+      "carbs": "32g",
+      "fat": "7g"
+    },
+    "cuisine": [
+      "International"
+    ],
+    "dietaryTags": [
+      "vegetarian"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "global",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "zucchini-bread-international",
+    "name": "Zucchini Bread",
+    "description": "Moist quick bread with grated zucchini and warm spices.",
+    "cookTime": "55 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "zucchini",
+        "quantity": "1",
+        "unit": "large"
+      },
+      {
+        "name": "flour",
+        "quantity": "2",
+        "unit": "cups"
+      },
+      {
+        "name": "eggs",
+        "quantity": "2",
+        "unit": ""
+      },
+      {
+        "name": "sugar",
+        "quantity": "1/2",
+        "unit": "cup"
+      },
+      {
+        "name": "oil",
+        "quantity": "1/3",
+        "unit": "cup"
+      },
+      {
+        "name": "cinnamon",
+        "quantity": "1",
+        "unit": "tsp"
+      }
+    ],
+    "instructions": [
+      "Grate zucchini, squeeze water.",
+      "Mix wet and dry ingredients separately, combine.",
+      "Bake at 350\u00b0F for 50 min."
+    ],
+    "tips": [
+      "Don't skip squeezing the zucchini moisture."
+    ],
+    "nutritionInfo": {
+      "servings": 8,
+      "calories": 210,
+      "protein": "4g",
+      "carbs": "30g",
+      "fat": "9g"
+    },
+    "cuisine": [
+      "International"
+    ],
+    "dietaryTags": [
+      "vegetarian"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "global",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "blueberry-muffins-international",
+    "name": "Blueberry Muffins",
+    "description": "Classic fluffy muffins bursting with blueberries.",
+    "cookTime": "30 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "flour",
+        "quantity": "2",
+        "unit": "cups"
+      },
+      {
+        "name": "blueberries",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "sugar",
+        "quantity": "1/2",
+        "unit": "cup"
+      },
+      {
+        "name": "butter",
+        "quantity": "1/3",
+        "unit": "cup"
+      },
+      {
+        "name": "egg",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "milk",
+        "quantity": "3/4",
+        "unit": "cup"
+      },
+      {
+        "name": "baking powder",
+        "quantity": "2",
+        "unit": "tsp"
+      }
+    ],
+    "instructions": [
+      "Mix dry ingredients. Combine wet ingredients.",
+      "Fold together, add blueberries.",
+      "Fill muffin cups 2/3 full, bake 375\u00b0F for 22 min."
+    ],
+    "tips": [
+      "Toss blueberries in flour to prevent sinking."
+    ],
+    "nutritionInfo": {
+      "servings": 12,
+      "calories": 180,
+      "protein": "3g",
+      "carbs": "28g",
+      "fat": "6g"
+    },
+    "cuisine": [
+      "International"
+    ],
+    "dietaryTags": [
+      "vegetarian"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "global",
+    "source": "curated",
+    "tags": [
+      "high-sugar"
+    ],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "healthy-banana-muffins-international",
+    "name": "Healthy Banana Muffins",
+    "description": "Naturally sweetened banana muffins with oats.",
+    "cookTime": "25 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "ripe bananas",
+        "quantity": "2",
+        "unit": ""
+      },
+      {
+        "name": "oats",
+        "quantity": "1.5",
+        "unit": "cups"
+      },
+      {
+        "name": "egg",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "honey",
+        "quantity": "2",
+        "unit": "tbsp"
+      },
+      {
+        "name": "baking powder",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "cinnamon",
+        "quantity": "1",
+        "unit": "tsp"
+      }
+    ],
+    "instructions": [
+      "Blend oats into flour. Mash bananas.",
+      "Mix all ingredients. Spoon into muffin tin.",
+      "Bake 350\u00b0F for 18-20 min."
+    ],
+    "tips": [
+      "These are lower sugar \u2014 sweetened by banana and a little honey."
+    ],
+    "nutritionInfo": {
+      "servings": 8,
+      "calories": 130,
+      "protein": "4g",
+      "carbs": "22g",
+      "fat": "2g"
+    },
+    "cuisine": [
+      "International"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "gluten-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "global",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "apple-muffins-international",
+    "name": "Apple Muffins",
+    "description": "Warm spiced apple muffins with cinnamon.",
+    "cookTime": "30 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "flour",
+        "quantity": "2",
+        "unit": "cups"
+      },
+      {
+        "name": "apple",
+        "quantity": "1",
+        "unit": "large"
+      },
+      {
+        "name": "sugar",
+        "quantity": "1/3",
+        "unit": "cup"
+      },
+      {
+        "name": "butter",
+        "quantity": "1/4",
+        "unit": "cup"
+      },
+      {
+        "name": "egg",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "milk",
+        "quantity": "3/4",
+        "unit": "cup"
+      },
+      {
+        "name": "cinnamon",
+        "quantity": "1",
+        "unit": "tsp"
+      }
+    ],
+    "instructions": [
+      "Dice apple. Mix dry ingredients.",
+      "Combine wet, fold in apples.",
+      "Bake 375\u00b0F for 22 min."
+    ],
+    "tips": [
+      "Granny Smith apples hold up best in baking."
+    ],
+    "nutritionInfo": {
+      "servings": 12,
+      "calories": 170,
+      "protein": "3g",
+      "carbs": "26g",
+      "fat": "6g"
+    },
+    "cuisine": [
+      "International"
+    ],
+    "dietaryTags": [
+      "vegetarian"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "global",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "granola-bars-international",
+    "name": "Granola Bars",
+    "description": "Chewy homemade granola bars with oats, honey, and nuts.",
+    "cookTime": "30 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "rolled oats",
+        "quantity": "2",
+        "unit": "cups"
+      },
+      {
+        "name": "honey",
+        "quantity": "1/3",
+        "unit": "cup"
+      },
+      {
+        "name": "peanut butter",
+        "quantity": "1/4",
+        "unit": "cup"
+      },
+      {
+        "name": "almonds",
+        "quantity": "1/4",
+        "unit": "cup"
+      },
+      {
+        "name": "dried cranberries",
+        "quantity": "1/4",
+        "unit": "cup"
+      },
+      {
+        "name": "vanilla",
+        "quantity": "1",
+        "unit": "tsp"
+      }
+    ],
+    "instructions": [
+      "Heat honey and peanut butter until smooth.",
+      "Mix with oats, nuts, cranberries.",
+      "Press into pan, bake 325\u00b0F for 20 min. Cool and cut."
+    ],
+    "tips": [
+      "Press firmly for bars that hold together."
+    ],
+    "nutritionInfo": {
+      "servings": 8,
+      "calories": 200,
+      "protein": "5g",
+      "carbs": "30g",
+      "fat": "8g"
+    },
+    "cuisine": [
+      "International"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "gluten-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "global",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "energy-balls-international",
+    "name": "Energy Balls",
+    "description": "No-bake protein bites with oats, peanut butter, and chocolate.",
+    "cookTime": "10 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "rolled oats",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "peanut butter",
+        "quantity": "1/2",
+        "unit": "cup"
+      },
+      {
+        "name": "honey",
+        "quantity": "1/4",
+        "unit": "cup"
+      },
+      {
+        "name": "chocolate chips",
+        "quantity": "1/4",
+        "unit": "cup"
+      },
+      {
+        "name": "flaxseed",
+        "quantity": "2",
+        "unit": "tbsp"
+      }
+    ],
+    "instructions": [
+      "Mix all ingredients.",
+      "Roll into balls.",
+      "Refrigerate 30 min before serving."
+    ],
+    "tips": [
+      "Make a big batch \u2014 keeps in fridge for a week."
+    ],
+    "nutritionInfo": {
+      "servings": 12,
+      "calories": 100,
+      "protein": "3g",
+      "carbs": "12g",
+      "fat": "5g"
+    },
+    "cuisine": [
+      "International"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "gluten-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "global",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "blueberry-scones-international",
+    "name": "Blueberry Scones",
+    "description": "Buttery tender scones with blueberries.",
+    "cookTime": "30 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "flour",
+        "quantity": "2",
+        "unit": "cups"
+      },
+      {
+        "name": "cold butter",
+        "quantity": "1/3",
+        "unit": "cup"
+      },
+      {
+        "name": "blueberries",
+        "quantity": "3/4",
+        "unit": "cup"
+      },
+      {
+        "name": "sugar",
+        "quantity": "1/4",
+        "unit": "cup"
+      },
+      {
+        "name": "cream",
+        "quantity": "1/2",
+        "unit": "cup"
+      },
+      {
+        "name": "baking powder",
+        "quantity": "1",
+        "unit": "tbsp"
+      }
+    ],
+    "instructions": [
+      "Cut butter into flour. Add sugar, baking powder.",
+      "Fold in blueberries, add cream until dough forms.",
+      "Shape, cut into wedges, bake 400\u00b0F for 15 min."
+    ],
+    "tips": [
+      "Cold butter is essential for flaky scones."
+    ],
+    "nutritionInfo": {
+      "servings": 8,
+      "calories": 220,
+      "protein": "4g",
+      "carbs": "30g",
+      "fat": "9g"
+    },
+    "cuisine": [
+      "International"
+    ],
+    "dietaryTags": [
+      "vegetarian"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "global",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "sweet-potato-hash-international",
+    "name": "Sweet Potato Hash",
+    "description": "Crispy cubed sweet potatoes with peppers and onions.",
+    "cookTime": "20 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "sweet potato",
+        "quantity": "2",
+        "unit": "medium"
+      },
+      {
+        "name": "bell pepper",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "onion",
+        "quantity": "1",
+        "unit": "small"
+      },
+      {
+        "name": "olive oil",
+        "quantity": "2",
+        "unit": "tbsp"
+      },
+      {
+        "name": "paprika",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "salt",
+        "quantity": "",
+        "unit": "to taste"
+      }
+    ],
+    "instructions": [
+      "Cube sweet potatoes small.",
+      "Cook in oil on medium-high until crispy, 12-15 min.",
+      "Add peppers and onion, cook 5 more min. Season."
+    ],
+    "tips": [
+      "Don't overcrowd the pan for crispiest hash."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 220,
+      "protein": "3g",
+      "carbs": "34g",
+      "fat": "8g"
+    },
+    "cuisine": [
+      "International"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "global",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "breakfast-tacos-international",
+    "name": "Breakfast Tacos",
+    "description": "Soft tortillas filled with scrambled eggs and salsa.",
+    "cookTime": "10 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "tortillas",
+        "quantity": "4",
+        "unit": ""
+      },
+      {
+        "name": "eggs",
+        "quantity": "4",
+        "unit": ""
+      },
+      {
+        "name": "cheese",
+        "quantity": "1/4",
+        "unit": "cup"
+      },
+      {
+        "name": "salsa",
+        "quantity": "1/4",
+        "unit": "cup"
+      },
+      {
+        "name": "avocado",
+        "quantity": "1/2",
+        "unit": ""
+      },
+      {
+        "name": "black beans",
+        "quantity": "1/4",
+        "unit": "cup"
+      }
+    ],
+    "instructions": [
+      "Scramble eggs. Warm tortillas.",
+      "Fill with eggs, beans, cheese, avocado, salsa."
+    ],
+    "tips": [
+      "Corn tortillas for gluten-free option."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 350,
+      "protein": "18g",
+      "carbs": "30g",
+      "fat": "18g"
+    },
+    "cuisine": [
+      "International"
+    ],
+    "dietaryTags": [
+      "vegetarian"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "global",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "breakfast-burrito-international",
+    "name": "Breakfast Burrito",
+    "description": "Rolled flour tortilla filled with eggs, beans, and cheese.",
+    "cookTime": "15 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "flour tortilla",
+        "quantity": "2",
+        "unit": "large"
+      },
+      {
+        "name": "eggs",
+        "quantity": "4",
+        "unit": ""
+      },
+      {
+        "name": "black beans",
+        "quantity": "1/2",
+        "unit": "cup"
+      },
+      {
+        "name": "cheese",
+        "quantity": "1/4",
+        "unit": "cup"
+      },
+      {
+        "name": "salsa",
+        "quantity": "1/4",
+        "unit": "cup"
+      },
+      {
+        "name": "sour cream",
+        "quantity": "2",
+        "unit": "tbsp"
+      }
+    ],
+    "instructions": [
+      "Scramble eggs. Warm tortilla.",
+      "Layer beans, eggs, cheese, salsa, sour cream.",
+      "Roll up tightly."
+    ],
+    "tips": [
+      "Wrap in foil for on-the-go breakfast."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 400,
+      "protein": "22g",
+      "carbs": "36g",
+      "fat": "20g"
+    },
+    "cuisine": [
+      "International"
+    ],
+    "dietaryTags": [
+      "vegetarian"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "global",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "farmers-market-breakfast-bowl-international",
+    "name": "Farmers Market Breakfast Bowl",
+    "description": "Grain bowl with roasted vegetables, greens, and egg.",
+    "cookTime": "25 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "quinoa or rice",
+        "quantity": "1/2",
+        "unit": "cup"
+      },
+      {
+        "name": "egg",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "sweet potato",
+        "quantity": "1",
+        "unit": "small"
+      },
+      {
+        "name": "kale",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "avocado",
+        "quantity": "1/4",
+        "unit": ""
+      },
+      {
+        "name": "olive oil",
+        "quantity": "1",
+        "unit": "tbsp"
+      }
+    ],
+    "instructions": [
+      "Cook grain. Roast cubed sweet potato 20 min.",
+      "Saut\u00e9 kale. Fry egg.",
+      "Assemble bowl with all components."
+    ],
+    "tips": [
+      "Prep grains and roast veggies ahead for quick assembly."
+    ],
+    "nutritionInfo": {
+      "servings": 1,
+      "calories": 380,
+      "protein": "14g",
+      "carbs": "46g",
+      "fat": "16g"
+    },
+    "cuisine": [
+      "International"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "gluten-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "global",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "yogurt-bowl-international",
+    "name": "Yogurt Bowl",
+    "description": "Creamy yogurt topped with granola, fruits, and honey.",
+    "cookTime": "5 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "greek yogurt",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "granola",
+        "quantity": "1/4",
+        "unit": "cup"
+      },
+      {
+        "name": "berries",
+        "quantity": "1/4",
+        "unit": "cup"
+      },
+      {
+        "name": "banana",
+        "quantity": "1/2",
+        "unit": ""
+      },
+      {
+        "name": "honey",
+        "quantity": "1",
+        "unit": "tsp"
+      }
+    ],
+    "instructions": [
+      "Spoon yogurt into bowl.",
+      "Top with granola, sliced fruit, drizzle honey."
+    ],
+    "tips": [
+      "Layer for best texture \u2014 eat immediately so granola stays crunchy."
+    ],
+    "nutritionInfo": {
+      "servings": 1,
+      "calories": 280,
+      "protein": "15g",
+      "carbs": "40g",
+      "fat": "7g"
+    },
+    "cuisine": [
+      "International"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "gluten-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "global",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "fruit-salad-international",
+    "name": "Fruit Salad",
+    "description": "Fresh seasonal fruit salad with a squeeze of lime and mint.",
+    "cookTime": "10 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "apple",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "banana",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "orange",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "grapes",
+        "quantity": "1/2",
+        "unit": "cup"
+      },
+      {
+        "name": "pomegranate",
+        "quantity": "1/4",
+        "unit": "cup"
+      },
+      {
+        "name": "lime juice",
+        "quantity": "1",
+        "unit": "tbsp"
+      }
+    ],
+    "instructions": [
+      "Chop all fruits into bite-sized pieces.",
+      "Toss with lime juice.",
+      "Garnish with mint leaves."
+    ],
+    "tips": [
+      "Use seasonal fruits for best flavor and price."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 120,
+      "protein": "2g",
+      "carbs": "30g",
+      "fat": "0.5g"
+    },
+    "cuisine": [
+      "International"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "global",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "kale-potato-paratha-indian",
+    "name": "Kale Potato Paratha",
+    "description": "Nutritious stuffed paratha with kale and potato filling.",
+    "cookTime": "25 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      {
+        "name": "whole wheat flour",
+        "quantity": "2",
+        "unit": "cups"
+      },
+      {
+        "name": "kale",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "potato",
+        "quantity": "2",
+        "unit": ""
+      },
+      {
+        "name": "cumin",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "ghee",
+        "quantity": "1",
+        "unit": "tbsp"
+      }
+    ],
+    "instructions": [
+      "Blanch and chop kale. Mash boiled potatoes, mix with kale and spices.",
+      "Stuff dough, roll, cook on tawa with ghee."
+    ],
+    "tips": [
+      "Blanching kale removes bitterness."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 290,
+      "protein": "8g",
+      "carbs": "40g",
+      "fat": "10g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "thalipeeth-indian",
+    "name": "Thalipeeth",
+    "description": "Maharashtrian multi-grain savory flatbread.",
+    "cookTime": "15 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "thalipeeth bhajani",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "onion",
+        "quantity": "1",
+        "unit": "small"
+      },
+      {
+        "name": "coriander",
+        "quantity": "2",
+        "unit": "tbsp"
+      },
+      {
+        "name": "cumin seeds",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "oil",
+        "quantity": "1",
+        "unit": "tbsp"
+      }
+    ],
+    "instructions": [
+      "Mix flour with chopped onion, coriander, cumin, water.",
+      "Pat directly on tawa into thick round.",
+      "Make a hole in center, add oil. Cook both sides."
+    ],
+    "tips": [
+      "Use multi-grain flour mix for authentic taste."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 200,
+      "protein": "6g",
+      "carbs": "30g",
+      "fat": "6g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "kothu-parotta-indian",
+    "name": "Kothu Parotta",
+    "description": "Shredded flaky parotta tossed with eggs and spices, South Indian street food.",
+    "cookTime": "15 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "parotta",
+        "quantity": "2",
+        "unit": ""
+      },
+      {
+        "name": "eggs",
+        "quantity": "2",
+        "unit": ""
+      },
+      {
+        "name": "onion",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "green chili",
+        "quantity": "2",
+        "unit": ""
+      },
+      {
+        "name": "soy sauce",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "curry leaves",
+        "quantity": "6",
+        "unit": ""
+      }
+    ],
+    "instructions": [
+      "Shred parotta into small pieces.",
+      "Scramble eggs separately. Saut\u00e9 onion, chili, curry leaves.",
+      "Add shredded parotta, eggs, soy sauce. Toss on high heat."
+    ],
+    "tips": [
+      "Use leftover parotta for best results."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 350,
+      "protein": "14g",
+      "carbs": "36g",
+      "fat": "16g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "sheera-indian",
+    "name": "Sheera",
+    "description": "Sweet semolina dessert with ghee, nuts, and saffron \u2014 same as Rava Kesari.",
+    "cookTime": "15 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "rava",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "ghee",
+        "quantity": "3",
+        "unit": "tbsp"
+      },
+      {
+        "name": "sugar",
+        "quantity": "1/2",
+        "unit": "cup"
+      },
+      {
+        "name": "milk",
+        "quantity": "1.5",
+        "unit": "cups"
+      },
+      {
+        "name": "cardamom",
+        "quantity": "2",
+        "unit": ""
+      },
+      {
+        "name": "cashews",
+        "quantity": "8",
+        "unit": ""
+      }
+    ],
+    "instructions": [
+      "Roast rava in ghee. Add hot milk carefully.",
+      "Cook until thick, add sugar, cardamom.",
+      "Garnish with fried cashews."
+    ],
+    "tips": [
+      "Ghee and sugar make this rich \u2014 best as occasional treat."
+    ],
+    "nutritionInfo": {
+      "servings": 4,
+      "calories": 300,
+      "protein": "4g",
+      "carbs": "42g",
+      "fat": "13g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [
+      "high-sugar"
+    ],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "appe-indian",
+    "name": "Appe",
+    "description": "Round savory dumplings cooked in a special pan, like mini uttapam.",
+    "cookTime": "15 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "dosa batter",
+        "quantity": "2",
+        "unit": "cups"
+      },
+      {
+        "name": "onion",
+        "quantity": "1",
+        "unit": "small"
+      },
+      {
+        "name": "carrot",
+        "quantity": "1",
+        "unit": "small"
+      },
+      {
+        "name": "curry leaves",
+        "quantity": "6",
+        "unit": ""
+      },
+      {
+        "name": "oil",
+        "quantity": "2",
+        "unit": "tbsp"
+      }
+    ],
+    "instructions": [
+      "Mix finely diced veggies into dosa batter.",
+      "Heat appe pan, add oil in each cavity.",
+      "Pour batter, cook on low heat, turn for even cooking."
+    ],
+    "tips": [
+      "Use a well-seasoned appe pan for non-stick results."
+    ],
+    "nutritionInfo": {
+      "servings": 4,
+      "calories": 140,
+      "protein": "4g",
+      "carbs": "22g",
+      "fat": "4g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "ragi-roti-indian",
+    "name": "Ragi Roti",
+    "description": "Nutritious finger millet flatbread, high in calcium.",
+    "cookTime": "15 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "ragi flour",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "onion",
+        "quantity": "1",
+        "unit": "small"
+      },
+      {
+        "name": "cumin seeds",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "coriander",
+        "quantity": "2",
+        "unit": "tbsp"
+      },
+      {
+        "name": "salt",
+        "quantity": "",
+        "unit": "to taste"
+      }
+    ],
+    "instructions": [
+      "Mix flour with diced onion, cumin, coriander, water.",
+      "Pat into rounds on tawa.",
+      "Cook both sides until done."
+    ],
+    "tips": [
+      "Press directly on tawa \u2014 ragi dough doesn't roll well."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 170,
+      "protein": "4g",
+      "carbs": "32g",
+      "fat": "2g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "dudhi-muthiya-indian",
+    "name": "Dudhi Muthiya",
+    "description": "Steamed bottle gourd dumplings from Gujarat.",
+    "cookTime": "25 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "bottle gourd",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "whole wheat flour",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "besan",
+        "quantity": "1/4",
+        "unit": "cup"
+      },
+      {
+        "name": "ginger-green chili paste",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "sesame seeds",
+        "quantity": "1",
+        "unit": "tsp"
+      }
+    ],
+    "instructions": [
+      "Grate bottle gourd, mix with flours, spices.",
+      "Shape into logs, steam 15 min.",
+      "Slice and temper with mustard seeds and sesame."
+    ],
+    "tips": [
+      "Squeeze excess water from gourd."
+    ],
+    "nutritionInfo": {
+      "servings": 4,
+      "calories": 150,
+      "protein": "5g",
+      "carbs": "24g",
+      "fat": "3g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "kothimbir-vadi-indian",
+    "name": "Kothimbir Vadi",
+    "description": "Crispy coriander fritters from Maharashtra.",
+    "cookTime": "25 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      {
+        "name": "fresh coriander",
+        "quantity": "2",
+        "unit": "cups"
+      },
+      {
+        "name": "besan",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "rice flour",
+        "quantity": "1/4",
+        "unit": "cup"
+      },
+      {
+        "name": "sesame seeds",
+        "quantity": "1",
+        "unit": "tsp"
+      },
+      {
+        "name": "green chili",
+        "quantity": "2",
+        "unit": ""
+      },
+      {
+        "name": "oil",
+        "quantity": "2",
+        "unit": "tbsp"
+      }
+    ],
+    "instructions": [
+      "Mix chopped coriander with flours, spices, water to thick batter.",
+      "Steam 15 min, cool, cut into squares.",
+      "Shallow fry until crispy."
+    ],
+    "tips": [
+      "Steam first then fry for best texture."
+    ],
+    "nutritionInfo": {
+      "servings": 4,
+      "calories": 160,
+      "protein": "6g",
+      "carbs": "20g",
+      "fat": "6g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free",
+      "egg-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "cheese-dosa-indian",
+    "name": "Cheese Dosa",
+    "description": "Crispy dosa topped with grated cheese, a kids' favorite.",
+    "cookTime": "15 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "dosa batter",
+        "quantity": "2",
+        "unit": "cups"
+      },
+      {
+        "name": "cheese",
+        "quantity": "1/2",
+        "unit": "cup"
+      },
+      {
+        "name": "oil",
+        "quantity": "1",
+        "unit": "tbsp"
+      }
+    ],
+    "instructions": [
+      "Spread dosa batter thin on hot tawa.",
+      "Sprinkle grated cheese on top.",
+      "Cook until crispy and cheese melts. Fold and serve."
+    ],
+    "tips": [
+      "Use a blend of mozzarella and cheddar."
+    ],
+    "nutritionInfo": {
+      "servings": 2,
+      "calories": 280,
+      "protein": "10g",
+      "carbs": "36g",
+      "fat": "10g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "vegetarian",
+      "gluten-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "oats-egg-omelette-indian",
+    "name": "Oats Egg Omelette",
+    "description": "Quick protein-rich omelette with oats mixed in.",
+    "cookTime": "10 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "eggs",
+        "quantity": "2",
+        "unit": ""
+      },
+      {
+        "name": "oats",
+        "quantity": "2",
+        "unit": "tbsp"
+      },
+      {
+        "name": "onion",
+        "quantity": "1",
+        "unit": "small"
+      },
+      {
+        "name": "green chili",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "coriander",
+        "quantity": "1",
+        "unit": "tbsp"
+      }
+    ],
+    "instructions": [
+      "Beat eggs with oats, chopped onion, chili.",
+      "Pour on heated pan, cook until set.",
+      "Flip and cook other side."
+    ],
+    "tips": [
+      "Oats add fiber without changing taste much."
+    ],
+    "nutritionInfo": {
+      "servings": 1,
+      "calories": 220,
+      "protein": "14g",
+      "carbs": "12g",
+      "fat": "12g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "gluten-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  },
+  {
+    "id": "spinach-omelette-indian",
+    "name": "Spinach Omelette",
+    "description": "Eggs cooked with fresh spinach and onions.",
+    "cookTime": "10 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      {
+        "name": "eggs",
+        "quantity": "3",
+        "unit": ""
+      },
+      {
+        "name": "spinach",
+        "quantity": "1",
+        "unit": "cup"
+      },
+      {
+        "name": "onion",
+        "quantity": "1",
+        "unit": "small"
+      },
+      {
+        "name": "green chili",
+        "quantity": "1",
+        "unit": ""
+      },
+      {
+        "name": "salt",
+        "quantity": "",
+        "unit": "to taste"
+      }
+    ],
+    "instructions": [
+      "Beat eggs. Saut\u00e9 spinach and onion briefly.",
+      "Pour eggs over, cook until set, fold."
+    ],
+    "tips": [
+      "Wilt spinach first so it doesn't release water into the eggs."
+    ],
+    "nutritionInfo": {
+      "servings": 1,
+      "calories": 230,
+      "protein": "16g",
+      "carbs": "4g",
+      "fat": "16g"
+    },
+    "cuisine": [
+      "Indian"
+    ],
+    "dietaryTags": [
+      "gluten-free",
+      "dairy-free"
+    ],
+    "mealTypes": [
+      "breakfast"
+    ],
+    "region": "south-asian",
+    "source": "curated",
+    "tags": [],
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-09T00:00:00.000Z",
+    "createdAt": "2026-03-09T00:00:00.000Z"
+  }
+]
