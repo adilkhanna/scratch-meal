@@ -2,7 +2,7 @@
 
 import { httpsCallable } from 'firebase/functions';
 import { functions } from '@/lib/firebase';
-import { TimeRange } from '@/types';
+import { TimeRange, GeneratedWeeklyPlan, BreakfastPreference } from '@/types';
 
 export async function extractIngredientsFromPhoto(imageBase64: string): Promise<string[]> {
   const fn = httpsCallable<{ imageBase64: string }, { ingredients: string[] }>(
@@ -25,6 +25,46 @@ export async function generateRecipes(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const data = result.data as any;
   return { recipes: data.recipes || [], pricesAsOf: data.pricesAsOf || null };
+}
+
+export async function generateWeeklyPlan(
+  ingredients: string[],
+  dietaryConditions: string[],
+  familySize: number,
+  lunchCuisines: string[],
+  dinnerCuisines: string[],
+  weeklyBudget: number | null = null,
+  breakfastPreferences: BreakfastPreference[] = [],
+  planDays: number = 3
+): Promise<{ plan: GeneratedWeeklyPlan; pricesAsOf: string | null }> {
+  const fn = httpsCallable(functions, 'generateWeeklyPlan');
+  const result = await fn({
+    ingredients,
+    dietaryConditions,
+    familySize,
+    lunchCuisines,
+    dinnerCuisines,
+    weeklyBudget,
+    breakfastPreferences,
+    planDays,
+  });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const data = result.data as any;
+  return { plan: data.plan, pricesAsOf: data.pricesAsOf || null };
+}
+
+export async function seedRecipeGlossary(): Promise<{ added: number; skipped: number; total: number }> {
+  const fn = httpsCallable(functions, 'seedRecipeGlossary');
+  const result = await fn({});
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return result.data as any;
+}
+
+export async function migrateUserRecipesToGlossary(): Promise<{ added: number; skipped: number; errors: number; totalUsers: number }> {
+  const fn = httpsCallable(functions, 'migrateUserRecipesToGlossary');
+  const result = await fn({});
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return result.data as any;
 }
 
 export async function deleteUserAccount(uid: string): Promise<{ success: boolean }> {

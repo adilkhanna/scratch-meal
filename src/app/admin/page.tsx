@@ -8,7 +8,7 @@ import { doc, getDoc, setDoc, collection, getDocs, query, orderBy, limit } from 
 import { httpsCallable } from 'firebase/functions';
 import { sendPasswordResetEmail } from 'firebase/auth';
 import { db, auth, functions } from '@/lib/firebase';
-import { deleteUserAccount } from '@/lib/firebase-functions';
+import { deleteUserAccount, seedRecipeGlossary, migrateUserRecipesToGlossary } from '@/lib/firebase-functions';
 import { HiOutlineShieldCheck, HiEye, HiEyeOff, HiOutlineUsers, HiOutlineKey, HiOutlineTrash, HiOutlineMail, HiOutlineRefresh } from 'react-icons/hi';
 import MomoLoader from '@/components/ui/MomoLoader';
 
@@ -47,12 +47,17 @@ export default function AdminPage() {
   const [mandiEnabled, setMandiEnabled] = useState(false);
   const [mandiLastFetched, setMandiLastFetched] = useState<string | null>(null);
   const [mandiRefreshing, setMandiRefreshing] = useState(false);
+  const [seedingGlossary, setSeedingGlossary] = useState(false);
+  const [migratingRecipes, setMigratingRecipes] = useState(false);
+  const [glossaryStats, setGlossaryStats] = useState<{ count: number } | null>(null);
 
   const loadConfig = useCallback(async () => {
     try { const configSnap = await getDoc(doc(db, 'admin-config', 'app')); const data = configSnap.data();
       if (data) { setSavedApiKey(data.openaiApiKey || ''); setApiKey(data.openaiApiKey || ''); setSavedSpoonacularKey(data.spoonacularApiKey || ''); setSpoonacularKey(data.spoonacularApiKey || ''); setSavedHfApiKey(data.higgsFieldApiKey || ''); setHfApiKey(data.higgsFieldApiKey || ''); setSavedHfSecret(data.higgsFieldSecret || ''); setHfSecret(data.higgsFieldSecret || ''); setHfEnabled(data.higgsFieldEnabled === true); setSheetsId(data.googleSheetsId || ''); setServiceEmail(data.googleServiceEmail || ''); setPrivateKey(data.googlePrivateKey || ''); setMaintenanceMode(data.maintenanceMode === true); setSavedMandiApiKey(data.mandiApiKey || ''); setMandiApiKey(data.mandiApiKey || ''); setMandiEnabled(data.mandiPricesEnabled === true); }
       // Load mandi metadata
       try { const metaSnap = await getDoc(doc(db, 'mandi-prices', '_metadata')); const meta = metaSnap.data(); if (meta?.lastFetchedAt) { const d = meta.lastFetchedAt.toDate ? meta.lastFetchedAt.toDate() : new Date(meta.lastFetchedAt); setMandiLastFetched(d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })); } } catch { /* metadata may not exist yet */ }
+      // Load glossary count
+      try { const glossarySnap = await getDocs(query(collection(db, 'recipe-glossary'), limit(1000))); setGlossaryStats({ count: glossarySnap.size }); } catch { /* glossary may not exist yet */ }
     } catch (err) { console.error('Failed to load admin config:', err); }
   }, []);
 
@@ -160,6 +165,36 @@ export default function AdminPage() {
       addToast(err instanceof Error ? err.message : 'Failed to refresh mandi prices.', 'error');
     } finally {
       setMandiRefreshing(false);
+    }
+  };
+
+  const handleSeedGlossary = async () => {
+    setSeedingGlossary(true);
+    try {
+      const result = await seedRecipeGlossary();
+      addToast(`Glossary seeded: ${result.added} added, ${result.skipped} skipped (${result.total} total in file).`, 'success');
+      // Refresh count
+      const glossarySnap = await getDocs(query(collection(db, 'recipe-glossary'), limit(1000)));
+      setGlossaryStats({ count: glossarySnap.size });
+    } catch (err) {
+      addToast(err instanceof Error ? err.message : 'Failed to seed glossary.', 'error');
+    } finally {
+      setSeedingGlossary(false);
+    }
+  };
+
+  const handleMigrateRecipes = async () => {
+    setMigratingRecipes(true);
+    try {
+      const result = await migrateUserRecipesToGlossary();
+      addToast(`Migration done: ${result.added} added, ${result.skipped} skipped, ${result.errors} errors (${result.totalUsers} users scanned).`, 'success');
+      // Refresh count
+      const glossarySnap = await getDocs(query(collection(db, 'recipe-glossary'), limit(1000)));
+      setGlossaryStats({ count: glossarySnap.size });
+    } catch (err) {
+      addToast(err instanceof Error ? err.message : 'Failed to migrate recipes.', 'error');
+    } finally {
+      setMigratingRecipes(false);
     }
   };
 
@@ -300,6 +335,48 @@ export default function AdminPage() {
               </div>
             )}
             <input type="password" value={mandiApiKey} onChange={(e) => setMandiApiKey(e.target.value)} placeholder="data.gov.in API key..." className="w-full px-4 py-2.5 rounded-xl border border-neutral-200 bg-white text-sm font-mono text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900/10" />
+          </div>
+        </div>
+        {/* Recipe Glossary */}
+        <div className="border border-neutral-200 rounded-2xl bg-white p-5 space-y-4">
+          <div className="flex items-center gap-2">
+            <HiOutlineKey className="w-5 h-5 text-neutral-500" />
+            <div>
+              <h2 className="text-xs font-medium uppercase tracking-widest text-neutral-900">Recipe Glossary</h2>
+              <p className="text-xs text-neutral-400 font-light mt-0.5">Proprietary recipe database that grows with every user interaction. Powers the Weekly Meal Plan.</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3 flex-wrap">
+            <div className="flex items-center gap-2">
+              <div className={`w-2 h-2 rounded-full ${glossaryStats && glossaryStats.count > 0 ? 'bg-green-500' : 'bg-neutral-300'}`} />
+              <span className="text-xs font-medium text-neutral-700">
+                {glossaryStats ? `${glossaryStats.count} recipes in glossary` : 'Loading...'}
+              </span>
+            </div>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <button
+              onClick={handleSeedGlossary}
+              disabled={seedingGlossary}
+              className="flex items-center gap-1.5 px-4 py-2 text-xs font-medium rounded-full border border-neutral-200 text-neutral-700 hover:bg-black hover:text-white hover:border-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {seedingGlossary ? (
+                <><div className="w-3.5 h-3.5 border-2 border-neutral-300 border-t-neutral-600 rounded-full animate-spin" /> Seeding...</>
+              ) : (
+                'Seed 200 Recipes'
+              )}
+            </button>
+            <button
+              onClick={handleMigrateRecipes}
+              disabled={migratingRecipes}
+              className="flex items-center gap-1.5 px-4 py-2 text-xs font-medium rounded-full border border-neutral-200 text-neutral-700 hover:bg-black hover:text-white hover:border-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {migratingRecipes ? (
+                <><div className="w-3.5 h-3.5 border-2 border-neutral-300 border-t-neutral-600 rounded-full animate-spin" /> Migrating...</>
+              ) : (
+                'Import User Recipes'
+              )}
+            </button>
           </div>
         </div>
         <div className="border border-neutral-200 rounded-2xl bg-white p-5 space-y-4">

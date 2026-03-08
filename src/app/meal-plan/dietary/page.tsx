@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useRecipeFlow } from '@/context/RecipeFlowContext';
+import { useMealPlanFlow } from '@/context/MealPlanFlowContext';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import StepIndicator from '@/components/layout/StepIndicator';
 import StaggeredPageTitle from '@/components/ui/StaggeredPageTitle';
@@ -11,17 +11,17 @@ import { DietaryCategoryType } from '@/types';
 import STEP_THEMES from '@/config/step-themes';
 
 const CATEGORIES: DietaryCategoryType[] = ['allergies', 'intolerances', 'medical', 'religious', 'lifestyle'];
-const theme = STEP_THEMES.dietary;
+const theme = STEP_THEMES.mealplan;
 
-export default function DietaryPage() {
+export default function MealPlanDietaryPage() {
   const router = useRouter();
-  const { ingredients, dietaryConditions, setDietaryConditions, toggleDietaryCondition } = useRecipeFlow();
-  const { value: savedConditions, setValue: saveDietaryConditions, isLoaded } = useLocalStorage<string[]>('smm-dietary', []);
+  const { ingredients, dietaryConditions, setDietaryConditions, toggleDietaryCondition } = useMealPlanFlow();
+  const { value: savedConditions, setValue: saveDietaryConditions, isLoaded } = useLocalStorage<string[]>('smm-mealplan-dietary', []);
   const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set(['allergies']));
 
   useEffect(() => { if (isLoaded && savedConditions.length > 0 && dietaryConditions.length === 0) setDietaryConditions(savedConditions); }, [isLoaded, savedConditions, dietaryConditions.length, setDietaryConditions]);
   useEffect(() => { if (dietaryConditions.length > 0) saveDietaryConditions(dietaryConditions); }, [dietaryConditions, saveDietaryConditions]);
-  useEffect(() => { if (ingredients.length === 0) router.replace('/quick-recipes'); }, [ingredients.length, router]);
+  useEffect(() => { if (ingredients.length === 0) router.replace('/meal-plan'); }, [ingredients.length, router]);
 
   const toggleCategory = (cat: string) => {
     setExpandedCategories((prev) => {
@@ -39,11 +39,9 @@ export default function DietaryPage() {
       className="min-h-screen flex flex-col animate-radial-glow"
       style={{ background: theme.background, backgroundSize: '200% 200%' }}
     >
-
       <div className="max-w-3xl mx-auto px-6 pt-16">
-        <StepIndicator currentStep={2} />
+        <StepIndicator currentStep={2} variant="meal-plan" />
 
-        {/* Title — staggered animation */}
         <div className="text-center mb-8">
           <StaggeredPageTitle
             text="dietary preferences."
@@ -59,11 +57,7 @@ export default function DietaryPage() {
             const isExpanded = expandedCategories.has(cat);
 
             return (
-              <div
-                key={cat}
-                className="glass-panel transition-all duration-300"
-              >
-                {/* Accordion header */}
+              <div key={cat} className="glass-panel transition-all duration-300">
                 <button
                   onClick={() => toggleCategory(cat)}
                   className="w-full flex items-center justify-between px-6 py-5 hover:bg-white/10 transition-colors rounded-[30px]"
@@ -79,7 +73,6 @@ export default function DietaryPage() {
                   </span>
                 </button>
 
-                {/* Expanded items grid */}
                 {isExpanded && (
                   <div className="px-6 pb-5 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-6 gap-y-3">
                     {conditions.map((condition) => {
@@ -90,7 +83,6 @@ export default function DietaryPage() {
                           onClick={() => toggleDietaryCondition(condition.id)}
                           className="flex items-center gap-2 text-left group transition-colors"
                         >
-                          {/* Circle toggle */}
                           <span
                             className={`w-[10px] h-[10px] rounded-full border-[1.5px] shrink-0 transition-all ${
                               isSelected
@@ -126,10 +118,10 @@ export default function DietaryPage() {
           </div>
         )}
 
-        {/* Navigation buttons */}
+        {/* Navigation */}
         <div className="flex items-center justify-center gap-4 mt-8 mb-12">
           <button
-            onClick={() => router.push('/')}
+            onClick={() => router.push('/meal-plan')}
             className="px-8 py-3 text-[14px] font-medium tracking-[1px] uppercase border-[1.5px] border-black rounded-[30px] bg-transparent text-black hover:bg-black hover:text-white transition-all duration-200 inline-flex items-center gap-2"
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -138,7 +130,7 @@ export default function DietaryPage() {
             BACK
           </button>
           <button
-            onClick={() => router.push('/cuisine')}
+            onClick={() => router.push('/meal-plan/cuisine')}
             className="px-8 py-3 text-[14px] font-medium tracking-[1px] uppercase border-[1.5px] border-black rounded-[30px] bg-transparent text-black hover:bg-black hover:text-white transition-all duration-200 inline-flex items-center gap-2"
           >
             CUISINES
@@ -149,7 +141,7 @@ export default function DietaryPage() {
         </div>
       </div>
 
-      {/* Large brand footer — pinned to bottom */}
+      {/* Brand footer */}
       <div className="mt-auto text-center select-none overflow-hidden">
         <span className="font-[family-name:var(--font-brand)] text-[clamp(80px,15vw,225px)] font-normal text-black leading-none tracking-[-0.25px] block">
           GOOD MEALS CO.
