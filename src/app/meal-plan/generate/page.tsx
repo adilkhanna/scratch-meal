@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useMealPlanFlow } from '@/context/MealPlanFlowContext';
 import { useAuth } from '@/context/AuthContext';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
 import { generateWeeklyPlan } from '@/lib/firebase-functions';
 import { saveGeneratedPlan } from '@/lib/weekly-plan-storage';
 import MomoLoader from '@/components/ui/MomoLoader';
@@ -55,6 +57,13 @@ export default function MealPlanGeneratePage() {
 
     (async () => {
       try {
+        // Load calorie target from user profile
+        let dailyCaloricTarget: number | null = null;
+        try {
+          const userSnap = await getDoc(doc(db, 'users', user.uid));
+          dailyCaloricTarget = userSnap.data()?.dailyCaloricTarget || null;
+        } catch { /* proceed without calorie target */ }
+
         const { plan } = await generateWeeklyPlan(
           ingredients,
           dietaryConditions,
@@ -63,7 +72,8 @@ export default function MealPlanGeneratePage() {
           dinnerCuisines,
           weeklyBudget,
           breakfastPreferences,
-          3 // planDays: 3-day test phase
+          3, // planDays: 3-day test phase
+          dailyCaloricTarget
         );
 
         // Save to Firestore
