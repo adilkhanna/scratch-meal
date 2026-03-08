@@ -172,9 +172,17 @@ export const generateWeeklyPlan = onCall(
         dietaryTags: dietaryTags,
       }));
 
-      // Breakfast is GLOSSARY-ONLY — no Spoonacular, no GPT hallucinations.
-      // The breakfast bank has 119 curated recipes from real food sites.
-      const breakfastContext = formatForPrompt(breakfastGlossary.recipes).slice(0, 25);
+      // Breakfast: glossary-first (119 curated recipes). Spoonacular as fallback only
+      // when glossary has fewer than 5 breakfast matches (e.g., niche dietary filters).
+      const glossaryBreakfastFormatted = formatForPrompt(breakfastGlossary.recipes);
+      let breakfastContext = glossaryBreakfastFormatted.slice(0, 25);
+      if (glossaryBreakfastFormatted.length < 5 && spoonacularFormatted.length > 0) {
+        const breakfastSpoonacular = spoonacularFormatted.filter((r: { name: string }) =>
+          SAFE_BREAKFAST_KEYWORDS.some((kw) => r.name.toLowerCase().includes(kw))
+        );
+        breakfastContext = [...glossaryBreakfastFormatted, ...breakfastSpoonacular].slice(0, 25);
+        console.log(`[meal-plan] Breakfast glossary thin (${glossaryBreakfastFormatted.length}), added ${breakfastSpoonacular.length} Spoonacular breakfast items`);
+      }
       const lunchContext = [...formatForPrompt(lunchGlossary.recipes), ...spoonacularFormatted].slice(0, 20);
       const dinnerContext = [...formatForPrompt(dinnerGlossary.recipes), ...spoonacularFormatted].slice(0, 20);
 
