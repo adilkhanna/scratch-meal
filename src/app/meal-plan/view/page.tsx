@@ -216,9 +216,9 @@ function MealPlanViewContent() {
             return (
               <div className="flex items-center justify-center gap-2 mt-3">
                 <div className="flex items-center gap-1.5 px-3 py-1.5 bg-white/40 border-[1.5px] border-black/10 rounded-full">
-                  <span className="text-[10px] tracking-[1px] uppercase text-black/40">Daily</span>
+                  <span className="text-[10px] tracking-[1px] uppercase text-black/40">Per person</span>
                   <span className={`text-[12px] font-medium ${calorieColor(dayCals.total, plan.dailyCaloricTarget!)}`}>
-                    {dayCals.total} / {plan.dailyCaloricTarget} cal
+                    {dayCals.total} / {plan.dailyCaloricTarget} cal/day
                   </span>
                 </div>
               </div>
@@ -273,7 +273,7 @@ function MealPlanViewContent() {
                       <span className={`ml-2 ${plan.dailyCaloricTarget
                         ? calorieColor(activeDay.breakfast.totalCalories, Math.round(plan.dailyCaloricTarget * 0.25))
                         : 'text-black/30'}`}>
-                        ~{activeDay.breakfast.totalCalories} cal
+                        ~{activeDay.breakfast.totalCalories} cal/pp
                         {plan.dailyCaloricTarget && <> / {Math.round(plan.dailyCaloricTarget * 0.25)}</>}
                       </span>
                     )}
@@ -315,7 +315,7 @@ function MealPlanViewContent() {
                       <span className={`ml-2 ${plan.dailyCaloricTarget
                         ? calorieColor(activeDay.lunch.totalCalories, Math.round(plan.dailyCaloricTarget * 0.40))
                         : 'text-black/30'}`}>
-                        ~{activeDay.lunch.totalCalories} cal
+                        ~{activeDay.lunch.totalCalories} cal/pp
                         {plan.dailyCaloricTarget && <> / {Math.round(plan.dailyCaloricTarget * 0.40)}</>}
                       </span>
                     )}
@@ -339,7 +339,7 @@ function MealPlanViewContent() {
                       <span className={`ml-2 ${plan.dailyCaloricTarget
                         ? calorieColor(activeDay.dinner.totalCalories, Math.round(plan.dailyCaloricTarget * 0.35))
                         : 'text-black/30'}`}>
-                        ~{activeDay.dinner.totalCalories} cal
+                        ~{activeDay.dinner.totalCalories} cal/pp
                         {plan.dailyCaloricTarget && <> / {Math.round(plan.dailyCaloricTarget * 0.35)}</>}
                       </span>
                     )}

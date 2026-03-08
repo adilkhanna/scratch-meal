@@ -45,7 +45,9 @@ const MEAL_COMPONENT_SCHEMA = `{
     "fat": "8g"
   },
   "dietaryNotes": "Used oat milk instead of regular milk (lactose intolerant)"
-}`;
+}
+IMPORTANT: "calories" MUST be PER PERSON (per single serving), NOT total for the whole family.
+For example, if a dish feeds 3 people and totals 900 cal, report calories as 300.`;
 
 export function buildBreakfastPrompt(
   ingredients: string[],
@@ -74,7 +76,7 @@ REFERENCE RECIPES (adapt or use directly):
 ${formatRecipeContext(glossaryRecipes)}
 ${calorieTarget ? `
 CALORIE TARGET:
-This breakfast should total approximately ${calorieTarget} calories per person. Ensure the nutritionInfo.calories values across all components add up close to ${calorieTarget}.` : ''}
+This breakfast should total approximately ${calorieTarget} calories PER PERSON (per single serving, not total for the family). All nutritionInfo.calories values must be per person.` : ''}
 
 REQUIREMENTS:
 1. ${isFamily ? 'Generate 5 breakfast OPTIONS that family members can choose from each day. Each option should be a complete breakfast.' : `Generate 5 rotating breakfast templates for ${planDays} days. Most people rotate 4-5 breakfasts.`}
@@ -130,26 +132,28 @@ ${dietaryConditions.length > 0 ? dietaryConditions.map((c) => `- ${c}`).join('\n
 
 CUISINE PREFERENCES FOR LUNCH:
 ${lunchCuisines.length > 0 ? lunchCuisines.join(', ') : 'Diverse (mix of cuisines)'}
+${lunchCuisines.length > 0 ? `CRITICAL: ALL lunch dishes MUST be ${lunchCuisines.join(' or ')} cuisine. Every component (main dish, side, accompaniment) must belong to these cuisines. Do NOT suggest dishes from other cuisines for lunch.` : ''}
 
 BREAKFAST PLAN (for nutritional balancing — ensure lunches complement breakfast nutrition):
 ${breakfastSummary}
 
-REFERENCE RECIPES (you MUST adapt dishes from this list — do NOT invent new dishes):
+REFERENCE RECIPES (adapt dishes from this list, filtered to match cuisine preferences above):
 ${formatRecipeContext(glossaryRecipes)}
 ${calorieTarget ? `
 CALORIE TARGET:
-Each lunch should total approximately ${calorieTarget} calories per person. Ensure component-level nutritionInfo.calories values add up to approximately ${calorieTarget}.` : ''}
+Each lunch should total approximately ${calorieTarget} calories PER PERSON (not total for the family). All nutritionInfo.calories values must be per single serving.` : ''}
 
 REQUIREMENTS:
 1. Generate ${planDays} lunches, one for each day: ${dayNames.join(', ')}
 2. Each lunch should have 3-4 components (main dish, side, accompaniment, optional salad/raita)
-3. You MUST only adapt recipes from the reference list above. Do NOT invent new dishes or use recipes not in the reference list. If you need variety, combine or adapt reference recipes with different available ingredients.
+3. Adapt recipes from the reference list where possible. If reference recipes don't match the required cuisine, use well-known traditional dishes from the specified cuisine(s) instead.
 4. Each meal should be nutritionally balanced (protein + carbs + vegetables)
 5. Vary the dishes across days — don't repeat the same main dish
-6. Scale quantities for ${familySize} ${familySize === 1 ? 'person' : 'people'}
+6. Scale ingredient quantities for ${familySize} ${familySize === 1 ? 'person' : 'people'}, but report nutritionInfo.calories PER PERSON
 7. Include "dietaryNotes" for any substitutions
 8. For Indian meals: include components like dal, sabzi, roti/rice, raita where appropriate
 9. For Western meals: include protein, starch, vegetable components
+${lunchCuisines.length > 0 ? `10. CUISINE RULE: Every single dish must be authentically ${lunchCuisines.join('/')}. This overrides reference recipe suggestions if they don't match the cuisine.` : ''}
 
 Return ONLY a JSON object:
 {
@@ -186,24 +190,26 @@ ${dietaryConditions.length > 0 ? dietaryConditions.map((c) => `- ${c}`).join('\n
 
 CUISINE PREFERENCES FOR DINNER:
 ${dinnerCuisines.length > 0 ? dinnerCuisines.join(', ') : 'Diverse (mix of cuisines)'}
+${dinnerCuisines.length > 0 ? `CRITICAL: ALL dinner dishes MUST be ${dinnerCuisines.join(' or ')} cuisine. Every component must belong to these cuisines. Do NOT suggest dishes from other cuisines for dinner.` : ''}
 
 TODAY'S BREAKFAST & LUNCH (vary dinner to avoid repetition and balance nutrition):
 ${priorMealsSummary}
 
-REFERENCE RECIPES (you MUST adapt dishes from this list — do NOT invent new dishes):
+REFERENCE RECIPES (adapt dishes from this list, filtered to match cuisine preferences above):
 ${formatRecipeContext(glossaryRecipes)}
 ${calorieTarget ? `
 CALORIE TARGET:
-Each dinner should total approximately ${calorieTarget} calories per person. Ensure component-level nutritionInfo.calories values add up to approximately ${calorieTarget}.` : ''}
+Each dinner should total approximately ${calorieTarget} calories PER PERSON (not total for the family). All nutritionInfo.calories values must be per single serving.` : ''}
 
 REQUIREMENTS:
 1. Generate ${planDays} dinners, one for each day: ${dayNames.join(', ')}
 2. Each dinner should have 3-4 components (main dish, side, accompaniment)
-3. You MUST only adapt recipes from the reference list above. Do NOT invent new dishes. Adapt the reference recipes for available ingredients, but the dish identity must match a reference recipe.
+3. Adapt recipes from the reference list where possible. If reference recipes don't match the required cuisine, use well-known traditional dishes from the specified cuisine(s) instead.
 4. Dinners should be lighter than lunches where possible (nutritional balance across the day)
 5. Do NOT repeat lunch dishes — vary proteins and cooking styles
-6. Scale quantities for ${familySize} ${familySize === 1 ? 'person' : 'people'}
+6. Scale ingredient quantities for ${familySize} ${familySize === 1 ? 'person' : 'people'}, but report nutritionInfo.calories PER PERSON
 7. Include "dietaryNotes" for any substitutions
+${dinnerCuisines.length > 0 ? `8. CUISINE RULE: Every single dish must be authentically ${dinnerCuisines.join('/')}. This overrides reference recipe suggestions if they don't match the cuisine.` : ''}
 
 Return ONLY a JSON object:
 {
