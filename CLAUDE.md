@@ -7,7 +7,10 @@ A recipe recommendation web app that takes ingredients users have on hand and ge
 **Repo**: `adilkhanna/scratch-meal` on GitHub
 
 ## Critical Design Principle
-**NO hallucinated recipes.** All recipes MUST be sourced from Spoonacular's real recipe database. GPT-4o is used ONLY to adapt verified Spoonacular recipes to fit the user's ingredients and constraints — never to generate recipes from scratch. If Spoonacular can't provide enough compliant recipes, show an error asking the user to add more ingredients rather than falling back to AI-generated recipes.
+**NO hallucinated recipes.** All recipes MUST be sourced from verified databases:
+- **Quick Recipe flow**: Spoonacular API → GPT-4o adapts verified recipes (never generates from scratch)
+- **Weekly Meal Plan**: Curated recipe glossary (Firestore) is the primary source. Spoonacular supplements when glossary has insufficient matches. GPT-4o uses RAG prompts grounded in these reference recipes — never invents dishes.
+- **Breakfast**: Locked to a curated bank of 119 real recipes from trusted food sites. Spoonacular fallback only when glossary has <5 matches (filtered through safe breakfast keywords). GPT is explicitly forbidden from inventing breakfast recipes.
 
 ## Tech Stack
 - **Frontend**: Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS v4
@@ -52,8 +55,11 @@ src/
 │   ├── time/page.tsx         # Step 4: Cooking time
 │   ├── results/page.tsx      # Step 5: Recipe results
 │   ├── plan/page.tsx         # Meal planner (weekly grid + grocery list)
+│   ├── meal-plan/
+│   │   ├── generate/page.tsx # Weekly meal plan generation (family size, days, cuisines)
+│   │   └── view/page.tsx     # Weekly meal plan viewer (per-person calorie tracking)
 │   ├── history/page.tsx      # Past recipe history
-│   ├── settings/page.tsx     # User settings (pantry basics, account)
+│   ├── settings/page.tsx     # User settings (pantry basics, calorie target, account)
 │   ├── admin/page.tsx        # Admin panel
 │   ├── login/page.tsx        # Auth page
 │   └── layout.tsx            # Root layout (viewport: no zoom)
@@ -89,7 +95,9 @@ src/
 
 functions/src/
 ├── index.ts                  # Cloud Function exports
-├── generateRecipes.ts        # Recipe generation entry point
+├── generateRecipes.ts        # Quick recipe generation entry point
+├── generateWeeklyPlan.ts     # Weekly meal plan generation (breakfast/lunch/dinner)
+├── seedGlossary.ts           # Seed recipe glossary from JSON (admin-only, upsert)
 ├── fetchMandiPrices.ts       # Scheduled + on-demand mandi price fetcher
 ├── extractIngredients.ts     # Photo → ingredients via AI
 ├── chatAgent.ts              # Chat agent function
@@ -100,7 +108,16 @@ functions/src/
     ├── higgsfield-client.ts  # Higgsfield AI image generation (Flux Pro V2 API)
     ├── mandi-client.ts       # data.gov.in Mandi Commodity Prices API client
     ├── ingredient-prices.ts  # Indian ingredient prices (live mandi + hardcoded) + async cost calculator
-    └── recipe-generator.ts   # Core recipe generation (Spoonacular + compliance review + GPT-4o RAG + cost estimation)
+    ├── recipe-generator.ts   # Core recipe generation (Spoonacular + compliance review + GPT-4o RAG + cost estimation)
+    ├── meal-plan-prompts.ts  # GPT-4o prompt builders for weekly plan (breakfast/lunch/dinner)
+    └── glossary-feeder.ts    # Auto-add generated recipes to glossary + health tag filtering
+
+functions/data/
+├── recipe-glossary-seed.json     # 289 curated recipes (master seed file for Firestore)
+├── chunk-breakfast-full.json     # 119 curated breakfast recipes (Indian + International)
+├── generate-breakfast-bank.py    # Python script to regenerate breakfast bank
+├── chunk-*.json                  # Regional recipe chunks (SA, EU, American, East Asian, etc.)
+└── combine-chunks.js             # Script to merge chunks into master seed file
 ```
 
 ## Key Features
@@ -118,6 +135,41 @@ functions/src/
 - **Budget-aware recipes**: Optional weekly budget (₹500–₹5,000) on time page. Cost estimated per serving using live mandi prices (vegetables/grains) + hardcoded prices (proteins/dairy/oils). Recipes sorted within-budget-first, cost badges show "Est. ~₹X/serving" color-coded green/amber/red against budget.
 - **Live mandi prices**: Daily wholesale prices from data.gov.in for ~27 commodities (vegetables, grains, lentils). Scheduled Cloud Function fetches daily at 7 PM IST, caches in Firestore. Admin-toggleable. Freshness badge + disclaimer on results page. Graceful fallback to hardcoded if disabled or API fails.
 - **Lottie loader**: Kawaii animals animation (`public/animations/momo-loader.json`) used across all loading states
+- **Weekly meal plan**: AI-generated 7-day meal plans with breakfast options, daily lunches and dinners. Supports family sizing, per-meal cuisine preferences (separate cuisines for lunch vs dinner), and dietary compliance. Uses curated recipe glossary as primary source with Spoonacular supplementation.
+- **Curated breakfast bank**: 119 real breakfast recipes (62 Indian + 57 International) scraped from indianhealthyrecipes.com, ministryofcurry.com, and loveandlemons.com. Stored in `recipe-glossary-seed.json` and Firestore `recipe-glossary` collection.
+- **Health condition filtering**: Recipes tagged as `fried` or `high-sugar` are automatically excluded when users have conditions like cardiovascular disease, diabetes, hypertension, fatty liver, gout, keto, etc. Implemented via `getExcludedTags()` in `glossary-feeder.ts`.
+- **Per-person calorie tracking**: Optional daily calorie target (set in Settings). Split 25% breakfast / 40% lunch / 35% dinner. View page shows per-person calorie totals with color-coded badges (green/amber/red).
+- **Cuisine enforcement**: Lunch and dinner respect separate cuisine selections. Prompts include CRITICAL cuisine instructions that override reference recipe suggestions when cuisines don't match.
+
+## Weekly Meal Plan Pipeline
+```
+User inputs (family size, days, cuisines, dietary) → Cloud Function (generateWeeklyPlan)
+  → Calculate per-meal calorie budgets (25% breakfast / 40% lunch / 35% dinner)
+  → Determine health-excluded tags (fried, high-sugar based on conditions)
+  → Query recipe-glossary for breakfast recipes (glossary-first, Spoonacular fallback if <5 matches)
+  → Query recipe-glossary for lunch/dinner recipes (filtered by cuisine + dietary tags)
+  → Optionally call Spoonacular for supplemental lunch/dinner recipes
+  → GPT-4o generates breakfast options (RAG: MUST use approved recipes only)
+  → GPT-4o generates daily lunches (RAG: reference recipes + cuisine enforcement)
+  → GPT-4o generates daily dinners (RAG: reference recipes + cuisine enforcement)
+  → Feed generated recipes back to glossary (auto-grows the database)
+  → Return complete plan with per-person calorie tracking
+```
+
+### Recipe Glossary System
+- **Firestore collection**: `recipe-glossary` — master database of curated + generated recipes
+- **Seed file**: `functions/data/recipe-glossary-seed.json` (289 recipes: 119 breakfast + 170 lunch/dinner)
+- **Seeding**: Admin panel → "Seed Glossary" button → calls `seedRecipeGlossary` Cloud Function (upserts, merges new tags into existing entries)
+- **Auto-growth**: After each meal plan generation, new recipes are fed back via `feedToGlossary()` — glossary grows over time, reducing Spoonacular reliance
+- **Tag system**: Recipes have `tags` array (e.g., `["fried"]`, `["high-sugar"]`) for health condition filtering
+- **Query**: `queryGlossaryForPlan()` filters by cuisine, dietary tags, meal type, and excluded health tags
+
+### Breakfast Architecture
+- **Primary source**: Curated glossary (119 real recipes from trusted food sites)
+- **Fallback**: Spoonacular (only when glossary has <5 matches, filtered through `SAFE_BREAKFAST_KEYWORDS`)
+- **Safe keywords**: oatmeal, oats, eggs, toast, smoothie, pancake, waffle, cereal, granola, yogurt, dosa, idli, poha, upma, paratha, porridge, muesli, fruit bowl, chia, avocado toast
+- **Strict rules**: GPT cannot invent breakfast recipes. No heavy lunch/dinner items for breakfast. No weird combinations (e.g., "paneer smoothie", "carrot pancakes with spinach").
+- **Health filtering**: Fried items (Medu Vada, Poori, Bhatura, etc.) excluded for cardiovascular/diabetes patients
 
 ## Responsive Design
 - Viewport: `maximumScale: 1, userScalable: false` (no pinch zoom)
@@ -250,7 +302,15 @@ Higgsfield has TWO API versions. We use **V2** (the official SDK format). Do NOT
 - **Check auth state**: Are you logged in? The bottom nav should show your profile
 - **Firestore quota**: Free tier has daily limits. Check Firebase Console → Firestore → Usage
 
-### 8. Admin panel not loading / can't save
+### 8. Weekly meal plan issues
+- **Breakfast has lunch/dinner items**: Glossary may not be seeded. Go to Admin panel → click "Seed Glossary" to populate the 119 curated breakfast recipes.
+- **Cuisine not respected**: Check Cloud Function logs for `[meal-plan]` — verify cuisine preferences are being passed correctly. The prompt includes CRITICAL cuisine enforcement that overrides reference recipes.
+- **Calorie numbers seem wrong**: Calories are always PER PERSON (per single serving), not total for the family. If a dish feeds 3 and totals 900 cal, it reports 300 cal.
+- **Fried items showing for health conditions**: Ensure recipes are tagged correctly in the glossary. The `getExcludedTags()` function maps conditions → tags (fried, high-sugar). Run "Seed Glossary" to apply latest tags.
+- **GPT hallucinating recipes**: Check that the prompt includes "APPROVED BREAKFAST RECIPES" (not "REFERENCE RECIPES"). Breakfast is locked to glossary-only. Lunch/dinner allow well-known traditional dishes when reference list doesn't match cuisine.
+- **Check function logs**: `firebase functions:log --only generateWeeklyPlan`
+
+### 9. Admin panel not loading / can't save
 - **Admin access**: Only authorized users can access `/admin`. Check Firestore `admin-config/admins` collection
 - **Firestore permissions**: Admin panel reads/writes to `admin-config/app`. Ensure Firestore rules allow this for admin users
 
