@@ -1,0 +1,21 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "recipe-glossary",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "cuisine", "arrayConfig": "CONTAINS" },
+        { "fieldPath": "useCount", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "recipe-glossary",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "mealTypes", "arrayConfig": "CONTAINS" },
+        { "fieldPath": "useCount", "order": "DESCENDING" }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}
