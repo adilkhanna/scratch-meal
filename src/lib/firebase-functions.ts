@@ -28,7 +28,7 @@ export async function generateRecipes(
 }
 
 export async function generateWeeklyPlan(
-  ingredients: string[],
+  ingredients: string[] = [],
   dietaryConditions: string[],
   familySize: number,
   lunchCuisines: string[],

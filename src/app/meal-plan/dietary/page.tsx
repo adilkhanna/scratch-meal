@@ -15,13 +15,12 @@ const theme = STEP_THEMES.mealplan;
 
 export default function MealPlanDietaryPage() {
   const router = useRouter();
-  const { ingredients, dietaryConditions, setDietaryConditions, toggleDietaryCondition } = useMealPlanFlow();
+  const { dietaryConditions, setDietaryConditions, toggleDietaryCondition } = useMealPlanFlow();
   const { value: savedConditions, setValue: saveDietaryConditions, isLoaded } = useLocalStorage<string[]>('smm-mealplan-dietary', []);
   const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set(['allergies']));
 
   useEffect(() => { if (isLoaded && savedConditions.length > 0 && dietaryConditions.length === 0) setDietaryConditions(savedConditions); }, [isLoaded, savedConditions, dietaryConditions.length, setDietaryConditions]);
   useEffect(() => { if (dietaryConditions.length > 0) saveDietaryConditions(dietaryConditions); }, [dietaryConditions, saveDietaryConditions]);
-  useEffect(() => { if (ingredients.length === 0) router.replace('/meal-plan'); }, [ingredients.length, router]);
 
   const toggleCategory = (cat: string) => {
     setExpandedCategories((prev) => {
@@ -31,8 +30,6 @@ export default function MealPlanDietaryPage() {
       return next;
     });
   };
-
-  if (ingredients.length === 0) return null;
 
   return (
     <div

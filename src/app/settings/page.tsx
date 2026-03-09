@@ -185,7 +185,7 @@ export default function SettingsPage() {
           <div className="border-[1.5px] border-black rounded-[30px] bg-white/50 p-5 space-y-4">
             <div>
               <h2 className="text-[14px] font-medium tracking-[1px] uppercase text-neutral-900">Daily Calorie Target</h2>
-              <p className="text-[12px] tracking-[1px] uppercase text-neutral-400 mt-1">Per person. Used when generating weekly meal plans.</p>
+              <p className="text-[12px] tracking-[1px] uppercase text-neutral-400 mt-1">Per person individually. For a family of 4 at 2000 cal, each person&apos;s meals target 2000 cal/day.</p>
             </div>
             <div className="flex flex-wrap gap-2">
               {([

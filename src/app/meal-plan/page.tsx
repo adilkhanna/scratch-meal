@@ -114,8 +114,9 @@ export default function MealPlanStartPage() {
     );
   };
 
+  const [ingredientsOpen, setIngredientsOpen] = useState(ingredients.length > 0);
+
   const handleNext = () => {
-    if (ingredients.length === 0) { addToast('Add at least one ingredient to continue.', 'error'); return; }
     if (hasBogusItems) { addToast('Remove the non-food items (in red) to continue.', 'error'); return; }
     router.push('/meal-plan/dietary');
   };
@@ -135,51 +136,8 @@ export default function MealPlanStartPage() {
           />
         </div>
 
-        {/* Ingredient input row */}
-        <div className="flex flex-wrap items-center gap-3 max-w-xl mx-auto">
-          <input
-            type="text"
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            onKeyDown={handleKeyDown}
-            placeholder="ENTER YOUR INGREDIENTS HERE..."
-            className="flex-1 min-w-0 px-5 py-3 bg-white rounded-full text-sm font-[family-name:var(--font-mono-option)] tracking-[0.5px] uppercase text-black placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-black/10 transition-all"
-          />
-          <button
-            onClick={handleAddItem}
-            className="px-5 py-3 text-[14px] font-medium tracking-[1px] uppercase border-[1.5px] border-black rounded-[30px] bg-transparent text-black hover:bg-black hover:text-white transition-all duration-200 whitespace-nowrap max-sm:w-full"
-          >
-            ADD ITEM
-          </button>
-        </div>
-
-        {/* Photo upload */}
-        <div className="max-w-xl mx-auto mt-6">
-          <PhotoUpload onExtract={handlePhotoExtract} isExtracting={isExtracting} />
-        </div>
-
-        {/* Ingredient tags */}
-        {ingredients.length > 0 && (
-          <div className="animate-fade-in max-w-xl mx-auto mt-6">
-            <div className="flex items-center justify-between mb-3">
-              <h2 className="text-[12px] font-medium uppercase tracking-[1px] text-black/50">Your ingredients ({ingredients.length})</h2>
-              <button onClick={clearIngredients} className="text-[12px] text-black/40 hover:text-red-500 uppercase tracking-[1px] transition-colors">Clear all</button>
-            </div>
-            <div className="flex flex-wrap gap-2 justify-center">
-              {ingredients.map((name) => (
-                <IngredientTag key={name} name={name} onRemove={() => removeIngredient(name)} isBogus={bogusItems.has(name)} />
-              ))}
-            </div>
-            {hasBogusItems && (
-              <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-[30px] animate-fade-in">
-                <p className="text-sm text-red-600 font-medium">Remove the red items above to proceed.</p>
-              </div>
-            )}
-          </div>
-        )}
-
         {/* Family size selector */}
-        <div className="max-w-xl mx-auto mt-10">
+        <div className="max-w-xl mx-auto">
           <div className="glass-panel p-6">
             <h3 className="text-[14px] font-medium tracking-[1px] uppercase text-black mb-4">
               Family Size
@@ -283,6 +241,72 @@ export default function MealPlanStartPage() {
           </div>
         )}
 
+        {/* Optional ingredients (collapsible) */}
+        <div className="max-w-xl mx-auto mt-8">
+          <div className="glass-panel p-6">
+            <button
+              onClick={() => setIngredientsOpen(!ingredientsOpen)}
+              className="w-full flex items-center justify-between"
+            >
+              <h3 className="text-[14px] font-medium tracking-[1px] uppercase text-black">
+                Already Have Ingredients?
+                {ingredients.length > 0 && (
+                  <span className="ml-2 text-black/40">({ingredients.length})</span>
+                )}
+              </h3>
+              <span className="text-[12px] tracking-[1px] uppercase text-black/40">
+                {ingredientsOpen ? 'HIDE' : 'OPTIONAL'}
+              </span>
+            </button>
+
+            {ingredientsOpen && (
+              <div className="mt-4 space-y-4 animate-fade-in">
+                <p className="text-[11px] font-[family-name:var(--font-mono-option)] tracking-[0.5px] uppercase text-black/40">
+                  Add ingredients you already have — the plan will prioritize recipes using them
+                </p>
+
+                <div className="flex flex-wrap items-center gap-3">
+                  <input
+                    type="text"
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                    placeholder="ENTER INGREDIENTS..."
+                    className="flex-1 min-w-0 px-5 py-3 bg-white rounded-full text-sm font-[family-name:var(--font-mono-option)] tracking-[0.5px] uppercase text-black placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-black/10 transition-all"
+                  />
+                  <button
+                    onClick={handleAddItem}
+                    className="px-5 py-3 text-[12px] font-medium tracking-[1px] uppercase border-[1.5px] border-black rounded-[30px] bg-transparent text-black hover:bg-black hover:text-white transition-all duration-200 whitespace-nowrap"
+                  >
+                    ADD
+                  </button>
+                </div>
+
+                <PhotoUpload onExtract={handlePhotoExtract} isExtracting={isExtracting} />
+
+                {ingredients.length > 0 && (
+                  <div>
+                    <div className="flex items-center justify-between mb-3">
+                      <h2 className="text-[12px] font-medium uppercase tracking-[1px] text-black/50">Your ingredients ({ingredients.length})</h2>
+                      <button onClick={clearIngredients} className="text-[12px] text-black/40 hover:text-red-500 uppercase tracking-[1px] transition-colors">Clear all</button>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {ingredients.map((name) => (
+                        <IngredientTag key={name} name={name} onRemove={() => removeIngredient(name)} isBogus={bogusItems.has(name)} />
+                      ))}
+                    </div>
+                    {hasBogusItems && (
+                      <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-[30px] animate-fade-in">
+                        <p className="text-sm text-red-600 font-medium">Remove the red items above to proceed.</p>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+
         {/* Navigation */}
         <div className="flex items-center justify-center gap-4 mt-8 mb-12">
           <button
@@ -296,7 +320,7 @@ export default function MealPlanStartPage() {
           </button>
           <button
             onClick={handleNext}
-            disabled={ingredients.length === 0 || hasBogusItems}
+            disabled={hasBogusItems}
             className="px-8 py-3 text-[14px] font-medium tracking-[1px] uppercase border-[1.5px] border-black rounded-[30px] bg-transparent text-black hover:bg-black hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-200 inline-flex items-center gap-2"
           >
             DIETARY

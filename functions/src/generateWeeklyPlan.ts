@@ -68,10 +68,8 @@ export const generateWeeklyPlan = onCall(
       dailyCaloricTarget,
     } = request.data;
 
-    // Validate inputs
-    if (!ingredients || !Array.isArray(ingredients) || ingredients.length === 0) {
-      throw new HttpsError('invalid-argument', 'ingredients array is required.');
-    }
+    // Validate inputs — ingredients are now optional
+    const ingredientList: string[] = Array.isArray(ingredients) ? ingredients : [];
     const numDays = planDays === 7 ? 7 : 3; // Default to 3 for safety
     const family = Math.max(1, Math.min(10, familySize || 1));
     const dayNames = numDays === 7 ? DAY_NAMES_7 : DAY_NAMES_3;
@@ -84,7 +82,7 @@ export const generateWeeklyPlan = onCall(
       dinner: Math.round(calorieTarget * 0.35),
     } : null;
 
-    console.log(`[meal-plan] Starting: ${ingredients.length} ingredients, ${(dietaryConditions || []).length} dietary, family=${family}, days=${numDays}`);
+    console.log(`[meal-plan] Starting: ${ingredientList.length} ingredients, ${(dietaryConditions || []).length} dietary, family=${family}, days=${numDays}`);
 
     try {
       const { openai, spoonacularKey, mandiPricesEnabled } = await getOpenAIClient();
@@ -130,21 +128,44 @@ export const generateWeeklyPlan = onCall(
       if (needsSpoonacular && spoonacularKey) {
         console.log('[meal-plan] Glossary insufficient, supplementing with Spoonacular...');
         try {
-          const url = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${encodeURIComponent(ingredients.join(','))}&number=20&ranking=1&ignorePantry=true&apiKey=${spoonacularKey}`;
-          const res = await fetch(url);
-          if (res.ok) {
-            const searchResults = await res.json();
-            const topIds = searchResults.slice(0, 15).map((r: { id: number }) => r.id);
+          let searchResults: { id: number }[] = [];
+
+          if (ingredientList.length > 0) {
+            // Ingredient-based search (original flow)
+            const url = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${encodeURIComponent(ingredientList.join(','))}&number=20&ranking=1&ignorePantry=true&apiKey=${spoonacularKey}`;
+            const res = await fetch(url);
+            if (res.ok) {
+              searchResults = await res.json();
+            } else if (res.status === 402) {
+              console.warn('[meal-plan] Spoonacular quota exceeded, proceeding with glossary only');
+            }
+          } else {
+            // No ingredients — use complexSearch with cuisine/diet filters
+            const cuisineParam = allCuisines.length > 0 ? `&cuisine=${encodeURIComponent(allCuisines.join(','))}` : '';
+            const dietParam = dietaryTags.length > 0 ? `&diet=${encodeURIComponent(dietaryTags[0])}` : '';
+            const url = `https://api.spoonacular.com/recipes/complexSearch?number=20${cuisineParam}${dietParam}&addRecipeInformation=true&apiKey=${spoonacularKey}`;
+            const res = await fetch(url);
+            if (res.ok) {
+              const data = await res.json();
+              // complexSearch with addRecipeInformation returns full recipe data
+              spoonacularRecipes = (data.results || []).slice(0, 15);
+              console.log(`[meal-plan] Got ${spoonacularRecipes.length} Spoonacular recipes via complexSearch`);
+            } else if (res.status === 402) {
+              console.warn('[meal-plan] Spoonacular quota exceeded, proceeding with glossary only');
+            }
+          }
+
+          // For ingredient-based search, fetch full details
+          if (searchResults.length > 0 && ingredientList.length > 0) {
+            const topIds = searchResults.slice(0, 15).map((r) => r.id);
             if (topIds.length > 0) {
               const detailsUrl = `https://api.spoonacular.com/recipes/informationBulk?ids=${topIds.join(',')}&apiKey=${spoonacularKey}`;
               const detailsRes = await fetch(detailsUrl);
               if (detailsRes.ok) {
                 spoonacularRecipes = await detailsRes.json();
-                console.log(`[meal-plan] Got ${spoonacularRecipes.length} Spoonacular recipes as supplement`);
+                console.log(`[meal-plan] Got ${spoonacularRecipes.length} Spoonacular recipes via findByIngredients`);
               }
             }
-          } else if (res.status === 402) {
-            console.warn('[meal-plan] Spoonacular quota exceeded, proceeding with glossary only');
           }
         } catch (spoonErr) {
           console.warn('[meal-plan] Spoonacular fetch failed, proceeding with glossary only:', spoonErr);
@@ -189,13 +210,14 @@ export const generateWeeklyPlan = onCall(
       // --- Step 2: Generate breakfast ---
       console.log('[meal-plan] Generating breakfasts...');
       const breakfastPrompt = buildBreakfastPrompt(
-        ingredients,
+        ingredientList,
         dietaryConditions || [],
         family,
         breakfastPreferences || [],
         breakfastContext,
         numDays,
-        calorieBudget?.breakfast || null
+        calorieBudget?.breakfast || null,
+        dayNames
       );
 
       const SYSTEM_MSG = 'You are a professional nutritionist creating meal plans. You MUST only use recipes from the provided reference list — never invent dishes. Always respond with valid JSON.';
@@ -207,7 +229,7 @@ export const generateWeeklyPlan = onCall(
           { role: 'user', content: breakfastPrompt },
         ],
         response_format: { type: 'json_object' },
-        max_tokens: 4000,
+        max_tokens: family > 1 ? 8000 : 4000,
         temperature: 0.4,
       });
 
@@ -218,7 +240,7 @@ export const generateWeeklyPlan = onCall(
 
       // Build breakfast summary for lunch prompt
       const breakfastSummary = family > 1
-        ? `Family has ${(breakfastParsed.breakfastOptions || []).length} breakfast options to choose from (rotating daily).`
+        ? `Family of ${family} has personalized breakfasts each day (varied per member).`
         : (breakfastParsed.breakfastTemplates || []).map((t: { templateLabel: string; assignedDays: string[] }) =>
             `${t.templateLabel}: ${t.assignedDays?.join(', ')}`
           ).join('; ');
@@ -226,7 +248,7 @@ export const generateWeeklyPlan = onCall(
       // --- Step 3: Generate lunches ---
       console.log('[meal-plan] Generating lunches...');
       const lunchPrompt = buildLunchPrompt(
-        ingredients,
+        ingredientList,
         dietaryConditions || [],
         family,
         lunchCuisines || [],
@@ -261,7 +283,7 @@ export const generateWeeklyPlan = onCall(
       // --- Step 4: Generate dinners ---
       console.log('[meal-plan] Generating dinners...');
       const dinnerPrompt = buildDinnerPrompt(
-        ingredients,
+        ingredientList,
         dietaryConditions || [],
         family,
         dinnerCuisines || [],
@@ -297,16 +319,19 @@ export const generateWeeklyPlan = onCall(
       let breakfastByDay: Record<string, any>;
 
       if (isFamily) {
-        // Family mode: same options every day
-        const options = (breakfastParsed.breakfastOptions || []).map((opt: { optionLabel: string; components: unknown[] }) => ({
-          mealType: 'breakfast',
-          components: parseMealComponents(opt.components, family),
-          totalCalories: 0,
-          totalCostPerServing: 0,
-        }));
+        // Family mode: personalized breakfast per member per day
         breakfastByDay = {};
+        const byDay = breakfastParsed.breakfastByDay || {};
         for (const day of dayNames) {
-          breakfastByDay[day] = { options };
+          const memberEntries = byDay[day] || [];
+          const memberBreakfasts = memberEntries.map((mb: { memberName: string; components: unknown[] }) => ({
+            memberName: mb.memberName || 'Member',
+            mealType: 'breakfast',
+            components: parseMealComponents(mb.components, 1), // per-person serving
+            totalCalories: 0,
+            totalCostPerServing: 0,
+          }));
+          breakfastByDay[day] = { memberBreakfasts };
         }
       } else {
         // Individual mode: templates assigned to specific days
@@ -366,7 +391,13 @@ export const generateWeeklyPlan = onCall(
 
       for (const day of dayNames) {
         const breakfast = breakfastByDay[day];
-        if (breakfast?.options) {
+        if (breakfast?.memberBreakfasts) {
+          for (const mb of breakfast.memberBreakfasts) {
+            for (const comp of mb.components) {
+              allComponents.push({ component: comp, mealRef: mb, actualMealType: 'breakfast' });
+            }
+          }
+        } else if (breakfast?.options) {
           for (const opt of breakfast.options) {
             for (const comp of opt.components) {
               allComponents.push({ component: comp, mealRef: opt, actualMealType: 'breakfast' });
@@ -412,7 +443,12 @@ export const generateWeeklyPlan = onCall(
       for (const day of dayNames) {
         const meals = [breakfastByDay[day], lunchByDay[day], dinnerByDay[day]].filter(Boolean);
         for (const meal of meals) {
-          if (meal?.options) {
+          if (meal?.memberBreakfasts) {
+            for (const mb of meal.memberBreakfasts) {
+              mb.totalCalories = mb.components.reduce((sum: number, c: { nutritionInfo?: { calories: number } }) => sum + (c.nutritionInfo?.calories || 0), 0);
+              mb.totalCostPerServing = mb.components.reduce((sum: number, c: { estimatedCostPerServing?: number }) => sum + (c.estimatedCostPerServing || 0), 0);
+            }
+          } else if (meal?.options) {
             for (const opt of meal.options) {
               opt.totalCalories = opt.components.reduce((sum: number, c: { nutritionInfo?: { calories: number } }) => sum + (c.nutritionInfo?.calories || 0), 0);
               opt.totalCostPerServing = opt.components.reduce((sum: number, c: { estimatedCostPerServing?: number }) => sum + (c.estimatedCostPerServing || 0), 0);
@@ -437,7 +473,11 @@ export const generateWeeklyPlan = onCall(
       for (const day of days) {
         const meals = [day.breakfast, day.lunch, day.dinner];
         for (const meal of meals) {
-          if ('options' in meal) {
+          if ('memberBreakfasts' in meal) {
+            // Sum all member breakfast costs
+            const mbCosts = meal.memberBreakfasts.map((mb: { totalCostPerServing?: number }) => mb.totalCostPerServing || 0);
+            totalWeeklyCost += mbCosts.reduce((a: number, b: number) => a + b, 0);
+          } else if ('options' in meal) {
             // Use average of options for weekly cost estimate
             const optCosts = meal.options.map((o: { totalCostPerServing?: number }) => o.totalCostPerServing || 0);
             totalWeeklyCost += optCosts.length > 0 ? optCosts.reduce((a: number, b: number) => a + b, 0) / optCosts.length : 0;
@@ -455,7 +495,7 @@ export const generateWeeklyPlan = onCall(
         weekId,
         familySize: family,
         planDays: numDays,
-        ingredients,
+        ingredients: ingredientList,
         dietaryConditions: dietaryConditions || [],
         lunchCuisines: lunchCuisines || [],
         dinnerCuisines: dinnerCuisines || [],

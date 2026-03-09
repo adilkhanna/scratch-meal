@@ -69,9 +69,9 @@ export async function updateMealComponent(
   if (!day) throw new Error('Day not found');
 
   const meal = day[mealType];
-  if ('options' in meal) {
-    // BreakfastOptions — can't directly swap a single component
-    throw new Error('Use updateBreakfastOption for family breakfast options');
+  if ('options' in meal || 'memberBreakfasts' in meal) {
+    // BreakfastOptions or BreakfastByMember — can't directly swap a single component
+    throw new Error('Use updateBreakfastOption for family breakfast');
   }
 
   if (componentIndex < 0 || componentIndex >= meal.components.length) {
@@ -96,7 +96,7 @@ export async function toggleComponentFavorite(
   if (!day) throw new Error('Day not found');
 
   const meal = day[mealType];
-  if ('options' in meal) {
+  if ('options' in meal || 'memberBreakfasts' in meal) {
     throw new Error('Use specific option index for family breakfast');
   }
 

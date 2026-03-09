@@ -3,6 +3,64 @@
  * Each prompt uses glossary/Spoonacular recipes as RAG context to prevent hallucination.
  */
 
+import * as fs from 'fs';
+import * as path from 'path';
+
+// Load regional ingredients data once at module level
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let regionalData: Record<string, any> = {};
+try {
+  const dataPath = path.join(__dirname, '../../data/regional-ingredients.json');
+  regionalData = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
+} catch {
+  // Gracefully handle missing file (e.g., during tests)
+  regionalData = {};
+}
+
+const CUISINE_TO_REGION: Record<string, string> = {
+  indian: 'south-asian',
+  italian: 'mediterranean',
+  chinese: 'east-asian',
+  japanese: 'east-asian',
+  mexican: 'mexican',
+  thai: 'east-asian',
+  mediterranean: 'mediterranean',
+  american: 'american',
+  korean: 'east-asian',
+  french: 'mediterranean',
+  middle_eastern: 'middle-eastern',
+  vietnamese: 'east-asian',
+};
+
+function getRegionalContext(cuisines: string[]): string {
+  if (cuisines.length === 0) return '';
+  const regions = [...new Set(cuisines.map((c) => CUISINE_TO_REGION[c]).filter(Boolean))];
+  if (regions.length === 0) return '';
+
+  const lines: string[] = [];
+  for (const region of regions) {
+    const data = regionalData[region];
+    if (!data) continue;
+    lines.push(`For ${region.replace('-', ' ')} cuisine:`);
+    if (data.preferred_vegetables?.length) {
+      lines.push(`  PREFER these native vegetables: ${data.preferred_vegetables.slice(0, 20).join(', ')}`);
+    }
+    if (data.preferred_lentils?.length) {
+      lines.push(`  PREFER these lentils/legumes: ${data.preferred_lentils.join(', ')}`);
+    }
+    if (data.avoid?.length) {
+      lines.push(`  AVOID these non-native ingredients in substitutions: ${data.avoid.join(', ')}`);
+    }
+    if (data.note) {
+      lines.push(`  Note: ${data.note}`);
+    }
+  }
+
+  return lines.length > 0
+    ? `\nREGIONAL INGREDIENT GUIDANCE (use native ingredients for authentic recipes, avoid non-native substitutions):\n${lines.join('\n')}\n`
+    : '';
+}
+
 interface RecipeContext {
   name: string;
   description: string;
@@ -27,6 +85,15 @@ function formatRecipeContext(recipes: RecipeContext[]): string {
     .join('\n\n');
 }
 
+function formatIngredientsSection(ingredients: string[]): string {
+  if (ingredients.length === 0) {
+    return `AVAILABLE INGREDIENTS:
+No specific ingredients provided. Use commonly available ingredients appropriate for the selected cuisines and dietary requirements. The grocery list will be generated from the recipes you choose.`;
+  }
+  return `AVAILABLE INGREDIENTS:
+${ingredients.map((i) => `- ${i}`).join('\n')}`;
+}
+
 const MEAL_COMPONENT_SCHEMA = `{
   "name": "Dish Name",
   "description": "Brief 1-sentence description",
@@ -47,7 +114,8 @@ const MEAL_COMPONENT_SCHEMA = `{
   "dietaryNotes": "Used oat milk instead of regular milk (lactose intolerant)"
 }
 IMPORTANT: "calories" MUST be PER PERSON (per single serving), NOT total for the whole family.
-For example, if a dish feeds 3 people and totals 900 cal, report calories as 300.`;
+For example, if a dish is cooked for 4 people and the pot totals 2000 cal, report 500 cal per person.
+REMINDER: Always divide total dish calories by the number of servings to get per-person calories.`;
 
 export function buildBreakfastPrompt(
   ingredients: string[],
@@ -56,27 +124,36 @@ export function buildBreakfastPrompt(
   breakfastPrefs: BreakfastPref[],
   glossaryRecipes: RecipeContext[],
   planDays: number,
-  calorieTarget: number | null
+  calorieTarget: number | null,
+  dayNames: string[] = []
 ): string {
   const isFamily = familySize > 1;
 
+  // Build member names list — use preferences if provided, otherwise default names
+  const memberNames = isFamily
+    ? (breakfastPrefs.length > 0
+        ? breakfastPrefs.map((p) => p.memberName)
+        : Array.from({ length: familySize }, (_, i) => `Person ${i + 1}`))
+    : [];
+
   return `You are a professional nutritionist and chef planning breakfasts for ${isFamily ? `a family of ${familySize}` : 'an individual'}.
 
-AVAILABLE INGREDIENTS:
-${ingredients.map((i) => `- ${i}`).join('\n')}
+${formatIngredientsSection(ingredients)}
 
 DIETARY CONSTRAINTS (MUST FOLLOW ALL):
 ${dietaryConditions.length > 0 ? dietaryConditions.map((c) => `- ${c}`).join('\n') : '- None'}
 
-${isFamily && breakfastPrefs.length > 0 ? `FAMILY MEMBER BREAKFAST PREFERENCES:
-${breakfastPrefs.map((p) => `- ${p.memberName}: prefers ${p.preferences.join(', ')}`).join('\n')}
-IMPORTANT: Each family member's breakfast preferences MUST be reflected in the options. If a member prefers "oats", at least one option must feature oats prominently.` : ''}
+${isFamily ? `FAMILY MEMBERS AND THEIR BREAKFAST PREFERENCES:
+${breakfastPrefs.length > 0
+    ? breakfastPrefs.map((p) => `- ${p.memberName}: prefers ${p.preferences.length > 0 ? p.preferences.join(', ') : 'no specific preference'}`).join('\n')
+    : memberNames.map((n) => `- ${n}: no specific preference`).join('\n')}
+CRITICAL: Each family member MUST get a personalized breakfast matching their preferences. If "${memberNames[0] || 'a member'}" prefers "oats", their breakfast MUST feature oats every day (with variation in preparation).` : ''}
 
 APPROVED BREAKFAST RECIPES (you MUST choose ONLY from this list — do NOT invent new dishes):
 ${formatRecipeContext(glossaryRecipes)}
 ${calorieTarget ? `
 CALORIE TARGET:
-This breakfast should total approximately ${calorieTarget} calories PER PERSON (per single serving, not total for the family). All nutritionInfo.calories values must be per person.` : ''}
+Each person's breakfast should total approximately ${calorieTarget} calories PER PERSON (per single serving). All nutritionInfo.calories values must be per person.` : ''}
 
 STRICT RULES:
 - You MUST only use breakfasts from the APPROVED list above. Do NOT create new dishes.
@@ -85,22 +162,27 @@ STRICT RULES:
 - NEVER suggest heavy lunch/dinner items (curries, biryani, tandoori, pasta, fried rice, heavy meat dishes).
 
 REQUIREMENTS:
-1. ${isFamily ? 'Generate 5 breakfast OPTIONS that family members can choose from each day. Each option should be a complete breakfast.' : `Generate 5 rotating breakfast templates for ${planDays} days. Most people rotate 4-5 breakfasts.`}
-2. Each breakfast should be BALANCED: include protein, carbs, and fruit/nuts where possible.
-3. For dietary constraints, recommend specific variants (e.g., "oat milk" for lactose intolerant, "gluten-free bread" for celiac)
-4. Include a "dietaryNotes" field explaining any substitutions made for dietary compliance
-5. Scale ingredient quantities for ${familySize} ${familySize === 1 ? 'person' : 'people'}, but report nutritionInfo.calories PER PERSON
-6. Each breakfast component should have full ingredients and instructions
+${isFamily ? `1. Generate a PERSONALIZED breakfast for EACH family member for EACH day: ${dayNames.join(', ')}
+2. Each member's breakfast MUST reflect their stated preferences — do NOT give everyone the same breakfast.
+3. Vary breakfasts across days — no member should eat the exact same dish more than 2 days in the plan.
+4. Each breakfast should be a single complete dish (1 component per person per day).` : `1. Generate 5 rotating breakfast templates for ${planDays} days. Most people rotate 4-5 breakfasts.`}
+${isFamily ? '5' : '2'}. Each breakfast should be BALANCED: include protein, carbs, and fruit/nuts where possible.
+${isFamily ? '6' : '3'}. For dietary constraints, recommend specific variants (e.g., "oat milk" for lactose intolerant, "gluten-free bread" for celiac)
+${isFamily ? '7' : '4'}. Include a "dietaryNotes" field explaining any substitutions made for dietary compliance
+${isFamily ? '8' : '5'}. Report nutritionInfo.calories PER PERSON (per single serving)
+${isFamily ? '9' : '6'}. Each breakfast component should have full ingredients and instructions
 
 Return ONLY a JSON object:
 ${isFamily ? `{
-  "breakfastOptions": [
-    {
-      "optionLabel": "Option 1: Oats & Fruit",
-      "components": [MEAL_COMPONENT, ...]
-    }
-  ]
-}` : `{
+  "breakfastByDay": {
+    "${dayNames[0] || 'monday'}": [
+      { "memberName": "${memberNames[0] || 'Person 1'}", "components": [MEAL_COMPONENT] },
+      { "memberName": "${memberNames[1] || 'Person 2'}", "components": [MEAL_COMPONENT] }
+    ],
+    "${dayNames[1] || 'tuesday'}": [...]
+  }
+}
+Generate entries for ALL ${dayNames.length} days and ALL ${memberNames.length || familySize} family members.` : `{
   "breakfastTemplates": [
     {
       "templateLabel": "Template 1: Energizing Start",
@@ -127,8 +209,7 @@ export function buildLunchPrompt(
 ): string {
   return `You are a professional nutritionist and chef planning lunches for ${familySize === 1 ? 'an individual' : `a family of ${familySize}`} for ${planDays} days.
 
-AVAILABLE INGREDIENTS:
-${ingredients.map((i) => `- ${i}`).join('\n')}
+${formatIngredientsSection(ingredients)}
 
 DIETARY CONSTRAINTS (MUST FOLLOW ALL):
 ${dietaryConditions.length > 0 ? dietaryConditions.map((c) => `- ${c}`).join('\n') : '- None'}
@@ -136,7 +217,7 @@ ${dietaryConditions.length > 0 ? dietaryConditions.map((c) => `- ${c}`).join('\n
 CUISINE PREFERENCES FOR LUNCH:
 ${lunchCuisines.length > 0 ? lunchCuisines.join(', ') : 'Diverse (mix of cuisines)'}
 ${lunchCuisines.length > 0 ? `CRITICAL: ALL lunch dishes MUST be ${lunchCuisines.join(' or ')} cuisine. Every component (main dish, side, accompaniment) must belong to these cuisines. Do NOT suggest dishes from other cuisines for lunch.` : ''}
-
+${getRegionalContext(lunchCuisines)}
 BREAKFAST PLAN (for nutritional balancing — ensure lunches complement breakfast nutrition):
 ${breakfastSummary}
 
@@ -185,8 +266,7 @@ export function buildDinnerPrompt(
 ): string {
   return `You are a professional nutritionist and chef planning dinners for ${familySize === 1 ? 'an individual' : `a family of ${familySize}`} for ${planDays} days.
 
-AVAILABLE INGREDIENTS:
-${ingredients.map((i) => `- ${i}`).join('\n')}
+${formatIngredientsSection(ingredients)}
 
 DIETARY CONSTRAINTS (MUST FOLLOW ALL):
 ${dietaryConditions.length > 0 ? dietaryConditions.map((c) => `- ${c}`).join('\n') : '- None'}
@@ -194,7 +274,7 @@ ${dietaryConditions.length > 0 ? dietaryConditions.map((c) => `- ${c}`).join('\n
 CUISINE PREFERENCES FOR DINNER:
 ${dinnerCuisines.length > 0 ? dinnerCuisines.join(', ') : 'Diverse (mix of cuisines)'}
 ${dinnerCuisines.length > 0 ? `CRITICAL: ALL dinner dishes MUST be ${dinnerCuisines.join(' or ')} cuisine. Every component must belong to these cuisines. Do NOT suggest dishes from other cuisines for dinner.` : ''}
-
+${getRegionalContext(dinnerCuisines)}
 TODAY'S BREAKFAST & LUNCH (vary dinner to avoid repetition and balance nutrition):
 ${priorMealsSummary}
 

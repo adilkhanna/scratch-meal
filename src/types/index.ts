@@ -116,15 +116,29 @@ export interface GeneratedMeal {
   totalCostPerServing?: number;
 }
 
-/** For breakfast when family mode: multiple options per day */
+/** For breakfast when family mode (legacy): multiple options per day */
 export interface BreakfastOptions {
   options: GeneratedMeal[]; // 4-5 options
+}
+
+/** Per-member breakfast for family mode (new) */
+export interface MemberBreakfast {
+  memberName: string;
+  mealType: 'breakfast';
+  components: MealComponent[];
+  totalCalories: number;
+  totalCostPerServing?: number;
+}
+
+/** Family breakfast by member (new format) */
+export interface BreakfastByMember {
+  memberBreakfasts: MemberBreakfast[];
 }
 
 /** One day in the generated plan */
 export interface GeneratedDayPlan {
   day: string; // "monday", "tuesday", etc.
-  breakfast: GeneratedMeal | BreakfastOptions;
+  breakfast: GeneratedMeal | BreakfastOptions | BreakfastByMember;
   lunch: GeneratedMeal;
   dinner: GeneratedMeal;
 }
@@ -135,7 +149,7 @@ export interface GeneratedWeeklyPlan {
   weekId: string;
   familySize: number;
   planDays: number; // 3 (test) or 7 (production), admin-configurable
-  ingredients: string[];
+  ingredients?: string[];
   dietaryConditions: string[];
   lunchCuisines: string[];
   dinnerCuisines: string[];
@@ -145,9 +159,16 @@ export interface GeneratedWeeklyPlan {
   createdAt: string;
 }
 
-/** Type guard: check if breakfast is options (family mode) or single meal */
+/** Type guard: check if breakfast is per-member (new family mode) */
+export function isBreakfastByMember(
+  b: GeneratedMeal | BreakfastOptions | BreakfastByMember
+): b is BreakfastByMember {
+  return 'memberBreakfasts' in b;
+}
+
+/** Type guard: check if breakfast is options (legacy family mode) */
 export function isBreakfastOptions(
-  b: GeneratedMeal | BreakfastOptions
+  b: GeneratedMeal | BreakfastOptions | BreakfastByMember
 ): b is BreakfastOptions {
   return 'options' in b;
 }

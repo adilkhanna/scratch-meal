@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useMealPlanFlow } from '@/context/MealPlanFlowContext';
 import StepIndicator from '@/components/layout/StepIndicator';
@@ -13,16 +13,12 @@ const theme = STEP_THEMES.mealplan;
 export default function MealPlanCuisinePage() {
   const router = useRouter();
   const {
-    ingredients, lunchCuisines, dinnerCuisines,
+    lunchCuisines, dinnerCuisines,
     toggleLunchCuisine, setLunchCuisines,
     toggleDinnerCuisine, setDinnerCuisines,
     weeklyBudget, setWeeklyBudget,
   } = useMealPlanFlow();
   const [budgetOpen, setBudgetOpen] = useState(weeklyBudget !== null);
-
-  useEffect(() => { if (ingredients.length === 0) router.replace('/meal-plan'); }, [ingredients.length, router]);
-
-  if (ingredients.length === 0) return null;
 
   const BUDGET_OPTIONS = [500, 1000, 1500, 2000, 3000, 5000];
 

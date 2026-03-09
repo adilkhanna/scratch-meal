@@ -9,7 +9,7 @@ const QUICK_RECIPE_STEPS = [
 ];
 
 const MEAL_PLAN_STEPS = [
-  { label: 'INGREDIENTS', step: 1 },
+  { label: 'SETUP', step: 1 },
   { label: 'DIETARY', step: 2 },
   { label: 'CUISINE', step: 3 },
   { label: 'GENERATE', step: 4 },

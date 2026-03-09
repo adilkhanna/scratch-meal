@@ -51,7 +51,6 @@ export default function MealPlanGeneratePage() {
   // Trigger generation once
   useEffect(() => {
     if (hasStarted.current) return;
-    if (ingredients.length === 0) { router.replace('/meal-plan'); return; }
     if (!user) { router.replace('/login'); return; }
     hasStarted.current = true;
 
@@ -92,7 +91,7 @@ export default function MealPlanGeneratePage() {
     })();
   }, [ingredients, dietaryConditions, familySize, lunchCuisines, dinnerCuisines, weeklyBudget, breakfastPreferences, user, router]);
 
-  if (ingredients.length === 0) return null;
+  if (!user) return null;
 
   return (
     <div

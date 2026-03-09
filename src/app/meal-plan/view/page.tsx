@@ -14,6 +14,7 @@ import {
   GeneratedWeeklyPlan,
   GeneratedDayPlan,
   GeneratedMeal,
+  isBreakfastByMember,
   isBreakfastOptions,
   RecipeIngredient,
   GroceryItem,
@@ -41,9 +42,16 @@ function inferSection(ingredientName: string): GrocerySection {
 }
 
 function getDayCalories(day: GeneratedDayPlan): { breakfast: number; lunch: number; dinner: number; total: number } {
-  const bfCal = isBreakfastOptions(day.breakfast)
-    ? Math.round(day.breakfast.options.reduce((sum, o) => sum + o.totalCalories, 0) / Math.max(day.breakfast.options.length, 1))
-    : day.breakfast.totalCalories;
+  let bfCal = 0;
+  if (isBreakfastByMember(day.breakfast)) {
+    // Average across members for the per-person daily total
+    const memberCals = day.breakfast.memberBreakfasts.map((mb) => mb.totalCalories);
+    bfCal = memberCals.length > 0 ? Math.round(memberCals.reduce((a, b) => a + b, 0) / memberCals.length) : 0;
+  } else if (isBreakfastOptions(day.breakfast)) {
+    bfCal = Math.round(day.breakfast.options.reduce((sum, o) => sum + o.totalCalories, 0) / Math.max(day.breakfast.options.length, 1));
+  } else {
+    bfCal = day.breakfast.totalCalories;
+  }
   return {
     breakfast: bfCal,
     lunch: day.lunch.totalCalories,
@@ -79,10 +87,14 @@ function buildGroceryList(plan: GeneratedWeeklyPlan): GroceryItem[] {
   }
 
   plan.days.forEach((day) => {
-    if (isBreakfastOptions(day.breakfast)) {
+    if (isBreakfastByMember(day.breakfast)) {
+      day.breakfast.memberBreakfasts.forEach((mb) =>
+        mb.components.forEach((c) => c.ingredients.forEach(addIngredient))
+      );
+    } else if (isBreakfastOptions(day.breakfast)) {
       day.breakfast.options.forEach(processMeal);
     } else {
-      processMeal(day.breakfast);
+      processMeal(day.breakfast as GeneratedMeal);
     }
     processMeal(day.lunch);
     processMeal(day.dinner);
@@ -162,7 +174,7 @@ function MealPlanViewContent() {
         if (!prev) return prev;
         const updated = JSON.parse(JSON.stringify(prev)) as GeneratedWeeklyPlan;
         const meal = updated.days[dayIndex][mealType];
-        if (!('options' in meal)) {
+        if ('components' in meal) {
           meal.components[componentIndex].isFavorite = newState;
         }
         return updated;
@@ -210,6 +222,9 @@ function MealPlanViewContent() {
             {plan.totalWeeklyCost != null && (
               <> &middot; Est. {'\u20B9'}{Math.round(plan.totalWeeklyCost).toLocaleString()} total</>
             )}
+          </p>
+          <p className="text-[10px] font-[family-name:var(--font-mono-option)] tracking-[0.5px] uppercase text-black/30 mt-1">
+            All nutrition values are per person, per serving
           </p>
           {plan.dailyCaloricTarget && activeDay && (() => {
             const dayCals = getDayCalories(activeDay);
@@ -269,16 +284,35 @@ function MealPlanViewContent() {
                 <section>
                   <h3 className="text-[12px] font-medium tracking-[1px] uppercase text-black/50 mb-3">
                     Breakfast
-                    {!isBreakfastOptions(activeDay.breakfast) && activeDay.breakfast.totalCalories > 0 && (
-                      <span className={`ml-2 ${plan.dailyCaloricTarget
-                        ? calorieColor(activeDay.breakfast.totalCalories, Math.round(plan.dailyCaloricTarget * 0.25))
-                        : 'text-black/30'}`}>
-                        ~{activeDay.breakfast.totalCalories} cal/pp
-                        {plan.dailyCaloricTarget && <> / {Math.round(plan.dailyCaloricTarget * 0.25)}</>}
-                      </span>
-                    )}
+                    {(() => {
+                      const dayCals = getDayCalories(activeDay);
+                      return dayCals.breakfast > 0 ? (
+                        <span className={`ml-2 ${plan.dailyCaloricTarget
+                          ? calorieColor(dayCals.breakfast, Math.round(plan.dailyCaloricTarget * 0.25))
+                          : 'text-black/30'}`}>
+                          ~{dayCals.breakfast} cal/pp
+                          {plan.dailyCaloricTarget && <> / {Math.round(plan.dailyCaloricTarget * 0.25)}</>}
+                        </span>
+                      ) : null;
+                    })()}
                   </h3>
-                  {isBreakfastOptions(activeDay.breakfast) ? (
+                  {isBreakfastByMember(activeDay.breakfast) ? (
+                    <div className="space-y-4">
+                      {activeDay.breakfast.memberBreakfasts.map((mb, mbIdx) => (
+                        <div key={mbIdx} className="space-y-2">
+                          <p className="text-[11px] font-medium tracking-[1px] uppercase text-black/40">
+                            {mb.memberName}
+                            {mb.totalCalories > 0 && (
+                              <span className="ml-1 text-black/25">~{mb.totalCalories} cal</span>
+                            )}
+                          </p>
+                          {mb.components.map((comp) => (
+                            <MealComponentCard key={comp.id} component={comp} />
+                          ))}
+                        </div>
+                      ))}
+                    </div>
+                  ) : isBreakfastOptions(activeDay.breakfast) ? (
                     <div className="space-y-4">
                       <p className="text-[11px] font-[family-name:var(--font-mono-option)] tracking-[0.5px] uppercase text-black/30 mb-2">
                         {activeDay.breakfast.options.length} options for your family
@@ -296,7 +330,7 @@ function MealPlanViewContent() {
                     </div>
                   ) : (
                     <div className="space-y-2">
-                      {activeDay.breakfast.components.map((comp, compIdx) => (
+                      {(activeDay.breakfast as GeneratedMeal).components.map((comp, compIdx) => (
                         <MealComponentCard
                           key={comp.id}
                           component={comp}

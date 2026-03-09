@@ -1,0 +1,126 @@
+{
+  "south-asian": {
+    "preferred_vegetables": [
+      "okra", "bottle gourd", "bitter gourd", "ridge gourd", "drumstick",
+      "taro", "lotus root", "raw banana", "ash gourd", "pointed gourd",
+      "snake gourd", "ivy gourd", "cluster beans", "fenugreek leaves",
+      "curry leaves", "amaranth leaves", "colocasia", "yam", "green peas",
+      "cauliflower", "potato", "tomato", "onion", "spinach", "eggplant",
+      "cabbage", "capsicum", "carrot", "radish", "turnip", "beetroot",
+      "pumpkin", "sweet potato", "methi", "spring onion", "green chili",
+      "coriander leaves", "mint leaves"
+    ],
+    "preferred_lentils": [
+      "toor dal", "chana dal", "moong dal", "urad dal", "masoor dal",
+      "rajma", "chole", "horse gram", "moth beans", "kulthi",
+      "black eyed peas", "green gram", "split peas"
+    ],
+    "preferred_grains": [
+      "basmati rice", "wheat flour", "millet", "jowar", "bajra",
+      "ragi", "amaranth", "barnyard millet", "semolina", "rice flour",
+      "besan", "maida", "poha"
+    ],
+    "avoid": [
+      "broccoli", "zucchini", "artichoke", "asparagus", "brussels sprouts",
+      "kale", "avocado", "parsnip", "swiss chard", "leek",
+      "bok choy", "bamboo shoots", "water chestnuts", "edamame",
+      "jalapeno", "tomatillo"
+    ],
+    "note": "South Asian cuisines use locally grown vegetables. Broccoli, avocado, and zucchini are Western imports not found in traditional Indian, Pakistani, or Bangladeshi recipes."
+  },
+  "east-asian": {
+    "preferred_vegetables": [
+      "bok choy", "napa cabbage", "daikon", "lotus root", "bamboo shoots",
+      "water chestnuts", "broccoli", "chinese broccoli", "snow peas",
+      "bean sprouts", "chinese eggplant", "taro", "edamame",
+      "shiitake mushroom", "enoki mushroom", "oyster mushroom",
+      "morning glory", "thai basil", "lemongrass", "galangal",
+      "kaffir lime leaves", "thai chili", "green papaya", "bitter melon",
+      "long beans", "baby corn", "water spinach", "choy sum"
+    ],
+    "preferred_grains": [
+      "jasmine rice", "sticky rice", "rice noodles", "glass noodles",
+      "soba noodles", "udon noodles", "ramen noodles", "wonton wrappers",
+      "rice paper"
+    ],
+    "avoid": [
+      "okra", "bottle gourd", "ridge gourd", "drumstick",
+      "toor dal", "chana dal", "urad dal", "ghee",
+      "garam masala", "fenugreek", "asafoetida"
+    ],
+    "note": "East and Southeast Asian cuisines (Chinese, Japanese, Thai, Vietnamese, Korean) use broccoli — Chinese broccoli (kai-lan) is native. Distinct from South Asian ingredients."
+  },
+  "mediterranean": {
+    "preferred_vegetables": [
+      "eggplant", "zucchini", "artichoke", "bell pepper", "tomato",
+      "olive", "fennel", "arugula", "radicchio", "sun-dried tomato",
+      "roasted red pepper", "capers", "asparagus", "leek",
+      "swiss chard", "broad beans", "chickpeas", "white beans",
+      "cannellini beans", "lentils", "spinach", "basil", "oregano",
+      "rosemary", "thyme", "parsley"
+    ],
+    "preferred_grains": [
+      "pasta", "couscous", "farro", "polenta", "risotto rice",
+      "ciabatta", "focaccia", "pita bread", "orzo", "bulgur"
+    ],
+    "avoid": [
+      "bitter gourd", "drumstick", "curry leaves", "toor dal",
+      "garam masala", "asafoetida", "bamboo shoots", "lemongrass",
+      "galangal", "fish sauce", "miso"
+    ],
+    "note": "Mediterranean cuisines (Italian, Greek, Spanish, French) center on olive oil, seasonal vegetables, and wheat-based staples. Zucchini, artichoke, and eggplant are staples."
+  },
+  "middle-eastern": {
+    "preferred_vegetables": [
+      "eggplant", "okra", "tomato", "cucumber", "spinach",
+      "grape leaves", "artichoke", "bell pepper", "onion",
+      "parsley", "mint", "dill", "sumac", "za'atar"
+    ],
+    "preferred_lentils": [
+      "red lentils", "chickpeas", "fava beans", "white beans",
+      "split peas", "black lentils"
+    ],
+    "preferred_grains": [
+      "bulgur", "pita bread", "flatbread", "couscous", "freekeh",
+      "rice", "lavash", "manakish"
+    ],
+    "avoid": [
+      "soy sauce", "miso", "tofu", "bamboo shoots", "rice noodles",
+      "lemongrass", "galangal", "curry leaves", "toor dal",
+      "garam masala"
+    ],
+    "note": "Middle Eastern cuisines share some ingredients with South Asian and Mediterranean but have distinct staples like bulgur, chickpeas, and za'atar."
+  },
+  "mexican": {
+    "preferred_vegetables": [
+      "corn", "poblano pepper", "jalapeno", "tomatillo", "avocado",
+      "nopal cactus", "chayote", "jicama", "epazote", "cilantro",
+      "chipotle", "serrano pepper", "black beans", "pinto beans",
+      "kidney beans", "tomato", "onion", "lime", "squash"
+    ],
+    "preferred_grains": [
+      "corn tortilla", "flour tortilla", "rice", "masa harina",
+      "tostada", "tamale dough"
+    ],
+    "avoid": [
+      "soy sauce", "miso", "curry leaves", "garam masala",
+      "toor dal", "bamboo shoots", "lemongrass", "couscous",
+      "za'atar"
+    ],
+    "note": "Mexican cuisine centers on corn, chili peppers, beans, and New World ingredients. Avocado is native to Mexico."
+  },
+  "american": {
+    "preferred_vegetables": [
+      "corn", "potato", "green beans", "bell pepper", "squash",
+      "sweet potato", "kale", "collard greens", "broccoli",
+      "asparagus", "mushroom", "tomato", "lettuce", "celery",
+      "carrot", "onion", "garlic", "zucchini"
+    ],
+    "preferred_grains": [
+      "cornbread", "biscuits", "pasta", "wheat bread", "rice",
+      "hamburger buns", "sourdough"
+    ],
+    "avoid": [],
+    "note": "American cuisine is broadly inclusive due to immigrant influence. Most global ingredients are readily available. Few strict exclusions."
+  }
+}
