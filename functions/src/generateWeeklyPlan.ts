@@ -1,24 +1,15 @@
 import { onCall, HttpsError } from 'firebase-functions/v2/https';
 import * as admin from 'firebase-admin';
 import { getOpenAIClient } from './shared/openai-client';
-import { buildBreakfastPrompt, buildLunchPrompt, buildDinnerPrompt } from './shared/meal-plan-prompts';
+import { buildLunchPrompt, buildDinnerPrompt } from './shared/meal-plan-prompts';
 import { estimateRecipeCost } from './shared/ingredient-prices';
 import { feedToGlossary, inferRegion, inferDietaryTags, queryGlossaryForPlan, getExcludedTags } from './shared/glossary-feeder';
+import { selectBreakfasts } from './shared/breakfast-selector';
 
 if (!admin.apps.length) admin.initializeApp();
 
 const DAY_NAMES_3 = ['monday', 'tuesday', 'wednesday'];
 const DAY_NAMES_7 = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
-
-// Safe breakfast keywords — only Spoonacular recipes matching these get into breakfast context
-const SAFE_BREAKFAST_KEYWORDS = [
-  'oatmeal', 'porridge', 'oats', 'eggs', 'egg', 'omelette', 'omelet', 'scramble',
-  'toast', 'bread', 'smoothie', 'pancake', 'waffle', 'crepe',
-  'dosa', 'idli', 'poha', 'upma', 'cereal', 'paratha', 'granola',
-  'french toast', 'muesli', 'yogurt', 'curd', 'fruit', 'banana',
-  'uttapam', 'cheela', 'chilla', 'appam', 'puttu', 'sandwich',
-  'avocado', 'bagel', 'muffin', 'cornflakes', 'dhokla', 'sabudana',
-];
 
 interface BreakfastPref {
   memberName: string;
@@ -110,10 +101,23 @@ export const generateWeeklyPlan = onCall(
 
       try {
         [breakfastGlossary, lunchGlossary, dinnerGlossary] = await Promise.all([
-          queryGlossaryForPlan(allCuisines, dietaryTags, ['breakfast'], glossaryMinThreshold, excludeTags),
+          // Breakfast: query WITHOUT cuisine filter — breakfast isn't cuisine-specific
+          queryGlossaryForPlan([], dietaryTags, ['breakfast'], glossaryMinThreshold, excludeTags),
           queryGlossaryForPlan(lunchCuisines || [], dietaryTags, ['lunch'], glossaryMinThreshold, excludeTags),
           queryGlossaryForPlan(dinnerCuisines || [], dietaryTags, ['dinner'], glossaryMinThreshold, excludeTags),
         ]);
+
+        // Widen lunch/dinner queries if too few results (fallback to all cuisines)
+        if (lunchGlossary.recipes.length < 10) {
+          const widerLunch = await queryGlossaryForPlan([], dietaryTags, ['lunch'], glossaryMinThreshold, excludeTags);
+          lunchGlossary = { recipes: [...lunchGlossary.recipes, ...widerLunch.recipes.filter((r) => !lunchGlossary.recipes.some((lr) => lr.name === r.name))], hasEnough: true };
+          console.log(`[meal-plan] Widened lunch query: now ${lunchGlossary.recipes.length} recipes`);
+        }
+        if (dinnerGlossary.recipes.length < 10) {
+          const widerDinner = await queryGlossaryForPlan([], dietaryTags, ['dinner'], glossaryMinThreshold, excludeTags);
+          dinnerGlossary = { recipes: [...dinnerGlossary.recipes, ...widerDinner.recipes.filter((r) => !dinnerGlossary.recipes.some((dr) => dr.name === r.name))], hasEnough: true };
+          console.log(`[meal-plan] Widened dinner query: now ${dinnerGlossary.recipes.length} recipes`);
+        }
       } catch (glossaryErr) {
         console.warn('[meal-plan] Glossary query failed (missing index?), proceeding without glossary:', glossaryErr);
       }
@@ -193,57 +197,32 @@ export const generateWeeklyPlan = onCall(
         dietaryTags: dietaryTags,
       }));
 
-      // Breakfast: glossary-first (119 curated recipes). Spoonacular as fallback only
-      // when glossary has fewer than 5 breakfast matches (e.g., niche dietary filters).
-      const glossaryBreakfastFormatted = formatForPrompt(breakfastGlossary.recipes);
-      let breakfastContext = glossaryBreakfastFormatted.slice(0, 25);
-      if (glossaryBreakfastFormatted.length < 5 && spoonacularFormatted.length > 0) {
-        const breakfastSpoonacular = spoonacularFormatted.filter((r: { name: string }) =>
-          SAFE_BREAKFAST_KEYWORDS.some((kw) => r.name.toLowerCase().includes(kw))
-        );
-        breakfastContext = [...glossaryBreakfastFormatted, ...breakfastSpoonacular].slice(0, 25);
-        console.log(`[meal-plan] Breakfast glossary thin (${glossaryBreakfastFormatted.length}), added ${breakfastSpoonacular.length} Spoonacular breakfast items`);
-      }
-      const lunchContext = [...formatForPrompt(lunchGlossary.recipes), ...spoonacularFormatted].slice(0, 20);
-      const dinnerContext = [...formatForPrompt(dinnerGlossary.recipes), ...spoonacularFormatted].slice(0, 20);
+      // Build recipe context for lunch/dinner prompts (no breakfast — that's code-selected)
+      const lunchContext = [...formatForPrompt(lunchGlossary.recipes), ...spoonacularFormatted].slice(0, 30);
+      const dinnerContext = [...formatForPrompt(dinnerGlossary.recipes), ...spoonacularFormatted].slice(0, 30);
 
-      // --- Step 2: Generate breakfast ---
-      console.log('[meal-plan] Generating breakfasts...');
-      const breakfastPrompt = buildBreakfastPrompt(
-        ingredientList,
-        dietaryConditions || [],
-        family,
+      // --- Step 2: Select breakfast (deterministic, NO GPT) ---
+      console.log(`[meal-plan] Selecting breakfasts from glossary (${breakfastGlossary.recipes.length} recipes)...`);
+      const { breakfastByDay: selectedBreakfasts, breakfastIngredientsByDay } = selectBreakfasts(
+        breakfastGlossary.recipes,
         breakfastPreferences || [],
-        breakfastContext,
+        family,
         numDays,
+        dayNames,
         calorieBudget?.breakfast || null,
-        dayNames
+        weeklyBudget || null
       );
+      console.log('[meal-plan] Breakfasts selected (code-level, no GPT)');
+
+      // Build detailed breakfast summary for lunch/dinner ingredient deduplication
+      const breakfastSummaryLines: string[] = [];
+      for (const day of dayNames) {
+        const ingredients = breakfastIngredientsByDay[day] || [];
+        breakfastSummaryLines.push(`${day}: ${ingredients.slice(0, 8).join(', ')}`);
+      }
+      const breakfastSummary = breakfastSummaryLines.join('\n');
 
       const SYSTEM_MSG = 'You are a professional nutritionist creating meal plans. You MUST only use recipes from the provided reference list — never invent dishes. Always respond with valid JSON.';
-
-      const breakfastResponse = await openai.chat.completions.create({
-        model: 'gpt-4o',
-        messages: [
-          { role: 'system', content: SYSTEM_MSG },
-          { role: 'user', content: breakfastPrompt },
-        ],
-        response_format: { type: 'json_object' },
-        max_tokens: family > 1 ? 8000 : 4000,
-        temperature: 0.4,
-      });
-
-      const breakfastContent = breakfastResponse.choices?.[0]?.message?.content;
-      if (!breakfastContent) throw new Error('No breakfast response from AI');
-      const breakfastParsed = JSON.parse(breakfastContent);
-      console.log('[meal-plan] Breakfasts generated');
-
-      // Build breakfast summary for lunch prompt
-      const breakfastSummary = family > 1
-        ? `Family of ${family} has personalized breakfasts each day (varied per member).`
-        : (breakfastParsed.breakfastTemplates || []).map((t: { templateLabel: string; assignedDays: string[] }) =>
-            `${t.templateLabel}: ${t.assignedDays?.join(', ')}`
-          ).join('; ');
 
       // --- Step 3: Generate lunches ---
       console.log('[meal-plan] Generating lunches...');
@@ -256,7 +235,9 @@ export const generateWeeklyPlan = onCall(
         lunchContext,
         numDays,
         dayNames,
-        calorieBudget?.lunch || null
+        calorieBudget?.lunch || null,
+        breakfastIngredientsByDay,
+        weeklyBudget || null
       );
 
       const lunchResponse = await openai.chat.completions.create({
@@ -275,6 +256,27 @@ export const generateWeeklyPlan = onCall(
       const lunchParsed = JSON.parse(lunchContent);
       console.log('[meal-plan] Lunches generated');
 
+      // Collect lunch ingredients per day for dinner dedup
+      const lunchIngredientsByDay: Record<string, string[]> = {};
+      for (const lunch of (lunchParsed.lunches || [])) {
+        const ingredients = new Set<string>();
+        for (const comp of (lunch.components || [])) {
+          for (const ing of (comp.ingredients || [])) {
+            ingredients.add((ing.name || ing).toString().toLowerCase());
+          }
+        }
+        lunchIngredientsByDay[lunch.day] = [...ingredients];
+      }
+
+      // Build combined prior meals ingredient map
+      const priorIngredientsByDay: Record<string, string[]> = {};
+      for (const day of dayNames) {
+        priorIngredientsByDay[day] = [
+          ...(breakfastIngredientsByDay[day] || []),
+          ...(lunchIngredientsByDay[day] || []),
+        ];
+      }
+
       // Build prior meals summary for dinner prompt
       const lunchSummary = (lunchParsed.lunches || []).map((l: { day: string; components: { name: string }[] }) =>
         `${l.day}: ${(l.components || []).map((c: { name: string }) => c.name).join(', ')}`
@@ -291,7 +293,9 @@ export const generateWeeklyPlan = onCall(
         dinnerContext,
         numDays,
         dayNames,
-        calorieBudget?.dinner || null
+        calorieBudget?.dinner || null,
+        priorIngredientsByDay,
+        weeklyBudget || null
       );
 
       const dinnerResponse = await openai.chat.completions.create({
@@ -312,52 +316,10 @@ export const generateWeeklyPlan = onCall(
 
       // --- Step 5: Assemble the plan ---
       console.log('[meal-plan] Assembling plan...');
-      const isFamily = family > 1;
 
-      // Build breakfast structure
+      // Breakfast is already assembled by selectBreakfasts() — use directly
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      let breakfastByDay: Record<string, any>;
-
-      if (isFamily) {
-        // Family mode: personalized breakfast per member per day
-        breakfastByDay = {};
-        const byDay = breakfastParsed.breakfastByDay || {};
-        for (const day of dayNames) {
-          const memberEntries = byDay[day] || [];
-          const memberBreakfasts = memberEntries.map((mb: { memberName: string; components: unknown[] }) => ({
-            memberName: mb.memberName || 'Member',
-            mealType: 'breakfast',
-            components: parseMealComponents(mb.components, 1), // per-person serving
-            totalCalories: 0,
-            totalCostPerServing: 0,
-          }));
-          breakfastByDay[day] = { memberBreakfasts };
-        }
-      } else {
-        // Individual mode: templates assigned to specific days
-        breakfastByDay = {};
-        const templates = breakfastParsed.breakfastTemplates || [];
-        for (const template of templates) {
-          const components = parseMealComponents(template.components, family);
-          const meal = { mealType: 'breakfast' as const, components, totalCalories: 0, totalCostPerServing: 0 };
-          for (const day of (template.assignedDays || [])) {
-            if (dayNames.includes(day)) {
-              breakfastByDay[day] = meal;
-            }
-          }
-        }
-        // Fill any unassigned days with the first template
-        for (const day of dayNames) {
-          if (!breakfastByDay[day] && templates.length > 0) {
-            breakfastByDay[day] = {
-              mealType: 'breakfast',
-              components: parseMealComponents(templates[0].components, family),
-              totalCalories: 0,
-              totalCostPerServing: 0,
-            };
-          }
-        }
-      }
+      const breakfastByDay: Record<string, any> = selectedBreakfasts;
 
       // Build lunch & dinner by day
       const lunchByDay: Record<string, { mealType: string; components: unknown[]; totalCalories: number; totalCostPerServing: number }> = {};
@@ -507,23 +469,35 @@ export const generateWeeklyPlan = onCall(
 
       console.log(`[meal-plan] Plan assembled: ${numDays} days, ${allComponents.length} components, est. ₹${plan.totalWeeklyCost}/week`);
 
-      // --- Step 8: Feed to glossary (non-blocking) ---
+      // --- Step 8: Feed to glossary (non-blocking, with validation) ---
+      // Only feed recipes whose names match a reference recipe to prevent glossary poisoning
+      const referenceNames = new Set([
+        ...lunchGlossary.recipes.map((r) => r.name.toLowerCase()),
+        ...dinnerGlossary.recipes.map((r) => r.name.toLowerCase()),
+        ...breakfastGlossary.recipes.map((r) => r.name.toLowerCase()),
+        ...spoonacularRecipes.map((r: { title?: string; name?: string }) => (r.title || r.name || '').toLowerCase()),
+      ]);
+
       const region = inferRegion(allCuisines);
-      const glossaryEntries = allComponents.map(({ component, actualMealType }) => ({
-        name: component.name,
-        description: component.description,
-        cookTime: component.cookTime,
-        difficulty: component.difficulty,
-        ingredients: component.ingredients,
-        instructions: component.instructions,
-        tips: component.tips || [],
-        nutritionInfo: component.nutritionInfo,
-        cuisine: allCuisines.length > 0 ? allCuisines : ['Global'],
-        dietaryTags,
-        mealTypes: [actualMealType],
-        region,
-        source: 'spoonacular' as const,
-      }));
+      const glossaryEntries = allComponents
+        .filter(({ component }) => referenceNames.has((component.name || '').toLowerCase()))
+        .map(({ component, actualMealType }) => ({
+          name: component.name,
+          description: component.description,
+          cookTime: component.cookTime,
+          difficulty: component.difficulty,
+          ingredients: component.ingredients,
+          instructions: component.instructions,
+          tips: component.tips || [],
+          nutritionInfo: component.nutritionInfo,
+          cuisine: allCuisines.length > 0 ? allCuisines : ['Global'],
+          dietaryTags,
+          mealTypes: [actualMealType],
+          region,
+          source: 'spoonacular' as const,
+        }));
+
+      console.log(`[meal-plan] Glossary feed: ${glossaryEntries.length} validated of ${allComponents.length} total (rejected ${allComponents.length - glossaryEntries.length} potential hallucinations)`);
 
       // Non-blocking glossary feed
       feedToGlossary(glossaryEntries).catch((err) =>

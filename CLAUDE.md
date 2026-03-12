@@ -9,8 +9,16 @@ A recipe recommendation web app that takes ingredients users have on hand and ge
 ## Critical Design Principle
 **NO hallucinated recipes.** All recipes MUST be sourced from verified databases:
 - **Quick Recipe flow**: Spoonacular API → GPT-4o adapts verified recipes (never generates from scratch)
-- **Weekly Meal Plan**: Curated recipe glossary (Firestore) is the primary source. Spoonacular supplements when glossary has insufficient matches. GPT-4o uses RAG prompts grounded in these reference recipes — never invents dishes.
-- **Breakfast**: Locked to a curated bank of 119 real recipes from trusted food sites. Spoonacular fallback only when glossary has <5 matches (filtered through safe breakfast keywords). GPT is explicitly forbidden from inventing breakfast recipes.
+- **Weekly Meal Plan**: Curated recipe glossary (Firestore) is the primary source. Spoonacular supplements when glossary has insufficient matches. GPT-4o selects from reference recipe lists only — never invents dishes.
+- **Breakfast**: 100% code-selected from curated glossary (129 real recipes). NO GPT involved. Preference matching + variety rotation done in `breakfast-selector.ts`. Zero hallucination risk.
+- **Lunch/Dinner**: GPT-4o selects from glossary + Spoonacular reference lists with strict anti-hallucination rules. Cross-meal ingredient deduplication prevents repeats. Budget-aware filtering excludes expensive ingredients when budget is low.
+
+**ABSOLUTE RULE: GPT must NEVER invent recipes.** All meals must come from:
+1. The curated recipe glossary (Firestore `recipe-glossary` collection) — 289 recipes
+2. Spoonacular verified recipes
+GPT's role is ONLY to select, assign, and minimally adapt recipes from these sources.
+Breakfast is fully code-selected (no GPT). Lunch/dinner use GPT for selection from reference lists only.
+Any recipe fed back to the glossary must be validated against reference names first (no glossary poisoning).
 
 ## Tech Stack
 - **Frontend**: Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS v4
@@ -146,30 +154,40 @@ functions/data/
 User inputs (family size, days, cuisines, dietary) → Cloud Function (generateWeeklyPlan)
   → Calculate per-meal calorie budgets (25% breakfast / 40% lunch / 35% dinner)
   → Determine health-excluded tags (fried, high-sugar based on conditions)
-  → Query recipe-glossary for breakfast recipes (glossary-first, Spoonacular fallback if <5 matches)
-  → Query recipe-glossary for lunch/dinner recipes (filtered by cuisine + dietary tags)
+  → Query recipe-glossary for ALL breakfast recipes (no cuisine filter — breakfast isn't cuisine-specific)
+  → Query recipe-glossary for lunch/dinner (filtered by cuisine + dietary; widen query if < 10 results)
   → Optionally call Spoonacular for supplemental lunch/dinner recipes
-  → GPT-4o generates breakfast options (RAG: MUST use approved recipes only)
-  → GPT-4o generates daily lunches (RAG: reference recipes + cuisine enforcement)
-  → GPT-4o generates daily dinners (RAG: reference recipes + cuisine enforcement)
-  → Feed generated recipes back to glossary (auto-grows the database)
+  → Code-select breakfasts: preference matching + budget filter + variety rotation (NO GPT)
+  → Collect breakfast ingredients per day for cross-meal dedup
+  → GPT-4o selects daily lunches (reference recipes + cuisine + ingredient dedup + budget)
+  → GPT-4o selects daily dinners (reference recipes + cuisine + ingredient dedup + budget)
+  → Feed ONLY validated recipes back to glossary (name must match reference list — prevents poisoning)
   → Return complete plan with per-person calorie tracking
 ```
 
 ### Recipe Glossary System
-- **Firestore collection**: `recipe-glossary` — master database of curated + generated recipes
-- **Seed file**: `functions/data/recipe-glossary-seed.json` (289 recipes: 119 breakfast + 170 lunch/dinner)
+- **Firestore collection**: `recipe-glossary` — master database of curated recipes
+- **Seed file**: `functions/data/recipe-glossary-seed.json` (289 recipes: 129 breakfast + 160 lunch/dinner)
 - **Seeding**: Admin panel → "Seed Glossary" button → calls `seedRecipeGlossary` Cloud Function (upserts, merges new tags into existing entries)
-- **Auto-growth**: After each meal plan generation, new recipes are fed back via `feedToGlossary()` — glossary grows over time, reducing Spoonacular reliance
+- **Anti-poisoning**: `feedToGlossary()` is called after generation but ONLY for recipes whose names match a reference recipe. Hallucinated dish names are rejected.
 - **Tag system**: Recipes have `tags` array (e.g., `["fried"]`, `["high-sugar"]`) for health condition filtering
 - **Query**: `queryGlossaryForPlan()` filters by cuisine, dietary tags, meal type, and excluded health tags
+- **Composite indexes**: `firestore.indexes.json` defines indexes for `cuisine + useCount` and `mealTypes + useCount` — must be deployed
 
-### Breakfast Architecture
-- **Primary source**: Curated glossary (119 real recipes from trusted food sites)
-- **Fallback**: Spoonacular (only when glossary has <5 matches, filtered through `SAFE_BREAKFAST_KEYWORDS`)
-- **Safe keywords**: oatmeal, oats, eggs, toast, smoothie, pancake, waffle, cereal, granola, yogurt, dosa, idli, poha, upma, paratha, porridge, muesli, fruit bowl, chia, avocado toast
-- **Strict rules**: GPT cannot invent breakfast recipes. No heavy lunch/dinner items for breakfast. No weird combinations (e.g., "paneer smoothie", "carrot pancakes with spinach").
+### Breakfast Architecture (NO GPT — fully code-selected)
+- **Source**: Curated glossary only (129 real recipes). No Spoonacular fallback for breakfast.
+- **Selection**: `breakfast-selector.ts` → `selectBreakfasts()` — deterministic, no AI
+- **Preference matching**: User prefs ("oats") → scored against recipe names + ingredients → Overnight Oats, Masala Oats, Oats Idli etc.
+- **Variety**: No same recipe on consecutive days per member. Round-robin for single person.
+- **Budget filtering**: Expensive ingredients (avocado, quinoa, chia, etc.) filtered when budget ≤ ₹1500/week
 - **Health filtering**: Fried items (Medu Vada, Poori, Bhatura, etc.) excluded for cardiovascular/diabetes patients
+- **Cross-meal dedup**: After breakfast selection, ingredient list per day is passed to lunch/dinner prompts
+
+### Budget-Aware Ingredient Filtering
+- **Expensive ingredients**: avocado, quinoa, salmon, prawns, pine nuts, saffron, chia seeds, blueberries, asparagus, artichoke, macadamia, truffle, almond butter, acai
+- **Low budget (≤₹1500/week)**: Breakfast excludes expensive recipes entirely. Lunch/dinner prompts say "AVOID expensive ingredients"
+- **Medium budget (₹1500-3000)**: Lunch/dinner prompts say "LIMIT to max 1-2 uses/week"
+- **High budget or none**: No filtering
 
 ## Responsive Design
 - Viewport: `maximumScale: 1, userScalable: false` (no pinch zoom)
