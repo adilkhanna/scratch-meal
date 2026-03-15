@@ -20,6 +20,14 @@ const chunkOrder = [
   'chunk-east-asian.json',
   'chunk-middle-eastern.json',
   'chunk-global.json',
+  // Expanded cuisine chunks (added March 2026)
+  'chunk-chinese-expanded.json',
+  'chunk-thai-expanded.json',
+  'chunk-mexican-expanded.json',
+  'chunk-korean-expanded.json',
+  'chunk-mediterranean-expanded.json',
+  'chunk-japanese-expanded.json',
+  'chunk-vietnamese-expanded.json',
 ];
 
 let all = [];

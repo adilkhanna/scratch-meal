@@ -136,7 +136,8 @@ const MEAL_COMPONENT_SCHEMA = `{
     "carbs": "30g",
     "fat": "8g"
   },
-  "dietaryNotes": "Used oat milk instead of regular milk (lactose intolerant)"
+  "dietaryNotes": "Used oat milk instead of regular milk (lactose intolerant)",
+  "explanation": "Brief 1-sentence reason this dish was chosen (e.g., 'High-protein paneer pairs with fiber-rich dal for sustained energy; cool raita balances the spicy curry.')"
 }
 IMPORTANT: "calories" MUST be PER PERSON (per single serving), NOT total for the whole family.
 For example, if a dish is cooked for 4 people and the pot totals 2000 cal, report 500 cal per person.
@@ -178,6 +179,23 @@ WHAT MAKES A MEAL APPETIZING:
 EVERY dish name should sound like something you'd order at a good restaurant or find in a popular food blog.`;
 
 
+function formatMemberAdaptations(memberMinorityConditions: Record<string, string[]>): string {
+  const members = Object.entries(memberMinorityConditions).filter(([, conds]) => conds.length > 0);
+  if (members.length === 0) return '';
+  return `
+PER-MEMBER DIETARY ADAPTATIONS:
+The main dishes above satisfy the shared/common dietary conditions.
+The following family members have ADDITIONAL conditions that may conflict with some dishes:
+${members.map(([name, conds]) => `- ${name}: ${conds.join(', ')}`).join('\n')}
+
+RULES FOR MEMBER ALTERNATIVES:
+- For each dish where a member's additional condition DIRECTLY CONFLICTS with a key ingredient (e.g., main uses cream cheese but member is lactose intolerant), provide ONE alternate version in "memberAlts".
+- Only provide an alt when truly needed — if the main dish already works for everyone, do NOT create unnecessary alts.
+- Maximum 1 alt per conflicting dish per member. Keep the alt as close to the original as possible (same cuisine, similar flavor profile).
+- The alt component follows the same MEAL_COMPONENT schema.
+`;
+}
+
 export function buildLunchPrompt(
   ingredients: string[],
   dietaryConditions: string[],
@@ -190,7 +208,8 @@ export function buildLunchPrompt(
   calorieTarget: number | null,
   breakfastIngredientsByDay: Record<string, string[]>,
   weeklyBudget: number | null,
-  dailyCuisineOverrides: Record<string, string> = {} // day → cuisine ID
+  dailyCuisineOverrides: Record<string, string> = {}, // day → cuisine ID
+  memberMinorityConditions: Record<string, string[]> = {} // member → unique conditions
 ): string {
   // Build per-day cuisine instructions
   const hasPerDay = Object.keys(dailyCuisineOverrides).length > 0 && Object.values(dailyCuisineOverrides).some(Boolean);
@@ -235,16 +254,21 @@ REQUIREMENTS:
 9. For Western meals: protein + whole grain + substantial vegetable side. A meal of just pasta or just sandwich is NOT balanced.
 10. For East Asian meals: rice/noodle + protein + 2 vegetable sides (or a soup with vegetables).
 ${lunchCuisines.length > 0 ? `11. CUISINE RULE: Every single dish must be authentically ${lunchCuisines.join('/')}. This overrides reference recipe suggestions if they don't match the cuisine.` : ''}
-
+12. Include a brief "explanation" for EACH component explaining WHY this dish was chosen (nutrition balance, flavor pairing, dietary fit, or cuisine authenticity). Max 1 sentence.
+${formatMemberAdaptations(memberMinorityConditions)}
 Return ONLY a JSON object:
 {
   "lunches": [
     {
       "day": "monday",
-      "components": [MEAL_COMPONENT, MEAL_COMPONENT, ...]
+      "components": [MEAL_COMPONENT, MEAL_COMPONENT, ...]${Object.keys(memberMinorityConditions).length > 0 ? `,
+      "memberAlts": {
+        "0": [{ "memberName": "Name", "conditions": ["condition"], "component": MEAL_COMPONENT }]
+      }` : ''}
     }
   ]
 }
+${Object.keys(memberMinorityConditions).length > 0 ? 'NOTE: "memberAlts" keys are component indices (as strings). Only include memberAlts when a specific component conflicts with a member\'s conditions. Omit memberAlts entirely if no conflicts exist for that day.' : ''}
 
 Each MEAL_COMPONENT follows this exact schema:
 ${MEAL_COMPONENT_SCHEMA}`;
@@ -262,7 +286,8 @@ export function buildDinnerPrompt(
   calorieTarget: number | null,
   priorIngredientsByDay: Record<string, string[]>,
   weeklyBudget: number | null,
-  dailyCuisineOverrides: Record<string, string> = {} // day → cuisine ID
+  dailyCuisineOverrides: Record<string, string> = {}, // day → cuisine ID
+  memberMinorityConditions: Record<string, string[]> = {} // member → unique conditions
 ): string {
   // Build per-day cuisine instructions
   const hasPerDay = Object.keys(dailyCuisineOverrides).length > 0 && Object.values(dailyCuisineOverrides).some(Boolean);
@@ -307,16 +332,21 @@ REQUIREMENTS:
 9. For Western dinners: lean protein + vegetable + light grain. Soup + salad is acceptable for lighter dinners.
 10. For East Asian dinners: rice/noodle + protein + soup + vegetable side.
 ${hasPerDay ? `11. CUISINE RULE: Each day MUST follow its assigned cuisine above. All components for that day must be authentically from the assigned cuisine.` : (dinnerCuisines.length > 0 ? `11. CUISINE RULE: Every single dish must be authentically ${dinnerCuisines.join('/')}. This overrides reference recipe suggestions if they don't match the cuisine.` : '')}
-
+12. Include a brief "explanation" for EACH component explaining WHY this dish was chosen (nutrition balance, flavor pairing, dietary fit, or cuisine authenticity). Max 1 sentence.
+${formatMemberAdaptations(memberMinorityConditions)}
 Return ONLY a JSON object:
 {
   "dinners": [
     {
       "day": "monday",
-      "components": [MEAL_COMPONENT, MEAL_COMPONENT, ...]
+      "components": [MEAL_COMPONENT, MEAL_COMPONENT, ...]${Object.keys(memberMinorityConditions).length > 0 ? `,
+      "memberAlts": {
+        "0": [{ "memberName": "Name", "conditions": ["condition"], "component": MEAL_COMPONENT }]
+      }` : ''}
     }
   ]
 }
+${Object.keys(memberMinorityConditions).length > 0 ? 'NOTE: "memberAlts" keys are component indices (as strings). Only include memberAlts when a specific component conflicts with a member\'s conditions. Omit memberAlts entirely if no conflicts exist for that day.' : ''}
 
 Each MEAL_COMPONENT follows this exact schema:
 ${MEAL_COMPONENT_SCHEMA}`;

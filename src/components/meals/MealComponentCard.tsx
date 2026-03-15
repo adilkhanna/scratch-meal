@@ -10,6 +10,7 @@ interface Props {
 
 export default function MealComponentCard({ component, onToggleFavorite }: Props) {
   const [expanded, setExpanded] = useState(false);
+  const [showExplanation, setShowExplanation] = useState(false);
 
   return (
     <div className="glass-panel transition-all duration-300">
@@ -20,9 +21,25 @@ export default function MealComponentCard({ component, onToggleFavorite }: Props
       >
         <div className="flex items-center gap-3 text-left min-w-0">
           <div className="min-w-0 flex-1">
-            <h4 className="text-[14px] font-medium text-black truncate">
-              {component.name}
-            </h4>
+            <div className="flex items-center gap-1.5">
+              <h4 className="text-[14px] font-medium text-black truncate">
+                {component.name}
+              </h4>
+              {component.explanation && (
+                <button
+                  onClick={(e) => { e.stopPropagation(); setShowExplanation(!showExplanation); }}
+                  className="shrink-0 p-0.5 text-black/30 hover:text-[#0059FF] transition-colors"
+                  aria-label="Why this dish?"
+                  title="Why this dish?"
+                >
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 16v-4" />
+                    <path d="M12 8h.01" />
+                  </svg>
+                </button>
+              )}
+            </div>
             <p className="text-[11px] font-[family-name:var(--font-mono-option)] tracking-[0.5px] uppercase text-black/40 truncate">
               {component.cookTime} &middot; {component.difficulty}
               {component.estimatedCostPerServing != null && (
@@ -56,6 +73,15 @@ export default function MealComponentCard({ component, onToggleFavorite }: Props
           </span>
         </div>
       </button>
+
+      {/* Why this dish? explanation popover */}
+      {showExplanation && component.explanation && (
+        <div className="mx-5 mb-2 px-3 py-2.5 bg-blue-50 border border-blue-200 rounded-2xl animate-fade-in">
+          <p className="text-[12px] text-blue-800 leading-relaxed">
+            <span className="font-medium">Why this dish?</span> {component.explanation}
+          </p>
+        </div>
+      )}
 
       {/* Expanded details */}
       {expanded && (

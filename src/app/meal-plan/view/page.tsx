@@ -356,11 +356,21 @@ function MealPlanViewContent() {
                   </h3>
                   <div className="space-y-2">
                     {activeDay.lunch.components.map((comp, compIdx) => (
-                      <MealComponentCard
-                        key={comp.id}
-                        component={comp}
-                        onToggleFavorite={() => handleToggleFavorite(activeDayIdx, 'lunch', compIdx)}
-                      />
+                      <div key={comp.id}>
+                        <MealComponentCard
+                          component={comp}
+                          onToggleFavorite={() => handleToggleFavorite(activeDayIdx, 'lunch', compIdx)}
+                        />
+                        {/* Per-member alternatives */}
+                        {activeDay.lunch.memberAlts?.[compIdx]?.map((alt, altIdx) => (
+                          <div key={`alt-lunch-${compIdx}-${altIdx}`} className="ml-4 mt-1 border-l-2 border-amber-300 pl-3">
+                            <p className="text-[10px] font-medium tracking-[0.5px] uppercase text-amber-600 mb-1">
+                              Alt for {alt.memberName} ({alt.conditions.join(', ')})
+                            </p>
+                            <MealComponentCard component={alt.component} />
+                          </div>
+                        ))}
+                      </div>
                     ))}
                   </div>
                 </section>
@@ -380,11 +390,21 @@ function MealPlanViewContent() {
                   </h3>
                   <div className="space-y-2">
                     {activeDay.dinner.components.map((comp, compIdx) => (
-                      <MealComponentCard
-                        key={comp.id}
-                        component={comp}
-                        onToggleFavorite={() => handleToggleFavorite(activeDayIdx, 'dinner', compIdx)}
-                      />
+                      <div key={comp.id}>
+                        <MealComponentCard
+                          component={comp}
+                          onToggleFavorite={() => handleToggleFavorite(activeDayIdx, 'dinner', compIdx)}
+                        />
+                        {/* Per-member alternatives */}
+                        {activeDay.dinner.memberAlts?.[compIdx]?.map((alt, altIdx) => (
+                          <div key={`alt-dinner-${compIdx}-${altIdx}`} className="ml-4 mt-1 border-l-2 border-amber-300 pl-3">
+                            <p className="text-[10px] font-medium tracking-[0.5px] uppercase text-amber-600 mb-1">
+                              Alt for {alt.memberName} ({alt.conditions.join(', ')})
+                            </p>
+                            <MealComponentCard component={alt.component} />
+                          </div>
+                        ))}
+                      </div>
                     ))}
                   </div>
                 </section>

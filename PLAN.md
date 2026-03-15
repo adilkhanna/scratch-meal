@@ -30,3 +30,21 @@ Replace hardcoded vegetable/grain prices with real-time wholesale prices from da
 - **Cost optimization**: Suggest ingredient substitutions that reduce cost while maintaining taste
 - **Weekly meal plan costing**: Total cost estimate for a full week's meal plan
 - **Price alerts**: Notify users when commonly used ingredients drop in price
+
+## Phase 4: User Feedback Improvements (March 2026)
+
+### Changes Implemented
+1. **Smart Per-Member Dietary** — Replaced union-of-all-conditions with smart common/minority split. Main dishes satisfy shared conditions; per-member alts only when specific conflicts arise. Max 1 alt per dish.
+2. **"Why This Dish?" Explanations** — Every lunch/dinner component now includes an `explanation` field. Info icon on each dish card shows rationale in a blue popover.
+3. **Glossary Expansion** — Added 150+ real recipes across Chinese (25), Thai (20), Mexican (20), Korean (15), Mediterranean (15), Japanese (15), Vietnamese (10), European (15), American (10). Total glossary: ~440 recipes.
+4. **Regional Eating Patterns** — Created SKILL.md with per-region eating habits. Fixed incorrect mealType tags (e.g., Curd Rice removed from breakfast).
+5. **Per-Day Cuisine Selection** — Users select cuisine per day for lunch and dinner separately. Backend passes per-day overrides to GPT prompts.
+6. **Appetizing Meal Rules** — APPETIZING_RULES constant with flavor pairing principles, banned bland combos, per-cuisine guidelines.
+7. **Balanced Meal Scoring** — Harvard Healthy Eating Plate + Indian thali model, condition-adjusted plate ratios, 0-100 scoring per day.
+
+### Architecture Changes
+- `computeSmartDietary()` in generateWeeklyPlan.ts — common vs minority condition computation
+- `MealComponent.explanation` field — GPT-generated rationale per dish
+- `GeneratedMeal.memberAlts` — per-member alternative dishes keyed by component index
+- `SKILL.md` — Regional eating patterns reference document
+- Glossary expanded from 289 to ~440 recipes with 9 new cuisine-specific chunk files

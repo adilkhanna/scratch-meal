@@ -32,8 +32,83 @@ function parseMealComponents(raw: any[], familySize: number): any[] {
     estimatedCostPerServing: 0, // calculated later
     servingsScaled: familySize,
     dietaryNotes: comp.dietaryNotes || null,
+    explanation: comp.explanation || null,
     isFavorite: false,
   }));
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function parseMemberAlts(rawAlts: any, familySize: number): Record<number, any[]> | undefined {
+  if (!rawAlts || typeof rawAlts !== 'object') return undefined;
+  const result: Record<number, { memberName: string; conditions: string[]; component: unknown }[]> = {};
+  for (const [idx, alts] of Object.entries(rawAlts)) {
+    const compIdx = parseInt(idx);
+    if (isNaN(compIdx) || !Array.isArray(alts)) continue;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    result[compIdx] = (alts as any[]).map((alt) => ({
+      memberName: alt.memberName || 'Unknown',
+      conditions: alt.conditions || [],
+      component: {
+        id: `alt-${Date.now()}-${compIdx}-${Math.random().toString(36).slice(2, 8)}`,
+        name: alt.component?.name || alt.name || 'Alt Dish',
+        description: alt.component?.description || alt.description || '',
+        cookTime: alt.component?.cookTime || alt.cookTime || '30 min',
+        difficulty: alt.component?.difficulty || alt.difficulty || 'Easy',
+        ingredients: alt.component?.ingredients || alt.ingredients || [],
+        instructions: alt.component?.instructions || alt.instructions || [],
+        tips: alt.component?.tips || alt.tips || [],
+        nutritionInfo: alt.component?.nutritionInfo || alt.nutritionInfo || null,
+        estimatedCostPerServing: 0,
+        servingsScaled: familySize,
+        dietaryNotes: alt.component?.dietaryNotes || alt.dietaryNotes || null,
+        explanation: alt.component?.explanation || alt.explanation || null,
+        isFavorite: false,
+      },
+    }));
+  }
+  return Object.keys(result).length > 0 ? result : undefined;
+}
+
+/**
+ * Smart dietary computation: Instead of union of ALL members' conditions,
+ * compute common conditions (>50% of members) and per-member minority conditions.
+ * Common conditions are applied to main dishes; minority conditions trigger per-member alts.
+ */
+function computeSmartDietary(
+  memberMap: Record<string, string[]>,
+  familySize: number
+): { commonConditions: string[]; minorityConditions: Record<string, string[]> } {
+  const allMembers = Object.keys(memberMap);
+  if (allMembers.length <= 1) {
+    return { commonConditions: memberMap[allMembers[0]] || [], minorityConditions: {} };
+  }
+
+  // Count frequency of each condition
+  const conditionCount: Record<string, number> = {};
+  for (const conditions of Object.values(memberMap)) {
+    for (const c of conditions) {
+      conditionCount[c] = (conditionCount[c] || 0) + 1;
+    }
+  }
+
+  // Common = held by >50% of members (threshold at least 1 for families of 2)
+  const threshold = Math.max(1, Math.ceil(familySize / 2));
+  // For family of 2: threshold is 1, so conditions held by either member are "common"
+  // But we want to be smarter: only truly shared conditions are common
+  // Use strict majority: > half (not >=)
+  const strictThreshold = familySize <= 2 ? 2 : Math.ceil(familySize / 2);
+  const common = Object.entries(conditionCount)
+    .filter(([, count]) => count >= strictThreshold)
+    .map(([cond]) => cond);
+
+  // Minority = per-member conditions NOT in common
+  const minority: Record<string, string[]> = {};
+  for (const [name, conditions] of Object.entries(memberMap)) {
+    const unique = conditions.filter((c) => !common.includes(c));
+    if (unique.length > 0) minority[name] = unique;
+  }
+
+  return { commonConditions: common, minorityConditions: minority };
 }
 
 export const generateWeeklyPlan = onCall(
@@ -82,7 +157,23 @@ export const generateWeeklyPlan = onCall(
       dinner: Math.round(calorieTarget * 0.35),
     } : null;
 
-    console.log(`[meal-plan] Starting: ${ingredientList.length} ingredients, ${(dietaryConditions || []).length} dietary, family=${family}, days=${numDays}, perDayCuisines=${Object.keys(dailyCuisineMap).length > 0}`);
+    // Compute smart dietary: common vs minority conditions
+    const hasPerMemberDietary = Object.keys(memberDietaryMap).length > 0;
+    const { commonConditions, minorityConditions } = hasPerMemberDietary
+      ? computeSmartDietary(memberDietaryMap, family)
+      : { commonConditions: dietaryConditions || [], minorityConditions: {} as Record<string, string[]> };
+
+    // Use common conditions for shared meals (not union of all)
+    const sharedDietaryConditions = commonConditions;
+
+    console.log(`[meal-plan] Starting: ${ingredientList.length} ingredients, ${sharedDietaryConditions.length} shared dietary (was ${(dietaryConditions || []).length} union), family=${family}, days=${numDays}, perDayCuisines=${Object.keys(dailyCuisineMap).length > 0}`);
+    console.log(`[meal-plan] Smart dietary — common: [${commonConditions.join(', ')}], minority: ${JSON.stringify(minorityConditions)}`);
+    console.log(`[meal-plan] Inputs — dietary: [${(dietaryConditions || []).join(', ')}]`);
+    console.log(`[meal-plan] Inputs — lunchCuisines: [${(lunchCuisines || []).join(', ')}], dinnerCuisines: [${(dinnerCuisines || []).join(', ')}]`);
+    console.log(`[meal-plan] Inputs — dailyCuisines: ${JSON.stringify(dailyCuisineMap)}`);
+    console.log(`[meal-plan] Inputs — memberDietary: ${JSON.stringify(memberDietaryMap)}`);
+    console.log(`[meal-plan] Inputs — breakfastPrefs: ${JSON.stringify(breakfastPreferences || [])}`);
+    console.log(`[meal-plan] Inputs — budget: ${weeklyBudget || 'none'}, calories: ${dailyCaloricTarget || 'none'}`);
 
     try {
       const { openai, spoonacularKey, mandiPricesEnabled } = await getOpenAIClient();
@@ -95,10 +186,13 @@ export const generateWeeklyPlan = onCall(
       // Collect all cuisines from per-day map + legacy global arrays
       const dailyCuisineValues = Object.values(dailyCuisineMap).flatMap((dc) => [dc.lunch, dc.dinner].filter(Boolean));
       const allCuisines = [...new Set([...(lunchCuisines || []), ...(dinnerCuisines || []), ...dailyCuisineValues])];
-      const dietaryTags = inferDietaryTags(dietaryConditions || []);
+      // Use ALL conditions (union) for safety-critical exclusions (fried, high-sugar)
+      // but use sharedDietaryConditions for recipe filtering (less restrictive)
+      const allConditionsUnion = dietaryConditions || [];
+      const dietaryTags = inferDietaryTags(sharedDietaryConditions);
 
-      // Determine health-condition tags to exclude (e.g., fried for cardiovascular)
-      const excludeTags = getExcludedTags(dietaryConditions || []);
+      // Determine health-condition tags to exclude — use FULL union for safety
+      const excludeTags = getExcludedTags(allConditionsUnion);
       if (excludeTags.length > 0) {
         console.log(`[meal-plan] Health conditions detected — excluding tags: ${excludeTags.join(', ')}`);
       }
@@ -248,7 +342,7 @@ export const generateWeeklyPlan = onCall(
       console.log('[meal-plan] Generating lunches...');
       const lunchPrompt = buildLunchPrompt(
         ingredientList,
-        dietaryConditions || [],
+        sharedDietaryConditions,
         family,
         lunchCuisines || [],
         breakfastSummary,
@@ -258,7 +352,8 @@ export const generateWeeklyPlan = onCall(
         calorieBudget?.lunch || null,
         breakfastIngredientsByDay,
         weeklyBudget || null,
-        lunchCuisineByDay
+        lunchCuisineByDay,
+        minorityConditions
       );
 
       const lunchResponse = await openai.chat.completions.create({
@@ -268,7 +363,7 @@ export const generateWeeklyPlan = onCall(
           { role: 'user', content: lunchPrompt },
         ],
         response_format: { type: 'json_object' },
-        max_tokens: 6000,
+        max_tokens: 8000,
         temperature: 0.4,
       });
 
@@ -307,7 +402,7 @@ export const generateWeeklyPlan = onCall(
       console.log('[meal-plan] Generating dinners...');
       const dinnerPrompt = buildDinnerPrompt(
         ingredientList,
-        dietaryConditions || [],
+        sharedDietaryConditions,
         family,
         dinnerCuisines || [],
         `Breakfast: ${breakfastSummary}\nLunch: ${lunchSummary}`,
@@ -317,7 +412,8 @@ export const generateWeeklyPlan = onCall(
         calorieBudget?.dinner || null,
         priorIngredientsByDay,
         weeklyBudget || null,
-        dinnerCuisineByDay
+        dinnerCuisineByDay,
+        minorityConditions
       );
 
       const dinnerResponse = await openai.chat.completions.create({
@@ -344,23 +440,27 @@ export const generateWeeklyPlan = onCall(
       const breakfastByDay: Record<string, any> = selectedBreakfasts;
 
       // Build lunch & dinner by day
-      const lunchByDay: Record<string, { mealType: string; components: unknown[]; totalCalories: number; totalCostPerServing: number }> = {};
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const lunchByDay: Record<string, { mealType: string; components: unknown[]; totalCalories: number; totalCostPerServing: number; memberAlts?: Record<number, any[]> }> = {};
       for (const lunch of (lunchParsed.lunches || [])) {
         lunchByDay[lunch.day] = {
           mealType: 'lunch',
           components: parseMealComponents(lunch.components, family),
           totalCalories: 0,
           totalCostPerServing: 0,
+          memberAlts: parseMemberAlts(lunch.memberAlts, family),
         };
       }
 
-      const dinnerByDay: Record<string, { mealType: string; components: unknown[]; totalCalories: number; totalCostPerServing: number }> = {};
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const dinnerByDay: Record<string, { mealType: string; components: unknown[]; totalCalories: number; totalCostPerServing: number; memberAlts?: Record<number, any[]> }> = {};
       for (const dinner of (dinnerParsed.dinners || [])) {
         dinnerByDay[dinner.day] = {
           mealType: 'dinner',
           components: parseMealComponents(dinner.components, family),
           totalCalories: 0,
           totalCostPerServing: 0,
+          memberAlts: parseMemberAlts(dinner.memberAlts, family),
         };
       }
 
@@ -396,10 +496,26 @@ export const generateWeeklyPlan = onCall(
           for (const comp of lunchByDay[day].components) {
             allComponents.push({ component: comp, mealRef: lunchByDay[day], actualMealType: 'lunch' });
           }
+          // Also cost-estimate memberAlts for lunch
+          if (lunchByDay[day].memberAlts) {
+            for (const alts of Object.values(lunchByDay[day].memberAlts!)) {
+              for (const alt of alts) {
+                allComponents.push({ component: alt.component, mealRef: lunchByDay[day], actualMealType: 'lunch' });
+              }
+            }
+          }
         }
         if (dinnerByDay[day]) {
           for (const comp of dinnerByDay[day].components) {
             allComponents.push({ component: comp, mealRef: dinnerByDay[day], actualMealType: 'dinner' });
+          }
+          // Also cost-estimate memberAlts for dinner
+          if (dinnerByDay[day].memberAlts) {
+            for (const alts of Object.values(dinnerByDay[day].memberAlts!)) {
+              for (const alt of alts) {
+                allComponents.push({ component: alt.component, mealRef: dinnerByDay[day], actualMealType: 'dinner' });
+              }
+            }
           }
         }
       }

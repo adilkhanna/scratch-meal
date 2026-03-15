@@ -14,7 +14,7 @@ A recipe recommendation web app that takes ingredients users have on hand and ge
 - **Lunch/Dinner**: GPT-4o selects from glossary + Spoonacular reference lists with strict anti-hallucination rules + appetizing pairing rules. Cross-meal ingredient deduplication prevents repeats. Budget-aware filtering excludes expensive ingredients when budget is low. Per-day cuisine enforcement ensures each day follows its assigned cuisine.
 
 **ABSOLUTE RULE: GPT must NEVER invent recipes.** All meals must come from:
-1. The curated recipe glossary (Firestore `recipe-glossary` collection) — 289 recipes
+1. The curated recipe glossary (Firestore `recipe-glossary` collection) — 396 recipes
 2. Spoonacular verified recipes
 GPT's role is ONLY to select, assign, and minimally adapt recipes from these sources.
 Breakfast is fully code-selected (no GPT). Lunch/dinner use GPT for selection from reference lists only.
@@ -126,7 +126,7 @@ functions/src/
     └── glossary-feeder.ts    # Auto-add generated recipes to glossary + health tag filtering
 
 functions/data/
-├── recipe-glossary-seed.json     # 289 curated recipes (master seed file for Firestore)
+├── recipe-glossary-seed.json     # 396 curated recipes (master seed file for Firestore)
 ├── chunk-breakfast-full.json     # 119 curated breakfast recipes (Indian + International)
 ├── generate-breakfast-bank.py    # Python script to regenerate breakfast bank
 ├── chunk-*.json                  # Regional recipe chunks (SA, EU, American, East Asian, etc.)
@@ -149,7 +149,8 @@ functions/data/
 - **Live mandi prices**: Daily wholesale prices from data.gov.in for ~27 commodities (vegetables, grains, lentils). Scheduled Cloud Function fetches daily at 7 PM IST, caches in Firestore. Admin-toggleable. Freshness badge + disclaimer on results page. Graceful fallback to hardcoded if disabled or API fails.
 - **Lottie loader**: Kawaii animals animation (`public/animations/momo-loader.json`) used across all loading states
 - **Weekly meal plan**: AI-generated 3 or 7-day meal plans with breakfast options, daily lunches and dinners. Supports family sizing, per-day cuisine preferences (separate cuisines for lunch vs dinner per day), per-member dietary conditions, and balanced meal scoring. Uses curated recipe glossary as primary source with Spoonacular supplementation.
-- **Per-member dietary conditions**: Each family member can have different dietary/health conditions. UI shows per-member tabs on dietary page. Backend computes union of all members' conditions for shared meals (lunch/dinner) while respecting individual needs.
+- **Smart per-member dietary**: Each family member can have different dietary/health conditions. UI shows per-member tabs on dietary page. Backend uses `computeSmartDietary()` to split conditions into common (shared by majority) vs minority (unique to individuals). Main dishes satisfy common conditions only; GPT provides max 1 alt per conflicting dish for minority-condition members. This replaces the old union-of-all approach which was too restrictive.
+- **"Why this dish?" explanations**: Every lunch/dinner component includes an `explanation` field from GPT explaining why it was chosen (nutrition balance, flavor pairing, dietary fit). An ℹ️ icon on each `MealComponentCard` toggles a blue popover showing the explanation. Breakfast components (code-selected) don't have explanations.
 - **Per-day cuisine selection**: Users select cuisine per day for lunch and dinner (not global). UI shows day × meal grid with dropdowns for each. Quick-fill buttons for "All Indian", "All Italian", etc. Backend passes `dailyCuisineOverrides` to prompt builders.
 - **Appetizing meal rules**: `APPETIZING_RULES` in prompts enforce flavor pairing principles, ban bland combos (e.g. "brown rice + boiled broccoli"), and include per-cuisine guidelines (Indian thali, Japanese ichiju-sansai, Mediterranean, Mexican, Western).
 - **Balanced meal scoring**: Harvard Healthy Eating Plate (½ veg+fruit, ¼ grain, ¼ protein) + Indian thali model. Per-day balance scores (0-100, A/B/C/D grades). Health-condition-adjusted plate ratios (diabetes→more protein/less grain, keto→minimal grain, cardiovascular→more veg, CKD→moderate protein). Implemented in `balance-rules.ts`.
@@ -180,7 +181,7 @@ User inputs (family size, days, per-day cuisines, per-member dietary, budget) �
 
 ### Recipe Glossary System
 - **Firestore collection**: `recipe-glossary` — master database of curated recipes
-- **Seed file**: `functions/data/recipe-glossary-seed.json` (289 recipes: 129 breakfast + 160 lunch/dinner)
+- **Seed file**: `functions/data/recipe-glossary-seed.json` (396 recipes: 129 breakfast + 160 original lunch/dinner + 107 expanded international recipes)
 - **Seeding**: Admin panel → "Seed Glossary" button → calls `seedRecipeGlossary` Cloud Function (upserts, merges new tags into existing entries)
 - **Anti-poisoning**: `feedToGlossary()` is called after generation but ONLY for recipes whose names match a reference recipe. Hallucinated dish names are rejected.
 - **Tag system**: Recipes have `tags` array (e.g., `["fried"]`, `["high-sugar"]`) for health condition filtering
@@ -199,11 +200,23 @@ User inputs (family size, days, per-day cuisines, per-member dietary, budget) �
 - **Health filtering**: Fried items (Medu Vada, Poori, Bhatura, etc.) excluded for cardiovascular/diabetes patients
 - **Cross-meal dedup**: After breakfast selection, ingredient list per day is passed to lunch/dinner prompts
 
-### Per-Member Dietary System
+### Smart Per-Member Dietary System
 - **Frontend**: `meal-plan/dietary/page.tsx` — per-member tabs when familySize > 1, "Copy from [member]" quick action
 - **Context**: `MealPlanFlowContext.tsx` — `memberDietaryConditions: Record<string, string[]>`, auto-computes union for shared meals
-- **Backend**: `generateWeeklyPlan.ts` accepts `memberDietaryConditions`, computes union for lunch/dinner (shared dishes), individual conditions for per-member breakfast selection
-- **Union logic**: If Person 1 is lactose intolerant and Person 2 has diabetes, shared lunch/dinner respects BOTH conditions
+- **Backend**: `generateWeeklyPlan.ts` uses `computeSmartDietary()` — splits conditions into common (majority-shared) vs minority (per-member unique)
+- **Smart logic**: Main dishes satisfy common conditions only. GPT provides max 1 alt per conflicting dish for minority-condition members via `memberAlts` field. Safety-critical exclusions (fried, high-sugar) use full union.
+- **Frontend alts**: `meal-plan/view/page.tsx` renders alt dishes below main components with amber left-border accent and "Alt for [name] ([conditions])" label
+
+### "Why This Dish?" Explanation System
+- **GPT prompt**: `MEAL_COMPONENT_SCHEMA` includes `explanation` field — GPT explains why each dish was chosen
+- **Backend**: `parseMealComponents()` extracts `explanation` from GPT response
+- **Frontend**: `MealComponentCard.tsx` shows ℹ️ icon next to dish name; click toggles blue popover with explanation
+- **Breakfast**: No explanations (code-selected) — ℹ️ icon doesn't appear
+
+### Regional Eating Patterns (SKILL.md)
+- **Reference file**: `/SKILL.md` — documents authentic eating habits per region (Indian, Chinese, Japanese, Korean, Thai, Vietnamese, American, European, Mediterranean, Mexican, African, Russian, South American, Middle Eastern)
+- **Common mistakes**: Curd rice ≠ breakfast, biryani ≠ breakfast, congee = breakfast in China not dinner
+- **Glossary maintenance**: Staleness checks, auto-refresh protocol, trusted recipe sources, anti-poisoning rules
 
 ### Per-Day Cuisine System
 - **Frontend**: `meal-plan/cuisine/page.tsx` — plan duration selector (3/7 days), day × (lunch dropdown, dinner dropdown) grid, quick-fill buttons

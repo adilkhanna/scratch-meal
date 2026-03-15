@@ -105,7 +105,15 @@ export interface MealComponent {
   estimatedCostPerServing?: number;
   servingsScaled: number; // scaled by family size
   dietaryNotes?: string; // e.g., "oat milk used (lactose intolerant)"
+  explanation?: string; // "Why this dish?" — 1-2 sentence rationale from GPT
   isFavorite: boolean;
+}
+
+/** Per-member alternative dish when dietary conditions conflict with main dish */
+export interface MemberDishAlt {
+  memberName: string;
+  conditions: string[]; // conditions that triggered the alt
+  component: MealComponent;
 }
 
 /** A complete meal: composed of multiple MealComponents */
@@ -114,6 +122,8 @@ export interface GeneratedMeal {
   components: MealComponent[];
   totalCalories: number;
   totalCostPerServing?: number;
+  /** Per-member alternatives: key = component index, value = alt dishes for specific members */
+  memberAlts?: Record<number, MemberDishAlt[]>;
 }
 
 /** For breakfast when family mode (legacy): multiple options per day */
