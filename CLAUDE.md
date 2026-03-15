@@ -14,7 +14,7 @@ A recipe recommendation web app that takes ingredients users have on hand and ge
 - **Lunch/Dinner**: GPT-4o selects from glossary + Spoonacular reference lists with strict anti-hallucination rules + appetizing pairing rules. Cross-meal ingredient deduplication prevents repeats. Budget-aware filtering excludes expensive ingredients when budget is low. Per-day cuisine enforcement ensures each day follows its assigned cuisine.
 
 **ABSOLUTE RULE: GPT must NEVER invent recipes.** All meals must come from:
-1. The curated recipe glossary (Firestore `recipe-glossary` collection) — 396 recipes
+1. The curated recipe glossary (Firestore `recipe-glossary` collection) — 421 recipes
 2. Spoonacular verified recipes
 GPT's role is ONLY to select, assign, and minimally adapt recipes from these sources.
 Breakfast is fully code-selected (no GPT). Lunch/dinner use GPT for selection from reference lists only.
@@ -181,7 +181,7 @@ User inputs (family size, days, per-day cuisines, per-member dietary, budget) �
 
 ### Recipe Glossary System
 - **Firestore collection**: `recipe-glossary` — master database of curated recipes
-- **Seed file**: `functions/data/recipe-glossary-seed.json` (396 recipes: 129 breakfast + 160 original lunch/dinner + 107 expanded international recipes)
+- **Seed file**: `functions/data/recipe-glossary-seed.json` (421 recipes: 129 breakfast + 160 original lunch/dinner + 132 expanded international recipes)
 - **Seeding**: Admin panel → "Seed Glossary" button → calls `seedRecipeGlossary` Cloud Function (upserts, merges new tags into existing entries)
 - **Anti-poisoning**: `feedToGlossary()` is called after generation but ONLY for recipes whose names match a reference recipe. Hallucinated dish names are rejected.
 - **Tag system**: Recipes have `tags` array (e.g., `["fried"]`, `["high-sugar"]`) for health condition filtering

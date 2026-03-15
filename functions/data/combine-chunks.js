@@ -28,6 +28,8 @@ const chunkOrder = [
   'chunk-mediterranean-expanded.json',
   'chunk-japanese-expanded.json',
   'chunk-vietnamese-expanded.json',
+  'chunk-european-expanded.json',
+  'chunk-american-expanded.json',
 ];
 
 let all = [];
