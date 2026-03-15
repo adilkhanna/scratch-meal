@@ -36,7 +36,9 @@ export async function generateWeeklyPlan(
   weeklyBudget: number | null = null,
   breakfastPreferences: BreakfastPreference[] = [],
   planDays: number = 3,
-  dailyCaloricTarget: number | null = null
+  dailyCaloricTarget: number | null = null,
+  memberDietaryConditions: Record<string, string[]> = {},
+  dailyCuisines: Record<string, { lunch: string; dinner: string }> = {}
 ): Promise<{ plan: GeneratedWeeklyPlan; pricesAsOf: string | null }> {
   const fn = httpsCallable(functions, 'generateWeeklyPlan');
   const result = await fn({
@@ -49,6 +51,8 @@ export async function generateWeeklyPlan(
     breakfastPreferences,
     planDays,
     dailyCaloricTarget,
+    memberDietaryConditions,
+    dailyCuisines,
   });
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const data = result.data as any;

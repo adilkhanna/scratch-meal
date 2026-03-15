@@ -9,18 +9,35 @@ import { CUISINES } from '@/config/cuisines';
 import STEP_THEMES from '@/config/step-themes';
 
 const theme = STEP_THEMES.mealplan;
+const DAY_LABELS: Record<string, string> = {
+  monday: 'Mon', tuesday: 'Tue', wednesday: 'Wed',
+  thursday: 'Thu', friday: 'Fri', saturday: 'Sat', sunday: 'Sun',
+};
+const DAYS_3 = ['monday', 'tuesday', 'wednesday'];
+const DAYS_7 = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 
 export default function MealPlanCuisinePage() {
   const router = useRouter();
   const {
-    lunchCuisines, dinnerCuisines,
-    toggleLunchCuisine, setLunchCuisines,
-    toggleDinnerCuisine, setDinnerCuisines,
+    dailyCuisines, setDayCuisine,
     weeklyBudget, setWeeklyBudget,
+    planDays, setPlanDays,
   } = useMealPlanFlow();
   const [budgetOpen, setBudgetOpen] = useState(weeklyBudget !== null);
 
+  const dayNames = planDays === 7 ? DAYS_7 : DAYS_3;
   const BUDGET_OPTIONS = [500, 1000, 1500, 2000, 3000, 5000];
+
+  // Helper: get cuisine for a day+meal, default to ''
+  const getCuisine = (day: string, meal: 'lunch' | 'dinner') =>
+    dailyCuisines[day]?.[meal] || '';
+
+  // Apply same cuisine to all days for a meal
+  const applyToAll = (meal: 'lunch' | 'dinner', cuisineId: string) => {
+    for (const day of dayNames) {
+      setDayCuisine(day, meal, cuisineId);
+    }
+  };
 
   return (
     <div
@@ -30,106 +47,104 @@ export default function MealPlanCuisinePage() {
       <div className="max-w-3xl mx-auto px-6 pt-16">
         <StepIndicator currentStep={3} variant="meal-plan" />
 
-        <div className="text-center mb-8">
+        <div className="text-center mb-6">
           <StaggeredPageTitle
-            text="cuisine & budget."
+            text="cuisine & schedule."
             className="text-[clamp(36px,5.5vw,67px)] tracking-[-0.25px]"
           />
         </div>
 
-        {/* Lunch cuisines */}
-        <div className="max-w-2xl mx-auto mb-8">
-          <div className="glass-panel p-6">
-            <h3 className="text-[14px] font-medium tracking-[1px] uppercase text-black mb-4">
-              Lunch Cuisines
+        {/* Plan duration */}
+        <div className="max-w-2xl mx-auto mb-6">
+          <div className="glass-panel p-5">
+            <h3 className="text-[14px] font-medium tracking-[1px] uppercase text-black mb-3">
+              Plan Duration
             </h3>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-4">
-              {CUISINES.map((cuisine) => {
-                const isSelected = lunchCuisines.includes(cuisine.id);
-                return (
-                  <button
-                    key={cuisine.id}
-                    onClick={() => toggleLunchCuisine(cuisine.id)}
-                    className="flex items-center gap-2.5 text-left group transition-colors"
-                  >
-                    <span
-                      className={`w-[10px] h-[10px] rounded-full border-[1.5px] shrink-0 transition-all ${
-                        isSelected
-                          ? 'bg-black border-black'
-                          : 'border-black/40 group-hover:bg-black group-hover:border-black'
-                      }`}
-                    />
-                    <span className="text-[14px] font-[family-name:var(--font-mono-option)] tracking-[0.5px] uppercase text-black">
-                      {cuisine.label}
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
-            {lunchCuisines.length > 0 && (
-              <div className="mt-4 flex items-center justify-between">
-                <span className="text-[12px] tracking-[1px] uppercase text-black/50">
-                  {lunchCuisines.length} selected
-                </span>
+            <div className="flex gap-3">
+              {[3, 7].map((d) => (
                 <button
-                  onClick={() => setLunchCuisines([])}
-                  className="text-[12px] tracking-[1px] uppercase text-black/40 hover:text-black transition-colors"
+                  key={d}
+                  onClick={() => setPlanDays(d)}
+                  className={`px-5 py-2 rounded-full text-[12px] font-[family-name:var(--font-mono-option)] tracking-[0.5px] uppercase border-[1.5px] transition-all ${
+                    planDays === d
+                      ? 'bg-black text-white border-black'
+                      : 'bg-transparent text-black border-black/20 hover:border-black'
+                  }`}
                 >
-                  Clear
+                  {d} Days
                 </button>
-              </div>
-            )}
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Dinner cuisines */}
-        <div className="max-w-2xl mx-auto mb-8">
-          <div className="glass-panel p-6">
-            <h3 className="text-[14px] font-medium tracking-[1px] uppercase text-black mb-4">
-              Dinner Cuisines
+        {/* Per-day cuisine grid */}
+        <div className="max-w-2xl mx-auto mb-6">
+          <div className="glass-panel p-5">
+            <h3 className="text-[14px] font-medium tracking-[1px] uppercase text-black mb-1">
+              Cuisine Per Day
             </h3>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-4">
-              {CUISINES.map((cuisine) => {
-                const isSelected = dinnerCuisines.includes(cuisine.id);
-                return (
-                  <button
-                    key={cuisine.id}
-                    onClick={() => toggleDinnerCuisine(cuisine.id)}
-                    className="flex items-center gap-2.5 text-left group transition-colors"
-                  >
-                    <span
-                      className={`w-[10px] h-[10px] rounded-full border-[1.5px] shrink-0 transition-all ${
-                        isSelected
-                          ? 'bg-black border-black'
-                          : 'border-black/40 group-hover:bg-black group-hover:border-black'
-                      }`}
-                    />
-                    <span className="text-[14px] font-[family-name:var(--font-mono-option)] tracking-[0.5px] uppercase text-black">
-                      {cuisine.label}
-                    </span>
-                  </button>
-                );
-              })}
+            <p className="text-[11px] tracking-[0.5px] uppercase text-black/40 mb-4">
+              Pick a cuisine for each meal. Leave blank for diverse.
+            </p>
+
+            {/* Header row */}
+            <div className="grid grid-cols-[60px_1fr_1fr] gap-2 mb-2">
+              <div />
+              <span className="text-[11px] font-medium tracking-[1px] uppercase text-black/60 text-center">Lunch</span>
+              <span className="text-[11px] font-medium tracking-[1px] uppercase text-black/60 text-center">Dinner</span>
             </div>
-            {dinnerCuisines.length > 0 && (
-              <div className="mt-4 flex items-center justify-between">
-                <span className="text-[12px] tracking-[1px] uppercase text-black/50">
-                  {dinnerCuisines.length} selected
+
+            {/* Day rows */}
+            {dayNames.map((day) => (
+              <div key={day} className="grid grid-cols-[60px_1fr_1fr] gap-2 mb-2">
+                <span className="text-[13px] font-[family-name:var(--font-mono-option)] tracking-[0.5px] uppercase text-black self-center">
+                  {DAY_LABELS[day]}
                 </span>
-                <button
-                  onClick={() => setDinnerCuisines([])}
-                  className="text-[12px] tracking-[1px] uppercase text-black/40 hover:text-black transition-colors"
+                <select
+                  value={getCuisine(day, 'lunch')}
+                  onChange={(e) => setDayCuisine(day, 'lunch', e.target.value)}
+                  className="w-full px-3 py-2 rounded-full text-[12px] font-[family-name:var(--font-mono-option)] tracking-[0.5px] uppercase border-[1.5px] border-black/20 bg-white/60 text-black focus:border-black outline-none transition-all appearance-none cursor-pointer"
                 >
-                  Clear
-                </button>
+                  <option value="">Diverse</option>
+                  {CUISINES.map((c) => (
+                    <option key={c.id} value={c.id}>{c.label}</option>
+                  ))}
+                </select>
+                <select
+                  value={getCuisine(day, 'dinner')}
+                  onChange={(e) => setDayCuisine(day, 'dinner', e.target.value)}
+                  className="w-full px-3 py-2 rounded-full text-[12px] font-[family-name:var(--font-mono-option)] tracking-[0.5px] uppercase border-[1.5px] border-black/20 bg-white/60 text-black focus:border-black outline-none transition-all appearance-none cursor-pointer"
+                >
+                  <option value="">Diverse</option>
+                  {CUISINES.map((c) => (
+                    <option key={c.id} value={c.id}>{c.label}</option>
+                  ))}
+                </select>
               </div>
-            )}
+            ))}
+
+            {/* Quick-fill buttons */}
+            <div className="mt-3 flex flex-wrap gap-2">
+              <span className="text-[11px] tracking-[0.5px] uppercase text-black/40 self-center mr-1">Quick fill:</span>
+              {CUISINES.slice(0, 6).map((c) => (
+                <button
+                  key={c.id}
+                  onClick={() => { applyToAll('lunch', c.id); applyToAll('dinner', c.id); }}
+                  className="px-3 py-1 rounded-full text-[11px] font-[family-name:var(--font-mono-option)] tracking-[0.5px] uppercase border border-black/15 text-black/60 hover:border-black hover:text-black transition-all"
+                >
+                  All {c.label}
+                </button>
+              ))}
+              <button
+                onClick={() => { applyToAll('lunch', ''); applyToAll('dinner', ''); }}
+                className="px-3 py-1 rounded-full text-[11px] font-[family-name:var(--font-mono-option)] tracking-[0.5px] uppercase border border-black/15 text-black/60 hover:border-black hover:text-black transition-all"
+              >
+                All Diverse
+              </button>
+            </div>
           </div>
         </div>
-
-        <p className="text-center text-[12px] tracking-[1px] uppercase text-black/40 mb-6">
-          Skip cuisines for diverse results
-        </p>
 
         {/* Weekly budget (optional) */}
         <div className="max-w-2xl mx-auto mb-8">

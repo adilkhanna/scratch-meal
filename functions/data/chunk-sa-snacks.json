@@ -1,0 +1,594 @@
+[
+  {
+    "id": "samosa",
+    "name": "Samosa",
+    "description": "Crispy deep-fried pastry filled with spiced potatoes and peas.",
+    "cookTime": "45 min",
+    "difficulty": "Hard",
+    "ingredients": [
+      { "name": "all-purpose flour (maida)", "quantity": "200", "unit": "g" },
+      { "name": "potato", "quantity": "3", "unit": "medium" },
+      { "name": "green peas", "quantity": "50", "unit": "g" },
+      { "name": "cumin seeds", "quantity": "1", "unit": "tsp" },
+      { "name": "coriander powder", "quantity": "1", "unit": "tsp" },
+      { "name": "garam masala", "quantity": "0.5", "unit": "tsp" },
+      { "name": "green chili", "quantity": "2" },
+      { "name": "amchur powder", "quantity": "0.5", "unit": "tsp" },
+      { "name": "oil (dough)", "quantity": "2", "unit": "tbsp" },
+      { "name": "oil for deep frying", "quantity": "500", "unit": "ml" },
+      { "name": "salt", "quantity": "1", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Make a stiff dough with flour, oil, salt, and water; rest for 20 minutes.",
+      "Boil and coarsely mash potatoes; mix with peas, cumin, coriander, garam masala, amchur, green chili, and salt.",
+      "Divide dough into balls, roll into ovals, cut in half, and shape each half into a cone.",
+      "Fill cones with potato mixture, seal edges with water.",
+      "Deep fry on medium-low heat (not too hot) until golden and crispy; serve with tamarind and mint chutney."
+    ],
+    "tips": [
+      "Fry on medium-low heat for crispy layers — high heat cooks the outside but leaves dough raw inside.",
+      "The dough must be stiff for flaky, layered samosas."
+    ],
+    "nutritionInfo": { "servings": 8, "calories": 180, "protein": "3g", "carbs": "24g", "fat": "8g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "vegan", "dairy-free", "nut-free", "egg-free"],
+    "mealTypes": ["snack"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "pakora",
+    "name": "Pakora",
+    "description": "Crispy gram flour fritters made with mixed vegetables like onion, spinach, and potato.",
+    "cookTime": "20 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "gram flour (besan)", "quantity": "150", "unit": "g" },
+      { "name": "onion", "quantity": "1", "unit": "large" },
+      { "name": "potato", "quantity": "1", "unit": "medium" },
+      { "name": "spinach", "quantity": "50", "unit": "g" },
+      { "name": "green chili", "quantity": "2" },
+      { "name": "cumin seeds", "quantity": "0.5", "unit": "tsp" },
+      { "name": "red chili powder", "quantity": "0.5", "unit": "tsp" },
+      { "name": "baking soda", "quantity": "0.25", "unit": "tsp" },
+      { "name": "oil for deep frying", "quantity": "500", "unit": "ml" },
+      { "name": "salt", "quantity": "0.5", "unit": "tsp" },
+      { "name": "water", "quantity": "80", "unit": "ml" }
+    ],
+    "instructions": [
+      "Thinly slice onion and potato; chop spinach and green chilies.",
+      "Mix besan, cumin, red chili powder, baking soda, and salt; add vegetables and minimal water to make a thick batter.",
+      "Heat oil to medium-hot. Drop spoonfuls of batter into the oil.",
+      "Fry in batches until deep golden and crispy, about 3-4 minutes per batch.",
+      "Drain on paper towels and serve hot with mint chutney or ketchup."
+    ],
+    "tips": [
+      "Use minimal water — the moisture from vegetables should form most of the batter.",
+      "A pinch of baking soda makes pakoras extra crispy."
+    ],
+    "nutritionInfo": { "servings": 4, "calories": 200, "protein": "6g", "carbs": "22g", "fat": "10g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "vegan", "dairy-free", "nut-free", "egg-free"],
+    "mealTypes": ["snack"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "dhokla",
+    "name": "Dhokla",
+    "description": "Steamed savory gram flour cake from Gujarat, spongy and tangy with a mustard seed tempering.",
+    "cookTime": "25 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      { "name": "gram flour (besan)", "quantity": "200", "unit": "g" },
+      { "name": "yogurt", "quantity": "100", "unit": "g" },
+      { "name": "water", "quantity": "100", "unit": "ml" },
+      { "name": "eno fruit salt", "quantity": "1", "unit": "tsp" },
+      { "name": "turmeric powder", "quantity": "0.5", "unit": "tsp" },
+      { "name": "sugar", "quantity": "2", "unit": "tsp" },
+      { "name": "mustard seeds", "quantity": "1", "unit": "tsp" },
+      { "name": "green chili", "quantity": "2" },
+      { "name": "curry leaves", "quantity": "6" },
+      { "name": "oil", "quantity": "2", "unit": "tbsp" },
+      { "name": "lemon juice", "quantity": "1", "unit": "tbsp" },
+      { "name": "salt", "quantity": "0.5", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Mix besan, yogurt, water, turmeric, salt, and sugar into a smooth batter; let rest for 10 minutes.",
+      "Add eno fruit salt (or baking soda + lemon juice), mix quickly as it froths, and immediately pour into a greased steaming plate.",
+      "Steam for 12-15 minutes until a toothpick comes out clean.",
+      "For tempering: heat oil, add mustard seeds, curry leaves, green chilies, and a splash of water with sugar.",
+      "Pour tempering over the steamed dhokla, cut into squares, and serve with green chutney."
+    ],
+    "tips": [
+      "Pour batter immediately after adding eno — the reaction is what makes dhokla spongy.",
+      "Do not open the steamer during cooking or dhokla will collapse."
+    ],
+    "nutritionInfo": { "servings": 6, "calories": 140, "protein": "6g", "carbs": "18g", "fat": "5g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "nut-free", "egg-free"],
+    "mealTypes": ["snack", "breakfast"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "vada-pav",
+    "name": "Vada Pav",
+    "description": "Mumbai's iconic street food — spiced potato fritter in a soft bun with chutneys.",
+    "cookTime": "30 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      { "name": "potato", "quantity": "3", "unit": "medium" },
+      { "name": "gram flour (besan)", "quantity": "100", "unit": "g" },
+      { "name": "pav (bread rolls)", "quantity": "6" },
+      { "name": "garlic", "quantity": "6", "unit": "cloves" },
+      { "name": "green chili", "quantity": "3" },
+      { "name": "mustard seeds", "quantity": "0.5", "unit": "tsp" },
+      { "name": "turmeric powder", "quantity": "0.5", "unit": "tsp" },
+      { "name": "curry leaves", "quantity": "6" },
+      { "name": "oil for frying", "quantity": "500", "unit": "ml" },
+      { "name": "salt", "quantity": "0.5", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Boil, peel, and mash potatoes. Make a paste of garlic and green chilies.",
+      "Heat 1 tbsp oil, add mustard seeds, curry leaves, and the garlic-chili paste; sauté briefly.",
+      "Add turmeric, mashed potatoes, and salt; mix well and shape into round patties.",
+      "Make a batter with besan, turmeric, salt, and water; dip each potato ball and deep fry until golden.",
+      "Slit pav, spread dry garlic chutney and green chutney, place the vada inside, and serve hot."
+    ],
+    "tips": [
+      "The garlic chutney (dry coconut, garlic, red chili) is what makes vada pav iconic.",
+      "Press the pav onto a hot buttered tawa for a toasted version."
+    ],
+    "nutritionInfo": { "servings": 6, "calories": 260, "protein": "6g", "carbs": "34g", "fat": "11g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "vegan", "dairy-free", "nut-free", "egg-free"],
+    "mealTypes": ["snack"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "pav-bhaji",
+    "name": "Pav Bhaji",
+    "description": "Mashed mixed vegetable curry served with buttered, toasted bread rolls.",
+    "cookTime": "35 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      { "name": "potato", "quantity": "2", "unit": "medium" },
+      { "name": "cauliflower", "quantity": "100", "unit": "g" },
+      { "name": "green peas", "quantity": "50", "unit": "g" },
+      { "name": "capsicum (bell pepper)", "quantity": "1", "unit": "small" },
+      { "name": "onion", "quantity": "2", "unit": "medium" },
+      { "name": "tomato", "quantity": "3", "unit": "medium" },
+      { "name": "pav bhaji masala", "quantity": "2", "unit": "tbsp" },
+      { "name": "butter", "quantity": "60", "unit": "g" },
+      { "name": "pav (bread rolls)", "quantity": "8" },
+      { "name": "lemon juice", "quantity": "1", "unit": "tbsp" },
+      { "name": "salt", "quantity": "1", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Boil potatoes, cauliflower, and peas until very soft; mash everything together.",
+      "Heat butter, add chopped onion and capsicum; sauté until soft.",
+      "Add chopped tomatoes, pav bhaji masala, and salt; cook until tomatoes break down.",
+      "Add the mashed vegetables, mix well, and cook on medium heat for 10 minutes, mashing continuously.",
+      "Slit and toast pav with butter, squeeze lemon over the bhaji, garnish with onion and coriander."
+    ],
+    "tips": [
+      "Use a potato masher directly in the pan for the characteristic texture.",
+      "Generous butter is non-negotiable for authentic pav bhaji."
+    ],
+    "nutritionInfo": { "servings": 4, "calories": 350, "protein": "8g", "carbs": "42g", "fat": "16g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "nut-free", "egg-free"],
+    "mealTypes": ["snack", "dinner"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "aloo-tikki",
+    "name": "Aloo Tikki",
+    "description": "Crispy spiced potato patties, shallow-fried until golden and crunchy.",
+    "cookTime": "25 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "potato", "quantity": "4", "unit": "medium" },
+      { "name": "green peas", "quantity": "50", "unit": "g" },
+      { "name": "breadcrumbs", "quantity": "30", "unit": "g" },
+      { "name": "ginger", "quantity": "1", "unit": "cm" },
+      { "name": "green chili", "quantity": "2" },
+      { "name": "cumin powder", "quantity": "1", "unit": "tsp" },
+      { "name": "garam masala", "quantity": "0.5", "unit": "tsp" },
+      { "name": "fresh coriander", "quantity": "2", "unit": "tbsp" },
+      { "name": "oil", "quantity": "4", "unit": "tbsp" },
+      { "name": "salt", "quantity": "0.5", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Boil, peel, and mash potatoes; mix with mashed peas, grated ginger, green chili, cumin, garam masala, coriander, and salt.",
+      "Add breadcrumbs to bind, shape into flat round patties.",
+      "Heat oil in a flat pan, place tikkis, and shallow fry on medium heat for 3-4 minutes per side until crispy.",
+      "Serve with tamarind chutney, mint chutney, and yogurt."
+    ],
+    "tips": [
+      "Chill the patties for 15 minutes before frying — they hold shape better.",
+      "Breadcrumbs help absorb moisture and make tikkis crispier."
+    ],
+    "nutritionInfo": { "servings": 6, "calories": 160, "protein": "3g", "carbs": "22g", "fat": "7g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "vegan", "dairy-free", "nut-free", "egg-free"],
+    "mealTypes": ["snack"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "veg-spring-rolls",
+    "name": "Vegetable Spring Rolls",
+    "description": "Crispy fried rolls filled with stir-fried cabbage, carrots, and bean sprouts.",
+    "cookTime": "30 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      { "name": "spring roll wrappers", "quantity": "12" },
+      { "name": "cabbage", "quantity": "150", "unit": "g" },
+      { "name": "carrot", "quantity": "1", "unit": "medium" },
+      { "name": "capsicum (bell pepper)", "quantity": "1", "unit": "small" },
+      { "name": "bean sprouts", "quantity": "50", "unit": "g" },
+      { "name": "soy sauce", "quantity": "1", "unit": "tbsp" },
+      { "name": "vinegar", "quantity": "1", "unit": "tsp" },
+      { "name": "garlic", "quantity": "3", "unit": "cloves" },
+      { "name": "oil for frying", "quantity": "500", "unit": "ml" },
+      { "name": "salt", "quantity": "0.5", "unit": "tsp" },
+      { "name": "cornstarch slurry", "quantity": "2", "unit": "tbsp" }
+    ],
+    "instructions": [
+      "Julienne all vegetables finely; mince garlic.",
+      "Heat 1 tbsp oil, sauté garlic, add all vegetables, soy sauce, vinegar, and salt; stir-fry on high heat for 2-3 minutes. Cool completely.",
+      "Place filling on a spring roll wrapper, fold sides in, and roll tightly; seal edge with cornstarch slurry.",
+      "Deep fry in medium-hot oil until golden and crispy, about 3-4 minutes.",
+      "Serve with sweet chili sauce or schezwan sauce."
+    ],
+    "tips": [
+      "The filling must be completely cool before wrapping — hot filling makes wrappers soggy.",
+      "Roll tightly to prevent them from opening during frying."
+    ],
+    "nutritionInfo": { "servings": 6, "calories": 150, "protein": "3g", "carbs": "18g", "fat": "7g" },
+    "cuisine": ["Indian", "Chinese"],
+    "dietaryTags": ["vegetarian", "vegan", "dairy-free", "nut-free", "egg-free"],
+    "mealTypes": ["snack"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "paneer-tikka-dry",
+    "name": "Paneer Tikka (Dry)",
+    "description": "Skewered paneer cubes and vegetables grilled dry with tandoori spices.",
+    "cookTime": "25 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "paneer", "quantity": "200", "unit": "g" },
+      { "name": "capsicum (bell pepper)", "quantity": "1", "unit": "medium" },
+      { "name": "onion", "quantity": "1", "unit": "medium" },
+      { "name": "yogurt", "quantity": "80", "unit": "g" },
+      { "name": "tandoori masala", "quantity": "1.5", "unit": "tbsp" },
+      { "name": "lemon juice", "quantity": "1", "unit": "tbsp" },
+      { "name": "oil", "quantity": "1", "unit": "tbsp" },
+      { "name": "chaat masala", "quantity": "0.5", "unit": "tsp" },
+      { "name": "salt", "quantity": "0.5", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Cut paneer, capsicum, and onion into 1-inch cubes.",
+      "Mix yogurt, tandoori masala, lemon juice, oil, and salt into a marinade.",
+      "Coat paneer and vegetables, marinate for 20 minutes.",
+      "Thread onto skewers and grill, broil, or pan-fry on high heat until charred spots appear.",
+      "Sprinkle chaat masala and serve with lemon wedges and mint chutney."
+    ],
+    "tips": [
+      "For smokier flavor, brush with a tiny bit of oil during grilling.",
+      "Cast iron pan works well as a substitute for a tandoor."
+    ],
+    "nutritionInfo": { "servings": 3, "calories": 240, "protein": "14g", "carbs": "8g", "fat": "18g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "gluten-free", "nut-free", "egg-free"],
+    "mealTypes": ["snack", "dinner"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "corn-chaat",
+    "name": "Corn Chaat",
+    "description": "Boiled sweet corn tossed with onion, tomato, lime juice, and chaat spices.",
+    "cookTime": "10 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "sweet corn kernels", "quantity": "200", "unit": "g" },
+      { "name": "onion", "quantity": "1", "unit": "small" },
+      { "name": "tomato", "quantity": "1", "unit": "small" },
+      { "name": "green chili", "quantity": "1" },
+      { "name": "fresh coriander", "quantity": "2", "unit": "tbsp" },
+      { "name": "lemon juice", "quantity": "1", "unit": "tbsp" },
+      { "name": "chaat masala", "quantity": "0.5", "unit": "tsp" },
+      { "name": "black salt", "quantity": "0.25", "unit": "tsp" },
+      { "name": "butter", "quantity": "1", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Boil or steam corn kernels until tender; drain.",
+      "Toss hot corn with butter, then add finely chopped onion, tomato, and green chili.",
+      "Add lemon juice, chaat masala, and black salt; mix well.",
+      "Garnish with coriander and serve immediately while warm."
+    ],
+    "tips": [
+      "For a smoky version, char the corn on an open flame before removing kernels.",
+      "Frozen corn works perfectly for a quick snack."
+    ],
+    "nutritionInfo": { "servings": 2, "calories": 140, "protein": "4g", "carbs": "26g", "fat": "3g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "gluten-free", "nut-free", "egg-free"],
+    "mealTypes": ["snack"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "bhel-puri",
+    "name": "Bhel Puri",
+    "description": "Crunchy puffed rice snack tossed with sev, chutneys, onions, and raw mango.",
+    "cookTime": "10 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "puffed rice (murmura)", "quantity": "150", "unit": "g" },
+      { "name": "sev (thin noodle snack)", "quantity": "50", "unit": "g" },
+      { "name": "onion", "quantity": "1", "unit": "small" },
+      { "name": "tomato", "quantity": "1", "unit": "small" },
+      { "name": "boiled potato", "quantity": "1", "unit": "small" },
+      { "name": "tamarind chutney", "quantity": "2", "unit": "tbsp" },
+      { "name": "green chutney", "quantity": "1", "unit": "tbsp" },
+      { "name": "lemon juice", "quantity": "1", "unit": "tbsp" },
+      { "name": "chaat masala", "quantity": "0.5", "unit": "tsp" },
+      { "name": "fresh coriander", "quantity": "2", "unit": "tbsp" }
+    ],
+    "instructions": [
+      "Finely chop onion, tomato, boiled potato, and coriander.",
+      "In a large bowl, combine puffed rice, chopped vegetables, and half the sev.",
+      "Add tamarind chutney, green chutney, lemon juice, and chaat masala; toss quickly.",
+      "Serve immediately, topped with remaining sev for crunch."
+    ],
+    "tips": [
+      "Mix and serve immediately — bhel becomes soggy within minutes.",
+      "Adjust chutney quantities to taste — the balance of sweet, sour, and spicy is key."
+    ],
+    "nutritionInfo": { "servings": 3, "calories": 160, "protein": "3g", "carbs": "28g", "fat": "4g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "vegan", "dairy-free", "nut-free", "egg-free"],
+    "mealTypes": ["snack"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "sev-puri",
+    "name": "Sev Puri",
+    "description": "Flat crispy puris topped with potato, onion, chutneys, and sev.",
+    "cookTime": "15 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "papdi (flat crispy puris)", "quantity": "20" },
+      { "name": "boiled potato", "quantity": "1", "unit": "medium" },
+      { "name": "onion", "quantity": "1", "unit": "small" },
+      { "name": "tomato", "quantity": "1", "unit": "small" },
+      { "name": "sev", "quantity": "50", "unit": "g" },
+      { "name": "tamarind chutney", "quantity": "3", "unit": "tbsp" },
+      { "name": "green chutney", "quantity": "2", "unit": "tbsp" },
+      { "name": "chaat masala", "quantity": "0.5", "unit": "tsp" },
+      { "name": "fresh coriander", "quantity": "1", "unit": "tbsp" }
+    ],
+    "instructions": [
+      "Finely dice boiled potato, onion, and tomato.",
+      "Arrange papdi on a plate, top each with diced potato and onion.",
+      "Drizzle tamarind chutney and green chutney over each puri.",
+      "Top generously with sev, sprinkle chaat masala and coriander, serve immediately."
+    ],
+    "tips": [
+      "Assemble just before serving to keep papdi crispy.",
+      "Balance of sweet tamarind and spicy green chutney is what makes sev puri special."
+    ],
+    "nutritionInfo": { "servings": 4, "calories": 170, "protein": "3g", "carbs": "24g", "fat": "7g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "vegan", "dairy-free", "nut-free", "egg-free"],
+    "mealTypes": ["snack"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "vegetable-cutlet",
+    "name": "Vegetable Cutlet",
+    "description": "Mixed vegetable patty coated in breadcrumbs and shallow-fried until crispy.",
+    "cookTime": "30 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      { "name": "potato", "quantity": "2", "unit": "medium" },
+      { "name": "carrot", "quantity": "1", "unit": "medium" },
+      { "name": "green peas", "quantity": "50", "unit": "g" },
+      { "name": "green beans", "quantity": "50", "unit": "g" },
+      { "name": "corn kernels", "quantity": "30", "unit": "g" },
+      { "name": "breadcrumbs", "quantity": "80", "unit": "g" },
+      { "name": "garam masala", "quantity": "0.5", "unit": "tsp" },
+      { "name": "green chili", "quantity": "1" },
+      { "name": "fresh coriander", "quantity": "2", "unit": "tbsp" },
+      { "name": "oil", "quantity": "4", "unit": "tbsp" },
+      { "name": "salt", "quantity": "0.5", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Boil potato, carrot, peas, beans, and corn until tender; mash everything together.",
+      "Mix in garam masala, green chili, coriander, and salt.",
+      "Shape into oval patties, coat in breadcrumbs.",
+      "Shallow fry on medium heat until golden brown on both sides.",
+      "Serve with ketchup or mint chutney."
+    ],
+    "tips": [
+      "Squeeze out any excess moisture from vegetables before mixing.",
+      "Chilling shaped cutlets for 15 minutes helps them hold together while frying."
+    ],
+    "nutritionInfo": { "servings": 6, "calories": 150, "protein": "3g", "carbs": "20g", "fat": "6g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "vegan", "dairy-free", "nut-free", "egg-free"],
+    "mealTypes": ["snack"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "mathri",
+    "name": "Mathri",
+    "description": "Crispy, flaky deep-fried crackers made with flour, ajwain, and ghee.",
+    "cookTime": "30 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "all-purpose flour (maida)", "quantity": "200", "unit": "g" },
+      { "name": "semolina (sooji)", "quantity": "30", "unit": "g" },
+      { "name": "ghee", "quantity": "50", "unit": "g" },
+      { "name": "ajwain (carom seeds)", "quantity": "1", "unit": "tsp" },
+      { "name": "black pepper", "quantity": "0.5", "unit": "tsp" },
+      { "name": "salt", "quantity": "0.5", "unit": "tsp" },
+      { "name": "water", "quantity": "60", "unit": "ml" },
+      { "name": "oil for deep frying", "quantity": "500", "unit": "ml" }
+    ],
+    "instructions": [
+      "Mix flour, semolina, ajwain, pepper, and salt; rub in ghee until the mixture resembles breadcrumbs.",
+      "Knead into a stiff dough with water; rest for 15 minutes.",
+      "Roll out dough, cut into small circles or diamonds, and prick with a fork.",
+      "Deep fry on low-medium heat until golden and crispy, about 4-5 minutes per batch.",
+      "Cool completely and store in an airtight container — stays crispy for weeks."
+    ],
+    "tips": [
+      "Fry on low heat — mathri needs slow cooking to be crispy through the center.",
+      "Pricking with a fork prevents puffing and ensures even crispness."
+    ],
+    "nutritionInfo": { "servings": 15, "calories": 90, "protein": "1g", "carbs": "10g", "fat": "5g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "nut-free", "egg-free"],
+    "mealTypes": ["snack"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "murukku",
+    "name": "Murukku",
+    "description": "Crunchy spiral South Indian snack made from rice flour and urad dal flour.",
+    "cookTime": "30 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      { "name": "rice flour", "quantity": "200", "unit": "g" },
+      { "name": "urad dal flour", "quantity": "50", "unit": "g" },
+      { "name": "butter", "quantity": "1", "unit": "tbsp" },
+      { "name": "cumin seeds", "quantity": "1", "unit": "tsp" },
+      { "name": "asafoetida", "quantity": "0.25", "unit": "tsp" },
+      { "name": "sesame seeds", "quantity": "1", "unit": "tsp" },
+      { "name": "salt", "quantity": "0.5", "unit": "tsp" },
+      { "name": "water", "quantity": "150", "unit": "ml" },
+      { "name": "oil for deep frying", "quantity": "500", "unit": "ml" }
+    ],
+    "instructions": [
+      "Mix rice flour, urad dal flour, butter, cumin, sesame seeds, asafoetida, and salt.",
+      "Add warm water gradually and knead into a smooth, pliable dough.",
+      "Load dough into a murukku press with a star-shaped disc.",
+      "Press spirals directly into medium-hot oil, fry until golden and crispy.",
+      "Drain on paper towels, cool completely, and store in airtight containers."
+    ],
+    "tips": [
+      "The dough must be smooth and crack-free for even spirals.",
+      "Fry on medium heat — too hot and the outside burns while inside stays raw."
+    ],
+    "nutritionInfo": { "servings": 15, "calories": 80, "protein": "2g", "carbs": "12g", "fat": "3g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "gluten-free", "dairy-free", "nut-free", "egg-free"],
+    "mealTypes": ["snack"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "banana-chips",
+    "name": "Banana Chips",
+    "description": "Thin slices of raw banana deep-fried in coconut oil until crispy and golden.",
+    "cookTime": "20 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "raw banana (plantain)", "quantity": "4" },
+      { "name": "coconut oil", "quantity": "500", "unit": "ml" },
+      { "name": "turmeric powder", "quantity": "0.25", "unit": "tsp" },
+      { "name": "salt", "quantity": "0.5", "unit": "tsp" },
+      { "name": "water", "quantity": "200", "unit": "ml" }
+    ],
+    "instructions": [
+      "Peel raw bananas and slice very thinly using a mandoline or sharp knife.",
+      "Dissolve turmeric and salt in water; briefly dip banana slices in this mixture.",
+      "Heat coconut oil in a deep pan until hot.",
+      "Fry banana slices in batches on medium heat until golden and crispy, about 3-4 minutes.",
+      "Drain on paper towels, cool completely, and store in airtight containers."
+    ],
+    "tips": [
+      "Use a mandoline for uniformly thin slices — thickness determines crispness.",
+      "Coconut oil is traditional and gives the characteristic Kerala flavor."
+    ],
+    "nutritionInfo": { "servings": 8, "calories": 120, "protein": "1g", "carbs": "16g", "fat": "6g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "vegan", "gluten-free", "dairy-free", "nut-free", "egg-free"],
+    "mealTypes": ["snack"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  }
+]

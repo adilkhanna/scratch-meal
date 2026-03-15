@@ -7,6 +7,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { EXPENSIVE_INGREDIENTS } from './breakfast-selector';
+import { buildBalancedPlateInstructions } from './balance-rules';
 
 // Load regional ingredients data once at module level
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -149,6 +150,34 @@ CRITICAL ANTI-HALLUCINATION RULES:
 - If adapting for dietary needs, make MINIMAL substitutions only — the dish identity must remain the same.
 - When in doubt, pick a simpler, more traditional dish rather than a creative combination.`;
 
+const APPETIZING_RULES = `
+TASTE & APPETIZING RULES (CRITICAL — meals must sound and taste delicious):
+Think like a HOME COOK who loves feeding their family, NOT a hospital cafeteria.
+
+FLAVOR PAIRING PRINCIPLES:
+- Every meal needs a FLAVOR ANCHOR: a well-spiced, richly flavored hero dish (e.g., Butter Dal, Chicken Tikka, Pasta Arrabbiata — not "boiled chicken breast")
+- Pair rich/heavy with light/fresh: creamy dal pairs with light cucumber raita, rich biryani pairs with fresh raita + salad
+- Pair spicy with cooling: spicy curry pairs with yogurt-based side, not another spicy dish
+- Pair dry with wet: dry sabzi or roti pairs with a saucy dal or gravy curry, not another dry dish
+- NEVER pair bland with bland: "plain brown rice + steamed broccoli + boiled peas" is NOT a meal anyone wants to eat
+
+BANNED COMBINATIONS (these are unappetizing):
+- Plain boiled vegetables as the main vegetable dish (always season/cook with spices, garlic, or a proper recipe)
+- Brown rice + steamed vegetables with no sauce/gravy (needs a flavorful curry or dal alongside)
+- Multiple beige/bland dishes in one meal (e.g., plain rice + plain dal + plain roti)
+- "Grilled chicken breast" with no marinade, seasoning, or sauce specified
+- Raw vegetable sticks as a "vegetable component" (use a proper cooked sabzi, stir-fry, or roasted preparation)
+
+WHAT MAKES A MEAL APPETIZING:
+- Indian: well-tempered dal (with tadka/tempering), spiced sabzi (not steamed), fresh roti, tangy raita — like your mother would cook
+- Mediterranean: herb-marinated protein, olive oil roasted vegetables, warm pita — flavors of the coast
+- East Asian: stir-fried (not steamed) vegetables with garlic/soy/ginger, aromatic rice, a proper sauce
+- Mexican: well-seasoned beans, flavorful rice (not plain), fresh salsa with lime
+- Western: properly seasoned protein with a sauce or glaze, roasted (not boiled) vegetables
+
+EVERY dish name should sound like something you'd order at a good restaurant or find in a popular food blog.`;
+
+
 export function buildLunchPrompt(
   ingredients: string[],
   dietaryConditions: string[],
@@ -160,8 +189,16 @@ export function buildLunchPrompt(
   dayNames: string[],
   calorieTarget: number | null,
   breakfastIngredientsByDay: Record<string, string[]>,
-  weeklyBudget: number | null
+  weeklyBudget: number | null,
+  dailyCuisineOverrides: Record<string, string> = {} // day → cuisine ID
 ): string {
+  // Build per-day cuisine instructions
+  const hasPerDay = Object.keys(dailyCuisineOverrides).length > 0 && Object.values(dailyCuisineOverrides).some(Boolean);
+  const perDayCuisineLines = hasPerDay
+    ? dayNames.map((d) => `  ${d}: ${dailyCuisineOverrides[d] || 'diverse (your choice)'}`).join('\n')
+    : '';
+  const allPerDayCuisines = hasPerDay ? [...new Set(Object.values(dailyCuisineOverrides).filter(Boolean))] : [];
+
   return `You are a professional nutritionist and chef planning lunches for ${familySize === 1 ? 'an individual' : `a family of ${familySize}`} for ${planDays} days.
 
 ${formatIngredientsSection(ingredients)}
@@ -169,10 +206,12 @@ ${formatIngredientsSection(ingredients)}
 DIETARY CONSTRAINTS (MUST FOLLOW ALL):
 ${dietaryConditions.length > 0 ? dietaryConditions.map((c) => `- ${c}`).join('\n') : '- None'}
 
-CUISINE PREFERENCES FOR LUNCH:
+${hasPerDay ? `PER-DAY CUISINE SCHEDULE FOR LUNCH:
+${perDayCuisineLines}
+CRITICAL: Each day's lunch MUST follow the cuisine specified above. If a day says "indian", ALL components must be Indian. If "diverse", pick any cuisine but keep all components consistent.` : `CUISINE PREFERENCES FOR LUNCH:
 ${lunchCuisines.length > 0 ? lunchCuisines.join(', ') : 'Diverse (mix of cuisines)'}
-${lunchCuisines.length > 0 ? `CRITICAL: ALL lunch dishes MUST be ${lunchCuisines.join(' or ')} cuisine. Every component (main dish, side, accompaniment) must belong to these cuisines. Do NOT suggest dishes from other cuisines for lunch.` : ''}
-${getRegionalContext(lunchCuisines)}
+${lunchCuisines.length > 0 ? `CRITICAL: ALL lunch dishes MUST be ${lunchCuisines.join(' or ')} cuisine. Every component (main dish, side, accompaniment) must belong to these cuisines. Do NOT suggest dishes from other cuisines for lunch.` : ''}`}
+${getRegionalContext(hasPerDay ? allPerDayCuisines : lunchCuisines)}
 BREAKFAST INGREDIENTS (do NOT repeat these in lunch):
 ${breakfastSummary}
 ${formatIngredientExclusions(breakfastIngredientsByDay, dayNames, 'breakfast')}${formatBudgetGuidance(weeklyBudget)}
@@ -182,18 +221,20 @@ ${calorieTarget ? `
 CALORIE TARGET:
 Each lunch should total approximately ${calorieTarget} calories PER PERSON (not total for the family). All nutritionInfo.calories values must be per single serving.` : ''}
 ${ANTI_HALLUCINATION_RULES}
-
+${APPETIZING_RULES}
+${buildBalancedPlateInstructions(dietaryConditions)}
 REQUIREMENTS:
 1. Generate ${planDays} lunches, one for each day: ${dayNames.join(', ')}
-2. Each lunch should have 3-4 components (main dish, side, accompaniment, optional salad/raita)
+2. Each lunch MUST have 3-4 components following the balanced plate: a protein dish + a vegetable dish + a grain + optionally a probiotic (raita/curd/kimchi/salad). NEVER serve all-carb or all-protein meals.
 3. You MUST select dishes from the REFERENCE RECIPES list above. Pick the closest match and adapt minimally for cuisine/dietary needs. Do NOT invent new dish names.
-4. Each meal should be nutritionally balanced (protein + carbs + vegetables)
+4. Follow the BALANCED PLATE RULES above — every lunch needs vegetables, protein, AND whole grains in the right proportions.
 5. Vary the dishes across days — don't repeat the same main dish
 6. Scale ingredient quantities for ${familySize} ${familySize === 1 ? 'person' : 'people'}, but report nutritionInfo.calories PER PERSON
 7. Include "dietaryNotes" for any substitutions
-8. For Indian meals: include components like dal, sabzi, roti/rice, raita where appropriate
-9. For Western meals: include protein, starch, vegetable components
-${lunchCuisines.length > 0 ? `10. CUISINE RULE: Every single dish must be authentically ${lunchCuisines.join('/')}. This overrides reference recipe suggestions if they don't match the cuisine.` : ''}
+8. For Indian meals: follow the thali model — dal/protein + sabzi + roti/rice + raita/curd. This is non-negotiable.
+9. For Western meals: protein + whole grain + substantial vegetable side. A meal of just pasta or just sandwich is NOT balanced.
+10. For East Asian meals: rice/noodle + protein + 2 vegetable sides (or a soup with vegetables).
+${lunchCuisines.length > 0 ? `11. CUISINE RULE: Every single dish must be authentically ${lunchCuisines.join('/')}. This overrides reference recipe suggestions if they don't match the cuisine.` : ''}
 
 Return ONLY a JSON object:
 {
@@ -220,8 +261,16 @@ export function buildDinnerPrompt(
   dayNames: string[],
   calorieTarget: number | null,
   priorIngredientsByDay: Record<string, string[]>,
-  weeklyBudget: number | null
+  weeklyBudget: number | null,
+  dailyCuisineOverrides: Record<string, string> = {} // day → cuisine ID
 ): string {
+  // Build per-day cuisine instructions
+  const hasPerDay = Object.keys(dailyCuisineOverrides).length > 0 && Object.values(dailyCuisineOverrides).some(Boolean);
+  const perDayCuisineLines = hasPerDay
+    ? dayNames.map((d) => `  ${d}: ${dailyCuisineOverrides[d] || 'diverse (your choice)'}`).join('\n')
+    : '';
+  const allPerDayCuisines = hasPerDay ? [...new Set(Object.values(dailyCuisineOverrides).filter(Boolean))] : [];
+
   return `You are a professional nutritionist and chef planning dinners for ${familySize === 1 ? 'an individual' : `a family of ${familySize}`} for ${planDays} days.
 
 ${formatIngredientsSection(ingredients)}
@@ -229,10 +278,12 @@ ${formatIngredientsSection(ingredients)}
 DIETARY CONSTRAINTS (MUST FOLLOW ALL):
 ${dietaryConditions.length > 0 ? dietaryConditions.map((c) => `- ${c}`).join('\n') : '- None'}
 
-CUISINE PREFERENCES FOR DINNER:
+${hasPerDay ? `PER-DAY CUISINE SCHEDULE FOR DINNER:
+${perDayCuisineLines}
+CRITICAL: Each day's dinner MUST follow the cuisine specified above. If a day says "indian", ALL components must be Indian. If "diverse", pick any cuisine but keep all components consistent.` : `CUISINE PREFERENCES FOR DINNER:
 ${dinnerCuisines.length > 0 ? dinnerCuisines.join(', ') : 'Diverse (mix of cuisines)'}
-${dinnerCuisines.length > 0 ? `CRITICAL: ALL dinner dishes MUST be ${dinnerCuisines.join(' or ')} cuisine. Every component must belong to these cuisines. Do NOT suggest dishes from other cuisines for dinner.` : ''}
-${getRegionalContext(dinnerCuisines)}
+${dinnerCuisines.length > 0 ? `CRITICAL: ALL dinner dishes MUST be ${dinnerCuisines.join(' or ')} cuisine. Every component must belong to these cuisines. Do NOT suggest dishes from other cuisines for dinner.` : ''}`}
+${getRegionalContext(hasPerDay ? allPerDayCuisines : dinnerCuisines)}
 TODAY'S BREAKFAST & LUNCH (vary dinner to avoid repetition and balance nutrition):
 ${priorMealsSummary}
 ${formatIngredientExclusions(priorIngredientsByDay, dayNames, 'breakfast + lunch')}${formatBudgetGuidance(weeklyBudget)}
@@ -242,16 +293,20 @@ ${calorieTarget ? `
 CALORIE TARGET:
 Each dinner should total approximately ${calorieTarget} calories PER PERSON (not total for the family). All nutritionInfo.calories values must be per single serving.` : ''}
 ${ANTI_HALLUCINATION_RULES}
-
+${APPETIZING_RULES}
+${buildBalancedPlateInstructions(dietaryConditions)}
 REQUIREMENTS:
 1. Generate ${planDays} dinners, one for each day: ${dayNames.join(', ')}
-2. Each dinner should have 3-4 components (main dish, side, accompaniment)
+2. Each dinner MUST have 3-4 components following the balanced plate: a protein dish + a vegetable dish + a grain + optionally a probiotic or light soup. NEVER serve all-carb or all-protein meals.
 3. You MUST select dishes from the REFERENCE RECIPES list above. Pick the closest match and adapt minimally for cuisine/dietary needs. Do NOT invent new dish names.
-4. Dinners should be lighter than lunches where possible (nutritional balance across the day)
-5. Do NOT repeat lunch dishes — vary proteins and cooking styles
+4. Follow the BALANCED PLATE RULES — dinners should be lighter than lunches but still cover all food groups (protein + vegetables + grain).
+5. Do NOT repeat lunch dishes — vary proteins and cooking styles. If lunch had chicken, dinner should have dal/fish/paneer/tofu.
 6. Scale ingredient quantities for ${familySize} ${familySize === 1 ? 'person' : 'people'}, but report nutritionInfo.calories PER PERSON
 7. Include "dietaryNotes" for any substitutions
-${dinnerCuisines.length > 0 ? `8. CUISINE RULE: Every single dish must be authentically ${dinnerCuisines.join('/')}. This overrides reference recipe suggestions if they don't match the cuisine.` : ''}
+8. For Indian dinners: lighter thali — dal/protein + sabzi + roti (lighter on rice at night). Include raita or salad.
+9. For Western dinners: lean protein + vegetable + light grain. Soup + salad is acceptable for lighter dinners.
+10. For East Asian dinners: rice/noodle + protein + soup + vegetable side.
+${hasPerDay ? `11. CUISINE RULE: Each day MUST follow its assigned cuisine above. All components for that day must be authentically from the assigned cuisine.` : (dinnerCuisines.length > 0 ? `11. CUISINE RULE: Every single dish must be authentically ${dinnerCuisines.join('/')}. This overrides reference recipe suggestions if they don't match the cuisine.` : '')}
 
 Return ONLY a JSON object:
 {

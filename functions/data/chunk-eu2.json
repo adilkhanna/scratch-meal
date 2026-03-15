@@ -1,0 +1,582 @@
+[
+  {
+    "id": "spaghetti-aglio-e-olio",
+    "name": "Spaghetti Aglio e Olio",
+    "description": "Simple Italian pasta with garlic, olive oil, chili flakes, and parsley.",
+    "cookTime": "20 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "spaghetti", "quantity": "200", "unit": "g" },
+      { "name": "garlic", "quantity": "6", "unit": "cloves" },
+      { "name": "extra virgin olive oil", "quantity": "60", "unit": "ml" },
+      { "name": "red chili flakes", "quantity": "0.5", "unit": "tsp" },
+      { "name": "fresh parsley", "quantity": "3", "unit": "tbsp" },
+      { "name": "parmesan cheese", "quantity": "20", "unit": "g" },
+      { "name": "salt", "quantity": "1", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Cook spaghetti in salted boiling water until al dente; reserve 1 cup pasta water before draining.",
+      "While pasta cooks, thinly slice garlic and gently fry in olive oil over low heat until golden (not brown).",
+      "Add chili flakes, then add the drained pasta directly to the pan.",
+      "Toss with a splash of pasta water to create a silky sauce that coats the noodles.",
+      "Finish with parsley and parmesan; serve immediately."
+    ],
+    "tips": [
+      "Slice garlic thin and cook on low heat — burnt garlic tastes bitter.",
+      "Pasta water is the secret — its starch helps create the sauce."
+    ],
+    "nutritionInfo": { "servings": 2, "calories": 480, "protein": "12g", "carbs": "56g", "fat": "24g" },
+    "cuisine": ["Italian"],
+    "dietaryTags": ["vegetarian", "nut-free", "egg-free"],
+    "mealTypes": ["dinner", "lunch"],
+    "region": "european",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "penne-arrabbiata",
+    "name": "Penne Arrabbiata",
+    "description": "Penne pasta in a fiery tomato sauce with garlic and red chili.",
+    "cookTime": "25 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "penne pasta", "quantity": "200", "unit": "g" },
+      { "name": "canned tomatoes", "quantity": "400", "unit": "g" },
+      { "name": "garlic", "quantity": "4", "unit": "cloves" },
+      { "name": "red chili flakes", "quantity": "1", "unit": "tsp" },
+      { "name": "olive oil", "quantity": "3", "unit": "tbsp" },
+      { "name": "fresh basil", "quantity": "6", "unit": "leaves" },
+      { "name": "parmesan cheese", "quantity": "30", "unit": "g" },
+      { "name": "salt", "quantity": "0.5", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Cook penne in salted boiling water until al dente; drain.",
+      "Heat olive oil, add sliced garlic and chili flakes; cook for 1 minute until fragrant.",
+      "Add canned tomatoes, break them up, season with salt, and simmer for 15 minutes.",
+      "Toss the cooked penne in the sauce until well coated.",
+      "Serve with torn basil and grated parmesan."
+    ],
+    "tips": [
+      "Arrabbiata means angry — adjust chili to your heat preference.",
+      "The sauce should be slightly chunky, not smooth."
+    ],
+    "nutritionInfo": { "servings": 2, "calories": 440, "protein": "14g", "carbs": "60g", "fat": "16g" },
+    "cuisine": ["Italian"],
+    "dietaryTags": ["vegetarian", "nut-free", "egg-free"],
+    "mealTypes": ["dinner", "lunch"],
+    "region": "european",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "margherita-pizza",
+    "name": "Margherita Pizza",
+    "description": "Classic Italian pizza with tomato sauce, fresh mozzarella, and basil on a thin crust.",
+    "cookTime": "30 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      { "name": "pizza dough", "quantity": "300", "unit": "g" },
+      { "name": "canned San Marzano tomatoes", "quantity": "200", "unit": "g" },
+      { "name": "fresh mozzarella", "quantity": "150", "unit": "g" },
+      { "name": "fresh basil", "quantity": "8", "unit": "leaves" },
+      { "name": "olive oil", "quantity": "1", "unit": "tbsp" },
+      { "name": "garlic", "quantity": "1", "unit": "clove" },
+      { "name": "salt", "quantity": "0.5", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Crush tomatoes by hand with garlic, salt, and a drizzle of olive oil for the sauce (do not cook).",
+      "Stretch pizza dough into a thin round on a floured surface.",
+      "Spread tomato sauce evenly, leaving a border for the crust.",
+      "Tear mozzarella and distribute over the pizza.",
+      "Bake at the highest oven temperature (250+ degrees Celsius) for 8-12 minutes until crust is charred and cheese is bubbly; add fresh basil after baking."
+    ],
+    "tips": [
+      "The hottest possible oven gives the best results — use a pizza stone if available.",
+      "Less is more — do not overload with toppings."
+    ],
+    "nutritionInfo": { "servings": 2, "calories": 480, "protein": "20g", "carbs": "54g", "fat": "20g" },
+    "cuisine": ["Italian"],
+    "dietaryTags": ["vegetarian", "nut-free", "egg-free"],
+    "mealTypes": ["dinner", "lunch"],
+    "region": "european",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "mushroom-risotto",
+    "name": "Mushroom Risotto",
+    "description": "Creamy Italian rice dish slowly cooked with mushrooms, wine, and parmesan.",
+    "cookTime": "35 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      { "name": "arborio rice", "quantity": "200", "unit": "g" },
+      { "name": "mushrooms (mixed)", "quantity": "200", "unit": "g" },
+      { "name": "onion", "quantity": "1", "unit": "small" },
+      { "name": "garlic", "quantity": "2", "unit": "cloves" },
+      { "name": "white wine", "quantity": "100", "unit": "ml" },
+      { "name": "vegetable broth", "quantity": "800", "unit": "ml" },
+      { "name": "butter", "quantity": "30", "unit": "g" },
+      { "name": "parmesan cheese", "quantity": "50", "unit": "g" },
+      { "name": "olive oil", "quantity": "2", "unit": "tbsp" },
+      { "name": "fresh thyme", "quantity": "3", "unit": "sprigs" },
+      { "name": "salt", "quantity": "0.5", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Keep broth warm in a saucepan on low heat.",
+      "Heat olive oil, sauté mushrooms until golden; set aside. Add butter, cook diced onion and garlic until soft.",
+      "Add rice and toast for 2 minutes until edges are translucent. Add wine and stir until absorbed.",
+      "Add warm broth one ladle at a time, stirring frequently, allowing each addition to absorb before adding more (about 18-20 minutes total).",
+      "Stir in mushrooms, parmesan, and remaining butter; the risotto should be creamy and flow like lava."
+    ],
+    "tips": [
+      "Constant stirring releases starch from the rice, creating the signature creaminess.",
+      "Risotto should flow when plated — it thickens as it rests."
+    ],
+    "nutritionInfo": { "servings": 3, "calories": 420, "protein": "12g", "carbs": "52g", "fat": "16g" },
+    "cuisine": ["Italian"],
+    "dietaryTags": ["vegetarian", "gluten-free", "nut-free", "egg-free"],
+    "mealTypes": ["dinner"],
+    "region": "european",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "lasagna",
+    "name": "Lasagna",
+    "description": "Layered Italian pasta bake with meat ragu, bechamel sauce, and mozzarella.",
+    "cookTime": "1 hour",
+    "difficulty": "Hard",
+    "ingredients": [
+      { "name": "lasagna sheets", "quantity": "250", "unit": "g" },
+      { "name": "ground beef", "quantity": "400", "unit": "g" },
+      { "name": "onion", "quantity": "1", "unit": "medium" },
+      { "name": "garlic", "quantity": "3", "unit": "cloves" },
+      { "name": "canned tomatoes", "quantity": "400", "unit": "g" },
+      { "name": "tomato paste", "quantity": "2", "unit": "tbsp" },
+      { "name": "butter", "quantity": "40", "unit": "g" },
+      { "name": "flour", "quantity": "40", "unit": "g" },
+      { "name": "milk", "quantity": "500", "unit": "ml" },
+      { "name": "mozzarella", "quantity": "200", "unit": "g" },
+      { "name": "parmesan", "quantity": "50", "unit": "g" },
+      { "name": "Italian seasoning", "quantity": "1", "unit": "tsp" },
+      { "name": "salt", "quantity": "1", "unit": "tsp" },
+      { "name": "olive oil", "quantity": "2", "unit": "tbsp" }
+    ],
+    "instructions": [
+      "Make meat ragu: brown ground beef in olive oil, add onion, garlic, tomatoes, tomato paste, Italian seasoning, and salt; simmer 20 minutes.",
+      "Make bechamel: melt butter, add flour, cook 1 minute, then slowly whisk in milk until thick and smooth.",
+      "Layer in a baking dish: ragu, lasagna sheets, bechamel, mozzarella. Repeat 3 times.",
+      "Top with remaining bechamel, mozzarella, and parmesan.",
+      "Bake at 180 degrees Celsius for 30-35 minutes until bubbly and golden; rest 10 minutes before serving."
+    ],
+    "tips": [
+      "Let lasagna rest for 10 minutes after baking — it holds together much better when sliced.",
+      "No-boil lasagna sheets simplify the process significantly."
+    ],
+    "nutritionInfo": { "servings": 6, "calories": 480, "protein": "28g", "carbs": "36g", "fat": "24g" },
+    "cuisine": ["Italian"],
+    "dietaryTags": ["nut-free"],
+    "mealTypes": ["dinner"],
+    "region": "european",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "pasta-carbonara",
+    "name": "Pasta Carbonara",
+    "description": "Classic Roman pasta with egg, pecorino, black pepper, and guanciale.",
+    "cookTime": "20 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      { "name": "spaghetti", "quantity": "200", "unit": "g" },
+      { "name": "guanciale or pancetta", "quantity": "150", "unit": "g" },
+      { "name": "egg yolks", "quantity": "3" },
+      { "name": "whole egg", "quantity": "1" },
+      { "name": "pecorino romano", "quantity": "60", "unit": "g" },
+      { "name": "black pepper", "quantity": "1", "unit": "tsp" },
+      { "name": "salt", "quantity": "0.5", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Cook spaghetti in generously salted water until al dente; reserve 1 cup pasta water.",
+      "While pasta cooks, cut guanciale into small strips and render in a pan until crispy and golden.",
+      "Whisk egg yolks, whole egg, grated pecorino, and black pepper in a bowl.",
+      "Add drained pasta to the guanciale pan (off heat), then quickly toss with the egg-cheese mixture.",
+      "Add splashes of pasta water and toss vigorously to create a creamy sauce — the residual heat gently cooks the eggs without scrambling."
+    ],
+    "tips": [
+      "Take the pan off the heat before adding the egg mixture — too much heat scrambles the eggs.",
+      "Authentic carbonara has no cream — creaminess comes from eggs and cheese."
+    ],
+    "nutritionInfo": { "servings": 2, "calories": 580, "protein": "28g", "carbs": "52g", "fat": "28g" },
+    "cuisine": ["Italian"],
+    "dietaryTags": ["nut-free"],
+    "mealTypes": ["dinner"],
+    "region": "european",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "grilled-salmon",
+    "name": "Grilled Salmon",
+    "description": "Salmon fillet seasoned simply and grilled until crispy skin and flaky flesh.",
+    "cookTime": "15 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "salmon fillet", "quantity": "2", "unit": "pieces" },
+      { "name": "olive oil", "quantity": "1", "unit": "tbsp" },
+      { "name": "lemon", "quantity": "1" },
+      { "name": "garlic", "quantity": "2", "unit": "cloves" },
+      { "name": "fresh dill", "quantity": "2", "unit": "tbsp" },
+      { "name": "salt", "quantity": "0.5", "unit": "tsp" },
+      { "name": "black pepper", "quantity": "0.25", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Pat salmon fillets dry, rub with olive oil, minced garlic, salt, and pepper.",
+      "Heat a grill or grill pan to high heat.",
+      "Place salmon skin-side down, cook for 4-5 minutes without moving.",
+      "Flip carefully and cook another 3-4 minutes until just opaque in the center.",
+      "Serve with lemon wedges and fresh dill."
+    ],
+    "tips": [
+      "Do not move the salmon once placed — this allows the skin to crisp properly.",
+      "Salmon should be slightly translucent in the center — it continues cooking off heat."
+    ],
+    "nutritionInfo": { "servings": 2, "calories": 350, "protein": "34g", "carbs": "2g", "fat": "22g" },
+    "cuisine": ["European"],
+    "dietaryTags": ["gluten-free", "dairy-free", "nut-free", "egg-free", "low-carb", "high-protein"],
+    "mealTypes": ["dinner"],
+    "region": "european",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "chicken-parmesan",
+    "name": "Chicken Parmesan",
+    "description": "Breaded chicken cutlet topped with marinara sauce and melted mozzarella.",
+    "cookTime": "35 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      { "name": "chicken breast", "quantity": "2" },
+      { "name": "breadcrumbs", "quantity": "100", "unit": "g" },
+      { "name": "parmesan cheese", "quantity": "40", "unit": "g" },
+      { "name": "egg", "quantity": "1" },
+      { "name": "flour", "quantity": "50", "unit": "g" },
+      { "name": "marinara sauce", "quantity": "200", "unit": "ml" },
+      { "name": "mozzarella", "quantity": "100", "unit": "g" },
+      { "name": "olive oil", "quantity": "60", "unit": "ml" },
+      { "name": "salt", "quantity": "0.5", "unit": "tsp" },
+      { "name": "black pepper", "quantity": "0.25", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Pound chicken breasts to even thickness, season with salt and pepper.",
+      "Set up breading station: flour, beaten egg, then breadcrumbs mixed with parmesan.",
+      "Coat each chicken piece in flour, dip in egg, then press into breadcrumb mixture.",
+      "Pan-fry in olive oil for 3-4 minutes per side until golden; transfer to a baking dish.",
+      "Spoon marinara over each cutlet, top with mozzarella, and bake at 200 degrees Celsius for 10-12 minutes until cheese is bubbly."
+    ],
+    "tips": [
+      "Pounding the chicken to even thickness ensures uniform cooking.",
+      "Let the fried chicken drain briefly before adding sauce."
+    ],
+    "nutritionInfo": { "servings": 2, "calories": 520, "protein": "42g", "carbs": "28g", "fat": "26g" },
+    "cuisine": ["Italian", "American"],
+    "dietaryTags": ["nut-free"],
+    "mealTypes": ["dinner"],
+    "region": "european",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "beef-stew",
+    "name": "Beef Stew",
+    "description": "Hearty slow-cooked beef with potatoes, carrots, and a rich gravy.",
+    "cookTime": "2 hours",
+    "difficulty": "Medium",
+    "ingredients": [
+      { "name": "beef chuck", "quantity": "500", "unit": "g" },
+      { "name": "potatoes", "quantity": "3", "unit": "medium" },
+      { "name": "carrots", "quantity": "2", "unit": "medium" },
+      { "name": "onion", "quantity": "1", "unit": "large" },
+      { "name": "celery", "quantity": "2", "unit": "stalks" },
+      { "name": "garlic", "quantity": "3", "unit": "cloves" },
+      { "name": "tomato paste", "quantity": "2", "unit": "tbsp" },
+      { "name": "beef broth", "quantity": "500", "unit": "ml" },
+      { "name": "red wine", "quantity": "100", "unit": "ml" },
+      { "name": "flour", "quantity": "2", "unit": "tbsp" },
+      { "name": "olive oil", "quantity": "2", "unit": "tbsp" },
+      { "name": "thyme", "quantity": "3", "unit": "sprigs" },
+      { "name": "bay leaf", "quantity": "1" },
+      { "name": "salt", "quantity": "1", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Cut beef into 2-inch cubes, toss with flour, salt, and pepper.",
+      "Brown beef in batches in olive oil over high heat; set aside.",
+      "Sauté onion, celery, and garlic in the same pot until soft.",
+      "Add tomato paste, red wine, broth, thyme, and bay leaf; return beef, bring to a simmer.",
+      "Add potatoes and carrots, cover, and cook on low heat for 1.5-2 hours until beef is fork-tender."
+    ],
+    "tips": [
+      "Brown the beef in batches without crowding the pan — this builds deep flavor.",
+      "Low and slow is the only way — do not rush the cooking."
+    ],
+    "nutritionInfo": { "servings": 4, "calories": 420, "protein": "32g", "carbs": "30g", "fat": "18g" },
+    "cuisine": ["European"],
+    "dietaryTags": ["dairy-free", "nut-free", "egg-free"],
+    "mealTypes": ["dinner"],
+    "region": "european",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "mushroom-stroganoff",
+    "name": "Mushroom Stroganoff",
+    "description": "Creamy mushroom sauce with sour cream and paprika, served over egg noodles.",
+    "cookTime": "25 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "mushrooms (mixed)", "quantity": "400", "unit": "g" },
+      { "name": "onion", "quantity": "1", "unit": "medium" },
+      { "name": "garlic", "quantity": "2", "unit": "cloves" },
+      { "name": "sour cream", "quantity": "150", "unit": "g" },
+      { "name": "butter", "quantity": "30", "unit": "g" },
+      { "name": "paprika", "quantity": "1", "unit": "tsp" },
+      { "name": "Dijon mustard", "quantity": "1", "unit": "tsp" },
+      { "name": "vegetable broth", "quantity": "100", "unit": "ml" },
+      { "name": "egg noodles", "quantity": "200", "unit": "g" },
+      { "name": "fresh parsley", "quantity": "2", "unit": "tbsp" },
+      { "name": "salt", "quantity": "0.5", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Cook egg noodles according to package directions; drain.",
+      "Melt butter, sauté sliced onion until soft, add garlic and mushrooms; cook until mushrooms are golden.",
+      "Add paprika and mustard, stir for a minute.",
+      "Add broth, simmer for 5 minutes until slightly reduced.",
+      "Remove from heat, stir in sour cream, season with salt, and serve over noodles with parsley."
+    ],
+    "tips": [
+      "Add sour cream off the heat to prevent curdling.",
+      "A mix of mushroom varieties adds more depth of flavor."
+    ],
+    "nutritionInfo": { "servings": 3, "calories": 380, "protein": "12g", "carbs": "40g", "fat": "20g" },
+    "cuisine": ["European"],
+    "dietaryTags": ["vegetarian", "nut-free"],
+    "mealTypes": ["dinner"],
+    "region": "european",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "garlic-bread",
+    "name": "Garlic Bread",
+    "description": "Crusty bread slathered with garlic butter and herbs, baked until golden.",
+    "cookTime": "15 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "French bread or baguette", "quantity": "1" },
+      { "name": "butter", "quantity": "60", "unit": "g" },
+      { "name": "garlic", "quantity": "4", "unit": "cloves" },
+      { "name": "fresh parsley", "quantity": "2", "unit": "tbsp" },
+      { "name": "salt", "quantity": "0.25", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Mix softened butter with minced garlic, chopped parsley, and salt.",
+      "Slice bread in half lengthwise.",
+      "Spread garlic butter generously on both halves.",
+      "Bake at 190 degrees Celsius for 8-10 minutes until edges are golden and butter is bubbling.",
+      "Slice and serve warm alongside pasta or soup."
+    ],
+    "tips": [
+      "Wrap in foil and bake for soft garlic bread; leave open for crispy.",
+      "Freshly minced garlic is far superior to garlic powder."
+    ],
+    "nutritionInfo": { "servings": 6, "calories": 180, "protein": "3g", "carbs": "18g", "fat": "10g" },
+    "cuisine": ["Italian"],
+    "dietaryTags": ["vegetarian", "nut-free", "egg-free"],
+    "mealTypes": ["snack", "dinner"],
+    "region": "european",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "mashed-potatoes",
+    "name": "Mashed Potatoes",
+    "description": "Creamy buttery mashed potatoes — the ultimate comfort side dish.",
+    "cookTime": "25 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "potatoes (Yukon Gold or Russet)", "quantity": "600", "unit": "g" },
+      { "name": "butter", "quantity": "50", "unit": "g" },
+      { "name": "milk", "quantity": "80", "unit": "ml" },
+      { "name": "salt", "quantity": "0.5", "unit": "tsp" },
+      { "name": "white pepper", "quantity": "0.25", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Peel and cut potatoes into equal-sized chunks.",
+      "Boil in salted water until fork-tender, about 15-18 minutes; drain well.",
+      "Return potatoes to the pot, add butter, and mash until smooth.",
+      "Gradually add warm milk while mashing until desired consistency is reached.",
+      "Season with salt and white pepper; serve immediately."
+    ],
+    "tips": [
+      "Use warm milk, not cold — cold milk makes potatoes gluey.",
+      "Do not over-mash or use a food processor — it activates starch and makes them gummy."
+    ],
+    "nutritionInfo": { "servings": 4, "calories": 220, "protein": "4g", "carbs": "30g", "fat": "10g" },
+    "cuisine": ["European", "American"],
+    "dietaryTags": ["vegetarian", "gluten-free", "nut-free", "egg-free"],
+    "mealTypes": ["dinner", "lunch"],
+    "region": "european",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "roasted-vegetables",
+    "name": "Roasted Vegetables",
+    "description": "Assorted vegetables roasted with olive oil and herbs until caramelized and tender.",
+    "cookTime": "35 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "zucchini", "quantity": "1", "unit": "medium" },
+      { "name": "bell pepper", "quantity": "1" },
+      { "name": "red onion", "quantity": "1" },
+      { "name": "broccoli", "quantity": "150", "unit": "g" },
+      { "name": "cherry tomatoes", "quantity": "100", "unit": "g" },
+      { "name": "olive oil", "quantity": "3", "unit": "tbsp" },
+      { "name": "garlic", "quantity": "2", "unit": "cloves" },
+      { "name": "Italian seasoning", "quantity": "1", "unit": "tsp" },
+      { "name": "salt", "quantity": "0.5", "unit": "tsp" },
+      { "name": "black pepper", "quantity": "0.25", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Preheat oven to 220 degrees Celsius.",
+      "Cut all vegetables into similar-sized pieces for even cooking.",
+      "Toss with olive oil, minced garlic, Italian seasoning, salt, and pepper.",
+      "Spread in a single layer on a baking sheet — do not overcrowd.",
+      "Roast for 25-30 minutes, tossing halfway, until edges are caramelized."
+    ],
+    "tips": [
+      "Do not overcrowd the pan — vegetables steam instead of roast when too close together.",
+      "High heat and a single layer are the secrets to caramelization."
+    ],
+    "nutritionInfo": { "servings": 4, "calories": 120, "protein": "3g", "carbs": "10g", "fat": "8g" },
+    "cuisine": ["European"],
+    "dietaryTags": ["vegetarian", "vegan", "gluten-free", "dairy-free", "nut-free", "egg-free", "low-carb"],
+    "mealTypes": ["dinner", "lunch"],
+    "region": "european",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "coleslaw",
+    "name": "Coleslaw",
+    "description": "Crunchy shredded cabbage and carrot salad in a creamy mayonnaise dressing.",
+    "cookTime": "10 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "cabbage", "quantity": "300", "unit": "g" },
+      { "name": "carrot", "quantity": "1", "unit": "medium" },
+      { "name": "mayonnaise", "quantity": "60", "unit": "g" },
+      { "name": "apple cider vinegar", "quantity": "1", "unit": "tbsp" },
+      { "name": "sugar", "quantity": "1", "unit": "tsp" },
+      { "name": "salt", "quantity": "0.25", "unit": "tsp" },
+      { "name": "black pepper", "quantity": "0.25", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Finely shred cabbage and grate carrot.",
+      "Whisk together mayonnaise, vinegar, sugar, salt, and pepper.",
+      "Toss the vegetables with the dressing until evenly coated.",
+      "Refrigerate for at least 30 minutes before serving for flavors to meld."
+    ],
+    "tips": [
+      "A mandoline makes shredding fast and uniform.",
+      "Coleslaw tastes better after resting in the fridge for an hour."
+    ],
+    "nutritionInfo": { "servings": 4, "calories": 110, "protein": "1g", "carbs": "8g", "fat": "8g" },
+    "cuisine": ["American"],
+    "dietaryTags": ["vegetarian", "gluten-free", "nut-free", "egg-free"],
+    "mealTypes": ["lunch", "dinner"],
+    "region": "european",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "hummus",
+    "name": "Hummus",
+    "description": "Smooth chickpea dip blended with tahini, lemon, and garlic.",
+    "cookTime": "10 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "canned chickpeas", "quantity": "400", "unit": "g" },
+      { "name": "tahini", "quantity": "3", "unit": "tbsp" },
+      { "name": "lemon juice", "quantity": "2", "unit": "tbsp" },
+      { "name": "garlic", "quantity": "1", "unit": "clove" },
+      { "name": "olive oil", "quantity": "2", "unit": "tbsp" },
+      { "name": "cumin", "quantity": "0.5", "unit": "tsp" },
+      { "name": "salt", "quantity": "0.5", "unit": "tsp" },
+      { "name": "ice water", "quantity": "3", "unit": "tbsp" }
+    ],
+    "instructions": [
+      "Drain chickpeas and rinse; reserve a few for garnish.",
+      "Blend tahini and lemon juice together first for 1 minute until lightened.",
+      "Add chickpeas, garlic, cumin, and salt; blend until smooth.",
+      "With blender running, add ice water to reach a creamy, light consistency.",
+      "Serve drizzled with olive oil and topped with reserved chickpeas and paprika."
+    ],
+    "tips": [
+      "Blending tahini and lemon first creates an ultra-smooth base.",
+      "Ice water makes the hummus lighter and fluffier than room-temperature water."
+    ],
+    "nutritionInfo": { "servings": 6, "calories": 150, "protein": "5g", "carbs": "14g", "fat": "8g" },
+    "cuisine": ["Mediterranean", "Middle Eastern"],
+    "dietaryTags": ["vegetarian", "vegan", "gluten-free", "dairy-free", "egg-free"],
+    "mealTypes": ["snack", "lunch"],
+    "region": "european",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  }
+]

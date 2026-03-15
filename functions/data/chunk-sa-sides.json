@@ -1,0 +1,546 @@
+[
+  {
+    "id": "cucumber-raita",
+    "name": "Cucumber Raita",
+    "description": "Cool yogurt dip with grated cucumber, cumin, and fresh mint.",
+    "cookTime": "5 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "yogurt", "quantity": "250", "unit": "g" },
+      { "name": "cucumber", "quantity": "1", "unit": "medium" },
+      { "name": "cumin powder", "quantity": "0.5", "unit": "tsp" },
+      { "name": "fresh mint", "quantity": "1", "unit": "tbsp" },
+      { "name": "salt", "quantity": "0.25", "unit": "tsp" },
+      { "name": "red chili powder", "quantity": "0.25", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Grate cucumber and squeeze out excess water.",
+      "Whisk yogurt until smooth, add grated cucumber.",
+      "Mix in cumin powder, chopped mint, salt, and a pinch of red chili powder.",
+      "Refrigerate for 15 minutes before serving for best flavor."
+    ],
+    "tips": [
+      "Squeezing out cucumber water prevents a watery raita.",
+      "Roasted cumin powder adds a deeper, nuttier flavor."
+    ],
+    "nutritionInfo": { "servings": 4, "calories": 60, "protein": "3g", "carbs": "6g", "fat": "2g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "gluten-free", "nut-free", "egg-free"],
+    "mealTypes": ["lunch", "dinner"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "boondi-raita",
+    "name": "Boondi Raita",
+    "description": "Creamy yogurt mixed with crispy gram flour droplets and spiced with cumin.",
+    "cookTime": "5 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "yogurt", "quantity": "250", "unit": "g" },
+      { "name": "boondi (plain)", "quantity": "50", "unit": "g" },
+      { "name": "cumin powder", "quantity": "0.5", "unit": "tsp" },
+      { "name": "red chili powder", "quantity": "0.25", "unit": "tsp" },
+      { "name": "fresh coriander", "quantity": "1", "unit": "tbsp" },
+      { "name": "salt", "quantity": "0.25", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Soak boondi in water for 5 minutes until slightly soft, then squeeze out water.",
+      "Whisk yogurt until smooth and creamy.",
+      "Add softened boondi, cumin powder, salt, and chili powder; mix gently.",
+      "Garnish with coriander and serve chilled alongside biryani or pulao."
+    ],
+    "tips": [
+      "Use plain boondi, not the masala variety, for raita.",
+      "Do not over-soak boondi or it becomes too mushy."
+    ],
+    "nutritionInfo": { "servings": 4, "calories": 90, "protein": "4g", "carbs": "10g", "fat": "3g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "nut-free", "egg-free"],
+    "mealTypes": ["lunch", "dinner"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "jeera-rice",
+    "name": "Jeera Rice",
+    "description": "Fragrant basmati rice cooked with cumin seeds and ghee.",
+    "cookTime": "20 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "basmati rice", "quantity": "200", "unit": "g" },
+      { "name": "cumin seeds", "quantity": "1", "unit": "tsp" },
+      { "name": "ghee", "quantity": "1", "unit": "tbsp" },
+      { "name": "bay leaf", "quantity": "1" },
+      { "name": "salt", "quantity": "0.5", "unit": "tsp" },
+      { "name": "water", "quantity": "400", "unit": "ml" }
+    ],
+    "instructions": [
+      "Wash and soak basmati rice for 20 minutes, then drain.",
+      "Heat ghee in a pan, add cumin seeds and bay leaf; let them splutter.",
+      "Add drained rice and sauté gently for 1-2 minutes.",
+      "Add water and salt, bring to a boil, then cover and cook on low heat for 12-14 minutes.",
+      "Fluff with a fork and serve with any dal or curry."
+    ],
+    "tips": [
+      "Soaking rice ensures long, separate grains.",
+      "Do not stir the rice once water is added — it breaks the grains."
+    ],
+    "nutritionInfo": { "servings": 3, "calories": 220, "protein": "4g", "carbs": "42g", "fat": "4g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "gluten-free", "nut-free", "egg-free"],
+    "mealTypes": ["lunch", "dinner"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "plain-chapati",
+    "name": "Plain Chapati",
+    "description": "Thin whole wheat flatbread cooked on a hot griddle — the staple Indian bread.",
+    "cookTime": "20 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "whole wheat flour", "quantity": "200", "unit": "g" },
+      { "name": "water", "quantity": "120", "unit": "ml" },
+      { "name": "salt", "quantity": "0.25", "unit": "tsp" },
+      { "name": "ghee", "quantity": "1", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Mix flour, salt, and water; knead into a soft, smooth dough for 5 minutes.",
+      "Rest the dough covered for 10 minutes.",
+      "Divide into small balls, dust with flour, and roll into thin circles.",
+      "Cook on a hot tawa until bubbles appear, flip, and cook until brown spots appear; it should puff up.",
+      "Apply a thin layer of ghee and serve immediately."
+    ],
+    "tips": [
+      "Soft dough and thorough kneading give the softest chapatis.",
+      "Direct flame contact for the last few seconds helps chapati puff fully."
+    ],
+    "nutritionInfo": { "servings": 6, "calories": 80, "protein": "3g", "carbs": "14g", "fat": "1g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "vegan", "dairy-free", "nut-free", "egg-free"],
+    "mealTypes": ["lunch", "dinner"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "naan",
+    "name": "Naan",
+    "description": "Soft, leavened Indian flatbread baked until pillowy with charred spots.",
+    "cookTime": "30 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      { "name": "all-purpose flour (maida)", "quantity": "300", "unit": "g" },
+      { "name": "yogurt", "quantity": "60", "unit": "g" },
+      { "name": "milk", "quantity": "80", "unit": "ml" },
+      { "name": "sugar", "quantity": "1", "unit": "tsp" },
+      { "name": "instant yeast", "quantity": "1", "unit": "tsp" },
+      { "name": "baking powder", "quantity": "0.5", "unit": "tsp" },
+      { "name": "oil", "quantity": "2", "unit": "tbsp" },
+      { "name": "butter", "quantity": "30", "unit": "g" },
+      { "name": "garlic", "quantity": "2", "unit": "cloves" },
+      { "name": "salt", "quantity": "0.5", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Mix warm milk, sugar, and yeast; let sit for 5 minutes until frothy.",
+      "Combine flour, baking powder, salt, yogurt, oil, and yeast mixture; knead into a soft dough.",
+      "Cover and let rest for 1 hour until doubled in size.",
+      "Divide into balls, roll into oval shapes, and cook on a very hot tawa or cast iron pan until charred and puffed.",
+      "Brush with garlic butter (minced garlic mixed with melted butter) and serve hot."
+    ],
+    "tips": [
+      "A very hot surface is key — naan should char slightly for authentic flavor.",
+      "For tandoori effect at home, use a cast iron pan or place under a broiler."
+    ],
+    "nutritionInfo": { "servings": 6, "calories": 180, "protein": "5g", "carbs": "28g", "fat": "6g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "nut-free", "egg-free"],
+    "mealTypes": ["lunch", "dinner"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "plain-rice",
+    "name": "Plain Steamed Rice",
+    "description": "Simple steamed basmati rice — the foundation of an Indian meal.",
+    "cookTime": "15 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "basmati rice", "quantity": "200", "unit": "g" },
+      { "name": "water", "quantity": "400", "unit": "ml" },
+      { "name": "salt", "quantity": "0.25", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Wash rice in several changes of water until water runs clear.",
+      "Soak for 20 minutes, then drain.",
+      "Add rice, fresh water, and salt to a pot; bring to a boil.",
+      "Reduce heat to lowest, cover tightly, and cook for 12 minutes.",
+      "Turn off heat, keep covered for 5 minutes, then fluff with a fork."
+    ],
+    "tips": [
+      "The 1:2 rice-to-water ratio works for most basmati.",
+      "Never stir rice while cooking — it makes it gummy."
+    ],
+    "nutritionInfo": { "servings": 3, "calories": 200, "protein": "4g", "carbs": "44g", "fat": "0g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "vegan", "gluten-free", "dairy-free", "nut-free", "egg-free"],
+    "mealTypes": ["lunch", "dinner"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "vegetable-pulao",
+    "name": "Vegetable Pulao",
+    "description": "Fragrant basmati rice cooked with mixed vegetables and whole spices.",
+    "cookTime": "25 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "basmati rice", "quantity": "200", "unit": "g" },
+      { "name": "mixed vegetables (carrot, peas, beans)", "quantity": "150", "unit": "g" },
+      { "name": "onion", "quantity": "1", "unit": "medium" },
+      { "name": "bay leaf", "quantity": "1" },
+      { "name": "cinnamon stick", "quantity": "1", "unit": "small" },
+      { "name": "cardamom", "quantity": "2" },
+      { "name": "cloves", "quantity": "3" },
+      { "name": "ghee", "quantity": "2", "unit": "tbsp" },
+      { "name": "salt", "quantity": "1", "unit": "tsp" },
+      { "name": "water", "quantity": "400", "unit": "ml" }
+    ],
+    "instructions": [
+      "Wash and soak rice for 20 minutes; drain.",
+      "Heat ghee, add whole spices (bay leaf, cinnamon, cardamom, cloves), and sauté for a minute.",
+      "Add sliced onion and cook until translucent; add chopped vegetables and stir-fry for 2 minutes.",
+      "Add drained rice, salt, and water; bring to a boil, then cover and cook on low heat for 14 minutes.",
+      "Fluff gently with a fork and serve with raita."
+    ],
+    "tips": [
+      "Handle the cooked pulao gently — vigorous stirring breaks the rice grains.",
+      "Toasting whole spices in ghee before adding rice adds tremendous fragrance."
+    ],
+    "nutritionInfo": { "servings": 4, "calories": 240, "protein": "5g", "carbs": "40g", "fat": "6g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "gluten-free", "nut-free", "egg-free"],
+    "mealTypes": ["lunch", "dinner"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "lemon-rice",
+    "name": "Lemon Rice",
+    "description": "South Indian tangy rice tempered with peanuts, mustard seeds, and lemon juice.",
+    "cookTime": "15 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "cooked rice", "quantity": "400", "unit": "g" },
+      { "name": "lemon juice", "quantity": "3", "unit": "tbsp" },
+      { "name": "peanuts", "quantity": "30", "unit": "g" },
+      { "name": "mustard seeds", "quantity": "1", "unit": "tsp" },
+      { "name": "urad dal", "quantity": "1", "unit": "tsp" },
+      { "name": "chana dal", "quantity": "1", "unit": "tsp" },
+      { "name": "turmeric powder", "quantity": "0.5", "unit": "tsp" },
+      { "name": "green chili", "quantity": "2" },
+      { "name": "curry leaves", "quantity": "8" },
+      { "name": "oil", "quantity": "2", "unit": "tbsp" },
+      { "name": "salt", "quantity": "0.5", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Heat oil, add mustard seeds, urad dal, chana dal, and peanuts; fry until dals are golden.",
+      "Add curry leaves, green chilies, and turmeric; sauté briefly.",
+      "Add cooked rice (preferably cooled), salt, and toss gently with the tempering.",
+      "Squeeze lemon juice over the rice, mix well, and serve.",
+      "Best served at room temperature — perfect for lunchboxes."
+    ],
+    "tips": [
+      "Use cold or leftover rice — fresh hot rice can become mushy.",
+      "Add lemon juice after turning off heat to preserve its fresh flavor."
+    ],
+    "nutritionInfo": { "servings": 3, "calories": 230, "protein": "5g", "carbs": "38g", "fat": "7g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "vegan", "gluten-free", "dairy-free", "egg-free"],
+    "mealTypes": ["lunch"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "plain-yogurt",
+    "name": "Plain Yogurt (Dahi)",
+    "description": "Fresh homemade yogurt set overnight — a staple accompaniment to Indian meals.",
+    "cookTime": "10 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "whole milk", "quantity": "1", "unit": "liter" },
+      { "name": "yogurt starter (existing yogurt)", "quantity": "2", "unit": "tbsp" }
+    ],
+    "instructions": [
+      "Boil milk and let it cool to lukewarm (about 40 degrees Celsius — you should be able to hold your finger in it comfortably).",
+      "Mix in the yogurt starter thoroughly.",
+      "Pour into a container, cover, and keep in a warm place undisturbed for 6-8 hours.",
+      "Once set, refrigerate to stop fermentation.",
+      "Serve chilled as a side with any Indian meal."
+    ],
+    "tips": [
+      "Temperature is critical — too hot kills the cultures, too cold prevents setting.",
+      "In cold weather, wrap the container in a towel or place in the oven with the light on."
+    ],
+    "nutritionInfo": { "servings": 6, "calories": 80, "protein": "4g", "carbs": "6g", "fat": "4g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "gluten-free", "nut-free", "egg-free"],
+    "mealTypes": ["lunch", "dinner"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "roasted-papad",
+    "name": "Roasted Papad",
+    "description": "Thin lentil wafer roasted until crispy — the simplest Indian side.",
+    "cookTime": "2 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "papad (urad or moong)", "quantity": "4" }
+    ],
+    "instructions": [
+      "Hold a papad over a direct gas flame using tongs, rotating constantly.",
+      "The papad will puff up and develop charred spots within 15-20 seconds per side.",
+      "Alternatively, microwave for 30-40 seconds until crisp.",
+      "Serve immediately as a crunchy accompaniment to any meal."
+    ],
+    "tips": [
+      "Keep the papad moving constantly over the flame to avoid burning.",
+      "Microwave method is easier but lacks the smoky flavor."
+    ],
+    "nutritionInfo": { "servings": 4, "calories": 40, "protein": "2g", "carbs": "6g", "fat": "1g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "vegan", "dairy-free", "nut-free", "egg-free"],
+    "mealTypes": ["lunch", "dinner"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "aloo-paratha-side",
+    "name": "Aloo Paratha (Side)",
+    "description": "Stuffed potato flatbread served as a hearty side with curd and pickle.",
+    "cookTime": "25 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      { "name": "whole wheat flour", "quantity": "200", "unit": "g" },
+      { "name": "potato", "quantity": "2", "unit": "medium" },
+      { "name": "green chili", "quantity": "1" },
+      { "name": "cumin seeds", "quantity": "0.5", "unit": "tsp" },
+      { "name": "amchur powder", "quantity": "0.5", "unit": "tsp" },
+      { "name": "ghee", "quantity": "2", "unit": "tbsp" },
+      { "name": "salt", "quantity": "0.5", "unit": "tsp" },
+      { "name": "water", "quantity": "100", "unit": "ml" }
+    ],
+    "instructions": [
+      "Knead flour, water, and salt into a soft dough; rest for 10 minutes.",
+      "Boil, peel, and mash potatoes; mix with green chili, cumin, amchur, and salt.",
+      "Roll a dough ball, stuff with potato filling, seal, and roll out carefully.",
+      "Cook on a hot tawa with ghee on both sides until golden.",
+      "Serve with a dollop of butter, yogurt, and pickle."
+    ],
+    "tips": [
+      "Dust generously with flour while rolling to prevent sticking.",
+      "Press gently while cooking to ensure even browning."
+    ],
+    "nutritionInfo": { "servings": 4, "calories": 240, "protein": "6g", "carbs": "36g", "fat": "8g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "nut-free", "egg-free"],
+    "mealTypes": ["lunch", "dinner"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "methi-thepla",
+    "name": "Methi Thepla",
+    "description": "Gujarati spiced fenugreek flatbread — perfect for travel and lunchboxes.",
+    "cookTime": "25 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "whole wheat flour", "quantity": "200", "unit": "g" },
+      { "name": "gram flour (besan)", "quantity": "30", "unit": "g" },
+      { "name": "fresh fenugreek leaves (methi)", "quantity": "80", "unit": "g" },
+      { "name": "yogurt", "quantity": "30", "unit": "g" },
+      { "name": "turmeric powder", "quantity": "0.25", "unit": "tsp" },
+      { "name": "red chili powder", "quantity": "0.5", "unit": "tsp" },
+      { "name": "oil", "quantity": "3", "unit": "tbsp" },
+      { "name": "salt", "quantity": "0.5", "unit": "tsp" },
+      { "name": "water", "quantity": "80", "unit": "ml" }
+    ],
+    "instructions": [
+      "Wash and finely chop methi leaves; sprinkle with salt and let sit for 5 minutes.",
+      "Mix both flours, methi, yogurt, turmeric, chili powder, 1 tbsp oil, and salt; knead into a soft dough using water.",
+      "Divide into small balls and roll into thin circles.",
+      "Cook on a hot tawa with oil on both sides until golden spots appear.",
+      "Stack and wrap in foil — theplas stay fresh for days."
+    ],
+    "tips": [
+      "Adding a bit of oil to the dough keeps theplas soft even when cold.",
+      "These are the quintessential Gujarati travel food."
+    ],
+    "nutritionInfo": { "servings": 6, "calories": 140, "protein": "5g", "carbs": "20g", "fat": "5g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "nut-free", "egg-free"],
+    "mealTypes": ["lunch", "snack"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "puri",
+    "name": "Puri",
+    "description": "Deep-fried puffed whole wheat bread — a festive Indian staple.",
+    "cookTime": "20 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "whole wheat flour", "quantity": "200", "unit": "g" },
+      { "name": "salt", "quantity": "0.5", "unit": "tsp" },
+      { "name": "oil (for dough)", "quantity": "1", "unit": "tsp" },
+      { "name": "water", "quantity": "100", "unit": "ml" },
+      { "name": "oil for deep frying", "quantity": "500", "unit": "ml" }
+    ],
+    "instructions": [
+      "Mix flour, salt, and 1 tsp oil; knead with water into a stiff dough (stiffer than chapati dough).",
+      "Rest for 10 minutes, then divide into small balls.",
+      "Roll each ball into a small, thick circle (about 4 inches diameter).",
+      "Heat oil until very hot, slide in a puri, and press gently with a slotted spoon until it puffs up.",
+      "Flip once, drain on paper towels, and serve immediately with aloo sabzi or halwa."
+    ],
+    "tips": [
+      "The dough must be stiff for puris to puff — soft dough absorbs too much oil.",
+      "Oil must be very hot — a small piece of dough should immediately rise to the surface."
+    ],
+    "nutritionInfo": { "servings": 8, "calories": 100, "protein": "2g", "carbs": "14g", "fat": "4g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "vegan", "dairy-free", "nut-free", "egg-free"],
+    "mealTypes": ["lunch", "breakfast"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "mixed-veg-raita",
+    "name": "Mixed Vegetable Raita",
+    "description": "Yogurt dip with finely chopped mixed vegetables, seasoned with roasted cumin.",
+    "cookTime": "10 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "yogurt", "quantity": "250", "unit": "g" },
+      { "name": "cucumber", "quantity": "0.5", "unit": "medium" },
+      { "name": "tomato", "quantity": "1", "unit": "small" },
+      { "name": "onion", "quantity": "0.5", "unit": "small" },
+      { "name": "carrot", "quantity": "0.5", "unit": "small" },
+      { "name": "roasted cumin powder", "quantity": "0.5", "unit": "tsp" },
+      { "name": "chaat masala", "quantity": "0.25", "unit": "tsp" },
+      { "name": "salt", "quantity": "0.25", "unit": "tsp" },
+      { "name": "fresh coriander", "quantity": "1", "unit": "tbsp" }
+    ],
+    "instructions": [
+      "Finely dice cucumber, tomato, onion, and carrot.",
+      "Whisk yogurt until smooth.",
+      "Mix in all chopped vegetables, cumin powder, chaat masala, and salt.",
+      "Garnish with coriander and chill before serving."
+    ],
+    "tips": [
+      "Deseed the tomato to prevent excess liquid.",
+      "This raita pairs especially well with biryani and pulao."
+    ],
+    "nutritionInfo": { "servings": 4, "calories": 70, "protein": "4g", "carbs": "8g", "fat": "2g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "gluten-free", "nut-free", "egg-free"],
+    "mealTypes": ["lunch", "dinner"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "mango-pickle",
+    "name": "Mango Pickle (Aam ka Achaar)",
+    "description": "Tangy and spicy raw mango pickle with mustard oil and traditional spices.",
+    "cookTime": "20 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "raw mango", "quantity": "500", "unit": "g" },
+      { "name": "mustard oil", "quantity": "100", "unit": "ml" },
+      { "name": "fenugreek seeds", "quantity": "1", "unit": "tsp" },
+      { "name": "mustard seeds (ground)", "quantity": "2", "unit": "tbsp" },
+      { "name": "red chili powder", "quantity": "3", "unit": "tbsp" },
+      { "name": "turmeric powder", "quantity": "1", "unit": "tsp" },
+      { "name": "fennel seeds", "quantity": "1", "unit": "tsp" },
+      { "name": "salt", "quantity": "3", "unit": "tbsp" }
+    ],
+    "instructions": [
+      "Wash and dry raw mangoes completely; cut into small pieces with the seed.",
+      "Mix mango pieces with salt, turmeric, and all spice powders; toss well.",
+      "Heat mustard oil until it smokes, let it cool completely.",
+      "Pour cooled oil over the spiced mango mixture and mix thoroughly.",
+      "Transfer to a clean glass jar, press down, keep in sunlight for 3-4 days, shaking daily."
+    ],
+    "tips": [
+      "Mangoes and all utensils must be completely dry to prevent mold.",
+      "The pickle improves with age — best after a week of maturing."
+    ],
+    "nutritionInfo": { "servings": 30, "calories": 30, "protein": "0g", "carbs": "3g", "fat": "2g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "vegan", "gluten-free", "dairy-free", "nut-free", "egg-free"],
+    "mealTypes": ["lunch", "dinner"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  }
+]

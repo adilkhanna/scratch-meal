@@ -1,0 +1,496 @@
+[
+  {
+    "id": "dal-tadka",
+    "name": "Dal Tadka",
+    "description": "Yellow lentils cooked until creamy and finished with a sizzling temper of ghee, garlic, and spices.",
+    "cookTime": "30 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "toor dal", "quantity": "200", "unit": "g" },
+      { "name": "onion", "quantity": "1", "unit": "medium" },
+      { "name": "tomato", "quantity": "1", "unit": "medium" },
+      { "name": "garlic", "quantity": "4", "unit": "cloves" },
+      { "name": "cumin seeds", "quantity": "1", "unit": "tsp" },
+      { "name": "turmeric powder", "quantity": "0.5", "unit": "tsp" },
+      { "name": "red chili powder", "quantity": "0.5", "unit": "tsp" },
+      { "name": "ghee", "quantity": "2", "unit": "tbsp" },
+      { "name": "dried red chili", "quantity": "2" },
+      { "name": "fresh coriander", "quantity": "2", "unit": "tbsp" },
+      { "name": "salt", "quantity": "1", "unit": "tsp" },
+      { "name": "water", "quantity": "600", "unit": "ml" }
+    ],
+    "instructions": [
+      "Wash toor dal, pressure cook with turmeric and water for 3-4 whistles until soft, then mash well.",
+      "Add chopped tomato and salt to the dal, simmer on low for 5 minutes.",
+      "In a separate small pan, heat ghee, add cumin seeds, dried red chilies, and sliced garlic; fry until garlic is golden.",
+      "Pour the sizzling tadka over the dal, cover immediately to trap the aroma.",
+      "Garnish with coriander and serve with steamed rice or chapati."
+    ],
+    "tips": [
+      "The tadka must be poured while sizzling hot for the best flavor.",
+      "Mash the dal well for a creamy consistency."
+    ],
+    "nutritionInfo": { "servings": 4, "calories": 190, "protein": "11g", "carbs": "26g", "fat": "5g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "gluten-free", "nut-free", "egg-free"],
+    "mealTypes": ["lunch", "dinner"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "dal-makhani",
+    "name": "Dal Makhani",
+    "description": "Rich and creamy black lentils slow-cooked with butter, cream, and aromatic spices.",
+    "cookTime": "1 hour",
+    "difficulty": "Medium",
+    "ingredients": [
+      { "name": "whole black urad dal", "quantity": "200", "unit": "g" },
+      { "name": "rajma (kidney beans)", "quantity": "30", "unit": "g" },
+      { "name": "butter", "quantity": "50", "unit": "g" },
+      { "name": "cream", "quantity": "60", "unit": "ml" },
+      { "name": "onion", "quantity": "1", "unit": "medium" },
+      { "name": "tomato puree", "quantity": "150", "unit": "ml" },
+      { "name": "ginger-garlic paste", "quantity": "1", "unit": "tbsp" },
+      { "name": "red chili powder", "quantity": "1", "unit": "tsp" },
+      { "name": "garam masala", "quantity": "0.5", "unit": "tsp" },
+      { "name": "salt", "quantity": "1", "unit": "tsp" },
+      { "name": "water", "quantity": "800", "unit": "ml" }
+    ],
+    "instructions": [
+      "Soak urad dal and rajma overnight, then pressure cook with water for 5-6 whistles until very soft.",
+      "In a heavy pan, melt butter, add chopped onion, and sauté until golden brown.",
+      "Add ginger-garlic paste, cook for a minute, then add tomato puree and spices; cook until oil separates.",
+      "Add the cooked dal, mix well, and simmer on very low heat for 30-40 minutes, stirring occasionally.",
+      "Stir in cream, adjust salt, and serve garnished with a swirl of cream and a pat of butter."
+    ],
+    "tips": [
+      "Low and slow cooking is the secret — never rush dal makhani.",
+      "Overnight soaking ensures the lentils cook to a creamy consistency."
+    ],
+    "nutritionInfo": { "servings": 4, "calories": 320, "protein": "14g", "carbs": "30g", "fat": "16g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "gluten-free", "nut-free", "egg-free"],
+    "mealTypes": ["lunch", "dinner"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "chana-masala",
+    "name": "Chana Masala",
+    "description": "Chickpeas simmered in a tangy, spiced tomato and onion gravy.",
+    "cookTime": "35 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "chickpeas (canned or cooked)", "quantity": "400", "unit": "g" },
+      { "name": "onion", "quantity": "2", "unit": "medium" },
+      { "name": "tomato", "quantity": "2", "unit": "medium" },
+      { "name": "ginger-garlic paste", "quantity": "1", "unit": "tbsp" },
+      { "name": "chole masala", "quantity": "2", "unit": "tsp" },
+      { "name": "turmeric powder", "quantity": "0.5", "unit": "tsp" },
+      { "name": "red chili powder", "quantity": "1", "unit": "tsp" },
+      { "name": "amchur powder", "quantity": "1", "unit": "tsp" },
+      { "name": "oil", "quantity": "3", "unit": "tbsp" },
+      { "name": "fresh coriander", "quantity": "2", "unit": "tbsp" },
+      { "name": "salt", "quantity": "1", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Heat oil, add finely chopped onions, and sauté until deep golden brown.",
+      "Add ginger-garlic paste, cook for a minute, then add chopped tomatoes and cook until they break down.",
+      "Add turmeric, red chili powder, chole masala, and salt; cook the masala until oil separates.",
+      "Add chickpeas with half a cup of water, mix well, and simmer for 15 minutes.",
+      "Finish with amchur powder, garnish with coriander, and serve with bhature or rice."
+    ],
+    "tips": [
+      "For deeper flavor, use tea-soaked water when cooking dried chickpeas from scratch.",
+      "Mash a few chickpeas against the pan to thicken the gravy."
+    ],
+    "nutritionInfo": { "servings": 4, "calories": 240, "protein": "10g", "carbs": "32g", "fat": "8g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "vegan", "gluten-free", "dairy-free", "nut-free", "egg-free"],
+    "mealTypes": ["lunch", "dinner"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "rajma",
+    "name": "Rajma",
+    "description": "Punjabi-style kidney beans cooked in a thick, spiced tomato-onion gravy.",
+    "cookTime": "45 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "kidney beans (rajma)", "quantity": "250", "unit": "g" },
+      { "name": "onion", "quantity": "2", "unit": "medium" },
+      { "name": "tomato", "quantity": "2", "unit": "medium" },
+      { "name": "ginger-garlic paste", "quantity": "1", "unit": "tbsp" },
+      { "name": "cumin seeds", "quantity": "1", "unit": "tsp" },
+      { "name": "red chili powder", "quantity": "1", "unit": "tsp" },
+      { "name": "coriander powder", "quantity": "1", "unit": "tsp" },
+      { "name": "garam masala", "quantity": "0.5", "unit": "tsp" },
+      { "name": "oil", "quantity": "3", "unit": "tbsp" },
+      { "name": "salt", "quantity": "1", "unit": "tsp" },
+      { "name": "water", "quantity": "400", "unit": "ml" }
+    ],
+    "instructions": [
+      "Soak rajma overnight, then pressure cook with water and salt for 6-7 whistles until soft.",
+      "Heat oil, add cumin seeds, then add finely chopped onions and sauté until golden.",
+      "Add ginger-garlic paste, chopped tomatoes, and all dry spices; cook until the masala is well blended.",
+      "Add the cooked rajma with its cooking liquid, simmer for 15-20 minutes until the gravy thickens.",
+      "Finish with garam masala, garnish with coriander, and serve with steamed basmati rice."
+    ],
+    "tips": [
+      "Always soak rajma for at least 8 hours for even cooking.",
+      "Mashing a few beans helps thicken the curry naturally."
+    ],
+    "nutritionInfo": { "servings": 4, "calories": 270, "protein": "14g", "carbs": "38g", "fat": "7g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "vegan", "gluten-free", "dairy-free", "nut-free", "egg-free"],
+    "mealTypes": ["lunch"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "palak-paneer",
+    "name": "Palak Paneer",
+    "description": "Cottage cheese cubes in a vibrant pureed spinach gravy with garlic and spices.",
+    "cookTime": "30 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      { "name": "spinach (palak)", "quantity": "400", "unit": "g" },
+      { "name": "paneer", "quantity": "200", "unit": "g" },
+      { "name": "onion", "quantity": "1", "unit": "medium" },
+      { "name": "tomato", "quantity": "1", "unit": "medium" },
+      { "name": "garlic", "quantity": "4", "unit": "cloves" },
+      { "name": "green chili", "quantity": "2" },
+      { "name": "cumin seeds", "quantity": "1", "unit": "tsp" },
+      { "name": "garam masala", "quantity": "0.5", "unit": "tsp" },
+      { "name": "cream", "quantity": "2", "unit": "tbsp" },
+      { "name": "butter", "quantity": "1", "unit": "tbsp" },
+      { "name": "salt", "quantity": "1", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Blanch spinach in boiling water for 2 minutes, immediately transfer to ice water, then blend into a smooth puree.",
+      "Heat butter, add cumin seeds, garlic, and green chilies; sauté for a minute.",
+      "Add chopped onion and tomato; cook until soft.",
+      "Add spinach puree, salt, and garam masala; simmer for 5 minutes.",
+      "Add paneer cubes, stir in cream, cook for 2-3 minutes, and serve with naan or roti."
+    ],
+    "tips": [
+      "Blanching and ice-bathing the spinach preserves its bright green color.",
+      "Do not overcook the spinach puree or it will turn dull."
+    ],
+    "nutritionInfo": { "servings": 3, "calories": 260, "protein": "15g", "carbs": "10g", "fat": "18g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "gluten-free", "nut-free", "egg-free"],
+    "mealTypes": ["lunch", "dinner"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "paneer-butter-masala",
+    "name": "Paneer Butter Masala",
+    "description": "Soft paneer cubes in a rich, creamy tomato-cashew gravy with butter and spices.",
+    "cookTime": "35 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      { "name": "paneer", "quantity": "250", "unit": "g" },
+      { "name": "tomato", "quantity": "4", "unit": "medium" },
+      { "name": "cashews", "quantity": "15", "unit": "g" },
+      { "name": "butter", "quantity": "40", "unit": "g" },
+      { "name": "cream", "quantity": "60", "unit": "ml" },
+      { "name": "ginger-garlic paste", "quantity": "1", "unit": "tbsp" },
+      { "name": "red chili powder", "quantity": "1", "unit": "tsp" },
+      { "name": "garam masala", "quantity": "0.5", "unit": "tsp" },
+      { "name": "kasuri methi", "quantity": "1", "unit": "tsp" },
+      { "name": "sugar", "quantity": "1", "unit": "tsp" },
+      { "name": "salt", "quantity": "1", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Boil tomatoes and cashews together until soft, cool, and blend into a smooth puree.",
+      "Heat butter, add ginger-garlic paste, and sauté for a minute.",
+      "Add the tomato-cashew puree, red chili powder, salt, and sugar; cook on medium heat for 10 minutes.",
+      "Add paneer cubes and cream, simmer for 5 minutes on low heat.",
+      "Crush kasuri methi and sprinkle on top, finish with a pat of butter, and serve with naan."
+    ],
+    "tips": [
+      "Soaking cashews in warm water for 15 minutes makes blending easier.",
+      "Adding sugar balances the acidity of the tomatoes."
+    ],
+    "nutritionInfo": { "servings": 3, "calories": 380, "protein": "14g", "carbs": "16g", "fat": "28g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "gluten-free", "egg-free"],
+    "mealTypes": ["lunch", "dinner"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "aloo-gobi",
+    "name": "Aloo Gobi",
+    "description": "Dry-style potato and cauliflower stir-fry with turmeric, cumin, and coriander.",
+    "cookTime": "25 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "potato", "quantity": "2", "unit": "medium" },
+      { "name": "cauliflower", "quantity": "250", "unit": "g" },
+      { "name": "onion", "quantity": "1", "unit": "medium" },
+      { "name": "tomato", "quantity": "1", "unit": "medium" },
+      { "name": "cumin seeds", "quantity": "1", "unit": "tsp" },
+      { "name": "turmeric powder", "quantity": "0.5", "unit": "tsp" },
+      { "name": "coriander powder", "quantity": "1", "unit": "tsp" },
+      { "name": "red chili powder", "quantity": "0.5", "unit": "tsp" },
+      { "name": "garam masala", "quantity": "0.5", "unit": "tsp" },
+      { "name": "oil", "quantity": "3", "unit": "tbsp" },
+      { "name": "salt", "quantity": "1", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Cut potato and cauliflower into similar-sized florets and pieces.",
+      "Heat oil, add cumin seeds, then add chopped onion and sauté until translucent.",
+      "Add tomato, turmeric, coriander powder, and red chili powder; cook for 2-3 minutes.",
+      "Add potato and cauliflower, toss well, cover, and cook on low heat for 15-18 minutes until tender.",
+      "Sprinkle garam masala, garnish with coriander, and serve with roti."
+    ],
+    "tips": [
+      "Cut vegetables to uniform size for even cooking.",
+      "Do not stir too often — let the vegetables develop a light crust."
+    ],
+    "nutritionInfo": { "servings": 3, "calories": 180, "protein": "4g", "carbs": "22g", "fat": "9g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "vegan", "gluten-free", "dairy-free", "nut-free", "egg-free"],
+    "mealTypes": ["lunch"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "bhindi-masala",
+    "name": "Bhindi Masala",
+    "description": "Crispy okra stir-fried with onions, tomatoes, and aromatic spices.",
+    "cookTime": "20 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "okra (bhindi)", "quantity": "300", "unit": "g" },
+      { "name": "onion", "quantity": "1", "unit": "medium" },
+      { "name": "tomato", "quantity": "1", "unit": "medium" },
+      { "name": "cumin seeds", "quantity": "1", "unit": "tsp" },
+      { "name": "turmeric powder", "quantity": "0.5", "unit": "tsp" },
+      { "name": "coriander powder", "quantity": "1", "unit": "tsp" },
+      { "name": "red chili powder", "quantity": "0.5", "unit": "tsp" },
+      { "name": "amchur powder", "quantity": "0.5", "unit": "tsp" },
+      { "name": "oil", "quantity": "3", "unit": "tbsp" },
+      { "name": "salt", "quantity": "0.5", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Wash okra, dry thoroughly, and cut into 1-inch pieces.",
+      "Heat oil in a wide pan, add cumin seeds and chopped onion; sauté until golden.",
+      "Add okra pieces and stir-fry on medium-high heat without covering for 8-10 minutes until crispy.",
+      "Add chopped tomato, turmeric, coriander, red chili powder, and salt; cook for 3-4 minutes.",
+      "Finish with amchur powder and serve with roti or paratha."
+    ],
+    "tips": [
+      "The okra must be completely dry before cutting to prevent sliminess.",
+      "Do not cover the pan while cooking okra — it needs dry heat to crisp up."
+    ],
+    "nutritionInfo": { "servings": 3, "calories": 150, "protein": "3g", "carbs": "14g", "fat": "10g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "vegan", "gluten-free", "dairy-free", "nut-free", "egg-free"],
+    "mealTypes": ["lunch"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "baingan-bharta",
+    "name": "Baingan Bharta",
+    "description": "Smoky roasted eggplant mash cooked with onions, tomatoes, and green chilies.",
+    "cookTime": "35 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      { "name": "eggplant (baingan)", "quantity": "1", "unit": "large" },
+      { "name": "onion", "quantity": "2", "unit": "medium" },
+      { "name": "tomato", "quantity": "2", "unit": "medium" },
+      { "name": "green chili", "quantity": "2" },
+      { "name": "garlic", "quantity": "4", "unit": "cloves" },
+      { "name": "cumin seeds", "quantity": "1", "unit": "tsp" },
+      { "name": "turmeric powder", "quantity": "0.25", "unit": "tsp" },
+      { "name": "red chili powder", "quantity": "0.5", "unit": "tsp" },
+      { "name": "mustard oil", "quantity": "3", "unit": "tbsp" },
+      { "name": "fresh coriander", "quantity": "2", "unit": "tbsp" },
+      { "name": "salt", "quantity": "1", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Roast the whole eggplant directly over a gas flame, turning frequently, until the skin is charred and the flesh is soft.",
+      "Peel off the charred skin under running water, mash the smoky flesh, and set aside.",
+      "Heat mustard oil, add cumin seeds, garlic, and green chilies; sauté briefly.",
+      "Add chopped onions and cook until golden, then add tomatoes and spices; cook until oil separates.",
+      "Add mashed eggplant, mix well, cook for 5 minutes, garnish with coriander, and serve with roti."
+    ],
+    "tips": [
+      "Charring directly over flame gives the authentic smoky flavor — do not skip this step.",
+      "Mustard oil is traditional and adds pungent depth."
+    ],
+    "nutritionInfo": { "servings": 3, "calories": 160, "protein": "3g", "carbs": "16g", "fat": "10g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "vegan", "gluten-free", "dairy-free", "nut-free", "egg-free"],
+    "mealTypes": ["lunch", "dinner"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "matar-paneer",
+    "name": "Matar Paneer",
+    "description": "Cottage cheese and green peas in a mildly spiced tomato-onion gravy.",
+    "cookTime": "30 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "paneer", "quantity": "200", "unit": "g" },
+      { "name": "green peas", "quantity": "150", "unit": "g" },
+      { "name": "onion", "quantity": "1", "unit": "medium" },
+      { "name": "tomato", "quantity": "2", "unit": "medium" },
+      { "name": "ginger-garlic paste", "quantity": "1", "unit": "tbsp" },
+      { "name": "cumin seeds", "quantity": "1", "unit": "tsp" },
+      { "name": "turmeric powder", "quantity": "0.5", "unit": "tsp" },
+      { "name": "red chili powder", "quantity": "0.5", "unit": "tsp" },
+      { "name": "garam masala", "quantity": "0.5", "unit": "tsp" },
+      { "name": "oil", "quantity": "2", "unit": "tbsp" },
+      { "name": "salt", "quantity": "1", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Heat oil, add cumin seeds, then add chopped onion and sauté until golden.",
+      "Add ginger-garlic paste, cook for a minute, then add pureed tomatoes and all spice powders.",
+      "Cook the masala until oil separates, about 5-7 minutes.",
+      "Add green peas and half a cup of water; simmer for 8 minutes until peas are tender.",
+      "Add paneer cubes, simmer for 3-4 minutes, finish with garam masala, and serve with roti or rice."
+    ],
+    "tips": [
+      "Use frozen peas for convenience — they cook perfectly in the gravy.",
+      "Do not overcook paneer or it becomes rubbery."
+    ],
+    "nutritionInfo": { "servings": 3, "calories": 280, "protein": "15g", "carbs": "16g", "fat": "18g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "gluten-free", "nut-free", "egg-free"],
+    "mealTypes": ["lunch", "dinner"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "kadai-paneer",
+    "name": "Kadai Paneer",
+    "description": "Paneer and bell peppers cooked in a spicy tomato gravy with freshly ground kadai masala.",
+    "cookTime": "25 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      { "name": "paneer", "quantity": "200", "unit": "g" },
+      { "name": "capsicum (bell pepper)", "quantity": "1", "unit": "medium" },
+      { "name": "onion", "quantity": "1", "unit": "medium" },
+      { "name": "tomato", "quantity": "3", "unit": "medium" },
+      { "name": "coriander seeds", "quantity": "1", "unit": "tbsp" },
+      { "name": "dried red chili", "quantity": "3" },
+      { "name": "ginger", "quantity": "2", "unit": "cm" },
+      { "name": "garlic", "quantity": "3", "unit": "cloves" },
+      { "name": "kasuri methi", "quantity": "1", "unit": "tsp" },
+      { "name": "oil", "quantity": "3", "unit": "tbsp" },
+      { "name": "salt", "quantity": "1", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Dry roast coriander seeds and dried red chilies, then coarsely grind into kadai masala.",
+      "Heat oil, add chopped onion and garlic; sauté until light golden.",
+      "Add pureed tomatoes, salt, and cook until thick and oil separates.",
+      "Add the kadai masala, capsicum strips, and julienned ginger; cook for 3-4 minutes.",
+      "Add paneer cubes, toss gently, sprinkle kasuri methi, and serve hot with naan."
+    ],
+    "tips": [
+      "Freshly ground kadai masala is essential — pre-made spice mixes lack the depth.",
+      "Add capsicum late to retain its crunch."
+    ],
+    "nutritionInfo": { "servings": 3, "calories": 290, "protein": "14g", "carbs": "14g", "fat": "20g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "gluten-free", "nut-free", "egg-free"],
+    "mealTypes": ["lunch", "dinner"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "mixed-veg-curry",
+    "name": "Mixed Vegetable Curry",
+    "description": "A medley of seasonal vegetables simmered in a coconut-tomato gravy.",
+    "cookTime": "30 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "potato", "quantity": "1", "unit": "medium" },
+      { "name": "carrot", "quantity": "1", "unit": "medium" },
+      { "name": "green beans", "quantity": "100", "unit": "g" },
+      { "name": "cauliflower", "quantity": "100", "unit": "g" },
+      { "name": "green peas", "quantity": "50", "unit": "g" },
+      { "name": "onion", "quantity": "1", "unit": "medium" },
+      { "name": "tomato", "quantity": "2", "unit": "medium" },
+      { "name": "ginger-garlic paste", "quantity": "1", "unit": "tbsp" },
+      { "name": "turmeric powder", "quantity": "0.5", "unit": "tsp" },
+      { "name": "red chili powder", "quantity": "0.5", "unit": "tsp" },
+      { "name": "garam masala", "quantity": "0.5", "unit": "tsp" },
+      { "name": "oil", "quantity": "2", "unit": "tbsp" },
+      { "name": "salt", "quantity": "1", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Cut all vegetables into uniform bite-sized pieces.",
+      "Heat oil, add chopped onion, and sauté until golden; add ginger-garlic paste.",
+      "Add chopped tomatoes, turmeric, and red chili powder; cook until masala thickens.",
+      "Add all vegetables and one cup of water; cover and cook for 15-18 minutes until tender.",
+      "Finish with garam masala, garnish with coriander, and serve with roti or rice."
+    ],
+    "tips": [
+      "Add harder vegetables like potatoes and carrots first, softer ones like peas later.",
+      "Any seasonal vegetables can be substituted based on availability."
+    ],
+    "nutritionInfo": { "servings": 4, "calories": 160, "protein": "4g", "carbs": "22g", "fat": "6g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "vegan", "gluten-free", "dairy-free", "nut-free", "egg-free"],
+    "mealTypes": ["lunch", "dinner"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  }
+]

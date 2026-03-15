@@ -5,6 +5,7 @@ import { buildLunchPrompt, buildDinnerPrompt } from './shared/meal-plan-prompts'
 import { estimateRecipeCost } from './shared/ingredient-prices';
 import { feedToGlossary, inferRegion, inferDietaryTags, queryGlossaryForPlan, getExcludedTags } from './shared/glossary-feeder';
 import { selectBreakfasts } from './shared/breakfast-selector';
+import { scoreDayBalance, DailyBalanceScore } from './shared/balance-rules';
 
 if (!admin.apps.length) admin.initializeApp();
 
@@ -50,9 +51,11 @@ export const generateWeeklyPlan = onCall(
     const {
       ingredients,
       dietaryConditions,
+      memberDietaryConditions,
       familySize,
       lunchCuisines,
       dinnerCuisines,
+      dailyCuisines,
       weeklyBudget,
       breakfastPreferences,
       planDays,
@@ -65,6 +68,12 @@ export const generateWeeklyPlan = onCall(
     const family = Math.max(1, Math.min(10, familySize || 1));
     const dayNames = numDays === 7 ? DAY_NAMES_7 : DAY_NAMES_3;
 
+    // Per-day cuisine maps (fallback to global cuisines)
+    const dailyCuisineMap: Record<string, { lunch: string; dinner: string }> = dailyCuisines || {};
+
+    // Per-member dietary (fallback to global)
+    const memberDietaryMap: Record<string, string[]> = memberDietaryConditions || {};
+
     // Calorie budget per meal (25% breakfast, 40% lunch, 35% dinner)
     const calorieTarget = dailyCaloricTarget ? Math.max(1200, Math.min(3500, dailyCaloricTarget)) : null;
     const calorieBudget = calorieTarget ? {
@@ -73,7 +82,7 @@ export const generateWeeklyPlan = onCall(
       dinner: Math.round(calorieTarget * 0.35),
     } : null;
 
-    console.log(`[meal-plan] Starting: ${ingredientList.length} ingredients, ${(dietaryConditions || []).length} dietary, family=${family}, days=${numDays}`);
+    console.log(`[meal-plan] Starting: ${ingredientList.length} ingredients, ${(dietaryConditions || []).length} dietary, family=${family}, days=${numDays}, perDayCuisines=${Object.keys(dailyCuisineMap).length > 0}`);
 
     try {
       const { openai, spoonacularKey, mandiPricesEnabled } = await getOpenAIClient();
@@ -83,7 +92,9 @@ export const generateWeeklyPlan = onCall(
       const glossaryMinThreshold = configSnap.data()?.glossaryMinThreshold || 15;
 
       // --- Step 1: Check glossary + optionally supplement with Spoonacular ---
-      const allCuisines = [...new Set([...(lunchCuisines || []), ...(dinnerCuisines || [])])];
+      // Collect all cuisines from per-day map + legacy global arrays
+      const dailyCuisineValues = Object.values(dailyCuisineMap).flatMap((dc) => [dc.lunch, dc.dinner].filter(Boolean));
+      const allCuisines = [...new Set([...(lunchCuisines || []), ...(dinnerCuisines || []), ...dailyCuisineValues])];
       const dietaryTags = inferDietaryTags(dietaryConditions || []);
 
       // Determine health-condition tags to exclude (e.g., fried for cardiovascular)
@@ -210,7 +221,8 @@ export const generateWeeklyPlan = onCall(
         numDays,
         dayNames,
         calorieBudget?.breakfast || null,
-        weeklyBudget || null
+        weeklyBudget || null,
+        dietaryConditions || []
       );
       console.log('[meal-plan] Breakfasts selected (code-level, no GPT)');
 
@@ -225,6 +237,14 @@ export const generateWeeklyPlan = onCall(
       const SYSTEM_MSG = 'You are a professional nutritionist creating meal plans. You MUST only use recipes from the provided reference list — never invent dishes. Always respond with valid JSON.';
 
       // --- Step 3: Generate lunches ---
+      // Build per-day cuisine override maps from dailyCuisineMap
+      const lunchCuisineByDay: Record<string, string> = {};
+      const dinnerCuisineByDay: Record<string, string> = {};
+      for (const day of dayNames) {
+        if (dailyCuisineMap[day]?.lunch) lunchCuisineByDay[day] = dailyCuisineMap[day].lunch;
+        if (dailyCuisineMap[day]?.dinner) dinnerCuisineByDay[day] = dailyCuisineMap[day].dinner;
+      }
+
       console.log('[meal-plan] Generating lunches...');
       const lunchPrompt = buildLunchPrompt(
         ingredientList,
@@ -237,7 +257,8 @@ export const generateWeeklyPlan = onCall(
         dayNames,
         calorieBudget?.lunch || null,
         breakfastIngredientsByDay,
-        weeklyBudget || null
+        weeklyBudget || null,
+        lunchCuisineByDay
       );
 
       const lunchResponse = await openai.chat.completions.create({
@@ -295,7 +316,8 @@ export const generateWeeklyPlan = onCall(
         dayNames,
         calorieBudget?.dinner || null,
         priorIngredientsByDay,
-        weeklyBudget || null
+        weeklyBudget || null,
+        dinnerCuisineByDay
       );
 
       const dinnerResponse = await openai.chat.completions.create({
@@ -422,12 +444,45 @@ export const generateWeeklyPlan = onCall(
         }
       }
 
+      // --- Step 6b: Balance scoring (Harvard plate + thali model) ---
+      console.log('[meal-plan] Computing balance scores...');
+      const balanceScores: Record<string, DailyBalanceScore> = {};
+      for (const day of dayNames) {
+        // Extract components for each meal
+        const bfast = breakfastByDay[day];
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        let bfastComponents: any[] = [];
+        if (bfast?.memberBreakfasts) {
+          // Family mode: use first member's components as representative
+          bfastComponents = bfast.memberBreakfasts[0]?.components || [];
+        } else if (bfast?.components) {
+          bfastComponents = bfast.components;
+        }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const lunchComponents: any[] = lunchByDay[day]?.components || [];
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const dinnerComponents: any[] = dinnerByDay[day]?.components || [];
+
+        balanceScores[day] = scoreDayBalance(
+          bfastComponents,
+          lunchComponents,
+          dinnerComponents,
+          dietaryConditions || []
+        );
+      }
+
+      const avgBalance = Math.round(
+        Object.values(balanceScores).reduce((sum, s) => sum + s.overall, 0) / dayNames.length
+      );
+      console.log(`[meal-plan] Balance scores computed — weekly average: ${avgBalance}/100`);
+
       // --- Step 7: Assemble final plan ---
       const days = dayNames.map((day) => ({
         day,
         breakfast: breakfastByDay[day] || { mealType: 'breakfast', components: [], totalCalories: 0, totalCostPerServing: 0 },
         lunch: lunchByDay[day] || { mealType: 'lunch', components: [], totalCalories: 0, totalCostPerServing: 0 },
         dinner: dinnerByDay[day] || { mealType: 'dinner', components: [], totalCalories: 0, totalCostPerServing: 0 },
+        balance: balanceScores[day] || null,
       }));
 
       // Calculate total weekly cost
@@ -464,6 +519,7 @@ export const generateWeeklyPlan = onCall(
         days,
         totalWeeklyCost: Math.round(totalWeeklyCost),
         dailyCaloricTarget: calorieTarget,
+        weeklyBalanceScore: avgBalance,
         createdAt: now,
       };
 

@@ -180,29 +180,34 @@ export async function queryGlossaryForPlan(
   const db = admin.firestore();
   const glossaryCol = db.collection('recipe-glossary');
 
+  // Use higher limit for breakfast (129 curated recipes) to avoid over-filtering
+  const queryLimit = mealTypes.includes('breakfast') ? 150 : 50;
+
   let q;
   if (cuisines.length > 0) {
     q = glossaryCol
       .where('cuisine', 'array-contains', cuisines[0])
       .orderBy('useCount', 'desc')
-      .limit(50);
+      .limit(queryLimit);
   } else if (mealTypes.length > 0) {
     q = glossaryCol
       .where('mealTypes', 'array-contains', mealTypes[0])
       .orderBy('useCount', 'desc')
-      .limit(50);
+      .limit(queryLimit);
   } else {
-    q = glossaryCol.orderBy('useCount', 'desc').limit(50);
+    q = glossaryCol.orderBy('useCount', 'desc').limit(queryLimit);
   }
 
   const snap = await q.get();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let results = snap.docs.map((d) => d.data() as GlossaryRecipeInput & { id: string; useCount: number; lastUsedAt: string; tags?: string[] });
 
-  // Client-side filtering
+  // Client-side filtering — match ANY dietary tag (not ALL)
+  // e.g., if user is vegetarian+gluten-free, show recipes that are vegetarian OR gluten-free
+  // Strict compliance is enforced later by GPT and ingredient-level checks
   if (dietaryTags.length > 0) {
     results = results.filter((r) =>
-      dietaryTags.every((tag) => r.dietaryTags?.includes(tag))
+      dietaryTags.some((tag) => r.dietaryTags?.includes(tag))
     );
   }
 

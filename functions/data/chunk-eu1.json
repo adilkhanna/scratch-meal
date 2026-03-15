@@ -1,0 +1,585 @@
+[
+  {
+    "id": "scrambled-eggs",
+    "name": "Scrambled Eggs",
+    "description": "Soft and creamy scrambled eggs cooked slowly with butter.",
+    "cookTime": "10 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "eggs", "quantity": "3" },
+      { "name": "butter", "quantity": "15", "unit": "g" },
+      { "name": "milk", "quantity": "2", "unit": "tbsp" },
+      { "name": "salt", "quantity": "0.25", "unit": "tsp" },
+      { "name": "black pepper", "quantity": "0.25", "unit": "tsp" },
+      { "name": "chives", "quantity": "1", "unit": "tbsp" }
+    ],
+    "instructions": [
+      "Crack eggs into a bowl, add milk, salt, and pepper; whisk until combined.",
+      "Melt butter in a non-stick pan over low heat.",
+      "Pour in the egg mixture and stir gently with a spatula, pushing eggs from edges to center.",
+      "Remove from heat while eggs are still slightly wet — they continue cooking from residual heat.",
+      "Garnish with chives and serve with toast."
+    ],
+    "tips": [
+      "Low heat and constant stirring give the creamiest results.",
+      "Remove from heat just before eggs look done — they firm up off heat."
+    ],
+    "nutritionInfo": { "servings": 1, "calories": 280, "protein": "18g", "carbs": "2g", "fat": "22g" },
+    "cuisine": ["European"],
+    "dietaryTags": ["vegetarian", "gluten-free", "nut-free", "low-carb"],
+    "mealTypes": ["breakfast"],
+    "region": "european",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "french-toast",
+    "name": "French Toast",
+    "description": "Bread slices soaked in an egg and milk mixture, pan-fried until golden.",
+    "cookTime": "15 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "bread slices", "quantity": "4" },
+      { "name": "eggs", "quantity": "2" },
+      { "name": "milk", "quantity": "80", "unit": "ml" },
+      { "name": "cinnamon powder", "quantity": "0.5", "unit": "tsp" },
+      { "name": "vanilla extract", "quantity": "0.5", "unit": "tsp" },
+      { "name": "sugar", "quantity": "1", "unit": "tbsp" },
+      { "name": "butter", "quantity": "20", "unit": "g" },
+      { "name": "maple syrup", "quantity": "2", "unit": "tbsp" }
+    ],
+    "instructions": [
+      "Whisk together eggs, milk, cinnamon, vanilla, and sugar in a shallow dish.",
+      "Dip each bread slice into the mixture, letting it soak for 15 seconds per side.",
+      "Melt butter in a pan over medium heat.",
+      "Cook each slice for 2-3 minutes per side until golden brown.",
+      "Serve with maple syrup, fresh berries, or powdered sugar."
+    ],
+    "tips": [
+      "Day-old bread works best — it absorbs the custard without falling apart.",
+      "Thick-cut bread like brioche gives the most luxurious result."
+    ],
+    "nutritionInfo": { "servings": 2, "calories": 320, "protein": "12g", "carbs": "38g", "fat": "14g" },
+    "cuisine": ["French"],
+    "dietaryTags": ["vegetarian", "nut-free"],
+    "mealTypes": ["breakfast"],
+    "region": "european",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "pancakes",
+    "name": "Pancakes",
+    "description": "Fluffy American-style pancakes served stacked with butter and maple syrup.",
+    "cookTime": "20 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "all-purpose flour", "quantity": "150", "unit": "g" },
+      { "name": "milk", "quantity": "200", "unit": "ml" },
+      { "name": "egg", "quantity": "1" },
+      { "name": "baking powder", "quantity": "2", "unit": "tsp" },
+      { "name": "sugar", "quantity": "2", "unit": "tbsp" },
+      { "name": "butter (melted)", "quantity": "30", "unit": "g" },
+      { "name": "vanilla extract", "quantity": "1", "unit": "tsp" },
+      { "name": "salt", "quantity": "0.25", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Mix flour, baking powder, sugar, and salt in a bowl.",
+      "In another bowl, whisk milk, egg, melted butter, and vanilla.",
+      "Combine wet and dry ingredients, stirring just until mixed — small lumps are fine.",
+      "Pour 1/4 cup batter onto a buttered griddle over medium heat; cook until bubbles form on surface, then flip.",
+      "Stack pancakes and serve with butter and maple syrup."
+    ],
+    "tips": [
+      "Do not over-mix the batter — lumps are fine and over-mixing makes pancakes tough.",
+      "Wait for bubbles to appear and edges to set before flipping."
+    ],
+    "nutritionInfo": { "servings": 3, "calories": 280, "protein": "8g", "carbs": "38g", "fat": "10g" },
+    "cuisine": ["American"],
+    "dietaryTags": ["vegetarian", "nut-free"],
+    "mealTypes": ["breakfast"],
+    "region": "european",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "granola-yogurt-bowl",
+    "name": "Granola Yogurt Bowl",
+    "description": "Greek yogurt topped with crunchy granola, honey, and fresh fruits.",
+    "cookTime": "5 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "Greek yogurt", "quantity": "200", "unit": "g" },
+      { "name": "granola", "quantity": "50", "unit": "g" },
+      { "name": "honey", "quantity": "1", "unit": "tbsp" },
+      { "name": "blueberries", "quantity": "50", "unit": "g" },
+      { "name": "banana", "quantity": "0.5" },
+      { "name": "chia seeds", "quantity": "1", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Spoon Greek yogurt into a bowl.",
+      "Top with granola, sliced banana, and blueberries.",
+      "Drizzle honey over the top.",
+      "Sprinkle chia seeds and serve immediately."
+    ],
+    "tips": [
+      "Add granola just before eating to keep it crunchy.",
+      "Swap fruits based on what is in season."
+    ],
+    "nutritionInfo": { "servings": 1, "calories": 350, "protein": "18g", "carbs": "48g", "fat": "10g" },
+    "cuisine": ["European"],
+    "dietaryTags": ["vegetarian", "egg-free"],
+    "mealTypes": ["breakfast"],
+    "region": "european",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "shakshuka",
+    "name": "Shakshuka",
+    "description": "Eggs poached in a spiced tomato and pepper sauce with cumin and paprika.",
+    "cookTime": "25 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "eggs", "quantity": "4" },
+      { "name": "canned tomatoes", "quantity": "400", "unit": "g" },
+      { "name": "onion", "quantity": "1", "unit": "medium" },
+      { "name": "red bell pepper", "quantity": "1" },
+      { "name": "garlic", "quantity": "3", "unit": "cloves" },
+      { "name": "cumin", "quantity": "1", "unit": "tsp" },
+      { "name": "paprika", "quantity": "1", "unit": "tsp" },
+      { "name": "chili flakes", "quantity": "0.5", "unit": "tsp" },
+      { "name": "olive oil", "quantity": "2", "unit": "tbsp" },
+      { "name": "fresh parsley", "quantity": "2", "unit": "tbsp" },
+      { "name": "salt", "quantity": "0.5", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Heat olive oil, sauté diced onion and bell pepper until soft, about 5 minutes.",
+      "Add minced garlic, cumin, paprika, and chili flakes; cook for 1 minute.",
+      "Pour in canned tomatoes, break them up, season with salt, and simmer for 10 minutes until thickened.",
+      "Make 4 wells in the sauce, crack an egg into each well, cover, and cook for 5-7 minutes until whites are set.",
+      "Garnish with parsley and serve with crusty bread for dipping."
+    ],
+    "tips": [
+      "Cover the pan for the eggs to cook evenly from top and bottom.",
+      "The yolks should still be runny — do not overcook."
+    ],
+    "nutritionInfo": { "servings": 2, "calories": 300, "protein": "16g", "carbs": "18g", "fat": "18g" },
+    "cuisine": ["Mediterranean"],
+    "dietaryTags": ["vegetarian", "gluten-free", "dairy-free", "nut-free"],
+    "mealTypes": ["breakfast", "lunch"],
+    "region": "european",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "greek-salad",
+    "name": "Greek Salad",
+    "description": "Classic Mediterranean salad with cucumber, tomato, olives, red onion, and feta cheese.",
+    "cookTime": "10 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "cucumber", "quantity": "1", "unit": "large" },
+      { "name": "tomato", "quantity": "3", "unit": "medium" },
+      { "name": "red onion", "quantity": "0.5" },
+      { "name": "feta cheese", "quantity": "100", "unit": "g" },
+      { "name": "kalamata olives", "quantity": "60", "unit": "g" },
+      { "name": "olive oil", "quantity": "3", "unit": "tbsp" },
+      { "name": "red wine vinegar", "quantity": "1", "unit": "tbsp" },
+      { "name": "dried oregano", "quantity": "1", "unit": "tsp" },
+      { "name": "salt", "quantity": "0.25", "unit": "tsp" },
+      { "name": "black pepper", "quantity": "0.25", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Cut cucumber and tomatoes into large chunks; slice red onion thinly.",
+      "Combine vegetables in a large bowl, add olives.",
+      "Whisk olive oil, vinegar, oregano, salt, and pepper together.",
+      "Pour dressing over vegetables and toss gently.",
+      "Top with a slab of feta cheese and serve — traditional Greek salad has the feta on top, not crumbled."
+    ],
+    "tips": [
+      "Use ripe, in-season tomatoes for the best flavor.",
+      "Do not refrigerate too long — Greek salad is best at room temperature."
+    ],
+    "nutritionInfo": { "servings": 3, "calories": 220, "protein": "7g", "carbs": "10g", "fat": "18g" },
+    "cuisine": ["Greek"],
+    "dietaryTags": ["vegetarian", "gluten-free", "nut-free", "egg-free", "low-carb"],
+    "mealTypes": ["lunch"],
+    "region": "european",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "caprese-salad",
+    "name": "Caprese Salad",
+    "description": "Simple Italian salad of fresh mozzarella, ripe tomatoes, and basil with olive oil.",
+    "cookTime": "5 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "fresh mozzarella", "quantity": "200", "unit": "g" },
+      { "name": "tomato", "quantity": "3", "unit": "large" },
+      { "name": "fresh basil leaves", "quantity": "10" },
+      { "name": "extra virgin olive oil", "quantity": "2", "unit": "tbsp" },
+      { "name": "balsamic glaze", "quantity": "1", "unit": "tbsp" },
+      { "name": "salt", "quantity": "0.25", "unit": "tsp" },
+      { "name": "black pepper", "quantity": "0.25", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Slice tomatoes and mozzarella into rounds of equal thickness.",
+      "Arrange alternating slices of tomato and mozzarella on a plate.",
+      "Tuck basil leaves between the slices.",
+      "Drizzle with olive oil and balsamic glaze, season with salt and pepper."
+    ],
+    "tips": [
+      "Use the best quality mozzarella and tomatoes you can find — this dish depends entirely on ingredient quality.",
+      "Burrata can be substituted for mozzarella for a more luxurious version."
+    ],
+    "nutritionInfo": { "servings": 2, "calories": 280, "protein": "14g", "carbs": "8g", "fat": "22g" },
+    "cuisine": ["Italian"],
+    "dietaryTags": ["vegetarian", "gluten-free", "nut-free", "egg-free", "low-carb"],
+    "mealTypes": ["lunch"],
+    "region": "european",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "minestrone-soup",
+    "name": "Minestrone Soup",
+    "description": "Hearty Italian vegetable soup with beans, pasta, and seasonal vegetables.",
+    "cookTime": "40 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "canned cannellini beans", "quantity": "200", "unit": "g" },
+      { "name": "small pasta (ditalini)", "quantity": "80", "unit": "g" },
+      { "name": "carrot", "quantity": "1", "unit": "medium" },
+      { "name": "celery", "quantity": "2", "unit": "stalks" },
+      { "name": "zucchini", "quantity": "1", "unit": "medium" },
+      { "name": "onion", "quantity": "1", "unit": "medium" },
+      { "name": "canned tomatoes", "quantity": "200", "unit": "g" },
+      { "name": "garlic", "quantity": "2", "unit": "cloves" },
+      { "name": "vegetable broth", "quantity": "1", "unit": "liter" },
+      { "name": "olive oil", "quantity": "2", "unit": "tbsp" },
+      { "name": "Italian seasoning", "quantity": "1", "unit": "tsp" },
+      { "name": "parmesan cheese", "quantity": "30", "unit": "g" },
+      { "name": "salt", "quantity": "0.5", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Heat olive oil, sauté diced onion, carrot, and celery until softened, about 5 minutes.",
+      "Add garlic, Italian seasoning, and cook for 1 minute.",
+      "Add canned tomatoes, vegetable broth, and beans; bring to a boil.",
+      "Add diced zucchini and pasta; simmer for 12-15 minutes until pasta is tender.",
+      "Season with salt, serve topped with grated parmesan."
+    ],
+    "tips": [
+      "Add pasta near the end so it does not overcook and become mushy.",
+      "This soup is even better the next day as flavors meld."
+    ],
+    "nutritionInfo": { "servings": 4, "calories": 220, "protein": "10g", "carbs": "32g", "fat": "6g" },
+    "cuisine": ["Italian"],
+    "dietaryTags": ["vegetarian", "nut-free", "egg-free"],
+    "mealTypes": ["lunch"],
+    "region": "european",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "ratatouille",
+    "name": "Ratatouille",
+    "description": "Classic French Provencal stew of eggplant, zucchini, bell peppers, and tomatoes.",
+    "cookTime": "45 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      { "name": "eggplant", "quantity": "1", "unit": "medium" },
+      { "name": "zucchini", "quantity": "2", "unit": "medium" },
+      { "name": "red bell pepper", "quantity": "1" },
+      { "name": "yellow bell pepper", "quantity": "1" },
+      { "name": "onion", "quantity": "1", "unit": "medium" },
+      { "name": "canned tomatoes", "quantity": "400", "unit": "g" },
+      { "name": "garlic", "quantity": "3", "unit": "cloves" },
+      { "name": "fresh thyme", "quantity": "4", "unit": "sprigs" },
+      { "name": "fresh basil", "quantity": "6", "unit": "leaves" },
+      { "name": "olive oil", "quantity": "4", "unit": "tbsp" },
+      { "name": "salt", "quantity": "0.5", "unit": "tsp" },
+      { "name": "black pepper", "quantity": "0.25", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Dice all vegetables into roughly equal-sized cubes.",
+      "Heat olive oil, sauté onion and garlic until soft.",
+      "Add bell peppers and cook for 5 minutes, then add eggplant and zucchini.",
+      "Add canned tomatoes, thyme, salt, and pepper; cover and simmer for 25-30 minutes until vegetables are tender.",
+      "Finish with fresh basil and serve with crusty bread or as a side dish."
+    ],
+    "tips": [
+      "Salting eggplant cubes for 15 minutes beforehand removes bitterness.",
+      "Each vegetable can also be cooked separately first for more distinct textures."
+    ],
+    "nutritionInfo": { "servings": 4, "calories": 160, "protein": "3g", "carbs": "16g", "fat": "10g" },
+    "cuisine": ["French"],
+    "dietaryTags": ["vegetarian", "vegan", "gluten-free", "dairy-free", "nut-free", "egg-free", "low-carb"],
+    "mealTypes": ["lunch", "dinner"],
+    "region": "european",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "quiche-lorraine",
+    "name": "Quiche Lorraine",
+    "description": "Classic French savory tart with bacon, cheese, and custard in a buttery crust.",
+    "cookTime": "1 hour",
+    "difficulty": "Medium",
+    "ingredients": [
+      { "name": "pie crust (shortcrust pastry)", "quantity": "1" },
+      { "name": "bacon", "quantity": "150", "unit": "g" },
+      { "name": "gruyere cheese", "quantity": "100", "unit": "g" },
+      { "name": "eggs", "quantity": "3" },
+      { "name": "heavy cream", "quantity": "200", "unit": "ml" },
+      { "name": "milk", "quantity": "100", "unit": "ml" },
+      { "name": "nutmeg", "quantity": "0.25", "unit": "tsp" },
+      { "name": "salt", "quantity": "0.25", "unit": "tsp" },
+      { "name": "black pepper", "quantity": "0.25", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Blind bake the pie crust at 190 degrees Celsius for 12 minutes with pie weights, then remove weights and bake 5 more minutes.",
+      "Cook bacon until crispy, chop, and scatter over the baked crust along with grated gruyere.",
+      "Whisk eggs, cream, milk, nutmeg, salt, and pepper until smooth.",
+      "Pour the custard over the bacon and cheese.",
+      "Bake at 175 degrees Celsius for 30-35 minutes until the custard is set but still slightly jiggly in the center."
+    ],
+    "tips": [
+      "Blind baking prevents a soggy bottom crust.",
+      "The quiche continues to set as it cools — do not overbake."
+    ],
+    "nutritionInfo": { "servings": 6, "calories": 380, "protein": "16g", "carbs": "18g", "fat": "28g" },
+    "cuisine": ["French"],
+    "dietaryTags": ["nut-free"],
+    "mealTypes": ["lunch", "breakfast"],
+    "region": "european",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "caesar-salad",
+    "name": "Caesar Salad",
+    "description": "Crisp romaine lettuce with creamy Caesar dressing, croutons, and parmesan.",
+    "cookTime": "15 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "romaine lettuce", "quantity": "1", "unit": "large head" },
+      { "name": "parmesan cheese", "quantity": "40", "unit": "g" },
+      { "name": "croutons", "quantity": "60", "unit": "g" },
+      { "name": "anchovy fillets", "quantity": "3" },
+      { "name": "garlic", "quantity": "1", "unit": "clove" },
+      { "name": "egg yolk", "quantity": "1" },
+      { "name": "lemon juice", "quantity": "1", "unit": "tbsp" },
+      { "name": "Dijon mustard", "quantity": "1", "unit": "tsp" },
+      { "name": "olive oil", "quantity": "60", "unit": "ml" },
+      { "name": "Worcestershire sauce", "quantity": "0.5", "unit": "tsp" },
+      { "name": "black pepper", "quantity": "0.25", "unit": "tsp" }
+    ],
+    "instructions": [
+      "For dressing: mince anchovy and garlic into a paste. Whisk with egg yolk, lemon juice, Dijon, and Worcestershire.",
+      "Slowly drizzle in olive oil while whisking to emulsify into a creamy dressing.",
+      "Tear or chop romaine into bite-sized pieces, wash and dry thoroughly.",
+      "Toss lettuce with dressing, croutons, and shaved parmesan.",
+      "Grind fresh black pepper on top and serve immediately."
+    ],
+    "tips": [
+      "Dry the lettuce well — wet leaves dilute the dressing.",
+      "Homemade croutons from day-old bread are far superior to store-bought."
+    ],
+    "nutritionInfo": { "servings": 2, "calories": 320, "protein": "12g", "carbs": "14g", "fat": "26g" },
+    "cuisine": ["Italian", "American"],
+    "dietaryTags": ["nut-free"],
+    "mealTypes": ["lunch"],
+    "region": "european",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "gazpacho",
+    "name": "Gazpacho",
+    "description": "Chilled Spanish tomato soup blended with cucumber, pepper, and sherry vinegar.",
+    "cookTime": "15 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "ripe tomatoes", "quantity": "6", "unit": "medium" },
+      { "name": "cucumber", "quantity": "1", "unit": "medium" },
+      { "name": "red bell pepper", "quantity": "1" },
+      { "name": "garlic", "quantity": "1", "unit": "clove" },
+      { "name": "day-old bread", "quantity": "1", "unit": "slice" },
+      { "name": "olive oil", "quantity": "3", "unit": "tbsp" },
+      { "name": "sherry vinegar", "quantity": "2", "unit": "tbsp" },
+      { "name": "salt", "quantity": "0.5", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Roughly chop tomatoes, cucumber, and bell pepper.",
+      "Soak bread in water briefly, squeeze out excess.",
+      "Blend all vegetables with bread, garlic, olive oil, vinegar, and salt until smooth.",
+      "Strain through a sieve for silky texture (optional), then chill for at least 1 hour.",
+      "Serve cold, drizzled with olive oil and garnished with diced vegetables."
+    ],
+    "tips": [
+      "Use the ripest, most flavorful tomatoes available.",
+      "Gazpacho tastes best when thoroughly chilled for several hours."
+    ],
+    "nutritionInfo": { "servings": 4, "calories": 140, "protein": "3g", "carbs": "14g", "fat": "8g" },
+    "cuisine": ["Spanish"],
+    "dietaryTags": ["vegetarian", "vegan", "dairy-free", "nut-free", "egg-free"],
+    "mealTypes": ["lunch"],
+    "region": "european",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "nicoise-salad",
+    "name": "Nicoise Salad",
+    "description": "French composed salad with tuna, green beans, potatoes, eggs, and olives.",
+    "cookTime": "25 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "canned tuna", "quantity": "200", "unit": "g" },
+      { "name": "green beans", "quantity": "150", "unit": "g" },
+      { "name": "new potatoes", "quantity": "200", "unit": "g" },
+      { "name": "eggs", "quantity": "2" },
+      { "name": "cherry tomatoes", "quantity": "100", "unit": "g" },
+      { "name": "black olives", "quantity": "50", "unit": "g" },
+      { "name": "lettuce", "quantity": "4", "unit": "leaves" },
+      { "name": "olive oil", "quantity": "3", "unit": "tbsp" },
+      { "name": "Dijon mustard", "quantity": "1", "unit": "tsp" },
+      { "name": "red wine vinegar", "quantity": "1", "unit": "tbsp" },
+      { "name": "salt", "quantity": "0.25", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Boil potatoes until tender, about 15 minutes; boil eggs for 7 minutes for jammy yolks; blanch green beans for 3 minutes.",
+      "Whisk olive oil, mustard, vinegar, and salt into a vinaigrette.",
+      "Arrange lettuce on a platter, then compose halved potatoes, green beans, halved tomatoes, olives, and flaked tuna in sections.",
+      "Halve the eggs and place on top.",
+      "Drizzle vinaigrette over the salad just before serving."
+    ],
+    "tips": [
+      "A Nicoise is composed, not tossed — each ingredient is arranged separately.",
+      "Use good quality canned tuna packed in olive oil for best results."
+    ],
+    "nutritionInfo": { "servings": 2, "calories": 420, "protein": "30g", "carbs": "24g", "fat": "22g" },
+    "cuisine": ["French"],
+    "dietaryTags": ["gluten-free", "dairy-free", "nut-free"],
+    "mealTypes": ["lunch"],
+    "region": "european",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "bruschetta",
+    "name": "Bruschetta",
+    "description": "Toasted Italian bread topped with diced tomatoes, garlic, basil, and olive oil.",
+    "cookTime": "10 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "crusty Italian bread", "quantity": "4", "unit": "slices" },
+      { "name": "ripe tomatoes", "quantity": "3", "unit": "medium" },
+      { "name": "garlic", "quantity": "2", "unit": "cloves" },
+      { "name": "fresh basil", "quantity": "6", "unit": "leaves" },
+      { "name": "extra virgin olive oil", "quantity": "2", "unit": "tbsp" },
+      { "name": "balsamic vinegar", "quantity": "1", "unit": "tsp" },
+      { "name": "salt", "quantity": "0.25", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Dice tomatoes, mix with chopped basil, olive oil, balsamic vinegar, and salt; let sit 10 minutes.",
+      "Toast or grill bread slices until golden and crisp.",
+      "Rub each toast with a cut garlic clove.",
+      "Spoon the tomato mixture over the garlic-rubbed toast and serve immediately."
+    ],
+    "tips": [
+      "Let the tomato mixture marinate briefly for the flavors to meld.",
+      "Serve immediately after topping — the bread goes soggy quickly."
+    ],
+    "nutritionInfo": { "servings": 4, "calories": 150, "protein": "3g", "carbs": "18g", "fat": "7g" },
+    "cuisine": ["Italian"],
+    "dietaryTags": ["vegetarian", "vegan", "dairy-free", "nut-free", "egg-free"],
+    "mealTypes": ["lunch", "snack"],
+    "region": "european",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "focaccia-sandwich",
+    "name": "Focaccia Sandwich",
+    "description": "Thick, herbed Italian focaccia bread filled with mozzarella, roasted vegetables, and pesto.",
+    "cookTime": "15 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "focaccia bread", "quantity": "1", "unit": "piece" },
+      { "name": "fresh mozzarella", "quantity": "100", "unit": "g" },
+      { "name": "roasted red peppers", "quantity": "80", "unit": "g" },
+      { "name": "sun-dried tomatoes", "quantity": "30", "unit": "g" },
+      { "name": "fresh arugula", "quantity": "30", "unit": "g" },
+      { "name": "pesto", "quantity": "2", "unit": "tbsp" },
+      { "name": "olive oil", "quantity": "1", "unit": "tbsp" },
+      { "name": "salt", "quantity": "0.25", "unit": "tsp" },
+      { "name": "black pepper", "quantity": "0.25", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Slice focaccia in half horizontally.",
+      "Spread pesto on the bottom half.",
+      "Layer sliced mozzarella, roasted red peppers, sun-dried tomatoes, and arugula.",
+      "Drizzle with olive oil, season with salt and pepper, place top half.",
+      "Press gently, slice, and serve."
+    ],
+    "tips": [
+      "Lightly toast the focaccia for extra crunch.",
+      "Press the sandwich with a weight for a few minutes for a panini-style result."
+    ],
+    "nutritionInfo": { "servings": 2, "calories": 420, "protein": "16g", "carbs": "38g", "fat": "24g" },
+    "cuisine": ["Italian"],
+    "dietaryTags": ["vegetarian", "egg-free"],
+    "mealTypes": ["lunch"],
+    "region": "european",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  }
+]

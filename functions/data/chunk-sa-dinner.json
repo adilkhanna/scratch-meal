@@ -1,0 +1,416 @@
+[
+  {
+    "id": "paneer-tikka",
+    "name": "Paneer Tikka",
+    "description": "Marinated paneer cubes and vegetables grilled until smoky and charred.",
+    "cookTime": "30 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      { "name": "paneer", "quantity": "250", "unit": "g" },
+      { "name": "capsicum (bell pepper)", "quantity": "1", "unit": "medium" },
+      { "name": "onion", "quantity": "1", "unit": "medium" },
+      { "name": "yogurt", "quantity": "100", "unit": "g" },
+      { "name": "ginger-garlic paste", "quantity": "1", "unit": "tbsp" },
+      { "name": "red chili powder", "quantity": "1", "unit": "tsp" },
+      { "name": "garam masala", "quantity": "0.5", "unit": "tsp" },
+      { "name": "turmeric powder", "quantity": "0.25", "unit": "tsp" },
+      { "name": "lemon juice", "quantity": "1", "unit": "tbsp" },
+      { "name": "oil", "quantity": "2", "unit": "tbsp" },
+      { "name": "salt", "quantity": "0.5", "unit": "tsp" },
+      { "name": "chaat masala", "quantity": "0.5", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Cut paneer, capsicum, and onion into 1-inch cubes.",
+      "Mix yogurt, ginger-garlic paste, all spice powders, lemon juice, oil, and salt into a smooth marinade.",
+      "Coat paneer and vegetables in the marinade; refrigerate for 30 minutes.",
+      "Thread onto skewers and grill on high heat (or broil in oven) for 8-10 minutes, turning once.",
+      "Sprinkle chaat masala and serve with mint chutney and onion rings."
+    ],
+    "tips": [
+      "Do not marinate for too long — the acid in yogurt can make paneer crumbly.",
+      "A hot grill or oven broiler gives the best char marks."
+    ],
+    "nutritionInfo": { "servings": 3, "calories": 280, "protein": "16g", "carbs": "10g", "fat": "20g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "gluten-free", "nut-free", "egg-free"],
+    "mealTypes": ["dinner", "snack"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "tandoori-chicken",
+    "name": "Tandoori Chicken",
+    "description": "Chicken marinated in yogurt and spices, roasted until smoky with a vibrant red crust.",
+    "cookTime": "45 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      { "name": "chicken (whole legs or thighs)", "quantity": "800", "unit": "g" },
+      { "name": "yogurt", "quantity": "150", "unit": "g" },
+      { "name": "ginger-garlic paste", "quantity": "2", "unit": "tbsp" },
+      { "name": "red chili powder", "quantity": "1", "unit": "tsp" },
+      { "name": "tandoori masala", "quantity": "2", "unit": "tbsp" },
+      { "name": "lemon juice", "quantity": "2", "unit": "tbsp" },
+      { "name": "oil", "quantity": "2", "unit": "tbsp" },
+      { "name": "salt", "quantity": "1", "unit": "tsp" },
+      { "name": "chaat masala", "quantity": "0.5", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Make deep slashes in the chicken pieces for the marinade to penetrate.",
+      "Mix yogurt, ginger-garlic paste, tandoori masala, red chili powder, lemon juice, oil, and salt.",
+      "Coat chicken thoroughly in the marinade; refrigerate for at least 2 hours (overnight is best).",
+      "Bake at 220 degrees Celsius for 25-30 minutes, or grill until charred and juices run clear.",
+      "Sprinkle chaat masala, squeeze lemon, and serve with naan and onion rings."
+    ],
+    "tips": [
+      "Deep slashes are essential for the marinade to reach the bone.",
+      "For smoky flavor at home, place a hot coal in a small bowl of oil inside the marinating container for 2 minutes."
+    ],
+    "nutritionInfo": { "servings": 4, "calories": 320, "protein": "35g", "carbs": "6g", "fat": "17g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["gluten-free", "nut-free", "egg-free", "halal"],
+    "mealTypes": ["dinner"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "butter-chicken",
+    "name": "Butter Chicken",
+    "description": "Tender chicken pieces in a silky, buttery tomato-cream sauce with aromatic spices.",
+    "cookTime": "45 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      { "name": "chicken breast", "quantity": "500", "unit": "g" },
+      { "name": "yogurt", "quantity": "100", "unit": "g" },
+      { "name": "tomato puree", "quantity": "200", "unit": "ml" },
+      { "name": "cashews", "quantity": "20", "unit": "g" },
+      { "name": "butter", "quantity": "50", "unit": "g" },
+      { "name": "cream", "quantity": "80", "unit": "ml" },
+      { "name": "ginger-garlic paste", "quantity": "1", "unit": "tbsp" },
+      { "name": "red chili powder", "quantity": "1", "unit": "tsp" },
+      { "name": "garam masala", "quantity": "0.5", "unit": "tsp" },
+      { "name": "kasuri methi", "quantity": "1", "unit": "tsp" },
+      { "name": "sugar", "quantity": "1", "unit": "tsp" },
+      { "name": "salt", "quantity": "1", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Marinate chicken in yogurt, ginger-garlic paste, red chili powder, and salt for 1 hour.",
+      "Grill or pan-sear marinated chicken until lightly charred; set aside.",
+      "For the sauce: melt butter, add tomato puree, soaked cashew paste, and spices; cook for 10 minutes.",
+      "Strain the sauce for smoothness, add cream, sugar, and the cooked chicken pieces; simmer 10 minutes.",
+      "Crush kasuri methi and sprinkle on top, finish with a swirl of cream, and serve with naan."
+    ],
+    "tips": [
+      "Straining the sauce gives the characteristic silky-smooth texture.",
+      "Sugar is essential to balance the tomato acidity."
+    ],
+    "nutritionInfo": { "servings": 4, "calories": 420, "protein": "30g", "carbs": "14g", "fat": "28g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["gluten-free", "egg-free", "halal"],
+    "mealTypes": ["dinner"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "chicken-curry",
+    "name": "Chicken Curry",
+    "description": "Home-style Indian chicken curry with onion-tomato gravy and warm spices.",
+    "cookTime": "40 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      { "name": "chicken (bone-in pieces)", "quantity": "700", "unit": "g" },
+      { "name": "onion", "quantity": "2", "unit": "medium" },
+      { "name": "tomato", "quantity": "2", "unit": "medium" },
+      { "name": "ginger-garlic paste", "quantity": "1", "unit": "tbsp" },
+      { "name": "turmeric powder", "quantity": "0.5", "unit": "tsp" },
+      { "name": "red chili powder", "quantity": "1", "unit": "tsp" },
+      { "name": "coriander powder", "quantity": "1", "unit": "tsp" },
+      { "name": "garam masala", "quantity": "0.5", "unit": "tsp" },
+      { "name": "oil", "quantity": "3", "unit": "tbsp" },
+      { "name": "fresh coriander", "quantity": "2", "unit": "tbsp" },
+      { "name": "salt", "quantity": "1", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Heat oil, add sliced onions, and cook until deep golden brown.",
+      "Add ginger-garlic paste, cook for a minute, then add chopped tomatoes and all spice powders.",
+      "Cook the masala until oil separates — this is the key to a rich gravy.",
+      "Add chicken pieces, coat with the masala, add half a cup of water, cover, and cook for 20-25 minutes.",
+      "Finish with garam masala and coriander; serve with rice or roti."
+    ],
+    "tips": [
+      "Bone-in chicken gives far more flavor than boneless.",
+      "Browning the onions deeply is what makes or breaks this curry."
+    ],
+    "nutritionInfo": { "servings": 4, "calories": 340, "protein": "32g", "carbs": "10g", "fat": "19g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["gluten-free", "dairy-free", "nut-free", "egg-free", "halal"],
+    "mealTypes": ["dinner", "lunch"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "fish-curry",
+    "name": "Fish Curry",
+    "description": "Tender fish pieces simmered in a tangy coconut and tomato curry with curry leaves.",
+    "cookTime": "30 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      { "name": "fish fillets (pomfret or rohu)", "quantity": "500", "unit": "g" },
+      { "name": "coconut milk", "quantity": "200", "unit": "ml" },
+      { "name": "onion", "quantity": "1", "unit": "medium" },
+      { "name": "tomato", "quantity": "2", "unit": "medium" },
+      { "name": "ginger-garlic paste", "quantity": "1", "unit": "tbsp" },
+      { "name": "turmeric powder", "quantity": "0.5", "unit": "tsp" },
+      { "name": "red chili powder", "quantity": "1", "unit": "tsp" },
+      { "name": "tamarind paste", "quantity": "1", "unit": "tsp" },
+      { "name": "curry leaves", "quantity": "8" },
+      { "name": "mustard seeds", "quantity": "0.5", "unit": "tsp" },
+      { "name": "coconut oil", "quantity": "2", "unit": "tbsp" },
+      { "name": "salt", "quantity": "1", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Rub fish pieces with turmeric and salt; let sit for 10 minutes.",
+      "Heat coconut oil, add mustard seeds and curry leaves; let them splutter.",
+      "Add chopped onion, cook until soft, then add ginger-garlic paste and tomatoes.",
+      "Add red chili powder, tamarind paste, coconut milk, and water; bring to a gentle simmer.",
+      "Gently slide in the fish pieces, cook uncovered for 8-10 minutes until fish is just cooked through."
+    ],
+    "tips": [
+      "Do not stir the fish too much — it breaks apart easily.",
+      "Coconut oil is traditional and adds authentic coastal flavor."
+    ],
+    "nutritionInfo": { "servings": 4, "calories": 280, "protein": "28g", "carbs": "8g", "fat": "16g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["gluten-free", "dairy-free", "nut-free", "egg-free"],
+    "mealTypes": ["dinner", "lunch"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "egg-curry",
+    "name": "Egg Curry",
+    "description": "Boiled eggs simmered in a spiced onion-tomato gravy — a quick protein-rich dinner.",
+    "cookTime": "25 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "eggs", "quantity": "6" },
+      { "name": "onion", "quantity": "2", "unit": "medium" },
+      { "name": "tomato", "quantity": "2", "unit": "medium" },
+      { "name": "ginger-garlic paste", "quantity": "1", "unit": "tbsp" },
+      { "name": "turmeric powder", "quantity": "0.5", "unit": "tsp" },
+      { "name": "red chili powder", "quantity": "1", "unit": "tsp" },
+      { "name": "coriander powder", "quantity": "1", "unit": "tsp" },
+      { "name": "garam masala", "quantity": "0.5", "unit": "tsp" },
+      { "name": "oil", "quantity": "3", "unit": "tbsp" },
+      { "name": "salt", "quantity": "1", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Hard boil eggs for 10 minutes, peel, and make shallow slits for the gravy to penetrate.",
+      "Heat oil, add sliced onions, and fry until golden brown.",
+      "Add ginger-garlic paste, tomatoes, and all spice powders; cook until oil separates.",
+      "Add a cup of water, bring to a simmer, then add the boiled eggs.",
+      "Simmer for 5-7 minutes, finish with garam masala and coriander; serve with rice or roti."
+    ],
+    "tips": [
+      "Lightly frying the boiled eggs before adding to gravy adds color and texture.",
+      "The longer eggs sit in the gravy, the more flavorful they become."
+    ],
+    "nutritionInfo": { "servings": 3, "calories": 300, "protein": "18g", "carbs": "14g", "fat": "20g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["gluten-free", "dairy-free", "nut-free"],
+    "mealTypes": ["dinner", "lunch"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "keema",
+    "name": "Keema",
+    "description": "Spiced minced meat curry cooked with peas, onions, and aromatic spices.",
+    "cookTime": "35 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      { "name": "minced meat (lamb or chicken)", "quantity": "500", "unit": "g" },
+      { "name": "onion", "quantity": "2", "unit": "medium" },
+      { "name": "tomato", "quantity": "2", "unit": "medium" },
+      { "name": "green peas", "quantity": "100", "unit": "g" },
+      { "name": "ginger-garlic paste", "quantity": "1", "unit": "tbsp" },
+      { "name": "cumin seeds", "quantity": "1", "unit": "tsp" },
+      { "name": "turmeric powder", "quantity": "0.5", "unit": "tsp" },
+      { "name": "red chili powder", "quantity": "1", "unit": "tsp" },
+      { "name": "garam masala", "quantity": "1", "unit": "tsp" },
+      { "name": "oil", "quantity": "3", "unit": "tbsp" },
+      { "name": "fresh coriander", "quantity": "2", "unit": "tbsp" },
+      { "name": "salt", "quantity": "1", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Heat oil, add cumin seeds, then add finely chopped onions and cook until deep golden.",
+      "Add ginger-garlic paste and sauté for a minute.",
+      "Add minced meat, break up any lumps, and cook on high heat until browned.",
+      "Add tomatoes, spice powders, salt, and peas; cover and cook for 15-20 minutes until meat is tender.",
+      "Finish with garam masala and coriander; serve with roti, naan, or pav."
+    ],
+    "tips": [
+      "Brown the mince on high heat without stirring initially for better flavor.",
+      "Keema thickens as it rests — it is even better the next day."
+    ],
+    "nutritionInfo": { "servings": 4, "calories": 340, "protein": "28g", "carbs": "12g", "fat": "20g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["gluten-free", "dairy-free", "nut-free", "egg-free", "halal"],
+    "mealTypes": ["dinner"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "veg-biryani",
+    "name": "Vegetable Biryani",
+    "description": "Layered fragrant basmati rice and spiced mixed vegetables cooked in the dum style.",
+    "cookTime": "1 hour",
+    "difficulty": "Hard",
+    "ingredients": [
+      { "name": "basmati rice", "quantity": "300", "unit": "g" },
+      { "name": "mixed vegetables (potato, carrot, beans, peas)", "quantity": "250", "unit": "g" },
+      { "name": "onion", "quantity": "2", "unit": "large" },
+      { "name": "yogurt", "quantity": "100", "unit": "g" },
+      { "name": "ginger-garlic paste", "quantity": "1.5", "unit": "tbsp" },
+      { "name": "biryani masala", "quantity": "1.5", "unit": "tbsp" },
+      { "name": "saffron", "quantity": "0.25", "unit": "tsp" },
+      { "name": "milk", "quantity": "50", "unit": "ml" },
+      { "name": "ghee", "quantity": "3", "unit": "tbsp" },
+      { "name": "fresh mint", "quantity": "15", "unit": "g" },
+      { "name": "fresh coriander", "quantity": "15", "unit": "g" },
+      { "name": "whole spices (bay leaf, cardamom, cloves, cinnamon)", "quantity": "1", "unit": "set" },
+      { "name": "salt", "quantity": "1.5", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Soak rice for 30 minutes, then parboil in salted water with whole spices until 70% cooked; drain.",
+      "Slice onions thin and deep fry until crispy and golden (birista); set aside.",
+      "Cook vegetables with yogurt, ginger-garlic paste, biryani masala, and salt until half-done.",
+      "Layer: vegetable masala on the bottom, then rice, fried onions, mint, coriander, and saffron milk; repeat.",
+      "Seal the pot with dough or foil, cook on very low heat (dum) for 25 minutes; gently mix while serving."
+    ],
+    "tips": [
+      "Parboiling rice to exactly 70% is critical — it finishes cooking during dum.",
+      "Sealing the pot tightly traps steam for the signature dum flavor."
+    ],
+    "nutritionInfo": { "servings": 4, "calories": 380, "protein": "8g", "carbs": "58g", "fat": "13g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "nut-free", "egg-free"],
+    "mealTypes": ["dinner", "lunch"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "chicken-biryani",
+    "name": "Chicken Biryani",
+    "description": "Aromatic layered rice and spiced chicken cooked slowly in sealed pot (dum style).",
+    "cookTime": "1 hour",
+    "difficulty": "Hard",
+    "ingredients": [
+      { "name": "basmati rice", "quantity": "300", "unit": "g" },
+      { "name": "chicken (bone-in pieces)", "quantity": "600", "unit": "g" },
+      { "name": "onion", "quantity": "3", "unit": "large" },
+      { "name": "yogurt", "quantity": "150", "unit": "g" },
+      { "name": "ginger-garlic paste", "quantity": "2", "unit": "tbsp" },
+      { "name": "biryani masala", "quantity": "2", "unit": "tbsp" },
+      { "name": "saffron", "quantity": "0.25", "unit": "tsp" },
+      { "name": "milk", "quantity": "50", "unit": "ml" },
+      { "name": "ghee", "quantity": "4", "unit": "tbsp" },
+      { "name": "fresh mint", "quantity": "15", "unit": "g" },
+      { "name": "fresh coriander", "quantity": "15", "unit": "g" },
+      { "name": "whole spices (bay leaf, cardamom, cloves, cinnamon, star anise)", "quantity": "1", "unit": "set" },
+      { "name": "salt", "quantity": "1.5", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Marinate chicken with yogurt, ginger-garlic paste, biryani masala, and salt for at least 1 hour.",
+      "Soak rice for 30 minutes, parboil with whole spices until 70% done; drain.",
+      "Fry thinly sliced onions in ghee until deeply golden; remove half for garnish.",
+      "Cook marinated chicken with the remaining fried onions for 10 minutes until half-done.",
+      "Layer: chicken on the bottom, then rice, fried onions, mint, coriander, and saffron milk; seal and cook on very low heat for 25-30 minutes."
+    ],
+    "tips": [
+      "Never skip marination — it tenderizes the chicken and builds flavor.",
+      "The sealed dum cooking is where the magic happens — patience is key."
+    ],
+    "nutritionInfo": { "servings": 4, "calories": 520, "protein": "32g", "carbs": "52g", "fat": "20g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["nut-free", "egg-free", "halal"],
+    "mealTypes": ["dinner", "lunch"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "dal-khichdi",
+    "name": "Dal Khichdi",
+    "description": "Comforting one-pot meal of rice and lentils cooked together with mild spices and ghee.",
+    "cookTime": "25 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "rice", "quantity": "150", "unit": "g" },
+      { "name": "moong dal", "quantity": "100", "unit": "g" },
+      { "name": "onion", "quantity": "1", "unit": "small" },
+      { "name": "tomato", "quantity": "1", "unit": "small" },
+      { "name": "turmeric powder", "quantity": "0.5", "unit": "tsp" },
+      { "name": "cumin seeds", "quantity": "1", "unit": "tsp" },
+      { "name": "ghee", "quantity": "2", "unit": "tbsp" },
+      { "name": "green chili", "quantity": "1" },
+      { "name": "salt", "quantity": "1", "unit": "tsp" },
+      { "name": "water", "quantity": "700", "unit": "ml" }
+    ],
+    "instructions": [
+      "Wash rice and moong dal together until water runs clear.",
+      "Heat ghee, add cumin seeds, chopped onion, green chili, and tomato; sauté for 2-3 minutes.",
+      "Add rice, dal, turmeric, salt, and water; bring to a boil.",
+      "Pressure cook for 3 whistles or simmer covered for 20 minutes until soft and porridge-like.",
+      "Serve with a generous dollop of ghee, papad, and pickle."
+    ],
+    "tips": [
+      "Khichdi should be soft and mushy — add more water if needed.",
+      "This is the ultimate Indian comfort food, often served when unwell."
+    ],
+    "nutritionInfo": { "servings": 3, "calories": 280, "protein": "10g", "carbs": "44g", "fat": "7g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "gluten-free", "nut-free", "egg-free"],
+    "mealTypes": ["dinner", "lunch"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  }
+]

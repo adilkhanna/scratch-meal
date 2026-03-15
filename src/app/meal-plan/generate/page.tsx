@@ -28,9 +28,9 @@ export default function MealPlanGeneratePage() {
   const router = useRouter();
   const { user } = useAuth();
   const {
-    ingredients, dietaryConditions, familySize,
-    lunchCuisines, dinnerCuisines, weeklyBudget,
-    breakfastPreferences,
+    ingredients, dietaryConditions, memberDietaryConditions, familySize,
+    lunchCuisines, dinnerCuisines, dailyCuisines, weeklyBudget,
+    breakfastPreferences, planDays,
   } = useMealPlanFlow();
 
   const [progressIdx, setProgressIdx] = useState(0);
@@ -71,8 +71,10 @@ export default function MealPlanGeneratePage() {
           dinnerCuisines,
           weeklyBudget,
           breakfastPreferences,
-          3, // planDays: 3-day test phase
-          dailyCaloricTarget
+          planDays,
+          dailyCaloricTarget,
+          memberDietaryConditions,
+          dailyCuisines
         );
 
         // Save to Firestore
@@ -89,7 +91,7 @@ export default function MealPlanGeneratePage() {
         );
       }
     })();
-  }, [ingredients, dietaryConditions, familySize, lunchCuisines, dinnerCuisines, weeklyBudget, breakfastPreferences, user, router]);
+  }, [ingredients, dietaryConditions, memberDietaryConditions, familySize, lunchCuisines, dinnerCuisines, dailyCuisines, weeklyBudget, breakfastPreferences, planDays, user, router]);
 
   if (!user) return null;
 

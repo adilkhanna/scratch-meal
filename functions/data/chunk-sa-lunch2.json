@@ -1,0 +1,489 @@
+[
+  {
+    "id": "sambar",
+    "name": "Sambar",
+    "description": "South Indian lentil and vegetable stew flavored with tamarind and sambar powder.",
+    "cookTime": "35 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "toor dal", "quantity": "150", "unit": "g" },
+      { "name": "drumstick", "quantity": "1" },
+      { "name": "onion", "quantity": "1", "unit": "small" },
+      { "name": "tomato", "quantity": "1", "unit": "medium" },
+      { "name": "carrot", "quantity": "1", "unit": "small" },
+      { "name": "sambar powder", "quantity": "2", "unit": "tbsp" },
+      { "name": "tamarind paste", "quantity": "1", "unit": "tbsp" },
+      { "name": "mustard seeds", "quantity": "1", "unit": "tsp" },
+      { "name": "curry leaves", "quantity": "8" },
+      { "name": "oil", "quantity": "2", "unit": "tbsp" },
+      { "name": "salt", "quantity": "1", "unit": "tsp" },
+      { "name": "water", "quantity": "600", "unit": "ml" }
+    ],
+    "instructions": [
+      "Pressure cook toor dal with turmeric and water until soft, then mash well.",
+      "Boil chopped vegetables (drumstick, carrot, onion) separately until tender.",
+      "In a pan, heat oil, add mustard seeds and curry leaves; let them splutter.",
+      "Add tomato, sambar powder, tamarind paste, cooked vegetables, and mashed dal; simmer for 10 minutes.",
+      "Adjust salt and consistency, and serve with rice, idli, or dosa."
+    ],
+    "tips": [
+      "Use fresh sambar powder for the best flavor.",
+      "Adding a small piece of jaggery balances the tamarind sourness."
+    ],
+    "nutritionInfo": { "servings": 4, "calories": 170, "protein": "9g", "carbs": "24g", "fat": "4g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "vegan", "gluten-free", "dairy-free", "nut-free", "egg-free"],
+    "mealTypes": ["lunch", "dinner"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "rasam",
+    "name": "Rasam",
+    "description": "Tangy South Indian soup made with tamarind, tomatoes, pepper, and cumin.",
+    "cookTime": "20 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "tomato", "quantity": "2", "unit": "medium" },
+      { "name": "tamarind paste", "quantity": "1", "unit": "tbsp" },
+      { "name": "rasam powder", "quantity": "1.5", "unit": "tbsp" },
+      { "name": "toor dal (cooked)", "quantity": "100", "unit": "g" },
+      { "name": "mustard seeds", "quantity": "1", "unit": "tsp" },
+      { "name": "cumin seeds", "quantity": "0.5", "unit": "tsp" },
+      { "name": "curry leaves", "quantity": "6" },
+      { "name": "garlic", "quantity": "2", "unit": "cloves" },
+      { "name": "ghee", "quantity": "1", "unit": "tbsp" },
+      { "name": "fresh coriander", "quantity": "2", "unit": "tbsp" },
+      { "name": "salt", "quantity": "0.5", "unit": "tsp" },
+      { "name": "water", "quantity": "500", "unit": "ml" }
+    ],
+    "instructions": [
+      "Boil chopped tomatoes with tamarind paste, rasam powder, and water until tomatoes are soft.",
+      "Add mashed cooked toor dal and salt; bring to a rolling boil.",
+      "In a small pan, heat ghee, add mustard seeds, cumin, crushed garlic, and curry leaves; let them splutter.",
+      "Pour the tempering into the rasam, garnish with coriander.",
+      "Serve hot with steamed rice or drink as a soup."
+    ],
+    "tips": [
+      "Rasam should be thin and soupy, not thick like sambar.",
+      "Turn off heat as soon as it comes to a frothy boil — do not over-boil."
+    ],
+    "nutritionInfo": { "servings": 4, "calories": 80, "protein": "4g", "carbs": "10g", "fat": "3g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "gluten-free", "nut-free", "egg-free"],
+    "mealTypes": ["lunch"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "malai-kofta",
+    "name": "Malai Kofta",
+    "description": "Deep-fried paneer and potato dumplings served in a rich, creamy tomato-cashew gravy.",
+    "cookTime": "45 min",
+    "difficulty": "Hard",
+    "ingredients": [
+      { "name": "paneer", "quantity": "200", "unit": "g" },
+      { "name": "potato", "quantity": "2", "unit": "medium" },
+      { "name": "cornstarch", "quantity": "2", "unit": "tbsp" },
+      { "name": "tomato", "quantity": "3", "unit": "medium" },
+      { "name": "cashews", "quantity": "20", "unit": "g" },
+      { "name": "cream", "quantity": "60", "unit": "ml" },
+      { "name": "butter", "quantity": "2", "unit": "tbsp" },
+      { "name": "ginger-garlic paste", "quantity": "1", "unit": "tbsp" },
+      { "name": "red chili powder", "quantity": "0.5", "unit": "tsp" },
+      { "name": "garam masala", "quantity": "0.5", "unit": "tsp" },
+      { "name": "kasuri methi", "quantity": "1", "unit": "tsp" },
+      { "name": "oil for frying", "quantity": "500", "unit": "ml" },
+      { "name": "salt", "quantity": "1", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Boil and mash potatoes, crumble paneer, mix with cornstarch and salt; shape into round koftas.",
+      "Deep fry koftas on medium heat until golden brown; drain and set aside.",
+      "For gravy: blend boiled tomatoes and soaked cashews into a smooth puree.",
+      "Heat butter, add ginger-garlic paste, pour in the tomato-cashew puree with spices; cook for 10 minutes.",
+      "Add cream and kasuri methi, place koftas in the gravy just before serving to keep them crispy."
+    ],
+    "tips": [
+      "Add koftas to gravy only while serving — soaking makes them soggy.",
+      "If koftas break during frying, add more cornstarch to the mixture."
+    ],
+    "nutritionInfo": { "servings": 4, "calories": 380, "protein": "12g", "carbs": "24g", "fat": "26g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "egg-free"],
+    "mealTypes": ["lunch", "dinner"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "chole",
+    "name": "Chole",
+    "description": "North Indian spiced chickpea curry with a dark, tangy gravy made with tea and spices.",
+    "cookTime": "40 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      { "name": "chickpeas (dried)", "quantity": "250", "unit": "g" },
+      { "name": "onion", "quantity": "2", "unit": "medium" },
+      { "name": "tomato", "quantity": "2", "unit": "medium" },
+      { "name": "tea bag", "quantity": "1" },
+      { "name": "ginger-garlic paste", "quantity": "1", "unit": "tbsp" },
+      { "name": "chole masala", "quantity": "2", "unit": "tsp" },
+      { "name": "coriander powder", "quantity": "1", "unit": "tsp" },
+      { "name": "red chili powder", "quantity": "1", "unit": "tsp" },
+      { "name": "amchur powder", "quantity": "1", "unit": "tsp" },
+      { "name": "oil", "quantity": "3", "unit": "tbsp" },
+      { "name": "salt", "quantity": "1", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Soak chickpeas overnight, then pressure cook with a tea bag and water for 5-6 whistles until soft; remove tea bag.",
+      "Heat oil, add finely sliced onions, and fry until deep brown for the base.",
+      "Add ginger-garlic paste, chopped tomatoes, and all spice powders; cook until oil separates.",
+      "Add cooked chickpeas with their dark cooking liquid; simmer for 15 minutes until thick.",
+      "Finish with amchur, garnish with ginger juliennes and coriander, serve with bhature or rice."
+    ],
+    "tips": [
+      "The tea bag gives chole their characteristic dark color.",
+      "Frying onions until very dark brown is essential for authentic flavor."
+    ],
+    "nutritionInfo": { "servings": 4, "calories": 260, "protein": "12g", "carbs": "36g", "fat": "8g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "vegan", "dairy-free", "nut-free", "egg-free"],
+    "mealTypes": ["lunch"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "dal-fry",
+    "name": "Dal Fry",
+    "description": "Mixed lentils cooked until creamy, tempered with cumin, garlic, and tomatoes.",
+    "cookTime": "25 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "toor dal", "quantity": "100", "unit": "g" },
+      { "name": "masoor dal", "quantity": "50", "unit": "g" },
+      { "name": "moong dal", "quantity": "50", "unit": "g" },
+      { "name": "onion", "quantity": "1", "unit": "medium" },
+      { "name": "tomato", "quantity": "1", "unit": "medium" },
+      { "name": "garlic", "quantity": "4", "unit": "cloves" },
+      { "name": "cumin seeds", "quantity": "1", "unit": "tsp" },
+      { "name": "turmeric powder", "quantity": "0.5", "unit": "tsp" },
+      { "name": "red chili powder", "quantity": "0.5", "unit": "tsp" },
+      { "name": "ghee", "quantity": "2", "unit": "tbsp" },
+      { "name": "salt", "quantity": "1", "unit": "tsp" },
+      { "name": "water", "quantity": "600", "unit": "ml" }
+    ],
+    "instructions": [
+      "Wash all dals together, pressure cook with turmeric and water for 3-4 whistles until soft.",
+      "Mash the cooked dal to a smooth consistency.",
+      "Heat ghee, add cumin seeds and sliced garlic; fry until garlic turns golden.",
+      "Add chopped onion, sauté until translucent, then add tomato and red chili powder; cook until soft.",
+      "Add the mashed dal, simmer for 5 minutes, adjust salt, and serve with rice or roti."
+    ],
+    "tips": [
+      "Using a mix of dals gives a richer texture than a single variety.",
+      "A squeeze of lemon at the end brightens the flavor."
+    ],
+    "nutritionInfo": { "servings": 4, "calories": 180, "protein": "10g", "carbs": "24g", "fat": "5g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "gluten-free", "nut-free", "egg-free"],
+    "mealTypes": ["lunch", "dinner"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "lauki-sabzi",
+    "name": "Lauki Sabzi",
+    "description": "Mild bottle gourd curry cooked with tomatoes and simple spices.",
+    "cookTime": "20 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "bottle gourd (lauki)", "quantity": "500", "unit": "g" },
+      { "name": "tomato", "quantity": "1", "unit": "medium" },
+      { "name": "onion", "quantity": "1", "unit": "small" },
+      { "name": "cumin seeds", "quantity": "1", "unit": "tsp" },
+      { "name": "turmeric powder", "quantity": "0.5", "unit": "tsp" },
+      { "name": "coriander powder", "quantity": "1", "unit": "tsp" },
+      { "name": "green chili", "quantity": "1" },
+      { "name": "oil", "quantity": "2", "unit": "tbsp" },
+      { "name": "salt", "quantity": "1", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Peel and dice bottle gourd into small cubes.",
+      "Heat oil, add cumin seeds, then add chopped onion and sauté until translucent.",
+      "Add tomato, green chili, turmeric, and coriander powder; cook for 2 minutes.",
+      "Add lauki cubes, salt, cover, and cook on low heat for 12-15 minutes until tender.",
+      "Garnish with coriander and serve with roti or dal-rice."
+    ],
+    "tips": [
+      "Lauki releases a lot of water, so no need to add extra water.",
+      "Choose a young, firm lauki for the best texture."
+    ],
+    "nutritionInfo": { "servings": 3, "calories": 100, "protein": "2g", "carbs": "12g", "fat": "5g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "vegan", "gluten-free", "dairy-free", "nut-free", "egg-free"],
+    "mealTypes": ["lunch"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "tinda-masala",
+    "name": "Tinda Masala",
+    "description": "Indian baby round gourd cooked in a simple onion-tomato masala.",
+    "cookTime": "25 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "tinda (Indian round gourd)", "quantity": "400", "unit": "g" },
+      { "name": "onion", "quantity": "1", "unit": "medium" },
+      { "name": "tomato", "quantity": "1", "unit": "medium" },
+      { "name": "cumin seeds", "quantity": "1", "unit": "tsp" },
+      { "name": "turmeric powder", "quantity": "0.5", "unit": "tsp" },
+      { "name": "coriander powder", "quantity": "1", "unit": "tsp" },
+      { "name": "red chili powder", "quantity": "0.5", "unit": "tsp" },
+      { "name": "oil", "quantity": "2", "unit": "tbsp" },
+      { "name": "salt", "quantity": "1", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Peel tinda, cut into quarters or halves depending on size.",
+      "Heat oil, add cumin seeds, then chopped onion; sauté until golden.",
+      "Add tomato and spice powders; cook until masala thickens.",
+      "Add tinda pieces, salt, and a splash of water; cover and cook for 15-18 minutes.",
+      "Garnish with coriander and serve with roti."
+    ],
+    "tips": [
+      "Choose tender, small tinda for best results — large ones can be seedy.",
+      "Do not add too much water; tinda has high moisture content."
+    ],
+    "nutritionInfo": { "servings": 3, "calories": 110, "protein": "2g", "carbs": "14g", "fat": "5g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "vegan", "gluten-free", "dairy-free", "nut-free", "egg-free"],
+    "mealTypes": ["lunch"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "arhar-dal",
+    "name": "Arhar Dal",
+    "description": "Simple everyday pigeon pea dal tempered with cumin, garlic, and ghee.",
+    "cookTime": "25 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "toor dal (arhar)", "quantity": "200", "unit": "g" },
+      { "name": "tomato", "quantity": "1", "unit": "medium" },
+      { "name": "garlic", "quantity": "3", "unit": "cloves" },
+      { "name": "cumin seeds", "quantity": "1", "unit": "tsp" },
+      { "name": "turmeric powder", "quantity": "0.5", "unit": "tsp" },
+      { "name": "red chili powder", "quantity": "0.5", "unit": "tsp" },
+      { "name": "ghee", "quantity": "1", "unit": "tbsp" },
+      { "name": "dried red chili", "quantity": "1" },
+      { "name": "salt", "quantity": "1", "unit": "tsp" },
+      { "name": "water", "quantity": "500", "unit": "ml" }
+    ],
+    "instructions": [
+      "Wash toor dal, pressure cook with turmeric and water for 3 whistles until soft.",
+      "Mash the dal, add chopped tomato and salt; simmer for 5 minutes.",
+      "Heat ghee in a small pan, add cumin seeds, dried red chili, and sliced garlic; fry until golden.",
+      "Pour the tadka over the simmering dal, cover for a minute to let flavors meld.",
+      "Serve with steamed rice and a side of pickle."
+    ],
+    "tips": [
+      "This is a staple everyday dal — keep it simple and let the tadka do the work.",
+      "Consistency should be thinner than dal makhani but thicker than rasam."
+    ],
+    "nutritionInfo": { "servings": 4, "calories": 170, "protein": "10g", "carbs": "24g", "fat": "4g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "gluten-free", "nut-free", "egg-free"],
+    "mealTypes": ["lunch", "dinner"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "moong-dal",
+    "name": "Moong Dal",
+    "description": "Light and comforting yellow moong dal with a simple garlic and cumin tadka.",
+    "cookTime": "20 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "yellow moong dal", "quantity": "200", "unit": "g" },
+      { "name": "garlic", "quantity": "3", "unit": "cloves" },
+      { "name": "cumin seeds", "quantity": "1", "unit": "tsp" },
+      { "name": "turmeric powder", "quantity": "0.5", "unit": "tsp" },
+      { "name": "green chili", "quantity": "1" },
+      { "name": "ghee", "quantity": "1", "unit": "tbsp" },
+      { "name": "fresh coriander", "quantity": "2", "unit": "tbsp" },
+      { "name": "salt", "quantity": "1", "unit": "tsp" },
+      { "name": "water", "quantity": "500", "unit": "ml" }
+    ],
+    "instructions": [
+      "Wash moong dal, pressure cook with turmeric and water for 2-3 whistles until very soft.",
+      "Mash lightly with a whisk, add salt, and bring to a simmer.",
+      "Heat ghee, add cumin seeds, sliced garlic, and green chili; fry until golden.",
+      "Pour the tadka over the dal, garnish with coriander.",
+      "Serve with steamed rice — this is one of the lightest, most digestible dals."
+    ],
+    "tips": [
+      "Moong dal cooks quickly and does not need soaking.",
+      "Perfect for when you want something light and easy on the stomach."
+    ],
+    "nutritionInfo": { "servings": 4, "calories": 160, "protein": "10g", "carbs": "22g", "fat": "3g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "gluten-free", "nut-free", "egg-free"],
+    "mealTypes": ["lunch", "dinner"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "masoor-dal",
+    "name": "Masoor Dal",
+    "description": "Quick-cooking red lentil dal with a tomato and onion base.",
+    "cookTime": "20 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "masoor dal (red lentils)", "quantity": "200", "unit": "g" },
+      { "name": "onion", "quantity": "1", "unit": "small" },
+      { "name": "tomato", "quantity": "1", "unit": "medium" },
+      { "name": "garlic", "quantity": "3", "unit": "cloves" },
+      { "name": "cumin seeds", "quantity": "1", "unit": "tsp" },
+      { "name": "turmeric powder", "quantity": "0.5", "unit": "tsp" },
+      { "name": "red chili powder", "quantity": "0.5", "unit": "tsp" },
+      { "name": "ghee", "quantity": "1", "unit": "tbsp" },
+      { "name": "salt", "quantity": "1", "unit": "tsp" },
+      { "name": "water", "quantity": "500", "unit": "ml" }
+    ],
+    "instructions": [
+      "Wash masoor dal and pressure cook with turmeric and water for 2 whistles.",
+      "Heat ghee, add cumin seeds, garlic, and chopped onion; sauté until light brown.",
+      "Add chopped tomato, red chili powder, and salt; cook until tomato softens.",
+      "Add the cooked masoor dal, simmer for 5 minutes.",
+      "Garnish with coriander and serve with rice or roti."
+    ],
+    "tips": [
+      "Masoor dal cooks the fastest among all dals — do not overcook or it becomes too mushy.",
+      "This dal thickens as it cools, so keep it slightly thinner than desired."
+    ],
+    "nutritionInfo": { "servings": 4, "calories": 170, "protein": "11g", "carbs": "24g", "fat": "3g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "gluten-free", "nut-free", "egg-free"],
+    "mealTypes": ["lunch", "dinner"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "cabbage-sabzi",
+    "name": "Cabbage Sabzi",
+    "description": "Shredded cabbage stir-fried with mustard seeds, turmeric, and green chilies.",
+    "cookTime": "15 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "cabbage", "quantity": "400", "unit": "g" },
+      { "name": "onion", "quantity": "1", "unit": "small" },
+      { "name": "mustard seeds", "quantity": "1", "unit": "tsp" },
+      { "name": "turmeric powder", "quantity": "0.25", "unit": "tsp" },
+      { "name": "green chili", "quantity": "1" },
+      { "name": "curry leaves", "quantity": "6" },
+      { "name": "oil", "quantity": "2", "unit": "tbsp" },
+      { "name": "salt", "quantity": "0.5", "unit": "tsp" },
+      { "name": "lemon juice", "quantity": "1", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Finely shred the cabbage and chop the onion.",
+      "Heat oil, add mustard seeds and curry leaves; let them splutter.",
+      "Add chopped onion and green chili; sauté for 2 minutes.",
+      "Add shredded cabbage, turmeric, and salt; stir-fry on medium-high heat for 5-7 minutes.",
+      "The cabbage should be cooked but still have a slight crunch. Squeeze lemon juice and serve."
+    ],
+    "tips": [
+      "Do not cover the pan — cabbage should dry-fry, not steam.",
+      "Adding grated coconut at the end is a nice South Indian variation."
+    ],
+    "nutritionInfo": { "servings": 3, "calories": 90, "protein": "2g", "carbs": "10g", "fat": "5g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "vegan", "gluten-free", "dairy-free", "nut-free", "egg-free"],
+    "mealTypes": ["lunch"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "aloo-matar",
+    "name": "Aloo Matar",
+    "description": "Potatoes and green peas cooked in a light tomato-based curry.",
+    "cookTime": "25 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "potato", "quantity": "2", "unit": "medium" },
+      { "name": "green peas", "quantity": "100", "unit": "g" },
+      { "name": "onion", "quantity": "1", "unit": "medium" },
+      { "name": "tomato", "quantity": "1", "unit": "medium" },
+      { "name": "ginger-garlic paste", "quantity": "1", "unit": "tsp" },
+      { "name": "cumin seeds", "quantity": "1", "unit": "tsp" },
+      { "name": "turmeric powder", "quantity": "0.5", "unit": "tsp" },
+      { "name": "coriander powder", "quantity": "1", "unit": "tsp" },
+      { "name": "garam masala", "quantity": "0.5", "unit": "tsp" },
+      { "name": "oil", "quantity": "2", "unit": "tbsp" },
+      { "name": "salt", "quantity": "1", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Peel and cube potatoes into bite-sized pieces.",
+      "Heat oil, add cumin seeds, then add chopped onion and sauté until golden.",
+      "Add ginger-garlic paste, tomato, and spice powders; cook until masala is fragrant.",
+      "Add potatoes, peas, salt, and half a cup of water; cover and cook for 15 minutes.",
+      "Finish with garam masala, garnish with coriander, and serve with roti or puri."
+    ],
+    "tips": [
+      "For a richer version, add a splash of cream at the end.",
+      "Frozen peas work perfectly and can be added in the last 5 minutes."
+    ],
+    "nutritionInfo": { "servings": 3, "calories": 190, "protein": "5g", "carbs": "28g", "fat": "7g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "vegan", "gluten-free", "dairy-free", "nut-free", "egg-free"],
+    "mealTypes": ["lunch"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  }
+]

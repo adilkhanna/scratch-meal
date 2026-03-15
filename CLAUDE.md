@@ -10,8 +10,8 @@ A recipe recommendation web app that takes ingredients users have on hand and ge
 **NO hallucinated recipes.** All recipes MUST be sourced from verified databases:
 - **Quick Recipe flow**: Spoonacular API → GPT-4o adapts verified recipes (never generates from scratch)
 - **Weekly Meal Plan**: Curated recipe glossary (Firestore) is the primary source. Spoonacular supplements when glossary has insufficient matches. GPT-4o selects from reference recipe lists only — never invents dishes.
-- **Breakfast**: 100% code-selected from curated glossary (129 real recipes). NO GPT involved. Preference matching + variety rotation done in `breakfast-selector.ts`. Zero hallucination risk.
-- **Lunch/Dinner**: GPT-4o selects from glossary + Spoonacular reference lists with strict anti-hallucination rules. Cross-meal ingredient deduplication prevents repeats. Budget-aware filtering excludes expensive ingredients when budget is low.
+- **Breakfast**: 100% code-selected from curated glossary (129 real recipes). NO GPT involved. 3-component structure (main dish + fruit + drink) with VarietyTracker (3-day sliding window per member) in `breakfast-selector.ts`. Zero hallucination risk.
+- **Lunch/Dinner**: GPT-4o selects from glossary + Spoonacular reference lists with strict anti-hallucination rules + appetizing pairing rules. Cross-meal ingredient deduplication prevents repeats. Budget-aware filtering excludes expensive ingredients when budget is low. Per-day cuisine enforcement ensures each day follows its assigned cuisine.
 
 **ABSOLUTE RULE: GPT must NEVER invent recipes.** All meals must come from:
 1. The curated recipe glossary (Firestore `recipe-glossary` collection) — 289 recipes
@@ -64,6 +64,8 @@ src/
 │   ├── results/page.tsx      # Step 5: Recipe results
 │   ├── plan/page.tsx         # Meal planner (weekly grid + grocery list)
 │   ├── meal-plan/
+│   │   ├── dietary/page.tsx  # Per-member dietary conditions (tabs per family member)
+│   │   ├── cuisine/page.tsx  # Per-day cuisine selection (day × lunch/dinner grid)
 │   │   ├── generate/page.tsx # Weekly meal plan generation (family size, days, cuisines)
 │   │   └── view/page.tsx     # Weekly meal plan viewer (per-person calorie tracking)
 │   ├── history/page.tsx      # Past recipe history
@@ -86,6 +88,7 @@ src/
 ├── context/
 │   ├── AuthContext.tsx        # Firebase auth state
 │   ├── RecipeFlowContext.tsx  # MCQ flow state (ingredients, dietary, cuisines, timeRange, weeklyBudget)
+│   ├── MealPlanFlowContext.tsx # Meal plan flow state (memberDietaryConditions, dailyCuisines, planDays)
 │   ├── ChatContext.tsx        # Chat widget state
 │   └── ToastContext.tsx       # Toast notifications
 ├── config/
@@ -117,7 +120,9 @@ functions/src/
     ├── mandi-client.ts       # data.gov.in Mandi Commodity Prices API client
     ├── ingredient-prices.ts  # Indian ingredient prices (live mandi + hardcoded) + async cost calculator
     ├── recipe-generator.ts   # Core recipe generation (Spoonacular + compliance review + GPT-4o RAG + cost estimation)
-    ├── meal-plan-prompts.ts  # GPT-4o prompt builders for weekly plan (breakfast/lunch/dinner)
+    ├── meal-plan-prompts.ts  # GPT-4o prompt builders for weekly plan (lunch/dinner with per-day cuisine + appetizing rules)
+    ├── balance-rules.ts      # Balanced meal scoring (Harvard plate + Indian thali + condition adjustments)
+    ├── breakfast-selector.ts # 3-component breakfast selection (main + fruit + drink, VarietyTracker)
     └── glossary-feeder.ts    # Auto-add generated recipes to glossary + health tag filtering
 
 functions/data/
@@ -143,26 +148,34 @@ functions/data/
 - **Budget-aware recipes**: Optional weekly budget (₹500–₹5,000) on time page. Cost estimated per serving using live mandi prices (vegetables/grains) + hardcoded prices (proteins/dairy/oils). Recipes sorted within-budget-first, cost badges show "Est. ~₹X/serving" color-coded green/amber/red against budget.
 - **Live mandi prices**: Daily wholesale prices from data.gov.in for ~27 commodities (vegetables, grains, lentils). Scheduled Cloud Function fetches daily at 7 PM IST, caches in Firestore. Admin-toggleable. Freshness badge + disclaimer on results page. Graceful fallback to hardcoded if disabled or API fails.
 - **Lottie loader**: Kawaii animals animation (`public/animations/momo-loader.json`) used across all loading states
-- **Weekly meal plan**: AI-generated 7-day meal plans with breakfast options, daily lunches and dinners. Supports family sizing, per-meal cuisine preferences (separate cuisines for lunch vs dinner), and dietary compliance. Uses curated recipe glossary as primary source with Spoonacular supplementation.
+- **Weekly meal plan**: AI-generated 3 or 7-day meal plans with breakfast options, daily lunches and dinners. Supports family sizing, per-day cuisine preferences (separate cuisines for lunch vs dinner per day), per-member dietary conditions, and balanced meal scoring. Uses curated recipe glossary as primary source with Spoonacular supplementation.
+- **Per-member dietary conditions**: Each family member can have different dietary/health conditions. UI shows per-member tabs on dietary page. Backend computes union of all members' conditions for shared meals (lunch/dinner) while respecting individual needs.
+- **Per-day cuisine selection**: Users select cuisine per day for lunch and dinner (not global). UI shows day × meal grid with dropdowns for each. Quick-fill buttons for "All Indian", "All Italian", etc. Backend passes `dailyCuisineOverrides` to prompt builders.
+- **Appetizing meal rules**: `APPETIZING_RULES` in prompts enforce flavor pairing principles, ban bland combos (e.g. "brown rice + boiled broccoli"), and include per-cuisine guidelines (Indian thali, Japanese ichiju-sansai, Mediterranean, Mexican, Western).
+- **Balanced meal scoring**: Harvard Healthy Eating Plate (½ veg+fruit, ¼ grain, ¼ protein) + Indian thali model. Per-day balance scores (0-100, A/B/C/D grades). Health-condition-adjusted plate ratios (diabetes→more protein/less grain, keto→minimal grain, cardiovascular→more veg, CKD→moderate protein). Implemented in `balance-rules.ts`.
+- **3-component breakfasts**: Each breakfast has: main dish (from glossary) + fruit (14-item curated bank) + drink (20-item curated bank). VarietyTracker with 3-day sliding window prevents repeats per member. Budget and dietary filtering on fruit/drink banks.
 - **Curated breakfast bank**: 119 real breakfast recipes (62 Indian + 57 International) scraped from indianhealthyrecipes.com, ministryofcurry.com, and loveandlemons.com. Stored in `recipe-glossary-seed.json` and Firestore `recipe-glossary` collection.
 - **Health condition filtering**: Recipes tagged as `fried` or `high-sugar` are automatically excluded when users have conditions like cardiovascular disease, diabetes, hypertension, fatty liver, gout, keto, etc. Implemented via `getExcludedTags()` in `glossary-feeder.ts`.
 - **Per-person calorie tracking**: Optional daily calorie target (set in Settings). Split 25% breakfast / 40% lunch / 35% dinner. View page shows per-person calorie totals with color-coded badges (green/amber/red).
-- **Cuisine enforcement**: Lunch and dinner respect separate cuisine selections. Prompts include CRITICAL cuisine instructions that override reference recipe suggestions when cuisines don't match.
+- **Cuisine enforcement**: Per-day cuisine overrides take priority. Each day's lunch and dinner follow the assigned cuisine. Prompts include CRITICAL per-day cuisine instructions that override reference recipe suggestions when cuisines don't match.
 
 ## Weekly Meal Plan Pipeline
 ```
-User inputs (family size, days, cuisines, dietary) → Cloud Function (generateWeeklyPlan)
+User inputs (family size, days, per-day cuisines, per-member dietary, budget) → Cloud Function (generateWeeklyPlan)
   → Calculate per-meal calorie budgets (25% breakfast / 40% lunch / 35% dinner)
+  → Compute union of all members' dietary conditions for shared meals
   → Determine health-excluded tags (fried, high-sugar based on conditions)
+  → Build per-day cuisine override maps (lunchCuisineByDay, dinnerCuisineByDay)
   → Query recipe-glossary for ALL breakfast recipes (no cuisine filter — breakfast isn't cuisine-specific)
   → Query recipe-glossary for lunch/dinner (filtered by cuisine + dietary; widen query if < 10 results)
   → Optionally call Spoonacular for supplemental lunch/dinner recipes
-  → Code-select breakfasts: preference matching + budget filter + variety rotation (NO GPT)
+  → Code-select 3-component breakfasts: main (glossary) + fruit (bank) + drink (bank) with VarietyTracker (NO GPT)
   → Collect breakfast ingredients per day for cross-meal dedup
-  → GPT-4o selects daily lunches (reference recipes + cuisine + ingredient dedup + budget)
-  → GPT-4o selects daily dinners (reference recipes + cuisine + ingredient dedup + budget)
+  → GPT-4o selects daily lunches (reference recipes + per-day cuisine + appetizing rules + balanced plate + ingredient dedup + budget)
+  → GPT-4o selects daily dinners (reference recipes + per-day cuisine + appetizing rules + balanced plate + ingredient dedup + budget)
+  → Score daily meal balance (Harvard plate + condition adjustments → 0-100 score per day)
   → Feed ONLY validated recipes back to glossary (name must match reference list — prevents poisoning)
-  → Return complete plan with per-person calorie tracking
+  → Return complete plan with per-person calorie tracking + balance scores
 ```
 
 ### Recipe Glossary System
@@ -174,14 +187,42 @@ User inputs (family size, days, cuisines, dietary) → Cloud Function (generateW
 - **Query**: `queryGlossaryForPlan()` filters by cuisine, dietary tags, meal type, and excluded health tags
 - **Composite indexes**: `firestore.indexes.json` defines indexes for `cuisine + useCount` and `mealTypes + useCount` — must be deployed
 
-### Breakfast Architecture (NO GPT — fully code-selected)
+### Breakfast Architecture (NO GPT — fully code-selected, 3-component)
 - **Source**: Curated glossary only (129 real recipes). No Spoonacular fallback for breakfast.
+- **3-component structure**: Every breakfast = main dish (from glossary) + fruit (from FRUIT_BANK, 14 items) + drink (from DRINK_BANK, 20 items)
 - **Selection**: `breakfast-selector.ts` → `selectBreakfasts()` — deterministic, no AI
+- **VarietyTracker**: 3-day sliding window per member prevents repeats. Tracks main dishes, fruits, and drinks separately.
 - **Preference matching**: User prefs ("oats") → scored against recipe names + ingredients → Overnight Oats, Masala Oats, Oats Idli etc.
-- **Variety**: No same recipe on consecutive days per member. Round-robin for single person.
+- **Family mode**: Creates `effectivePrefs` even when no explicit prefs provided (generates default entries for each member)
+- **Fruit/drink banks**: Filtered by dietary conditions (keto→low-sugar fruits, vegan→no dairy drinks, diabetes→no high-sugar items) and budget
 - **Budget filtering**: Expensive ingredients (avocado, quinoa, chia, etc.) filtered when budget ≤ ₹1500/week
 - **Health filtering**: Fried items (Medu Vada, Poori, Bhatura, etc.) excluded for cardiovascular/diabetes patients
 - **Cross-meal dedup**: After breakfast selection, ingredient list per day is passed to lunch/dinner prompts
+
+### Per-Member Dietary System
+- **Frontend**: `meal-plan/dietary/page.tsx` — per-member tabs when familySize > 1, "Copy from [member]" quick action
+- **Context**: `MealPlanFlowContext.tsx` — `memberDietaryConditions: Record<string, string[]>`, auto-computes union for shared meals
+- **Backend**: `generateWeeklyPlan.ts` accepts `memberDietaryConditions`, computes union for lunch/dinner (shared dishes), individual conditions for per-member breakfast selection
+- **Union logic**: If Person 1 is lactose intolerant and Person 2 has diabetes, shared lunch/dinner respects BOTH conditions
+
+### Per-Day Cuisine System
+- **Frontend**: `meal-plan/cuisine/page.tsx` — plan duration selector (3/7 days), day × (lunch dropdown, dinner dropdown) grid, quick-fill buttons
+- **Context**: `MealPlanFlowContext.tsx` — `dailyCuisines: Record<string, { lunch: string; dinner: string }>`
+- **Backend**: `generateWeeklyPlan.ts` builds `lunchCuisineByDay` and `dinnerCuisineByDay` maps, passes as `dailyCuisineOverrides` to prompt builders
+- **Prompt logic**: When per-day overrides exist, prompt shows "PER-DAY CUISINE SCHEDULE" with each day's assigned cuisine instead of global cuisine preference
+
+### Balanced Meal Scoring
+- **Engine**: `balance-rules.ts` — Harvard Healthy Eating Plate (½ veg+fruit, ¼ grain, ¼ protein) + Indian thali model
+- **Food classification**: `classifyFoodGroup()` — keyword matching for protein, vegetable, grain, fruit, dairy, fat categories
+- **Condition adjustments**: `getAdjustedPlate()` — diabetes→more protein/less grain, keto→minimal grain, cardiovascular→more veg, CKD→moderate protein, paleo→no grains
+- **Scoring**: `scoreMealBalance()` (per meal, 0-100) + `scoreDayBalance()` (average of 3 meals, overall 0-100 with A/B/C/D grade)
+- **Prompt integration**: `buildBalancedPlateInstructions()` generates balanced plate rules for lunch/dinner GPT prompts with cross-cuisine patterns
+
+### Appetizing Meal Rules
+- **Constant**: `APPETIZING_RULES` in `meal-plan-prompts.ts`
+- **Principles**: Flavor contrast (rich+tangy), texture variety, color diversity, umami depth
+- **Banned combos**: Plain boiled vegetables + plain rice, all-brown meals, all-bland meals
+- **Per-cuisine guidelines**: Indian (dal+sabzi+roti+raita), Japanese (ichiju-sansai), Mediterranean (grilled+fresh+olive oil), Mexican (protein+salsa+beans+rice), Western (protein+roasted veg+starch+sauce)
 
 ### Budget-Aware Ingredient Filtering
 - **Expensive ingredients**: avocado, quinoa, salmon, prawns, pine nuts, saffron, chia seeds, blueberries, asparagus, artichoke, macadamia, truffle, almond butter, acai

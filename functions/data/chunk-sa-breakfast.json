@@ -1,0 +1,634 @@
+[
+  {
+    "id": "poha",
+    "name": "Poha",
+    "description": "Flattened rice tempered with mustard seeds, curry leaves, onions, and peanuts.",
+    "cookTime": "15 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "flattened rice (poha)", "quantity": "200", "unit": "g" },
+      { "name": "onion", "quantity": "1", "unit": "medium" },
+      { "name": "peanuts", "quantity": "30", "unit": "g" },
+      { "name": "mustard seeds", "quantity": "1", "unit": "tsp" },
+      { "name": "curry leaves", "quantity": "8" },
+      { "name": "green chili", "quantity": "2" },
+      { "name": "turmeric powder", "quantity": "0.5", "unit": "tsp" },
+      { "name": "oil", "quantity": "2", "unit": "tbsp" },
+      { "name": "salt", "quantity": "1", "unit": "tsp" },
+      { "name": "lemon juice", "quantity": "1", "unit": "tbsp" }
+    ],
+    "instructions": [
+      "Rinse poha in water, drain, and set aside for 5 minutes until softened.",
+      "Heat oil in a pan, add mustard seeds and let them splutter, then add peanuts and fry until golden.",
+      "Add curry leaves, green chilies, and chopped onion; sauté until onion is translucent.",
+      "Add turmeric powder and salt, mix well, then add the softened poha and toss gently.",
+      "Cook on low heat for 2-3 minutes, squeeze lemon juice, and serve garnished with fresh coriander."
+    ],
+    "tips": [
+      "Do not over-soak the poha or it will become mushy.",
+      "Add a pinch of sugar for the traditional Maharashtrian sweet-savory balance."
+    ],
+    "nutritionInfo": { "servings": 2, "calories": 280, "protein": "7g", "carbs": "42g", "fat": "9g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "vegan", "gluten-free", "dairy-free", "egg-free"],
+    "mealTypes": ["breakfast"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "upma",
+    "name": "Upma",
+    "description": "Savory semolina porridge cooked with vegetables, mustard seeds, and curry leaves.",
+    "cookTime": "20 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "semolina (rava/sooji)", "quantity": "200", "unit": "g" },
+      { "name": "onion", "quantity": "1", "unit": "medium" },
+      { "name": "green peas", "quantity": "50", "unit": "g" },
+      { "name": "carrot", "quantity": "1", "unit": "small" },
+      { "name": "mustard seeds", "quantity": "1", "unit": "tsp" },
+      { "name": "urad dal", "quantity": "1", "unit": "tsp" },
+      { "name": "curry leaves", "quantity": "8" },
+      { "name": "green chili", "quantity": "2" },
+      { "name": "ghee", "quantity": "2", "unit": "tbsp" },
+      { "name": "water", "quantity": "500", "unit": "ml" },
+      { "name": "salt", "quantity": "1", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Dry roast semolina in a pan on medium heat until light golden and aromatic, then set aside.",
+      "In the same pan, heat ghee, add mustard seeds, urad dal, and curry leaves; let them splutter.",
+      "Add chopped onion, green chili, carrot, and peas; sauté for 3-4 minutes.",
+      "Add water and salt, bring to a boil, then slowly add the roasted semolina while stirring continuously.",
+      "Cook on low heat for 3-4 minutes until water is absorbed and upma reaches a fluffy consistency."
+    ],
+    "tips": [
+      "Stir continuously while adding semolina to prevent lumps.",
+      "Roasting the semolina well is the key to fluffy upma."
+    ],
+    "nutritionInfo": { "servings": 3, "calories": 250, "protein": "6g", "carbs": "38g", "fat": "8g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "egg-free"],
+    "mealTypes": ["breakfast"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "idli-sambar",
+    "name": "Idli Sambar",
+    "description": "Steamed rice and lentil cakes served with a spiced lentil and vegetable stew.",
+    "cookTime": "30 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      { "name": "idli batter", "quantity": "500", "unit": "g" },
+      { "name": "toor dal", "quantity": "100", "unit": "g" },
+      { "name": "sambar powder", "quantity": "2", "unit": "tbsp" },
+      { "name": "drumstick", "quantity": "1" },
+      { "name": "onion", "quantity": "1", "unit": "medium" },
+      { "name": "tomato", "quantity": "1", "unit": "medium" },
+      { "name": "tamarind paste", "quantity": "1", "unit": "tbsp" },
+      { "name": "mustard seeds", "quantity": "1", "unit": "tsp" },
+      { "name": "curry leaves", "quantity": "8" },
+      { "name": "oil", "quantity": "2", "unit": "tbsp" },
+      { "name": "salt", "quantity": "1", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Pressure cook toor dal with 2 cups water for 3 whistles until soft, then mash and set aside.",
+      "Grease idli moulds, pour batter into each mould, and steam for 10-12 minutes.",
+      "For sambar, heat oil, add mustard seeds and curry leaves, then add chopped onion and tomato; sauté until soft.",
+      "Add drumstick pieces, sambar powder, tamarind paste, cooked dal, and water; simmer for 10 minutes.",
+      "Serve hot idlis with the sambar and coconut chutney on the side."
+    ],
+    "tips": [
+      "Well-fermented batter gives the softest idlis.",
+      "Let the sambar rest for 5 minutes before serving for deeper flavors."
+    ],
+    "nutritionInfo": { "servings": 4, "calories": 220, "protein": "9g", "carbs": "38g", "fat": "4g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "vegan", "dairy-free", "nut-free", "egg-free"],
+    "mealTypes": ["breakfast"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "masala-dosa",
+    "name": "Masala Dosa",
+    "description": "Crispy fermented rice and lentil crepe filled with spiced potato filling.",
+    "cookTime": "25 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      { "name": "dosa batter", "quantity": "500", "unit": "g" },
+      { "name": "potato", "quantity": "3", "unit": "medium" },
+      { "name": "onion", "quantity": "1", "unit": "medium" },
+      { "name": "mustard seeds", "quantity": "1", "unit": "tsp" },
+      { "name": "turmeric powder", "quantity": "0.5", "unit": "tsp" },
+      { "name": "green chili", "quantity": "2" },
+      { "name": "curry leaves", "quantity": "8" },
+      { "name": "oil", "quantity": "3", "unit": "tbsp" },
+      { "name": "salt", "quantity": "1", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Boil potatoes until tender, peel, and roughly mash them.",
+      "Heat oil, add mustard seeds, curry leaves, and green chilies; let them splutter.",
+      "Add chopped onion, sauté until translucent, then add turmeric and mashed potatoes; mix well and season with salt.",
+      "Heat a flat griddle, pour a ladleful of dosa batter, and spread in a thin circle; drizzle oil around the edges.",
+      "Once the dosa is golden and crisp, place the potato filling on one half, fold over, and serve with coconut chutney and sambar."
+    ],
+    "tips": [
+      "The griddle must be hot enough that water droplets sizzle and evaporate immediately.",
+      "Spread batter quickly in one motion for an even, thin dosa."
+    ],
+    "nutritionInfo": { "servings": 3, "calories": 310, "protein": "7g", "carbs": "48g", "fat": "10g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "vegan", "dairy-free", "nut-free", "egg-free"],
+    "mealTypes": ["breakfast"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "aloo-paratha",
+    "name": "Aloo Paratha",
+    "description": "Whole wheat flatbread stuffed with spiced mashed potato filling, pan-fried with butter.",
+    "cookTime": "30 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      { "name": "whole wheat flour", "quantity": "250", "unit": "g" },
+      { "name": "potato", "quantity": "3", "unit": "medium" },
+      { "name": "green chili", "quantity": "2" },
+      { "name": "cumin seeds", "quantity": "1", "unit": "tsp" },
+      { "name": "amchur powder", "quantity": "1", "unit": "tsp" },
+      { "name": "fresh coriander", "quantity": "2", "unit": "tbsp" },
+      { "name": "butter", "quantity": "30", "unit": "g" },
+      { "name": "salt", "quantity": "1", "unit": "tsp" },
+      { "name": "water", "quantity": "120", "unit": "ml" }
+    ],
+    "instructions": [
+      "Knead whole wheat flour with water and a pinch of salt into a soft dough; rest for 15 minutes.",
+      "Boil and mash potatoes, mix with chopped green chili, cumin, amchur, coriander, and salt.",
+      "Divide dough into balls, roll out, place a portion of filling in the center, seal, and roll out again gently.",
+      "Cook on a hot tawa, applying butter on both sides until golden brown spots appear.",
+      "Serve hot with yogurt, pickle, and butter."
+    ],
+    "tips": [
+      "Use dry potato mash to prevent the paratha from tearing.",
+      "Roll gently and evenly to keep the filling from breaking through."
+    ],
+    "nutritionInfo": { "servings": 4, "calories": 290, "protein": "7g", "carbs": "42g", "fat": "11g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "nut-free", "egg-free"],
+    "mealTypes": ["breakfast"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "gobi-paratha",
+    "name": "Gobi Paratha",
+    "description": "Whole wheat flatbread stuffed with spiced grated cauliflower filling.",
+    "cookTime": "30 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      { "name": "whole wheat flour", "quantity": "250", "unit": "g" },
+      { "name": "cauliflower", "quantity": "250", "unit": "g" },
+      { "name": "green chili", "quantity": "2" },
+      { "name": "garam masala", "quantity": "0.5", "unit": "tsp" },
+      { "name": "ajwain seeds", "quantity": "0.5", "unit": "tsp" },
+      { "name": "fresh coriander", "quantity": "2", "unit": "tbsp" },
+      { "name": "ghee", "quantity": "2", "unit": "tbsp" },
+      { "name": "salt", "quantity": "1", "unit": "tsp" },
+      { "name": "water", "quantity": "120", "unit": "ml" }
+    ],
+    "instructions": [
+      "Grate cauliflower finely, squeeze out excess moisture using a clean cloth.",
+      "Mix grated cauliflower with chopped green chili, garam masala, ajwain, coriander, and salt.",
+      "Knead flour with water and salt into a soft dough; rest for 10 minutes.",
+      "Roll out dough balls, stuff with cauliflower mixture, seal, and roll out gently.",
+      "Cook on a hot tawa with ghee until golden and crispy on both sides."
+    ],
+    "tips": [
+      "Squeezing out all moisture from the cauliflower is crucial to avoid soggy parathas.",
+      "Adding ajwain aids digestion and gives a distinctive flavor."
+    ],
+    "nutritionInfo": { "servings": 4, "calories": 260, "protein": "7g", "carbs": "38g", "fat": "9g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "nut-free", "egg-free"],
+    "mealTypes": ["breakfast"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "methi-paratha",
+    "name": "Methi Paratha",
+    "description": "Whole wheat flatbread infused with fresh fenugreek leaves and spices.",
+    "cookTime": "25 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "whole wheat flour", "quantity": "250", "unit": "g" },
+      { "name": "fresh fenugreek leaves (methi)", "quantity": "100", "unit": "g" },
+      { "name": "red chili powder", "quantity": "0.5", "unit": "tsp" },
+      { "name": "cumin seeds", "quantity": "1", "unit": "tsp" },
+      { "name": "turmeric powder", "quantity": "0.25", "unit": "tsp" },
+      { "name": "ghee", "quantity": "2", "unit": "tbsp" },
+      { "name": "salt", "quantity": "1", "unit": "tsp" },
+      { "name": "water", "quantity": "100", "unit": "ml" }
+    ],
+    "instructions": [
+      "Wash and finely chop fenugreek leaves, sprinkle with salt and let sit for 10 minutes to reduce bitterness.",
+      "Mix flour, chopped methi, cumin, turmeric, red chili powder, and salt; knead into a soft dough using water.",
+      "Divide into balls, roll out into circles, and cook on a hot tawa with ghee until golden on both sides.",
+      "Serve hot with yogurt and pickle."
+    ],
+    "tips": [
+      "Salting the methi leaves beforehand reduces their natural bitterness.",
+      "The dough may need less water since methi releases moisture."
+    ],
+    "nutritionInfo": { "servings": 4, "calories": 230, "protein": "7g", "carbs": "34g", "fat": "8g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "nut-free", "egg-free"],
+    "mealTypes": ["breakfast"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "besan-chilla",
+    "name": "Besan Chilla",
+    "description": "Savory gram flour pancake with onions, tomatoes, and green chilies.",
+    "cookTime": "15 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "gram flour (besan)", "quantity": "150", "unit": "g" },
+      { "name": "onion", "quantity": "1", "unit": "small" },
+      { "name": "tomato", "quantity": "1", "unit": "small" },
+      { "name": "green chili", "quantity": "1" },
+      { "name": "cumin seeds", "quantity": "0.5", "unit": "tsp" },
+      { "name": "turmeric powder", "quantity": "0.25", "unit": "tsp" },
+      { "name": "fresh coriander", "quantity": "2", "unit": "tbsp" },
+      { "name": "oil", "quantity": "2", "unit": "tbsp" },
+      { "name": "water", "quantity": "200", "unit": "ml" },
+      { "name": "salt", "quantity": "0.5", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Mix besan, water, salt, turmeric, and cumin seeds into a smooth, lump-free batter.",
+      "Fold in finely chopped onion, tomato, green chili, and coriander.",
+      "Heat a non-stick pan, pour a ladle of batter, and spread into a thin circle.",
+      "Drizzle oil around edges, cook until the bottom is golden, flip, and cook the other side.",
+      "Serve hot with green chutney or ketchup."
+    ],
+    "tips": [
+      "Keep batter consistency like dosa batter — not too thick, not too thin.",
+      "A non-stick pan makes flipping much easier."
+    ],
+    "nutritionInfo": { "servings": 2, "calories": 220, "protein": "10g", "carbs": "28g", "fat": "8g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "vegan", "gluten-free", "dairy-free", "egg-free"],
+    "mealTypes": ["breakfast"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "medu-vada",
+    "name": "Medu Vada",
+    "description": "Crispy deep-fried lentil doughnuts made from urad dal batter.",
+    "cookTime": "30 min",
+    "difficulty": "Medium",
+    "ingredients": [
+      { "name": "urad dal", "quantity": "200", "unit": "g" },
+      { "name": "onion", "quantity": "1", "unit": "small" },
+      { "name": "green chili", "quantity": "2" },
+      { "name": "curry leaves", "quantity": "8" },
+      { "name": "ginger", "quantity": "1", "unit": "cm" },
+      { "name": "black pepper", "quantity": "0.5", "unit": "tsp" },
+      { "name": "oil for deep frying", "quantity": "500", "unit": "ml" },
+      { "name": "salt", "quantity": "1", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Soak urad dal for 4 hours, drain, and grind into a thick, fluffy batter without adding too much water.",
+      "Mix in finely chopped onion, green chili, ginger, curry leaves, pepper, and salt.",
+      "Wet your hands, take a portion of batter, shape into a round with a hole in the center.",
+      "Deep fry in hot oil on medium heat until golden brown and crispy on both sides.",
+      "Drain on paper towels and serve with coconut chutney and sambar."
+    ],
+    "tips": [
+      "The batter must be thick and airy — do not add excess water while grinding.",
+      "Test oil temperature by dropping a small bit of batter; it should rise immediately."
+    ],
+    "nutritionInfo": { "servings": 4, "calories": 180, "protein": "10g", "carbs": "20g", "fat": "7g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "vegan", "gluten-free", "dairy-free", "egg-free"],
+    "mealTypes": ["breakfast"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "uttapam",
+    "name": "Uttapam",
+    "description": "Thick rice and lentil pancake topped with onions, tomatoes, and vegetables.",
+    "cookTime": "20 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "dosa batter", "quantity": "400", "unit": "g" },
+      { "name": "onion", "quantity": "1", "unit": "medium" },
+      { "name": "tomato", "quantity": "1", "unit": "medium" },
+      { "name": "green chili", "quantity": "1" },
+      { "name": "capsicum", "quantity": "0.5", "unit": "medium" },
+      { "name": "fresh coriander", "quantity": "2", "unit": "tbsp" },
+      { "name": "oil", "quantity": "2", "unit": "tbsp" },
+      { "name": "salt", "quantity": "0.5", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Finely chop onion, tomato, capsicum, green chili, and coriander.",
+      "Heat a tawa, pour a thick ladle of batter and do not spread too thin — uttapam should be thicker than dosa.",
+      "Immediately scatter chopped vegetables on top and press gently into the batter.",
+      "Drizzle oil around the edges, cover and cook on medium heat for 2-3 minutes until bottom is golden.",
+      "Flip carefully, cook for another minute, and serve with coconut chutney and sambar."
+    ],
+    "tips": [
+      "Use slightly thick batter for the best texture.",
+      "Cover while cooking to ensure the top vegetables set properly."
+    ],
+    "nutritionInfo": { "servings": 3, "calories": 200, "protein": "6g", "carbs": "34g", "fat": "5g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "vegan", "dairy-free", "nut-free", "egg-free"],
+    "mealTypes": ["breakfast"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "sabudana-khichdi",
+    "name": "Sabudana Khichdi",
+    "description": "Tapioca pearls stir-fried with peanuts, potatoes, and cumin — a popular fasting dish.",
+    "cookTime": "20 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "sabudana (tapioca pearls)", "quantity": "150", "unit": "g" },
+      { "name": "peanuts", "quantity": "50", "unit": "g" },
+      { "name": "potato", "quantity": "1", "unit": "medium" },
+      { "name": "cumin seeds", "quantity": "1", "unit": "tsp" },
+      { "name": "green chili", "quantity": "2" },
+      { "name": "lemon juice", "quantity": "1", "unit": "tbsp" },
+      { "name": "ghee", "quantity": "2", "unit": "tbsp" },
+      { "name": "fresh coriander", "quantity": "2", "unit": "tbsp" },
+      { "name": "salt", "quantity": "0.5", "unit": "tsp" },
+      { "name": "sugar", "quantity": "0.5", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Soak sabudana in water for 4-5 hours or overnight; drain completely.",
+      "Roast peanuts, cool, and coarsely crush them.",
+      "Heat ghee, add cumin seeds, green chilies, and diced potato; cook until potato is tender.",
+      "Add soaked sabudana, crushed peanuts, salt, and sugar; stir gently on low heat for 5-7 minutes.",
+      "Squeeze lemon juice, garnish with coriander, and serve warm."
+    ],
+    "tips": [
+      "Sabudana must be soaked long enough that each pearl is soft but still separate.",
+      "Cook on low heat and avoid over-stirring to prevent it from becoming sticky."
+    ],
+    "nutritionInfo": { "servings": 3, "calories": 260, "protein": "5g", "carbs": "40g", "fat": "9g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "gluten-free", "egg-free"],
+    "mealTypes": ["breakfast"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "moong-dal-chilla",
+    "name": "Moong Dal Chilla",
+    "description": "Savory crepe made from ground green moong dal batter with onions and spices.",
+    "cookTime": "20 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "green moong dal", "quantity": "150", "unit": "g" },
+      { "name": "onion", "quantity": "1", "unit": "small" },
+      { "name": "green chili", "quantity": "1" },
+      { "name": "ginger", "quantity": "1", "unit": "cm" },
+      { "name": "cumin seeds", "quantity": "0.5", "unit": "tsp" },
+      { "name": "fresh coriander", "quantity": "2", "unit": "tbsp" },
+      { "name": "oil", "quantity": "2", "unit": "tbsp" },
+      { "name": "salt", "quantity": "0.5", "unit": "tsp" },
+      { "name": "water", "quantity": "100", "unit": "ml" }
+    ],
+    "instructions": [
+      "Soak moong dal for 3-4 hours, drain, and grind into a smooth batter with ginger, green chili, and minimal water.",
+      "Mix in cumin seeds, chopped onion, coriander, and salt.",
+      "Heat a non-stick pan, pour batter, and spread into a thin circle.",
+      "Drizzle oil, cook until golden on the bottom, flip, and cook the other side.",
+      "Serve with green chutney or yogurt."
+    ],
+    "tips": [
+      "Do not make the batter too thin; it should be spreadable but thick.",
+      "These are high in protein and make a great healthy breakfast."
+    ],
+    "nutritionInfo": { "servings": 2, "calories": 200, "protein": "12g", "carbs": "24g", "fat": "6g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "vegan", "gluten-free", "dairy-free", "egg-free", "high-protein"],
+    "mealTypes": ["breakfast"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "rava-idli",
+    "name": "Rava Idli",
+    "description": "Steamed semolina cakes with cashews and spices — a quick alternative to traditional idli.",
+    "cookTime": "20 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "semolina (rava)", "quantity": "200", "unit": "g" },
+      { "name": "yogurt", "quantity": "200", "unit": "g" },
+      { "name": "cashews", "quantity": "15", "unit": "g" },
+      { "name": "mustard seeds", "quantity": "1", "unit": "tsp" },
+      { "name": "curry leaves", "quantity": "6" },
+      { "name": "green chili", "quantity": "1" },
+      { "name": "grated carrot", "quantity": "30", "unit": "g" },
+      { "name": "baking soda", "quantity": "0.5", "unit": "tsp" },
+      { "name": "ghee", "quantity": "1", "unit": "tbsp" },
+      { "name": "water", "quantity": "100", "unit": "ml" },
+      { "name": "salt", "quantity": "0.5", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Mix semolina with yogurt, water, and salt; let the batter rest for 15 minutes to absorb moisture.",
+      "Heat ghee, add mustard seeds, curry leaves, cashews, green chili, and carrot; sauté briefly.",
+      "Add the tempering to the batter, mix, then fold in baking soda just before steaming.",
+      "Pour into greased idli moulds and steam for 10-12 minutes until a toothpick comes out clean.",
+      "Serve hot with coconut chutney and sambar."
+    ],
+    "tips": [
+      "Add baking soda only just before steaming for the fluffiest results.",
+      "Do not over-mix after adding baking soda."
+    ],
+    "nutritionInfo": { "servings": 4, "calories": 210, "protein": "7g", "carbs": "32g", "fat": "6g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "egg-free"],
+    "mealTypes": ["breakfast"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "bread-omelette",
+    "name": "Bread Omelette",
+    "description": "Indian street-style omelette with onions and spices sandwiched between toasted bread.",
+    "cookTime": "10 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "eggs", "quantity": "2" },
+      { "name": "bread slices", "quantity": "2" },
+      { "name": "onion", "quantity": "1", "unit": "small" },
+      { "name": "green chili", "quantity": "1" },
+      { "name": "tomato", "quantity": "0.5", "unit": "small" },
+      { "name": "fresh coriander", "quantity": "1", "unit": "tbsp" },
+      { "name": "salt", "quantity": "0.25", "unit": "tsp" },
+      { "name": "black pepper", "quantity": "0.25", "unit": "tsp" },
+      { "name": "butter", "quantity": "1", "unit": "tbsp" }
+    ],
+    "instructions": [
+      "Beat eggs with salt, pepper, chopped onion, tomato, green chili, and coriander.",
+      "Heat butter in a pan, pour the egg mixture, and cook until partially set.",
+      "Place bread slices on top of the omelette, press gently, and flip carefully.",
+      "Cook until the bread is toasted and the egg is fully set.",
+      "Serve hot with ketchup."
+    ],
+    "tips": [
+      "Use slightly stale bread for better texture and less sogginess.",
+      "Flip when the egg is set enough to hold the bread."
+    ],
+    "nutritionInfo": { "servings": 1, "calories": 340, "protein": "16g", "carbs": "28g", "fat": "18g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["nut-free", "halal"],
+    "mealTypes": ["breakfast"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "curd-rice",
+    "name": "Curd Rice",
+    "description": "Creamy yogurt mixed with cooked rice, tempered with mustard seeds and curry leaves.",
+    "cookTime": "15 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "cooked rice", "quantity": "300", "unit": "g" },
+      { "name": "yogurt", "quantity": "250", "unit": "g" },
+      { "name": "milk", "quantity": "50", "unit": "ml" },
+      { "name": "mustard seeds", "quantity": "1", "unit": "tsp" },
+      { "name": "urad dal", "quantity": "0.5", "unit": "tsp" },
+      { "name": "curry leaves", "quantity": "6" },
+      { "name": "green chili", "quantity": "1" },
+      { "name": "ginger", "quantity": "1", "unit": "cm" },
+      { "name": "pomegranate seeds", "quantity": "2", "unit": "tbsp" },
+      { "name": "oil", "quantity": "1", "unit": "tbsp" },
+      { "name": "salt", "quantity": "0.5", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Mash cooked rice slightly, mix with yogurt, milk, and salt until creamy.",
+      "Heat oil, add mustard seeds, urad dal, curry leaves, ginger, and green chili; let them splutter.",
+      "Pour the tempering over the rice-yogurt mixture and mix well.",
+      "Refrigerate for 30 minutes for best flavor, or serve at room temperature.",
+      "Garnish with pomegranate seeds before serving."
+    ],
+    "tips": [
+      "Add milk to keep the curd rice creamy even after refrigerating.",
+      "Best served cold — a classic South Indian comfort food."
+    ],
+    "nutritionInfo": { "servings": 2, "calories": 240, "protein": "8g", "carbs": "38g", "fat": "6g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "gluten-free", "nut-free", "egg-free"],
+    "mealTypes": ["breakfast", "lunch"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  },
+  {
+    "id": "ven-pongal",
+    "name": "Ven Pongal",
+    "description": "South Indian rice and moong dal porridge flavored with black pepper, cumin, and ghee.",
+    "cookTime": "25 min",
+    "difficulty": "Easy",
+    "ingredients": [
+      { "name": "rice", "quantity": "150", "unit": "g" },
+      { "name": "moong dal", "quantity": "50", "unit": "g" },
+      { "name": "black peppercorns", "quantity": "1", "unit": "tsp" },
+      { "name": "cumin seeds", "quantity": "1", "unit": "tsp" },
+      { "name": "ginger", "quantity": "2", "unit": "cm" },
+      { "name": "curry leaves", "quantity": "8" },
+      { "name": "cashews", "quantity": "10", "unit": "g" },
+      { "name": "ghee", "quantity": "3", "unit": "tbsp" },
+      { "name": "water", "quantity": "600", "unit": "ml" },
+      { "name": "salt", "quantity": "1", "unit": "tsp" }
+    ],
+    "instructions": [
+      "Dry roast moong dal until fragrant, wash both rice and dal together.",
+      "Pressure cook rice and dal with water for 4 whistles until very soft and mushy.",
+      "Heat ghee in a pan, add cumin, peppercorns, curry leaves, ginger, and cashews; fry until cashews are golden.",
+      "Pour the tempering over the cooked rice-dal mixture, add salt, and mix well.",
+      "Serve hot with coconut chutney and sambar."
+    ],
+    "tips": [
+      "Use more water than usual — pongal should be creamy, not dry.",
+      "Generous ghee is the key to authentic pongal flavor."
+    ],
+    "nutritionInfo": { "servings": 3, "calories": 300, "protein": "8g", "carbs": "42g", "fat": "12g" },
+    "cuisine": ["Indian"],
+    "dietaryTags": ["vegetarian", "gluten-free", "egg-free"],
+    "mealTypes": ["breakfast"],
+    "region": "south-asian",
+    "source": "seed",
+    "useCount": 0,
+    "avgRating": 0,
+    "lastUsedAt": "2026-03-08T00:00:00.000Z",
+    "createdAt": "2026-03-08T00:00:00.000Z"
+  }
+]
