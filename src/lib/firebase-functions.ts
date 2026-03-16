@@ -20,7 +20,7 @@ export async function generateRecipes(
   cuisines: string[] = [],
   weeklyBudget: number | null = null
 ) {
-  const fn = httpsCallable(functions, 'generateRecipes');
+  const fn = httpsCallable(functions, 'generateRecipes', { timeout: 180000 });
   const result = await fn({ ingredients, dietaryConditions, timeRange, cuisines, weeklyBudget });
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const data = result.data as any;
@@ -40,7 +40,7 @@ export async function generateWeeklyPlan(
   memberDietaryConditions: Record<string, string[]> = {},
   dailyCuisines: Record<string, { lunch: string; dinner: string }> = {}
 ): Promise<{ plan: GeneratedWeeklyPlan; pricesAsOf: string | null }> {
-  const fn = httpsCallable(functions, 'generateWeeklyPlan');
+  const fn = httpsCallable(functions, 'generateWeeklyPlan', { timeout: 300000 });
   const result = await fn({
     ingredients,
     dietaryConditions,
@@ -60,7 +60,7 @@ export async function generateWeeklyPlan(
 }
 
 export async function seedRecipeGlossary(): Promise<{ added: number; skipped: number; total: number }> {
-  const fn = httpsCallable(functions, 'seedRecipeGlossary');
+  const fn = httpsCallable(functions, 'seedRecipeGlossary', { timeout: 300000 });
   const result = await fn({});
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return result.data as any;

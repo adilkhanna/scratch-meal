@@ -183,28 +183,45 @@ export async function queryGlossaryForPlan(
   // Use higher limit for breakfast (129 curated recipes) to avoid over-filtering
   const queryLimit = mealTypes.includes('breakfast') ? 150 : 50;
 
-  let q;
+  // Query each cuisine separately (Firestore array-contains only supports 1 value)
+  // then merge results to get recipes across ALL requested cuisines
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let results: (GlossaryRecipeInput & { id: string; useCount: number; lastUsedAt: string; tags?: string[] })[] = [];
+  const seenIds = new Set<string>();
+
   if (cuisines.length > 0) {
-    q = glossaryCol
-      .where('cuisine', 'array-contains', cuisines[0])
-      .orderBy('useCount', 'desc')
-      .limit(queryLimit);
+    // Query each cuisine and merge (deduped)
+    const cuisineQueries = cuisines.map((cuisine) =>
+      glossaryCol
+        .where('cuisine', 'array-contains', cuisine)
+        .orderBy('useCount', 'desc')
+        .limit(queryLimit)
+        .get()
+    );
+    const snapshots = await Promise.all(cuisineQueries);
+    for (const snap of snapshots) {
+      for (const doc of snap.docs) {
+        const data = doc.data() as GlossaryRecipeInput & { id: string; useCount: number; lastUsedAt: string; tags?: string[] };
+        const docId = data.id || doc.id;
+        if (!seenIds.has(docId)) {
+          seenIds.add(docId);
+          results.push(data);
+        }
+      }
+    }
   } else if (mealTypes.length > 0) {
-    q = glossaryCol
+    const snap = await glossaryCol
       .where('mealTypes', 'array-contains', mealTypes[0])
       .orderBy('useCount', 'desc')
-      .limit(queryLimit);
+      .limit(queryLimit)
+      .get();
+    results = snap.docs.map((d) => d.data() as GlossaryRecipeInput & { id: string; useCount: number; lastUsedAt: string; tags?: string[] });
   } else {
-    q = glossaryCol.orderBy('useCount', 'desc').limit(queryLimit);
+    const snap = await glossaryCol.orderBy('useCount', 'desc').limit(queryLimit).get();
+    results = snap.docs.map((d) => d.data() as GlossaryRecipeInput & { id: string; useCount: number; lastUsedAt: string; tags?: string[] });
   }
 
-  const snap = await q.get();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let results = snap.docs.map((d) => d.data() as GlossaryRecipeInput & { id: string; useCount: number; lastUsedAt: string; tags?: string[] });
-
   // Client-side filtering — match ANY dietary tag (not ALL)
-  // e.g., if user is vegetarian+gluten-free, show recipes that are vegetarian OR gluten-free
-  // Strict compliance is enforced later by GPT and ingredient-level checks
   if (dietaryTags.length > 0) {
     results = results.filter((r) =>
       dietaryTags.some((tag) => r.dietaryTags?.includes(tag))
@@ -214,13 +231,6 @@ export async function queryGlossaryForPlan(
   if (mealTypes.length > 0) {
     results = results.filter((r) =>
       mealTypes.some((mt) => r.mealTypes?.includes(mt))
-    );
-  }
-
-  // Additional cuisine filtering if multiple cuisines
-  if (cuisines.length > 1) {
-    results = results.filter((r) =>
-      cuisines.some((c) => r.cuisine?.includes(c))
     );
   }
 

@@ -186,6 +186,16 @@ export const generateWeeklyPlan = onCall(
       // Collect all cuisines from per-day map + legacy global arrays
       const dailyCuisineValues = Object.values(dailyCuisineMap).flatMap((dc) => [dc.lunch, dc.dinner].filter(Boolean));
       const allCuisines = [...new Set([...(lunchCuisines || []), ...(dinnerCuisines || []), ...dailyCuisineValues])];
+
+      // Extract per-meal-type cuisines from per-day map (for targeted glossary queries)
+      const perDayLunchCuisines = [...new Set(Object.values(dailyCuisineMap).map((dc) => dc.lunch).filter(Boolean))];
+      const perDayDinnerCuisines = [...new Set(Object.values(dailyCuisineMap).map((dc) => dc.dinner).filter(Boolean))];
+      // Use per-day cuisines if available, fall back to legacy global arrays
+      const effectiveLunchCuisines = perDayLunchCuisines.length > 0 ? perDayLunchCuisines : (lunchCuisines || []);
+      const effectiveDinnerCuisines = perDayDinnerCuisines.length > 0 ? perDayDinnerCuisines : (dinnerCuisines || []);
+
+      console.log(`[meal-plan] Effective cuisines — lunch: [${effectiveLunchCuisines.join(', ')}], dinner: [${effectiveDinnerCuisines.join(', ')}]`);
+
       // Use ALL conditions (union) for safety-critical exclusions (fried, high-sugar)
       // but use sharedDietaryConditions for recipe filtering (less restrictive)
       const allConditionsUnion = dietaryConditions || [];
@@ -208,8 +218,8 @@ export const generateWeeklyPlan = onCall(
         [breakfastGlossary, lunchGlossary, dinnerGlossary] = await Promise.all([
           // Breakfast: query WITHOUT cuisine filter — breakfast isn't cuisine-specific
           queryGlossaryForPlan([], dietaryTags, ['breakfast'], glossaryMinThreshold, excludeTags),
-          queryGlossaryForPlan(lunchCuisines || [], dietaryTags, ['lunch'], glossaryMinThreshold, excludeTags),
-          queryGlossaryForPlan(dinnerCuisines || [], dietaryTags, ['dinner'], glossaryMinThreshold, excludeTags),
+          queryGlossaryForPlan(effectiveLunchCuisines, dietaryTags, ['lunch'], glossaryMinThreshold, excludeTags),
+          queryGlossaryForPlan(effectiveDinnerCuisines, dietaryTags, ['dinner'], glossaryMinThreshold, excludeTags),
         ]);
 
         // Widen lunch/dinner queries if too few results (fallback to all cuisines)
@@ -228,6 +238,9 @@ export const generateWeeklyPlan = onCall(
       }
 
       console.log(`[meal-plan] Glossary: breakfast=${breakfastGlossary.recipes.length} (enough=${breakfastGlossary.hasEnough}), lunch=${lunchGlossary.recipes.length} (enough=${lunchGlossary.hasEnough}), dinner=${dinnerGlossary.recipes.length} (enough=${dinnerGlossary.hasEnough})`);
+      console.log(`[meal-plan] Lunch glossary recipes: ${lunchGlossary.recipes.slice(0, 10).map((r) => r.name).join(', ')}${lunchGlossary.recipes.length > 10 ? '...' : ''}`);
+      console.log(`[meal-plan] Dinner glossary recipes: ${dinnerGlossary.recipes.slice(0, 10).map((r) => r.name).join(', ')}${dinnerGlossary.recipes.length > 10 ? '...' : ''}`);
+
 
       // Supplement with Spoonacular if glossary doesn't have enough
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

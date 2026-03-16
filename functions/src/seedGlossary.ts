@@ -8,7 +8,7 @@ if (!admin.apps.length) admin.initializeApp();
 export const seedRecipeGlossary = onCall(
   {
     maxInstances: 1,
-    timeoutSeconds: 120,
+    timeoutSeconds: 300,
     memory: '512MiB',
     enforceAppCheck: false,
   },
@@ -27,9 +27,12 @@ export const seedRecipeGlossary = onCall(
     const db = admin.firestore();
     const glossaryCol = db.collection('recipe-glossary');
 
-    // Check if already seeded
-    const existingSnap = await glossaryCol.limit(1).get();
-    const alreadySeeded = !existingSnap.empty;
+    // Fetch ALL existing recipe IDs in one query (avoids N+1 reads)
+    const existingIds = new Set<string>();
+    const allDocs = await glossaryCol.select().get(); // select() = ID-only, no field data
+    allDocs.forEach((doc) => existingIds.add(doc.id));
+    const alreadySeeded = existingIds.size > 0;
+    console.log(`[seed-glossary] Existing glossary has ${existingIds.size} recipes`);
 
     // Load seed data
     let seedData;
@@ -46,11 +49,12 @@ export const seedRecipeGlossary = onCall(
       throw new HttpsError('internal', 'Seed data is empty or invalid.');
     }
 
-    console.log(`[seed-glossary] Loading ${seedData.length} recipes (already seeded: ${alreadySeeded})`);
+    console.log(`[seed-glossary] Loading ${seedData.length} recipes from seed file (already seeded: ${alreadySeeded})`);
 
     // Batch write (Firestore max 500 per batch)
     let addedCount = 0;
     let skippedCount = 0;
+    let updatedCount = 0;
     const batchSize = 400;
 
     for (let i = 0; i < seedData.length; i += batchSize) {
@@ -65,19 +69,17 @@ export const seedRecipeGlossary = onCall(
 
         const ref = glossaryCol.doc(recipe.id);
 
-        if (alreadySeeded) {
-          const existing = await ref.get();
-          if (existing.exists) {
-            // Merge new fields (like tags) into existing recipes
-            const newData: Record<string, unknown> = {};
-            if (recipe.tags && recipe.tags.length > 0) newData.tags = recipe.tags;
-            if (recipe.source === 'curated') newData.source = 'curated';
-            if (Object.keys(newData).length > 0) {
-              batch.update(ref, newData);
-            }
-            skippedCount++;
-            continue;
+        if (existingIds.has(recipe.id)) {
+          // Merge new fields (like tags) into existing recipes
+          const newData: Record<string, unknown> = {};
+          if (recipe.tags && recipe.tags.length > 0) newData.tags = recipe.tags;
+          if (recipe.source === 'curated') newData.source = 'curated';
+          if (Object.keys(newData).length > 0) {
+            batch.update(ref, newData);
+            updatedCount++;
           }
+          skippedCount++;
+          continue;
         }
 
         batch.set(ref, {
@@ -95,7 +97,7 @@ export const seedRecipeGlossary = onCall(
       await batch.commit();
     }
 
-    console.log(`[seed-glossary] Done: added ${addedCount}, skipped ${skippedCount}`);
-    return { added: addedCount, skipped: skippedCount, total: seedData.length };
+    console.log(`[seed-glossary] Done: added ${addedCount}, updated ${updatedCount}, skipped ${skippedCount}`);
+    return { added: addedCount, updated: updatedCount, skipped: skippedCount, total: seedData.length };
   }
 );
