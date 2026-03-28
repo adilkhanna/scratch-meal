@@ -8,6 +8,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { generateWeeklyPlan } from '@/lib/firebase-functions';
 import { saveGeneratedPlan } from '@/lib/weekly-plan-storage';
+import { saveMembersFromPlan } from '@/lib/saved-members-storage';
 import MomoLoader from '@/components/ui/MomoLoader';
 import STEP_THEMES from '@/config/step-themes';
 
@@ -79,6 +80,11 @@ export default function MealPlanGeneratePage() {
 
         // Save to Firestore
         await saveGeneratedPlan(user.uid, plan);
+
+        // Auto-save family members for quick loading in future plans
+        if (familySize > 1 && breakfastPreferences.length > 0) {
+          saveMembersFromPlan(user.uid, breakfastPreferences, memberDietaryConditions).catch(() => {});
+        }
 
         // Navigate to view page
         router.replace(`/meal-plan/view?id=${plan.id}`);

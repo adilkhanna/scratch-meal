@@ -238,6 +238,27 @@ function filterBank(bank: SimpleItem[], dietaryConditions: string[], weeklyBudge
 
   // Dietary filter — only include items compatible with conditions
   const lower = dietaryConditions.map((c) => c.toLowerCase());
+
+  // SAFETY-CRITICAL: Allergen filtering (must come first)
+  if (lower.some((c) => c.includes('peanut') || c.includes('nut'))) {
+    filtered = filtered.filter((item) => {
+      const nameLower = item.name.toLowerCase();
+      return !nameLower.includes('peanut') && !nameLower.includes('almond') &&
+        !nameLower.includes('cashew') && !nameLower.includes('walnut') &&
+        !nameLower.includes('pistachio') && !nameLower.includes('hazelnut') &&
+        !nameLower.includes('nut butter');
+    });
+  }
+  if (lower.some((c) => c.includes('gluten') || c.includes('celiac'))) {
+    filtered = filtered.filter((item) => item.tags.includes('gluten-free'));
+  }
+  if (lower.some((c) => c.includes('egg'))) {
+    filtered = filtered.filter((item) => {
+      const nameLower = item.name.toLowerCase();
+      return !nameLower.includes('egg');
+    });
+  }
+
   if (lower.some((c) => c.includes('keto') || c.includes('low carb'))) {
     filtered = filtered.filter((item) => item.tags.includes('keto') || item.tags.includes('low-sugar'));
   }
@@ -322,8 +343,35 @@ export function selectBreakfasts(
   // Step 0: Balance keywords
   const { preferKeywords: balancePrefer, avoidKeywords: balanceAvoid } = getBreakfastBalanceKeywords(dietaryConditions);
 
+  // Step 0b: Allergen filtering on main dish pool (SAFETY-CRITICAL)
+  const lowerConditions = dietaryConditions.map((c) => c.toLowerCase());
+  let allergenFiltered = [...glossaryRecipes];
+  if (lowerConditions.some((c) => c.includes('peanut') || c.includes('nut'))) {
+    const nutKeywords = ['peanut', 'almond', 'cashew', 'walnut', 'pecan', 'pistachio', 'hazelnut', 'macadamia', 'pine nut', 'groundnut', 'nut butter'];
+    allergenFiltered = allergenFiltered.filter((r) => {
+      const nameLower = r.name.toLowerCase();
+      const ingredientText = r.ingredients.map((i) => i.name.toLowerCase()).join(' ');
+      return !nutKeywords.some((kw) => nameLower.includes(kw) || ingredientText.includes(kw));
+    });
+  }
+  if (lowerConditions.some((c) => c.includes('gluten') || c.includes('celiac'))) {
+    const glutenKeywords = ['wheat', 'flour', 'bread', 'pasta', 'maida', 'atta', 'semolina', 'barley', 'rye'];
+    allergenFiltered = allergenFiltered.filter((r) => {
+      const ingredientText = r.ingredients.map((i) => i.name.toLowerCase()).join(' ');
+      return !glutenKeywords.some((kw) => ingredientText.includes(kw));
+    });
+  }
+  if (lowerConditions.some((c) => c.includes('egg'))) {
+    allergenFiltered = allergenFiltered.filter((r) => {
+      const ingredientText = r.ingredients.map((i) => i.name.toLowerCase()).join(' ');
+      return !ingredientText.includes('egg');
+    });
+  }
+  // Use allergen-filtered pool if it still has enough recipes, else fall back
+  const safeRecipes = allergenFiltered.length >= 5 ? allergenFiltered : glossaryRecipes;
+
   // Step 1: Budget + calorie filtering on main dish pool
-  let pool = filterByBudget(glossaryRecipes, weeklyBudget);
+  let pool = filterByBudget(safeRecipes, weeklyBudget);
   if (calorieTarget && pool.length > 10) {
     const withinRange = pool.filter((r) => {
       const cal = r.nutritionInfo?.calories || 0;

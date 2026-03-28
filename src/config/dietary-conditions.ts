@@ -30,6 +30,18 @@ export const DIETARY_CONDITIONS: DietaryCondition[] = [
   { id: 'crohns', label: "Crohn's Disease", description: 'Inflammatory bowel disease requiring individualized diet', category: 'medical' },
   { id: 'cardiovascular', label: 'Cardiovascular Disease', description: 'Requires low sodium, low saturated fat, heart-healthy diet', category: 'medical' },
   { id: 'fatty_liver', label: 'Fatty Liver Disease', description: 'Requires limiting refined carbs, added sugars, saturated fats', category: 'medical' },
+  { id: 'hypothyroidism', label: 'Hypothyroidism', description: 'Requires selenium, zinc-rich foods; limit excess soy and raw cruciferous vegetables', category: 'medical' },
+  { id: 'pcos_pcod', label: 'PCOS / PCOD', description: 'Polycystic ovary syndrome — low glycemic, anti-inflammatory diet; limit refined carbs', category: 'medical' },
+  { id: 'hypertension', label: 'Hypertension (High BP)', description: 'High blood pressure — low sodium, DASH-style; limit pickles, papad, processed foods', category: 'medical' },
+  { id: 'high_cholesterol', label: 'High Cholesterol', description: 'Dyslipidemia — low saturated fat, high fiber; limit ghee, full-fat dairy, fried foods', category: 'medical' },
+  { id: 'anemia', label: 'Anemia / Iron Deficiency', description: 'Emphasize iron-rich foods with vitamin C; limit tea/coffee with meals', category: 'medical' },
+  { id: 'gerd', label: 'GERD / Acid Reflux', description: 'Avoid spicy, citrus, caffeine, fried, and acidic foods', category: 'medical' },
+  { id: 'gallstones', label: 'Gallstones', description: 'Requires low-fat diet; avoid fried foods, heavy cream, full-fat dairy', category: 'medical' },
+  { id: 'ulcerative_colitis', label: 'Ulcerative Colitis', description: 'Inflammatory bowel disease — low fiber during flares, avoid dairy and spicy foods', category: 'medical' },
+  { id: 'pregnancy', label: 'Pregnancy', description: 'Extra iron, folate, calcium needed; avoid raw/undercooked items, certain fish', category: 'medical' },
+  { id: 'gestational_diabetes', label: 'Gestational Diabetes', description: 'Pregnancy + diabetes — controlled carbs, low glycemic index, frequent small meals', category: 'medical' },
+  { id: 'vitamin_d_deficiency', label: 'Vitamin D Deficiency', description: 'Emphasize fortified foods, fatty fish, egg yolks, mushrooms', category: 'medical' },
+  { id: 'obesity_weight_mgmt', label: 'Obesity / Weight Management', description: 'Portion-controlled, high protein, low calorie density, limit refined carbs', category: 'medical' },
 
   // Religious / Cultural
   { id: 'halal', label: 'Halal', description: 'Islamic dietary law — no pork, alcohol, non-halal slaughtered meat', category: 'religious' },

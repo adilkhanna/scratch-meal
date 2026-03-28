@@ -1,10 +1,12 @@
 'use client';
 
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useMealPlanFlow } from '@/context/MealPlanFlowContext';
+import { useAuth } from '@/context/AuthContext';
 import { useToast } from '@/context/ToastContext';
 import { extractIngredientsFromPhoto } from '@/lib/firebase-functions';
+import { getSavedMembers, SavedMember } from '@/lib/saved-members-storage';
 import IngredientTag from '@/components/ingredients/IngredientTag';
 import PhotoUpload from '@/components/ingredients/PhotoUpload';
 import StaggeredPageTitle from '@/components/ui/StaggeredPageTitle';
@@ -45,13 +47,29 @@ export default function MealPlanStartPage() {
   const {
     ingredients, addIngredient, addIngredients, removeIngredient, clearIngredients,
     familySize, setFamilySize,
-    breakfastPreferences, addBreakfastPreference, removeBreakfastPreference,
+    breakfastPreferences, updateMemberName, updateMemberBreakfastPrefs,
+    loadSavedMember,
   } = useMealPlanFlow();
+  const { user } = useAuth();
   const { addToast } = useToast();
   const [isExtracting, setIsExtracting] = useState(false);
   const [inputValue, setInputValue] = useState('');
-  const [memberName, setMemberName] = useState('');
-  const [memberPrefs, setMemberPrefs] = useState<string[]>([]);
+  const [savedMembers, setSavedMembers] = useState<SavedMember[]>([]);
+
+  // Load saved family members from Firestore
+  useEffect(() => {
+    if (!user) return;
+    getSavedMembers(user.uid).then(setSavedMembers).catch(() => {});
+  }, [user]);
+
+  const handleLoadSavedMember = (member: SavedMember) => {
+    if (breakfastPreferences.some((p) => p.memberName === member.name)) {
+      addToast(`${member.name} is already added`, 'info');
+      return;
+    }
+    loadSavedMember(member);
+    addToast(`Loaded ${member.name}`, 'success');
+  };
 
   const bogusItems = useMemo(() => {
     const bogus = new Set<string>();
@@ -96,24 +114,6 @@ export default function MealPlanStartPage() {
     finally { setIsExtracting(false); }
   }, [addIngredients, addToast]);
 
-  const handleAddMemberPref = () => {
-    const name = memberName.trim();
-    if (!name) { addToast('Enter a name for this family member.', 'error'); return; }
-    if (breakfastPreferences.some((p) => p.memberName === name)) {
-      addToast(`${name} already has breakfast preferences.`, 'error');
-      return;
-    }
-    addBreakfastPreference({ memberName: name, preferences: memberPrefs });
-    setMemberName('');
-    setMemberPrefs([]);
-  };
-
-  const toggleBreakfastTag = (tag: string) => {
-    setMemberPrefs((prev) =>
-      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
-    );
-  };
-
   const [ingredientsOpen, setIngredientsOpen] = useState(ingredients.length > 0);
 
   const handleNext = () => {
@@ -135,6 +135,46 @@ export default function MealPlanStartPage() {
             className="text-[clamp(36px,5.5vw,67px)] tracking-[-0.25px]"
           />
         </div>
+
+        {/* Saved family members */}
+        {savedMembers.length > 0 && (
+          <div className="max-w-xl mx-auto mb-6">
+            <div className="glass-panel p-6">
+              <h3 className="text-[14px] font-medium tracking-[1px] uppercase text-black mb-2">
+                Saved Family Members
+              </h3>
+              <p className="text-[11px] font-[family-name:var(--font-mono-option)] tracking-[0.5px] uppercase text-black/40 mb-3">
+                Tap to load their preferences & dietary conditions
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {savedMembers.map((member) => {
+                  const isLoaded = breakfastPreferences.some(
+                    (p) => p.memberName === member.name
+                  );
+                  return (
+                    <button
+                      key={member.name}
+                      onClick={() => !isLoaded && handleLoadSavedMember(member)}
+                      disabled={isLoaded}
+                      className={`px-4 py-2 rounded-full text-[12px] font-[family-name:var(--font-mono-option)] tracking-[0.5px] uppercase border-[1.5px] transition-all ${
+                        isLoaded
+                          ? 'bg-black text-white border-black cursor-default'
+                          : 'bg-transparent text-black border-black/20 hover:border-black hover:bg-black hover:text-white'
+                      }`}
+                    >
+                      {member.name}
+                      {member.dietaryConditions.length > 0 && (
+                        <span className="ml-1.5 text-[10px] opacity-50">
+                          ({member.dietaryConditions.length})
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Family size selector */}
         <div className="max-w-xl mx-auto">
@@ -167,75 +207,55 @@ export default function MealPlanStartPage() {
           </div>
         </div>
 
-        {/* Breakfast preferences (family mode) */}
+        {/* Family members & breakfast preferences (family mode) */}
         {familySize > 1 && (
           <div className="max-w-xl mx-auto mt-6 animate-fade-in">
             <div className="glass-panel p-6">
               <h3 className="text-[14px] font-medium tracking-[1px] uppercase text-black mb-2">
-                Breakfast Preferences
+                Family Members & Breakfast Preferences
               </h3>
-              <p className="text-[12px] font-[family-name:var(--font-mono-option)] tracking-[0.5px] uppercase text-black/40 mb-4">
-                Optional: set different breakfast preferences per family member
+              <p className="text-[11px] font-[family-name:var(--font-mono-option)] tracking-[0.5px] uppercase text-black/40 mb-4">
+                Name your family members and optionally set breakfast preferences
               </p>
 
-              {/* Existing preferences */}
-              {breakfastPreferences.length > 0 && (
-                <div className="space-y-2 mb-4">
-                  {breakfastPreferences.map((pref) => (
-                    <div key={pref.memberName} className="flex items-center justify-between bg-white/40 rounded-full px-4 py-2">
-                      <div>
-                        <span className="text-[13px] font-medium text-black">{pref.memberName}</span>
-                        {pref.preferences.length > 0 && (
-                          <span className="text-[11px] text-black/40 ml-2">
-                            {pref.preferences.join(', ')}
-                          </span>
-                        )}
-                      </div>
-                      <button
-                        onClick={() => removeBreakfastPreference(pref.memberName)}
-                        className="text-black/30 hover:text-red-500 text-lg transition-colors"
-                      >
-                        &times;
-                      </button>
+              <div className="space-y-4">
+                {breakfastPreferences.map((pref, index) => (
+                  <div key={index} className="space-y-2">
+                    <label className="text-[11px] font-[family-name:var(--font-mono-option)] tracking-[0.5px] uppercase text-black/40">
+                      Member {index + 1}
+                    </label>
+                    <input
+                      type="text"
+                      value={pref.memberName}
+                      onChange={(e) => updateMemberName(index, e.target.value)}
+                      placeholder={`PERSON ${index + 1}`}
+                      className="w-full px-4 py-2.5 bg-white rounded-full text-sm font-[family-name:var(--font-mono-option)] tracking-[0.5px] uppercase text-black placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-black/10"
+                    />
+                    <div className="flex flex-wrap gap-2">
+                      {BREAKFAST_SUGGESTION_TAGS.map((tag) => {
+                        const isSelected = pref.preferences.includes(tag);
+                        return (
+                          <button
+                            key={tag}
+                            onClick={() => {
+                              const updated = isSelected
+                                ? pref.preferences.filter((t) => t !== tag)
+                                : [...pref.preferences, tag];
+                              updateMemberBreakfastPrefs(index, updated);
+                            }}
+                            className={`px-3 py-1.5 rounded-full text-[11px] font-[family-name:var(--font-mono-option)] tracking-[0.5px] uppercase border-[1.5px] transition-all ${
+                              isSelected
+                                ? 'bg-black text-white border-black'
+                                : 'bg-transparent text-black/60 border-black/20 hover:border-black'
+                            }`}
+                          >
+                            {tag}
+                          </button>
+                        );
+                      })}
                     </div>
-                  ))}
-                </div>
-              )}
-
-              {/* Add member form */}
-              <div className="space-y-3">
-                <input
-                  type="text"
-                  value={memberName}
-                  onChange={(e) => setMemberName(e.target.value)}
-                  placeholder="FAMILY MEMBER NAME..."
-                  className="w-full px-4 py-2.5 bg-white rounded-full text-sm font-[family-name:var(--font-mono-option)] tracking-[0.5px] uppercase text-black placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-black/10"
-                />
-
-                {/* Breakfast suggestion tags */}
-                <div className="flex flex-wrap gap-2">
-                  {BREAKFAST_SUGGESTION_TAGS.map((tag) => (
-                    <button
-                      key={tag}
-                      onClick={() => toggleBreakfastTag(tag)}
-                      className={`px-3 py-1.5 rounded-full text-[11px] font-[family-name:var(--font-mono-option)] tracking-[0.5px] uppercase border-[1.5px] transition-all ${
-                        memberPrefs.includes(tag)
-                          ? 'bg-black text-white border-black'
-                          : 'bg-transparent text-black/60 border-black/20 hover:border-black'
-                      }`}
-                    >
-                      {tag}
-                    </button>
-                  ))}
-                </div>
-
-                <button
-                  onClick={handleAddMemberPref}
-                  disabled={!memberName.trim()}
-                  className="px-5 py-2 text-[12px] font-medium tracking-[1px] uppercase border-[1.5px] border-black rounded-[30px] bg-transparent text-black hover:bg-black hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-200"
-                >
-                  ADD MEMBER
-                </button>
+                  </div>
+                ))}
               </div>
             </div>
           </div>

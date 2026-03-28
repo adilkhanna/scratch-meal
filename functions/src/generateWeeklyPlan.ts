@@ -196,10 +196,10 @@ export const generateWeeklyPlan = onCall(
 
       console.log(`[meal-plan] Effective cuisines — lunch: [${effectiveLunchCuisines.join(', ')}], dinner: [${effectiveDinnerCuisines.join(', ')}]`);
 
-      // Use ALL conditions (union) for safety-critical exclusions (fried, high-sugar)
-      // but use sharedDietaryConditions for recipe filtering (less restrictive)
+      // Use ALL conditions (union) for safety-critical exclusions
+      // Allergens (nut-free, gluten-free, etc.) are SAFETY-CRITICAL — use full union, not just shared
       const allConditionsUnion = dietaryConditions || [];
-      const dietaryTags = inferDietaryTags(sharedDietaryConditions);
+      const dietaryTags = inferDietaryTags(allConditionsUnion);
 
       // Determine health-condition tags to exclude — use FULL union for safety
       const excludeTags = getExcludedTags(allConditionsUnion);

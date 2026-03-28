@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useState, useCallback, ReactNode } from 'react';
+import { createContext, useContext, useState, useCallback, useEffect, ReactNode } from 'react';
 import { BreakfastPreference } from '@/types';
 
 // Per-member dietary conditions
@@ -42,8 +42,11 @@ interface MealPlanFlowState {
   toggleDinnerCuisine: (id: string) => void;
   setDailyCuisines: (cuisines: DailyCuisineMap) => void;
   setDayCuisine: (day: string, meal: 'lunch' | 'dinner', cuisineId: string) => void;
+  updateMemberName: (index: number, newName: string) => void;
+  updateMemberBreakfastPrefs: (index: number, preferences: string[]) => void;
   setWeeklyBudget: (budget: number | null) => void;
   setPlanDays: (days: number) => void;
+  loadSavedMember: (member: { name: string; breakfastPreferences: string[]; dietaryConditions: string[] }) => void;
   resetMealPlanFlow: () => void;
 }
 
@@ -96,6 +99,77 @@ export function MealPlanFlowProvider({ children }: { children: ReactNode }) {
 
   const setFamilySize = useCallback((size: number) => {
     setFamilySizeState(Math.max(1, Math.min(10, size)));
+  }, []);
+
+  // Auto-sync breakfastPreferences slots when familySize changes
+  useEffect(() => {
+    if (familySize <= 1) {
+      // Single-person mode: clear member slots
+      setBreakfastPreferencesState([]);
+      setMemberDietaryConditionsState({});
+      return;
+    }
+
+    setBreakfastPreferencesState((prev) => {
+      if (prev.length === familySize) return prev;
+
+      if (prev.length < familySize) {
+        // Append new slots
+        const newSlots: BreakfastPreference[] = [];
+        for (let i = prev.length; i < familySize; i++) {
+          newSlots.push({ memberName: `Person ${i + 1}`, preferences: [] });
+        }
+        return [...prev, ...newSlots];
+      }
+
+      // Truncate from end
+      const truncated = prev.slice(0, familySize);
+      // Clean up memberDietaryConditions for removed members
+      const removedNames = prev.slice(familySize).map((p) => p.memberName);
+      if (removedNames.length > 0) {
+        setMemberDietaryConditionsState((prevDiet) => {
+          const next = { ...prevDiet };
+          removedNames.forEach((name) => delete next[name]);
+          // Update shared union
+          const union = new Set<string>();
+          Object.values(next).forEach((conds) => conds.forEach((c) => union.add(c)));
+          setDietaryConditionsState(Array.from(union));
+          return next;
+        });
+      }
+      return truncated;
+    });
+  }, [familySize]);
+
+  const updateMemberName = useCallback((index: number, newName: string) => {
+    setBreakfastPreferencesState((prev) => {
+      if (index < 0 || index >= prev.length) return prev;
+      const oldName = prev[index].memberName;
+      const updated = [...prev];
+      updated[index] = { ...updated[index], memberName: newName };
+
+      // Migrate memberDietaryConditions key
+      if (oldName !== newName) {
+        setMemberDietaryConditionsState((prevDiet) => {
+          if (!(oldName in prevDiet)) return prevDiet;
+          const next = { ...prevDiet };
+          next[newName] = next[oldName];
+          delete next[oldName];
+          return next;
+        });
+      }
+
+      return updated;
+    });
+  }, []);
+
+  const updateMemberBreakfastPrefs = useCallback((index: number, preferences: string[]) => {
+    setBreakfastPreferencesState((prev) => {
+      if (index < 0 || index >= prev.length) return prev;
+      const updated = [...prev];
+      updated[index] = { ...updated[index], preferences };
+      return updated;
+    });
   }, []);
 
   const setBreakfastPreferences = useCallback((prefs: BreakfastPreference[]) => {
@@ -174,6 +248,43 @@ export function MealPlanFlowProvider({ children }: { children: ReactNode }) {
     }));
   }, []);
 
+  const loadSavedMember = useCallback((member: { name: string; breakfastPreferences: string[]; dietaryConditions: string[] }) => {
+    // We need to atomically update prefs, familySize, and dietary so the
+    // useEffect that auto-syncs slots sees them already in sync.
+    // Strategy: read current prefs via updater, compute new array, then
+    // set familySize to match so the useEffect is a no-op.
+    setBreakfastPreferencesState((prev) => {
+      // Skip if already loaded
+      if (prev.some((p) => p.memberName === member.name)) return prev;
+
+      // If there are generic placeholder slots (e.g. "Person N" with no prefs),
+      // replace the first placeholder instead of appending
+      const placeholderIdx = prev.findIndex(
+        (p) => /^Person \d+$/i.test(p.memberName) && p.preferences.length === 0
+      );
+
+      let updated: BreakfastPreference[];
+      if (placeholderIdx >= 0) {
+        updated = [...prev];
+        updated[placeholderIdx] = { memberName: member.name, preferences: member.breakfastPreferences };
+        // familySize stays the same — we replaced a slot, didn't add one
+      } else {
+        updated = [...prev, { memberName: member.name, preferences: member.breakfastPreferences }];
+        // Ensure familySize matches so useEffect won't pad
+        setFamilySizeState(Math.max(2, updated.length));
+      }
+      return updated;
+    });
+    setMemberDietaryConditionsState((prev) => {
+      const updated = { ...prev, [member.name]: member.dietaryConditions };
+      // Recalculate shared union
+      const union = new Set<string>();
+      Object.values(updated).forEach((conds) => conds.forEach((c) => union.add(c)));
+      setDietaryConditionsState(Array.from(union));
+      return updated;
+    });
+  }, []);
+
   const resetMealPlanFlow = useCallback(() => {
     setIngredients([]);
     setFamilySizeState(1);
@@ -212,6 +323,8 @@ export function MealPlanFlowProvider({ children }: { children: ReactNode }) {
         setBreakfastPreferences,
         addBreakfastPreference,
         removeBreakfastPreference,
+        updateMemberName,
+        updateMemberBreakfastPrefs,
         setLunchCuisines,
         toggleLunchCuisine,
         setDinnerCuisines,
@@ -220,6 +333,7 @@ export function MealPlanFlowProvider({ children }: { children: ReactNode }) {
         setDayCuisine,
         setWeeklyBudget,
         setPlanDays,
+        loadSavedMember,
         resetMealPlanFlow,
       }}
     >

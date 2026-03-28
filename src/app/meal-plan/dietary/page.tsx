@@ -13,6 +13,11 @@ import STEP_THEMES from '@/config/step-themes';
 const CATEGORIES: DietaryCategoryType[] = ['allergies', 'intolerances', 'medical', 'religious', 'lifestyle'];
 const theme = STEP_THEMES.mealplan;
 
+const COMMON_CONDITION_IDS = [
+  'lactose_intolerance', 'type2_diabetes', 'hypothyroidism', 'pcos_pcod',
+  'hypertension', 'high_cholesterol', 'vegetarian', 'anemia',
+];
+
 export default function MealPlanDietaryPage() {
   const router = useRouter();
   const {
@@ -22,6 +27,7 @@ export default function MealPlanDietaryPage() {
   } = useMealPlanFlow();
   const { value: savedConditions, setValue: saveDietaryConditions, isLoaded } = useLocalStorage<string[]>('smm-mealplan-dietary', []);
   const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set(['allergies']));
+  const [searchQuery, setSearchQuery] = useState('');
 
   // Get member names
   const isFamily = familySize > 1;
@@ -156,59 +162,133 @@ export default function MealPlanDietaryPage() {
           </div>
         )}
 
-        {/* Accordion sections */}
-        <div className="space-y-3 max-w-2xl mx-auto">
-          {CATEGORIES.map((cat) => {
-            const conditions = DIETARY_CONDITIONS.filter((c) => c.category === cat);
-            const selectedCount = conditions.filter((c) => activeConditions.includes(c.id)).length;
-            const isExpanded = expandedCategories.has(cat);
-
-            return (
-              <div key={cat} className="glass-panel transition-all duration-300">
-                <button
-                  onClick={() => toggleCategory(cat)}
-                  className="w-full flex items-center justify-between px-6 py-5 hover:bg-white/10 transition-colors rounded-[30px]"
-                >
-                  <span className="text-[14px] font-medium tracking-[1px] uppercase text-black">
-                    {DIETARY_CATEGORY_LABELS[cat]}
-                    {selectedCount > 0 && (
-                      <span className="ml-2 text-black/40">({selectedCount})</span>
-                    )}
-                  </span>
-                  <span className="text-black text-xl leading-none select-none">
-                    {isExpanded ? '\u00D7' : '+'}
-                  </span>
-                </button>
-
-                {isExpanded && (
-                  <div className="px-6 pb-5 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-6 gap-y-3">
-                    {conditions.map((condition) => {
-                      const isSelected = activeConditions.includes(condition.id);
-                      return (
-                        <button
-                          key={condition.id}
-                          onClick={() => handleToggle(condition.id)}
-                          className="flex items-center gap-2 text-left group transition-colors"
-                        >
-                          <span
-                            className={`w-[10px] h-[10px] rounded-full border-[1.5px] shrink-0 transition-all ${
-                              isSelected
-                                ? 'bg-black border-black'
-                                : 'border-black/40 group-hover:bg-black group-hover:border-black'
-                            }`}
-                          />
-                          <span className="text-[14px] font-[family-name:var(--font-mono-option)] tracking-[0.5px] uppercase text-black leading-tight">
-                            {condition.label}
-                          </span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
-            );
-          })}
+        {/* Search bar */}
+        <div className="max-w-2xl mx-auto mb-4">
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="SEARCH CONDITIONS..."
+            className="w-full px-4 py-2.5 bg-white rounded-full text-sm font-[family-name:var(--font-mono-option)] tracking-[0.5px] uppercase text-black placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-black/10"
+          />
         </div>
+
+        {searchQuery.trim() ? (
+          /* Search results: flat list of matching pills */
+          <div className="max-w-2xl mx-auto">
+            {(() => {
+              const q = searchQuery.trim().toLowerCase();
+              const matches = DIETARY_CONDITIONS.filter(
+                (c) =>
+                  c.label.toLowerCase().includes(q) ||
+                  (c.description && c.description.toLowerCase().includes(q))
+              );
+              if (matches.length === 0) {
+                return (
+                  <p className="text-center text-[12px] tracking-[1px] uppercase text-black/40 py-6">
+                    No matches found
+                  </p>
+                );
+              }
+              return (
+                <div className="flex flex-wrap gap-2">
+                  {matches.map((condition) => {
+                    const isSelected = activeConditions.includes(condition.id);
+                    return (
+                      <button
+                        key={condition.id}
+                        onClick={() => handleToggle(condition.id)}
+                        className={`px-3 py-1.5 rounded-full text-[11px] font-[family-name:var(--font-mono-option)] tracking-[0.5px] uppercase border-[1.5px] transition-all cursor-pointer ${
+                          isSelected
+                            ? 'bg-black text-white border-black'
+                            : 'bg-transparent text-black/60 border-black/20 hover:border-black'
+                        }`}
+                      >
+                        {condition.label}
+                      </button>
+                    );
+                  })}
+                </div>
+              );
+            })()}
+          </div>
+        ) : (
+          <>
+            {/* Common quick-picks row */}
+            <div className="max-w-2xl mx-auto mb-4">
+              <p className="text-[11px] tracking-[1px] uppercase text-black/40 mb-2 px-1">Common</p>
+              <div className="flex flex-wrap gap-2">
+                {COMMON_CONDITION_IDS.map((id) => {
+                  const condition = DIETARY_CONDITIONS.find((c) => c.id === id);
+                  if (!condition) return null;
+                  const isSelected = activeConditions.includes(condition.id);
+                  return (
+                    <button
+                      key={condition.id}
+                      onClick={() => handleToggle(condition.id)}
+                      className={`px-3 py-1.5 rounded-full text-[11px] font-[family-name:var(--font-mono-option)] tracking-[0.5px] uppercase border-[1.5px] transition-all cursor-pointer ${
+                        isSelected
+                          ? 'bg-black text-white border-black'
+                          : 'bg-transparent text-black/60 border-black/20 hover:border-black'
+                      }`}
+                    >
+                      {condition.label}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Accordion sections */}
+            <div className="space-y-3 max-w-2xl mx-auto">
+              {CATEGORIES.map((cat) => {
+                const conditions = DIETARY_CONDITIONS.filter((c) => c.category === cat);
+                const selectedCount = conditions.filter((c) => activeConditions.includes(c.id)).length;
+                const isExpanded = expandedCategories.has(cat);
+
+                return (
+                  <div key={cat} className="glass-panel transition-all duration-300">
+                    <button
+                      onClick={() => toggleCategory(cat)}
+                      className="w-full flex items-center justify-between px-6 py-5 hover:bg-white/10 transition-colors rounded-[30px]"
+                    >
+                      <span className="text-[14px] font-medium tracking-[1px] uppercase text-black">
+                        {DIETARY_CATEGORY_LABELS[cat]}
+                        {selectedCount > 0 && (
+                          <span className="ml-2 text-black/40">({selectedCount})</span>
+                        )}
+                      </span>
+                      <span className="text-black text-xl leading-none select-none">
+                        {isExpanded ? '\u00D7' : '+'}
+                      </span>
+                    </button>
+
+                    {isExpanded && (
+                      <div className="px-6 pb-5 flex flex-wrap gap-2">
+                        {conditions.map((condition) => {
+                          const isSelected = activeConditions.includes(condition.id);
+                          return (
+                            <button
+                              key={condition.id}
+                              onClick={() => handleToggle(condition.id)}
+                              className={`px-3 py-1.5 rounded-full text-[11px] font-[family-name:var(--font-mono-option)] tracking-[0.5px] uppercase border-[1.5px] transition-all cursor-pointer ${
+                                isSelected
+                                  ? 'bg-black text-white border-black'
+                                  : 'bg-transparent text-black/60 border-black/20 hover:border-black'
+                              }`}
+                            >
+                              {condition.label}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </>
+        )}
 
         {/* Selection summary */}
         {activeConditions.length > 0 && (

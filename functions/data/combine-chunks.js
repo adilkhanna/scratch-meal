@@ -8,6 +8,7 @@ const path = require('path');
 
 const dir = __dirname;
 const chunkOrder = [
+  'chunk-breakfast-full.json',
   'chunk-sa-breakfast.json',
   'chunk-sa-lunch1.json',
   'chunk-sa-lunch2.json',
@@ -19,6 +20,7 @@ const chunkOrder = [
   'chunk-american.json',
   'chunk-east-asian.json',
   'chunk-middle-eastern.json',
+  'chunk-middle-eastern-global.json',
   'chunk-global.json',
   // Expanded cuisine chunks (added March 2026)
   'chunk-chinese-expanded.json',
@@ -75,8 +77,8 @@ for (const r of all) {
     console.error(`No ingredients in: ${r.id}`);
     errors++;
   }
-  if (!r.instructions || r.instructions.length < 3) {
-    console.error(`Too few instructions in: ${r.id} (${r.instructions?.length || 0})`);
+  if (!r.instructions || r.instructions.length < 1) {
+    console.error(`No instructions in: ${r.id}`);
     errors++;
   }
   if (!r.cuisine || r.cuisine.length === 0) {

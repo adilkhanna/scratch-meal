@@ -132,6 +132,12 @@ export function inferDietaryTags(conditions: string[]): string[] {
   if (lower.some((c) => c.includes('halal'))) tags.push('halal');
   if (lower.some((c) => c.includes('kosher'))) tags.push('kosher');
   if (lower.some((c) => c.includes('jain'))) tags.push('jain');
+  if (lower.some((c) => c.includes('hypertension') || c.includes('blood pressure'))) tags.push('low-sodium');
+  if (lower.some((c) => c.includes('cholesterol'))) tags.push('low-fat');
+  if (lower.some((c) => c.includes('obesity') || c.includes('weight'))) tags.push('low-calorie');
+  if (lower.some((c) => c.includes('pcos') || c.includes('pcod'))) tags.push('low-gi');
+  if (lower.some((c) => c.includes('anemia') || c.includes('iron'))) tags.push('iron-rich');
+  if (lower.some((c) => c.includes('pregnancy') || c.includes('gestational'))) tags.push('pregnancy-safe');
 
   return tags;
 }
@@ -151,7 +157,9 @@ export function getExcludedTags(dietaryConditions: string[]): string[] {
     c.includes('diabetes') || c.includes('hypertension') ||
     c.includes('blood pressure') || c.includes('dash') ||
     c.includes('whole30') || c.includes('mediterranean') ||
-    c.includes('gout')
+    c.includes('gout') || c.includes('obesity') ||
+    c.includes('weight') || c.includes('gallstone') ||
+    c.includes('gerd') || c.includes('acid reflux')
   );
   if (excludeFried) excluded.add('fried');
 
@@ -159,9 +167,24 @@ export function getExcludedTags(dietaryConditions: string[]): string[] {
   const excludeSugar = lower.some((c) =>
     c.includes('diabetes') || c.includes('keto') ||
     c.includes('low carb') || c.includes('whole30') ||
-    c.includes('fatty liver')
+    c.includes('fatty liver') || c.includes('pcos') ||
+    c.includes('pcod') || c.includes('gestational') ||
+    c.includes('obesity') || c.includes('weight')
   );
   if (excludeSugar) excluded.add('high-sugar');
+
+  // Spicy/acidic excluded for GERD, ulcerative colitis, gallstones
+  const excludeSpicy = lower.some((c) =>
+    c.includes('gerd') || c.includes('acid reflux') ||
+    c.includes('ulcerative') || c.includes('gallstone')
+  );
+  if (excludeSpicy) excluded.add('spicy');
+
+  // Raw/undercooked excluded for pregnancy
+  const excludeRaw = lower.some((c) =>
+    c.includes('pregnancy') || c.includes('pregnant')
+  );
+  if (excludeRaw) excluded.add('raw');
 
   return Array.from(excluded);
 }
@@ -221,11 +244,38 @@ export async function queryGlossaryForPlan(
     results = snap.docs.map((d) => d.data() as GlossaryRecipeInput & { id: string; useCount: number; lastUsedAt: string; tags?: string[] });
   }
 
-  // Client-side filtering — match ANY dietary tag (not ALL)
+  // Client-side dietary filtering — EXCLUSION-based, not inclusion-based.
+  // Instead of requiring recipes to be tagged "nut-free" (most aren't tagged),
+  // we exclude recipes whose ingredients contain known allergens.
+  // GPT also enforces dietary compliance, so this is a pre-filter safety net.
   if (dietaryTags.length > 0) {
-    results = results.filter((r) =>
-      dietaryTags.some((tag) => r.dietaryTags?.includes(tag))
-    );
+    const allergenKeywords: Record<string, string[]> = {
+      'nut-free': ['peanut', 'almond', 'cashew', 'walnut', 'pecan', 'pistachio', 'hazelnut', 'macadamia', 'pine nut', 'nut butter', 'groundnut'],
+      'gluten-free': ['wheat', 'flour', 'bread', 'pasta', 'noodle', 'spaghetti', 'macaroni', 'couscous', 'barley', 'rye', 'semolina', 'maida', 'atta'],
+      'dairy-free': ['milk', 'cheese', 'cream', 'butter', 'ghee', 'yogurt', 'curd', 'paneer', 'whey', 'casein'],
+      'egg-free': ['egg'],
+      'vegan': ['chicken', 'mutton', 'lamb', 'beef', 'pork', 'fish', 'prawn', 'shrimp', 'meat', 'milk', 'cheese', 'cream', 'butter', 'ghee', 'yogurt', 'curd', 'paneer', 'egg', 'honey'],
+      'vegetarian': ['chicken', 'mutton', 'lamb', 'beef', 'pork', 'fish', 'prawn', 'shrimp', 'meat', 'bacon', 'ham', 'sausage'],
+    };
+
+    results = results.filter((r) => {
+      // First, if the recipe is positively tagged with the dietary tag, keep it
+      if (dietaryTags.some((tag) => r.dietaryTags?.includes(tag))) return true;
+
+      // Otherwise, check ingredients for allergens
+      const ingredientText = (r.ingredients || []).map((ing) =>
+        ((typeof ing === 'string' ? ing : ing.name) || '').toLowerCase()
+      ).join(' ');
+      const recipeName = (r.name || '').toLowerCase();
+
+      for (const tag of dietaryTags) {
+        const keywords = allergenKeywords[tag];
+        if (keywords && keywords.some((kw) => ingredientText.includes(kw) || recipeName.includes(kw))) {
+          return false; // Exclude — contains allergen
+        }
+      }
+      return true; // No allergens found — keep it
+    });
   }
 
   if (mealTypes.length > 0) {
