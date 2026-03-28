@@ -57,7 +57,7 @@ export default function AdminPage() {
       // Load mandi metadata
       try { const metaSnap = await getDoc(doc(db, 'mandi-prices', '_metadata')); const meta = metaSnap.data(); if (meta?.lastFetchedAt) { const d = meta.lastFetchedAt.toDate ? meta.lastFetchedAt.toDate() : new Date(meta.lastFetchedAt); setMandiLastFetched(d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })); } } catch { /* metadata may not exist yet */ }
       // Load glossary count
-      try { const glossarySnap = await getDocs(query(collection(db, 'recipe-glossary'), limit(1000))); setGlossaryStats({ count: glossarySnap.size }); } catch { /* glossary may not exist yet */ }
+      try { const glossarySnap = await getDocs(query(collection(db, 'recipe-glossary'), limit(2000))); setGlossaryStats({ count: glossarySnap.size }); } catch { /* glossary may not exist yet */ }
     } catch (err) { console.error('Failed to load admin config:', err); }
   }, []);
 
@@ -363,7 +363,7 @@ export default function AdminPage() {
               {seedingGlossary ? (
                 <><div className="w-3.5 h-3.5 border-2 border-neutral-300 border-t-neutral-600 rounded-full animate-spin" /> Seeding...</>
               ) : (
-                'Seed 200 Recipes'
+                'Seed Glossary (960 Recipes)'
               )}
             </button>
             <button
